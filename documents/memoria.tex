@@ -1,0 +1,145 @@
+\documentclass[12pt, a4paper, twoside]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\geometry{a4paper, inner=2cm, outer=1.5cm, top=1.5cm, bottom=1.5cm, headsep=0.8cm}
+
+\usepackage{setspace}
+\setstretch{1.2}
+
+\setlength{\parindent}{0.5cm}
+
+\usepackage{ragged2e}
+\justifying
+
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[LE,RO]{\thepage}
+\fancyhead[LE,RO]{\nouppercase{\leftmark}}
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[LE,RO]{\thepage}
+    \fancyhead[LE,RO]{\nouppercase{\leftmark}}
+}
+
+\fancyhead[LE,RO]{\nouppercase{\leftmark}}
+
+\usepackage[a-1b]{pdfx}
+\usepackage{pdfpages}
+
+\begin{document}
+
+%PORTADA
+\includepdf{portada.pdf}
+\newpage
+\thispagestyle{empty}
+\null
+\newpage
+
+%RESUMEN
+\begin{abstract}
+    Hoy en día se considera indispensable la conexión a Internet para realizar tareas cotidianas, aunque todavía existe un sector de la población que permanece al margen de estas tecnologías. \\Este desarrollo presenta una solución accesible que puede ser utilizada por cualquier persona sin necesidad de conocimientos técnicos y disponiendo únicamente de una línea telefónica. Para ello, se han simulado distintos procedimientos administrativos que se llevan a cabo automáticamente, mediante una inteligencia artificial que responde la llamada, recopila la información necesaria e inicia la automatización del proceso. \\Este trabajo demuestra que es posible reducir la brecha digital ofreciendo un servicio que actúa como intermediario entre las personas y la administración digital. De esta manera se sientan las bases para futuras propuestas inclusivas capaces de integrar a colectivos excluidos del entorno digital.
+\end{abstract}
+
+%INDICES
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+%CAPITULOS
+%Introducción_________________________________
+\chapter{Introducción}
+
+
+\section{Motivación del tema}
+
+\section{Soluciones similares}
+
+\section{Objetivos}
+
+\section{Resumen del resto de la memoria}
+
+%Análisis_____________________________________
+\chapter{Análisis}
+
+
+\section{Audiencia}
+
+\section{Trámites (MVP y alcance)}
+
+\section{Requisitos}
+
+\section{Casos de uso}
+
+\section{Decisiones técnicas}
+
+\section{Análisis de riesgos}
+
+\section{Dificultades observadas}
+
+%Planificación________________________________
+\chapter{Planificación}
+
+
+\section{Metodología}
+
+\section{Planificación temporal}
+
+\section{Planificación estructural (PBS/WBS/Diag Flug/D Actividades)}
+
+\section{Estimación de recursos y costes}
+
+%Diseño______________________________________
+\chapter{Diseño}
+
+
+\section{Arquitectura del sistema}
+
+\section{Diseño de la base de datos}
+
+\section{Diseño de la interfaz de usuario (Mockups)}
+
+\section{Diseño de la inteligencia artificial}
+
+\section{Diseño de la seguridad}
+
+\section{Diseño de la escalabilidad}
+
+\section{Interacción}
+
+%Implementación_______________________________
+\chapter{Implementación}
+
+
+%Pruebas______________________________________
+\chapter{Pruebas}
+
+
+%Conclusiones_________________________________
+\chapter{Conclusión}
+
+\section{Resumen de objetivos}
+
+\section{Trabajo futuro}
+
+\section{Reflexión personal}
+
+
+
+
+%BIBLIOGRAFIA
+\begin{thebibliography}{99}
+    \bibitem{ref1} Autor1, Autor2. \textit{Título del libro}. Editorial, Año.
+    \bibitem{ref2} Autor3. \textit{Título del artículo}. Revista, Volumen(Número), Páginas, Año.
+\end{thebibliography}
+
+%ANEXOS
+\appendix
+\chapter{Anexo A}
+
+\end{document}
