@@ -16,6 +16,4 @@ with open(ruta_sql, 'r') as f:
 
 conn.executescript(sql_script)
 
-print(sql_script)
-
 conn.close()

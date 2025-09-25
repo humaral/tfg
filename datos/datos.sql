@@ -19,8 +19,8 @@ CREATE TABLE IF NOT EXISTS EMPLEADO(
     username TEXT UNIQUE NOT NULL,
     password TEXT NOT NULL, --Guarda el hash de la contraseña
     nombre TEXT NOT NULL,
-    fechaNacimiento TEXT NOT NULL, --Formato "DD/MM/AAAA"
     email TEXT UNIQUE NOT NULL,
+    administrador INT DEFAULT 0, --0: Secretario, 1: Administrador
     fotoPerfil TEXT DEFAULT '/static/img/perfil/default.jpg' --Ruta de la foto de perfil
 );
 
@@ -50,3 +50,5 @@ insert into ESTADOPETICION values(2,'Revisable');
 insert into ESTADOPETICION values(3,'Asignada');
 insert into ESTADOPETICION values(4,'Completada');
 insert into ESTADOPETICION values(5,'Cancelada');
+
+insert into EMPLEADO values (null,'hugo', '0478721f1106c2a631a90181bac7efc77767a3903eb9220687bff8a14e940fa7', 'Hugo Martín Alonso', 'admin@admin.com', 1, null);
