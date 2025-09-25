@@ -1,0 +1,12 @@
+# Archivos de compilación de LaTeX
+*.aux
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.xmpi
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+documents/build/
