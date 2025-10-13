@@ -2,14 +2,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
 }
 
 #login-card {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   padding: 30px 50px;
   border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--sombreado);
   width: 100%;
   max-width: 350px;
   text-align: center;
@@ -17,14 +16,14 @@
 
 #login-card h1 {
   margin-bottom:30px;
-  color: #333;
+  color: var(--color-texto-primario);
 }
 
 #login-card input {
   width: 90%;
   padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
+  border: var(--bordes);
   border-radius: 8px;
   font-size: 16px;
 }
@@ -32,15 +31,15 @@
 #login-card button {
   width: 100%;
   padding: 12px;
-  background-color: #4b4b4b;
+  background-color: var(--color-secundario);
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.5s;
 }
 
-#login-card button:hover {
-  background-color: #202020;
+#login-card button:enabled {
+  background-color: var(--color-primario);
 }

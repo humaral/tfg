@@ -1,6 +1,6 @@
 {%extends "layout.html"%}
 
-{%block title%}Login{%endblock%}
+{%block title%}Acceso{%endblock%}
 
 {%block css%}
     <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
@@ -8,13 +8,13 @@
 
 {%block body%}
     <main id="login-page">
-            <div class="card", id="login-card">
-                <h1>Identificación de Empleado</h1>
-                <form class="form", id="login-form" action="/login" method="post">
-                    <input type="text" name="username" placeholder="Usuario" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button type="submit">Iniciar Sesión</button>
-                </form>
-            </div>
-        </main>
+        <div class="card", id="login-card">
+            <h1>Identificación de Empleado</h1>
+            <form class="form", id="login-form" action="/login" method="post">
+                <input type="text" name="username" placeholder="Usuario" required>
+                <input type="password" name="password" placeholder="Contraseña" required>
+                <button disabled type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </main>
 {%endblock%}

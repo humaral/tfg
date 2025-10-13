@@ -1,11 +1,11 @@
 <header>
-    <h1>Ejemplo de header</h1>
-    <nav>
-        <ul>
-            <li><a href="/">Inicio</a></li>
-            <li><a href="/about">Acerca de</a></li>
-            <li><a href="/contact">Contacto</a></li>
-        </ul>
-    </nav>
-    <button id="login-btn">Iniciar sesión</button>
+    <a href="{{url_for('inicio')}}" class="logo">
+        <img src="{{url_for('static', filename='img/logo.png')}}" alt="Logo">
+        <div id="app-nombre">
+            <h1>Portal de Trámites Telefónicos</h1>
+            <p>Sistema Simulado de la Administración Pública</p>
+        </div>
+    </a>
+    <!--Añadir if sesion iniciada, poner foto perfil y nombre, else:-->
+    <a href="{{url_for('login')}}" id="acceso">Acceder</a>
 </header>
