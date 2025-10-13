@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-        <link rel="stylesheet" href="/static/css/style.css ">
-    </head>
-    <body>
-        <div id="header"></div>
+{%extends "layout.html"%}
 
-        <main id="login-page">
+{%block title%}Login{%endblock%}
+
+{%block css%}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+{%endblock%}
+
+{%block body%}
+    <main id="login-page">
             <div class="card", id="login-card">
                 <h1>Identificación de Empleado</h1>
                 <form class="form", id="login-form" action="/login" method="post">
@@ -19,10 +17,4 @@
                 </form>
             </div>
         </main>
-        
-        <div id="footer"></div>
-        
-        <script src="/static/js/login.js"></script>
-        <script src="/static/js/loadLayout.js"></script>
-    </body>
-</html>
+{%endblock%}

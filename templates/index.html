@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body>
-    <div id="header"></div>
+{%extends "layout.html"%}
 
-    <main>
-        <h2>Bienvenido a la página de inicio</h2>
-        <p>Contenido principal de la página.</p>
-    </main>
+{%block title%}Inicio{%endblock%}
 
-    <div id="footer"></div>
-
-    <script src="/static/js/loadLayout.js"></script>
-
-
-</body>
-</html>
+{%block body%}
+    <h1> Bienvenido a la página principal </h1>
+    <p> Esta es la página de inicio de la aplicación. </p>
+{%endblock%}
