@@ -6,13 +6,14 @@
         <title>{%block title%}{%endblock%}</title>
         <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css')}}">
         {%block css%}{%endblock%}
+        <script src="https://code.iconify.design/iconify-icon/3.0.1/iconify-icon.min.js"></script>
     </head>
     <body>
-        {%include 'header.html'%}
+        {%include 'components/header.html'%}
         
         {%block body%}{%endblock%}
 
-        {%include 'footer.html'%}
+        {%include 'components/footer.html'%}
 
     </body>
 </html>

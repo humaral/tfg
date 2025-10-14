@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, url_for, redirect
 import os
 from datetime import datetime
 
@@ -14,15 +14,27 @@ def inject_globals():
         "version": APP_VERSION
     }
 
-@app.route('/')
+@app.route("/")
 def inicio(name=None):
-    DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite')
-    return render_template('index.html', person=name, database=DATABASE)
+    #DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite')
+    return redirect(url_for("login"))
 
-@app.route('/login')
+@app.route("/login")
 def login(name=None):
 
-    return render_template('login.html', person=name)
+    return render_template("login.html", person=name)
+
+@app.route("/peticiones")
+def peticiones(name=None):
+    return render_template("peticiones.html")
+
+@app.route("/empleados")
+def empleados(name=None):
+    return render_template("empleados.html")
+
+@app.route("/estadisticas")
+def estadisticas(name=None):
+    return render_template("estadisticas.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

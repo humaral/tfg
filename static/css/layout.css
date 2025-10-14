@@ -112,3 +112,34 @@ footer p{
   color: var(--color-texto-secundario);
   text-align: center;
 }
+
+.menu {
+  margin: 5px 5px 5px 35px;
+  display: flex;
+  flex-direction: row;
+}
+
+.menu a{
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px 0 20px;
+  align-items: center;
+  color: var(--color-secundario);
+  text-decoration: none;
+}
+
+.menu .active {
+  color: var(--color-primario);
+  font-weight: bold;
+}
+
+iconify-icon {
+  display: inline-block;
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+}
+
+.menu a span{
+  font-size: 15px;
+}
