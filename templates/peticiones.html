@@ -2,10 +2,172 @@
 
 {%block title%}Peticiones{%endblock%}
 
+{%block css%}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/peticiones.css')}}">
+{%endblock%}
 
 {%block body%}
     {%include "components/menu.html"%}
-    <main>
-        
+    <main id="peticiones-page">
+        <div id="peticiones-card">
+            <table id="peticiones-table">
+                <thead>
+                    <tr>
+                        <th>
+                            <a href="{{url_for('peticiones', orden='id', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='id' else 'ascendente')}}">
+                                ID
+                                {%if orden_actual == 'id'%}
+                                    {%if direccion_actual == 'ascendente'%}
+                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                    {%else%}
+                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                    {%endif%}
+                                {%endif%}
+                            </a>
+                        </th>
+                        <th>
+                            <a href="{{url_for('peticiones', orden='telefono', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='telefono' else 'ascendente')}}">
+                                Teléfono
+                                {%if orden_actual == 'telefono'%}
+                                    {%if direccion_actual == 'ascendente'%}
+                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                    {%else%}
+                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                    {%endif%}
+                                {%endif%}
+                            </a>
+                        </th>
+                        <th>
+                            <a href="{{url_for('peticiones', orden='estado', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='estado' else 'ascendente')}}">
+                                Estado
+                                {%if orden_actual == 'estado'%}
+                                    {%if direccion_actual == 'ascendente'%}
+                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                    {%else%}
+                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                    {%endif%}
+                                {%endif%}
+                            </a>
+                        </th>
+                        <th>
+                            <a href="{{url_for('peticiones', orden='tramite', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='tramite' else 'ascendente')}}">
+                                Trámite
+                                {%if orden_actual == 'tramite'%}
+                                    {%if direccion_actual == 'ascendente'%}
+                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                    {%else%}
+                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                    {%endif%}
+                                {%endif%}
+                            </a>
+                        </th>
+                        <th>
+                            <a href="{{url_for('peticiones', orden='fecha', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='fecha' else 'ascendente')}}">
+                                Fecha de Creación
+                                {%if orden_actual == 'fecha'%}
+                                    {%if direccion_actual == 'ascendente'%}
+                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                    {%else%}
+                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                    {%endif%}
+                                {%endif%}
+                            </a>
+                        </th>
+                        <th>
+                            <a href="{{url_for('peticiones', orden='asignacion', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='asignacion' else 'ascendente')}}">
+                                Asignado A
+                                {%if orden_actual == 'asignacion'%}
+                                    {%if direccion_actual == 'ascendente'%}
+                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                    {%else%}
+                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                    {%endif%}
+                                {%endif%}
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><a href="/login">0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a href="/peticiones">0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td><a>0001</a></td>
+                    <td>654654654</td>
+                    <td>En Curso</td>
+                    <td>Cita AEAT</td>
+                    <td>05/05/2025 12:35h</td>
+                    <td>-</td>
+                </tr>
+            </table>
+        </div>
     </main>
 {%endblock%}

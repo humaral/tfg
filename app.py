@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect
 import os
 from datetime import datetime
 
@@ -26,7 +26,9 @@ def login(name=None):
 
 @app.route("/peticiones")
 def peticiones(name=None):
-    return render_template("peticiones.html")
+    orden = request.args.get('orden', 'id')
+    direccion = request.args.get('direccion', 'ascendente')
+    return render_template("peticiones.html", orden_actual=orden, direccion_actual=direccion)
 
 @app.route("/empleados")
 def empleados(name=None):

@@ -1,0 +1,56 @@
+#peticiones-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#peticiones-card{
+    width: 75%;
+    height: auto;
+    overflow-x: auto;
+    display: block;
+}
+
+#peticiones-table{
+    width: 100%;
+    font-size: x-large;
+    border: var(--bordes);
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+#peticiones-table th{
+    background-color: var(--color-primario);
+    border-radius: 4px;
+    color: white;
+}
+
+#peticiones-table th a{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px 0 5px;
+    text-decoration: none;
+    color: white;
+}
+
+#peticiones-table iconify-icon{
+    font-size: x-large;
+    color: white;
+    font-weight: bold;
+}
+
+#peticiones-table tr:nth-child(even){
+    background-color: var(--color-secundario);
+}
+
+#peticiones-table td{
+    color: var(--color-texto-primario);
+    padding-left: 5px;
+    border-left: var(--bordes);
+    border-right: var(--bordes);
+}
+
+#peticiones-table a{
+    text-decoration: underline;
+}

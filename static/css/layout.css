@@ -2,7 +2,7 @@
   --color-primario: rgb(2,46,89);
   --color-secundario: rgb(77, 110, 143);
 
-  --color-texto-primario: #333;
+  --color-texto-primario: black;
   --color-texto-secundario: #666;
 
   --color-fondo: #F2F2F7;
@@ -114,7 +114,7 @@ footer p{
 }
 
 .menu {
-  margin: 5px 5px 5px 35px;
+  margin: 25px 5px 5px 55px;
   display: flex;
   flex-direction: row;
 }
@@ -133,7 +133,7 @@ footer p{
   font-weight: bold;
 }
 
-iconify-icon {
+.menu iconify-icon {
   display: inline-block;
   font-size: 48px;
   width: 48px;
