@@ -1,4 +1,6 @@
-#Script para ver las tablas de la base de datos, util para depuración y desarrollo
+# Autor: Hugo Martín Alonso
+# Fecha: 17-06-2025
+# Descripción: script para ver las tablas de la base de datos, util para depuración y desarrollo.
 
 import sqlite3
 import os

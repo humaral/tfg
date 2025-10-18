@@ -1,3 +1,9 @@
+/*
+* Autor: Hugo Martín Alonso
+* Fecha: 25-09-2025
+* Descripción: hoja de estilos generales de la página web, especificando el estilo de la cabecera, el pie de página y el menú.
+*/
+
 :root{
   --color-primario: rgb(2,46,89);
   --color-secundario: rgb(77, 110, 143);
@@ -142,4 +148,69 @@ footer p{
 
 .menu a span{
   font-size: 15px;
+}
+
+/*Estilos generales de las tablas*/
+.filter input, select{
+    height: 25px;
+    margin: 5px 5px 5px 5px;
+    padding-left: 5px;
+    border-radius: 8px;
+    border: var(--bordes);
+}
+
+.table table{
+    width: 100%;
+    border: var(--bordes);
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.table th{
+    background-color: var(--color-primario);
+    border-radius: 4px;
+    color: white;
+    font-size: x-large;
+}
+
+.table th a{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5px 0 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.table th iconify-icon{
+    font-size: x-large;
+    color: white;
+    font-weight: bold;
+}
+
+.table tr:nth-child(even){
+    background-color: var(--color-secundario);
+}
+
+.table td{
+    color: var(--color-texto-primario);
+    font-size: large;
+    padding-left: 5px;
+    border-left: var(--bordes);
+    border-right: var(--bordes);
+}
+
+.table a{
+    text-decoration: underline;
+}
+
+.pagination ul{
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+}
+
+.pagination ul a{
+    padding: 0 3px 0 3px;
+    color: var(--color-primario);
 }

@@ -32,7 +32,9 @@ def peticiones(name=None):
 
 @app.route("/empleados")
 def empleados(name=None):
-    return render_template("empleados.html")
+    orden = request.args.get('orden', 'id')
+    direccion = request.args.get('direccion', 'ascendente')
+    return render_template("empleados.html", orden_actual=orden, direccion_actual=direccion)
 
 @app.route("/estadisticas")
 def estadisticas(name=None):

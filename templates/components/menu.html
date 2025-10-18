@@ -1,9 +1,9 @@
 <div class="menu">
-    <a href="{{url_for('peticiones')}}" id="menu-peticiones">
+    <a href="{{url_for('peticiones', orden='id', direccion='ascendente')}}" id="menu-peticiones">
         <iconify-icon icon="material-symbols:list-rounded"></iconify-icon>
         <span>Peticiones</span>
     </a>
-    <a href="{{url_for('empleados')}}" id="menu-empleados">
+    <a href="{{url_for('empleados', orden='usuario', direccion='ascendente')}}" id="menu-empleados">
         <iconify-icon icon="mdi:people"></iconify-icon>
         <span>Empleados</span>
     </a>

@@ -1,7 +1,27 @@
+/*
+* Autor: Hugo Martín Alonso
+* Fecha: 15-10-2025
+* Descripción: hoja específica de estilos de la página de peticiones.
+*/
+
 #peticiones-page{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+#peticiones-filter{
+    width: 75%;
+    margin: 10px;
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#filter-telefono{
+    width: 125px;
 }
 
 #peticiones-card{
@@ -11,46 +31,7 @@
     display: block;
 }
 
-#peticiones-table{
-    width: 100%;
-    font-size: x-large;
-    border: var(--bordes);
-    border-radius: 4px;
-    white-space: nowrap;
-}
-
-#peticiones-table th{
-    background-color: var(--color-primario);
-    border-radius: 4px;
-    color: white;
-}
-
-#peticiones-table th a{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5px 0 5px;
-    text-decoration: none;
-    color: white;
-}
-
-#peticiones-table iconify-icon{
-    font-size: x-large;
-    color: white;
-    font-weight: bold;
-}
-
-#peticiones-table tr:nth-child(even){
-    background-color: var(--color-secundario);
-}
-
-#peticiones-table td{
-    color: var(--color-texto-primario);
-    padding-left: 5px;
-    border-left: var(--bordes);
-    border-right: var(--bordes);
-}
-
-#peticiones-table a{
-    text-decoration: underline;
+#peticiones-pagination{
+    width: 75%;
+    align-items: start;
 }

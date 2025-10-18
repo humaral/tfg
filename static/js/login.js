@@ -1,3 +1,9 @@
+/*
+* Autor: Hugo Martín Alonso
+* Fecha: 25-09-2025
+* Descripción: script para dinamizar la página de login.
+*/
+
 
 //const enableLog = () => document.getElementById("login").disabled = false;
 //const disableLog = () => document.getElementById("login").disabled = true;
@@ -11,12 +17,12 @@ usernameInput.addEventListener("input", () => {
 });
 
 buttonLogin.addEventListener("click", () => {
-    username = usernameInput.value;
-    password = passwordInput.value;
-}
-    
+    const username = usernameInput.value;
+    const password = passwordInput.value;
+});
 
-/*
+
+/* TODO acabar la función
 function isUserValid(username) {
     
     if(isNullOrEmpty(username)) {

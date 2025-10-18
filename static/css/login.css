@@ -1,3 +1,9 @@
+/*
+* Autor: Hugo Martín Alonso
+* Fecha: 13-10-2025
+* Descripción: hoja de estilos de la página del login.
+*/
+
 #login-page {
   display: flex;
   justify-content: center;

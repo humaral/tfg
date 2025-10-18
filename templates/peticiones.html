@@ -1,3 +1,9 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 07-06-2025
+- Descripción: vista de la lista de peticiones.
+-->
+
 {%extends "layout.html"%}
 
 {%block title%}Peticiones{%endblock%}
@@ -9,165 +15,194 @@
 {%block body%}
     {%include "components/menu.html"%}
     <main id="peticiones-page">
-        <div id="peticiones-card">
-            <table id="peticiones-table">
-                <thead>
-                    <tr>
-                        <th>
-                            <a href="{{url_for('peticiones', orden='id', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='id' else 'ascendente')}}">
-                                ID
-                                {%if orden_actual == 'id'%}
-                                    {%if direccion_actual == 'ascendente'%}
-                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                    {%else%}
-                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+            <div class="filter" id="peticiones-filter">
+                <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono">
+                <!-- TODO cambiar los select obteniendo las opciones de la base de datos -->
+                <select class="filter" id="filter-estado">
+                    <option value="">--Selecciona un estado--</option>
+                    <option value="curso">En Curso</option>
+                </select>
+                <select class="filter" id="filter-tramite">
+                    <option value="">--Selecciona un trámite--</option>
+                    <option value="aeat">Cita AEAT</option>
+                </select>
+            </div>
+            <div class="table" id="peticiones-card">
+                <table class="table" id="peticiones-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <a href="{{url_for('peticiones', orden='id', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='id' else 'ascendente')}}">
+                                    ID
+                                    {%if orden_actual == 'id'%}
+                                        {%if direccion_actual == 'ascendente'%}
+                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                        {%else%}
+                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                        {%endif%}
                                     {%endif%}
-                                {%endif%}
-                            </a>
-                        </th>
-                        <th>
-                            <a href="{{url_for('peticiones', orden='telefono', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='telefono' else 'ascendente')}}">
-                                Teléfono
-                                {%if orden_actual == 'telefono'%}
-                                    {%if direccion_actual == 'ascendente'%}
-                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                    {%else%}
-                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{url_for('peticiones', orden='telefono', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='telefono' else 'ascendente')}}">
+                                    Teléfono
+                                    {%if orden_actual == 'telefono'%}
+                                        {%if direccion_actual == 'ascendente'%}
+                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                        {%else%}
+                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                        {%endif%}
                                     {%endif%}
-                                {%endif%}
-                            </a>
-                        </th>
-                        <th>
-                            <a href="{{url_for('peticiones', orden='estado', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='estado' else 'ascendente')}}">
-                                Estado
-                                {%if orden_actual == 'estado'%}
-                                    {%if direccion_actual == 'ascendente'%}
-                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                    {%else%}
-                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{url_for('peticiones', orden='estado', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='estado' else 'ascendente')}}">
+                                    Estado
+                                    {%if orden_actual == 'estado'%}
+                                        {%if direccion_actual == 'ascendente'%}
+                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                        {%else%}
+                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                        {%endif%}
                                     {%endif%}
-                                {%endif%}
-                            </a>
-                        </th>
-                        <th>
-                            <a href="{{url_for('peticiones', orden='tramite', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='tramite' else 'ascendente')}}">
-                                Trámite
-                                {%if orden_actual == 'tramite'%}
-                                    {%if direccion_actual == 'ascendente'%}
-                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                    {%else%}
-                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{url_for('peticiones', orden='tramite', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='tramite' else 'ascendente')}}">
+                                    Trámite
+                                    {%if orden_actual == 'tramite'%}
+                                        {%if direccion_actual == 'ascendente'%}
+                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                        {%else%}
+                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                        {%endif%}
                                     {%endif%}
-                                {%endif%}
-                            </a>
-                        </th>
-                        <th>
-                            <a href="{{url_for('peticiones', orden='fecha', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='fecha' else 'ascendente')}}">
-                                Fecha de Creación
-                                {%if orden_actual == 'fecha'%}
-                                    {%if direccion_actual == 'ascendente'%}
-                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                    {%else%}
-                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{url_for('peticiones', orden='fecha', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='fecha' else 'ascendente')}}">
+                                    Fecha de Creación
+                                    {%if orden_actual == 'fecha'%}
+                                        {%if direccion_actual == 'ascendente'%}
+                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                        {%else%}
+                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                        {%endif%}
                                     {%endif%}
-                                {%endif%}
-                            </a>
-                        </th>
-                        <th>
-                            <a href="{{url_for('peticiones', orden='asignacion', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='asignacion' else 'ascendente')}}">
-                                Asignado A
-                                {%if orden_actual == 'asignacion'%}
-                                    {%if direccion_actual == 'ascendente'%}
-                                        <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                    {%else%}
-                                        <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="{{url_for('peticiones', orden='asignacion', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='asignacion' else 'ascendente')}}">
+                                    Asignado A
+                                    {%if orden_actual == 'asignacion'%}
+                                        {%if direccion_actual == 'ascendente'%}
+                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
+                                        {%else%}
+                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
+                                        {%endif%}
                                     {%endif%}
-                                {%endif%}
-                            </a>
-                        </th>
-                    </tr>
-                </thead>
-                <tr>
-                    <td><a href="/login">0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a href="/peticiones">0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td><a>0001</a></td>
-                    <td>654654654</td>
-                    <td>En Curso</td>
-                    <td>Cita AEAT</td>
-                    <td>05/05/2025 12:35h</td>
-                    <td>-</td>
-                </tr>
-            </table>
-        </div>
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
+                    <!-- TODO cambiar filas estáticas por contenido extraido de la base de datos -->
+                    <tbody>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><a href="/login">0001</a></td>
+                            <td>654654654</td>
+                            <td>En Curso</td>
+                            <td>Cita AEAT</td>
+                            <td>05/05/2025 12:35h</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- TODO hacer la paginacion dinamica -->
+            <div class="pagination" id="peticiones-pagination">
+                <ul class="pagination">
+                    <a>« Anterior</a>
+                    <a>1</a>
+                    <a>2</a>
+                    <a>3</a>
+                    ...
+                    <a>18</a>
+                    <a>19</a>
+                    <a>20</a>
+                    <a>Siguiente »</a>
+                </ul>
+            </div>
     </main>
 {%endblock%}

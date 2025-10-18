@@ -1,20 +1,29 @@
+--Autor: Hugo Martín Alonso
+--Fecha: 25-09-2025
+--Descripción: código fuente de la base de datos.
+
+--FIX Arreglar la lectura de caracteres especiales, tildes y demás
+
 DROP TABLE IF EXISTS HITOPETICION;
 DROP TABLE IF EXISTS PETICION;
 DROP TABLE IF EXISTS EMPLEADO;
 DROP TABLE IF EXISTS ESTADOPETICION;
 DROP TABLE IF EXISTS TRAMITE;
 
+--Tipos de trámites que se gestionan en la aplicación
 CREATE TABLE TRAMITE(
 	idTramite INTEGER PRIMARY KEY,
 	valor TEXT NOT NULL,
     activo BOOLEAN DEFAULT 1
 );
 
+--Enum de los posibles estados de una petición
 CREATE TABLE IF NOT EXISTS ESTADOPETICION(
     idEstado INTEGER PRIMARY KEY,
     valor TEXT NOT NULL
 );
 
+--Almacena los datos de los empleados
 CREATE TABLE IF NOT EXISTS EMPLEADO(
     idEmpleado INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
@@ -25,31 +34,29 @@ CREATE TABLE IF NOT EXISTS EMPLEADO(
     fotoPerfil TEXT DEFAULT '/static/img/perfil/default.jpg' --Ruta de la foto de perfil
 );
 
-
+--Almacena la información de cada request
 CREATE TABLE IF NOT EXISTS PETICION(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     tramite INTEGER NOT NULL,
     telefono INTEGER NOT NULL,
-    informacion TEXT NOT NULL, --Formato JSON
-    estado INTEGER,
-    comentario TEXT,    
-
-    FOREIGN KEY (tramite) REFERENCES TRAMITE(idTramite),
-    FOREIGN KEY (estado) REFERENCES ESTADOPETICION(idEstado)
+    informacion JSON NOT NULL, --Formato JSON con la información recuperada por la IA  
+    --TODO Añadir un registro de llamadas
+    FOREIGN KEY (tramite) REFERENCES TRAMITE(idTramite)
 );
 
-
+--Guarda los registros de cambio de estado de cada petición
 CREATE TABLE IF NOT EXISTS HITOPETICION(
     idHito INTEGER PRIMARY KEY AUTOINCREMENT,
     peticion INTEGER NOT NULL,
     estado INTEGER NOT NULL,
     updated_by INTEGER,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP, --Timestamp
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (peticion) REFERENCES PETICION(id),
     FOREIGN KEY (estado) REFERENCES ESTADOPETICION(idEstado),
     FOREIGN KEY (updated_by) REFERENCES EMPLEADO(idEmpleado)
 );
+
 
 insert into TRAMITE values(1,'Certificado de Empadronamietno',1);
 insert into TRAMITE values(2,'Cita AEAT',1);

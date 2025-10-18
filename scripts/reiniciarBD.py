@@ -1,4 +1,6 @@
-#Script para crear la base de datos desde el .sql, borrando las tablas antiguas.
+# Autor: Hugo Martín Alonso
+# Fecha: 25-09-2025
+# Descripción: script para crear la base de datos desde el .sql, borrando las tablas antiguas.
 
 import sqlite3
 import os
