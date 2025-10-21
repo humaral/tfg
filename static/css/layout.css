@@ -68,17 +68,49 @@ header, footer{
   text-overflow: ellipsis;
 }
 
-#acceso {
-  margin-left: auto;
-  margin-right: 15px;
-  align-self: center;
-  color: var(--color-primario);
-  font-size: 16px;
-  text-decoration: none;
+.perfil{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px;
 }
-#acceso:hover {
-  color: var(--color-primario);
-  text-decoration: underline;
+
+.perfil img{
+  height: 25px;
+  width: 25px;
+  border: var(--bordes);
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.perfil #perfil-titulo{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.perfil #perfil-nombre{
+  margin: 0;
+  font-size: medium;
+  font-weight: bold;
+  color: var(--color-texto-primario);
+  text-wrap: nowrap;
+}
+
+.perfil #perfil-rol{
+  margin: 0;
+  font-size: small;
+  font-style: italic;
+  color: var(--color-texto-secundario);
+}
+
+/*DELETE revisar el boton de acceso y cambiarlo por el perfil*/
+#user-logged{
+  margin-left: auto;
+  margin-right: 25px;
+  align-self: center;
+  text-decoration: none;
 }
 
 html,body{

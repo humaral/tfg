@@ -4,14 +4,14 @@
 * Descripción: hoja específica de estilos de la página de peticiones.
 */
 
-#peticiones-page{
+#peticiones-page {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-#peticiones-filter{
+#peticiones-filter {
     width: 75%;
     margin: 10px;
     display: flex;
@@ -20,18 +20,139 @@
     flex-wrap: wrap;
 }
 
-#filter-telefono{
+#filter-telefono {
     width: 125px;
 }
 
-#peticiones-card{
+#peticiones-card {
     width: 75%;
     height: auto;
     overflow-x: auto;
     display: block;
 }
 
-#peticiones-pagination{
+#peticiones-pagination {
     width: 75%;
     align-items: start;
+}
+
+
+#peticion-cabecera {
+    display: flex;
+    align-items: center;
+}
+
+#peticion-cabecera iconify-icon {
+    font-size: x-large;
+    font-weight: bold;
+    margin: 0 20px;
+    color: var(--color-primario);
+    text-decoration: none;
+}
+
+#peticion-titulo {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+#peticion-titulo h1 {
+    margin: 0%;
+    font-size: 30px;
+    color: var(--color-texto-primario);
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#peticion-titulo p {
+    margin: 0%;
+    font-size: 18px;
+    color: var(--color-texto-secundario);
+    font-weight: normal;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#peticion-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#peticion-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10%;
+    width: 50%;
+}
+
+#timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex: 1;
+}
+
+#timeline-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-wrap: nowrap;
+}
+
+#timeline-estado{
+    margin: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#timeline-linea-vertical {
+    width: 0;
+    height: 10px;
+    border-left: 1px var(--color-primario);
+    border-right: 1px var(--color-primario);
+    border-style: dashed;
+}
+
+#timeline-fecha{
+    margin: 5px;
+}
+
+#timeline-fecha p{
+    text-align: center;
+    font-size: 12px;
+    margin: 0;
+}
+
+#timeline-icon {
+    font-size: x-large;
+    color: var(--color-primario);
+    padding: 5px;
+    z-index: 1;
+    background-color: var(--color-fondo);
+    border-radius: 100%;
+    
+}
+
+#peticion-timeline::before{
+    content: "";
+    position: absolute;
+    top: 90%;
+    left: 5%;
+    right: 5%;
+    border-top: 2px dashed var(--color-primario);
+    z-index: 0;
 }

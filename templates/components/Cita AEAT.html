@@ -1,0 +1,32 @@
+<h2>Información</h2>
+<div>
+    <div>
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="dni" value="{{peticion.informacion.dni}}" disabled>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" value="{{peticion.informacion.nombre}}" disabled>
+        <label for="servicio">Servicio:</label>
+        <input type="text" id="servicio" name="servicio" value="{{peticion.informacion.servicio}}" disabled>
+    </div>
+    <div>
+        <div>
+            <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
+            <input type="datetime-local" id="fecha" value="{{peticion.informacion.fecha}}" disabled>
+        </div>
+        <div>
+            <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
+            <input type="text" id="oficina" value="{{peticion.informacion.oficina}}" disabled>
+            <input type="text" id="direccion" value="{{peticion.informacion.direccion}}" disabled>
+        </div>
+        <div>
+            <label>Modalidad:</label>
+            <input type="radio" id="presencial" name="modalidad" value="presencial" {%if peticion.informacion.modalidad == 'Presencial'%}checked{%endif%} disabled>
+            <label for="presencial">Presencial</label>
+            <iconify-icon for="presencial" icon="mdi:account-group-outline"></iconify-icon>
+            <input type="radio" id="telefono" name="modalidad" value="telefono" {%if peticion.informacion.modalidad == 'Telefónica'%}checked{%endif%} disabled>
+            <label for="telefono">Telefónica</label>
+            <iconify-icon for="telefono" icon="solar:phone-outline"></iconify-icon>
+        </div>
+    </div>
+
+</div>

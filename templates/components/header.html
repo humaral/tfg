@@ -1,3 +1,9 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 12-10-2025
+- Descripción: componente reutilizable del header de la aplicación web.
+-->
+
 <header>
     <a href="{{url_for('inicio')}}" class="logo">
         <img src="{{url_for('static', filename='img/logo.png')}}" alt="Logo">
@@ -7,5 +13,13 @@
         </div>
     </a>
     <!--TODO Añadir if sesion iniciada, poner foto perfil y nombre, else:-->
-    <a href="{{url_for('login')}}" id="acceso">Acceder</a>
+    <a href="" id="user-logged">
+        <div class="perfil">
+            <img src="/static/img/perfil/default.jpg" alt="Foto de perfil del usuario" />
+            <div id="perfil-titulo">
+                <p id="perfil-nombre">Hugo Martín</p>
+                <p id="perfil-rol">Administrador</p>
+            </div>
+        </div>
+    </a>
 </header>

@@ -15,8 +15,8 @@
 {%block body%}
     {%include "components/menu.html"%}
     <main id="empleados-page">
-            <div class="filter" id="empleados-filter">
-                <div>
+            <div class="filter" id="empleados-controllers">
+                <div id="empleados-filters">
                     <input type="search" placeholder="Usuario">
                     <input type="search" placeholder="Nombre">
                     <input type="search" placeholder="Email">
@@ -80,7 +80,7 @@
                             </th>
                             <th>
                                 <a href="{{url_for('empleados', orden='activo', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='activo' else 'ascendente')}}">
-                                    Fecha de Creación
+                                ?    
                                     {%if orden_actual == 'activo'%}
                                         {%if direccion_actual == 'ascendente'%}
                                             <iconify-icon icon="tabler:arrow-up"></iconify-icon>
@@ -114,7 +114,7 @@
             <!-- TODO hacer la paginacion dinamica -->
             <div class="pagination" id="empleados-pagination">
                 <ul class="pagination">
-                    <a>« Anterior</a>
+                    <a>&#171 Anterior</a>
                     <a>1</a>
                     <a>2</a>
                     <a>3</a>
@@ -122,7 +122,7 @@
                     <a>18</a>
                     <a>19</a>
                     <a>20</a>
-                    <a>Siguiente »</a>
+                    <a>Siguiente &#187</a>
                 </ul>
             </div>
     </main>

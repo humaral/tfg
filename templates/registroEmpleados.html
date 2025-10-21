@@ -1,0 +1,25 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 19-10-2025
+- Descripción: formulario de registro de emplados.
+-->
+
+
+{%extends "layout.html"%}
+
+{%block title%}Nuevo Empleado{%endblock%}
+
+{%block css%}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/empleados.css')}}">
+{%endblock%}
+    
+{%block body%}
+    <forms>
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre"/>
+        <label>Email</label>
+        <input type="text"/>
+        <input type="email"/>
+
+    </forms>
+{%endblock%}

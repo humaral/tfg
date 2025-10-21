@@ -1,3 +1,7 @@
+# Autor: Hugo Martín Alonso
+# Fecha: 25-09-2025
+# Descripción: Controla la conexión con la base de datos.
+
 import sqlite3
 from flask import g
 
