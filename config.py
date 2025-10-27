@@ -1,2 +1,17 @@
 # Autor: Hugo Martín Alonso
 # Descripción: archivo con las configuraciones de la aplicación.
+
+import os
+
+class Config:
+
+    SECRET_KEY = os.environ.get('SECRET_KEY', "clave_local_para_desarollo")
+
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', f"sqlite:///{os.path.join(BASE_DIR, 'datos/datos.db')}")
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    APP_VERSION = "0.1 \u03B2"
+
+    DEBUG = True

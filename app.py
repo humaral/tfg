@@ -3,20 +3,21 @@
 # Descripción: programa de inicialización de la aplicación.
 
 from flask import Flask, render_template, request, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
 from markupsafe import escape
-import os
+from config import Config
 from datetime import datetime
 
-APP_VERSION = "0.1"
-
 app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+
 
 @app.context_processor
 def inject_globals():
     return {
         "current_date": datetime.now().strftime('%d/%m/%Y'),
-        "current_year": datetime.now().year,
-        "version": APP_VERSION
+        "current_year": datetime.now().year
     }
 
 @app.route("/")
@@ -120,4 +121,4 @@ def page_not_found(error):
     return render_template("404.html"), 404
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=app.config['DEBUG'])
