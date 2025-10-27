@@ -1,0 +1,27 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 10-06-2025
+- Descripción: página de error 404 personalizada. 
+-->
+
+{%extends "layout.html"%}
+
+{%block title%}Página no encontrada{%endblock%}
+
+{%block css%}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/404.css')}}">
+{%endblock%}
+
+{%block body%}
+    <main id="error-404-page">
+        <div id="error-404-cabecera">
+            <h1>4</h1>
+            <iconify-icon icon="si:error-duotone"></iconify-icon>
+            <h1>4</h1>
+        </div>
+        <h2>Página no encontrada</h2>
+        <p>Lo sentimos, la página que buscas no existe.</p>
+        <a href="{{ url_for('inicio') }}"><iconify-icon icon="typcn:arrow-back"></iconify-icon> Volver a la página principal</a>
+    </main>
+{%endblock%}
+

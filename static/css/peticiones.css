@@ -4,6 +4,7 @@
 * Descripción: hoja específica de estilos de la página de peticiones.
 */
 
+/* Página de peticiones */
 #peticiones-page {
     display: flex;
     justify-content: center;
@@ -36,6 +37,13 @@
     align-items: start;
 }
 
+/* Página de una petición */
+#peticion-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+}
 
 #peticion-cabecera {
     display: flex;
@@ -79,80 +87,185 @@
 
 #peticion-contenido {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
+    flex: 1;
 }
 
 #peticion-timeline {
     position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 10%;
-    width: 50%;
+    list-style: none;
+    width: 100%;
+    max-width: 600px;
 }
 
-#timeline-item {
+#peticion-timeline::before {
+    content: "";
+    position: absolute;
+    left: 197px;
+    height: 100%;
+    border-left: 2px var(--color-primario) solid;
+    z-index: 0;
+}
+
+#timeline-item{
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    z-index: 1;
+}
+
+#timeline-item:not(:first-child) {   
+    margin-top: 50px;
+}
+
+#timeline-time {
+    width: 120px;
+    font-size: 12px;
+    text-align: right;
+}
+#timeline-fecha{
+    margin: 0;
+    color: var(--color-texto-primario);
+}
+#timeline-hora {
+    margin: 0;
+    color: var(--color-texto-secundario);
+}
+
+#timeline-icon {
+    font-size: x-large;
+    background-color: var(--color-fondo);
+    color: var(--color-primario);
+    border: 2px solid var(--color-primario);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
     align-items: center;
     justify-content: center;
-    flex-wrap: nowrap;
-    flex: 1;
+    z-index: 1;
 }
 
 #timeline-info {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-wrap: nowrap;
+    align-items: flex-start;
 }
 
-#timeline-estado{
-    margin: 5px;
+#timeline-estado {
+    margin: 0;
     font-size: 14px;
     font-weight: bold;
 }
 
-#timeline-linea-vertical {
-    width: 0;
-    height: 10px;
-    border-left: 1px var(--color-primario);
-    border-right: 1px var(--color-primario);
-    border-style: dashed;
-}
-
-#timeline-fecha{
-    margin: 5px;
-}
-
-#timeline-fecha p{
-    text-align: center;
-    font-size: 12px;
+#timeline-user {
     margin: 0;
+    font-size: 12px;
+    color: var(--color-texto-secundario);
+    text-wrap: nowrap;
 }
 
-#timeline-icon {
-    font-size: x-large;
-    color: var(--color-primario);
-    padding: 5px;
-    z-index: 1;
-    background-color: var(--color-fondo);
-    border-radius: 100%;
-    
+
+#peticion-resumen {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex: 1;
 }
 
-#peticion-timeline::before{
-    content: "";
-    position: absolute;
-    top: 90%;
-    left: 5%;
-    right: 5%;
-    border-top: 2px dashed var(--color-primario);
-    z-index: 0;
+#peticion-detalles {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: var(--sombreado);
+    text-align: center;
+    width: 90%;
+    max-width: 900px;
+    overflow: hidden;
+    font-size: large;
+}
+
+#detalles-titulo{
+    background-color: var(--color-primario);
+    border-radius: 15px 15px 0 0;
+    padding: 12px 20px;
+}
+
+#detalles-titulo h2 {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    text-align: start;
+}
+
+#detalles-contenido {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    padding: 20px 40px;
+}
+
+#detalles-contenido > div{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#detalles-contenido label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+#detalles-contenido input{
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    font-size: 15px;
+    font-weight: normal;
+    color: var(--color-texto-primario);
+    width: 100%;
+    text-align: left;
+}
+
+#detalles-contenido input:disabled {
+    color: var(--color-texto-primario);
+    opacity: 1;
+    cursor: default;
+}
+
+#detalles-contenido > div > div{
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#detalles-contenido iconify-icon {
+    font-size: 20px;
+    color: var(--color-texto-primario);
+    flex-shrink: 0;
+}
+
+#oficina{
+    font-weight: bold;
+}
+
+#direccion{
+    color: var(--color-texto-secundario);
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+#fecha{
+    font-family: monospace;
+    font-size: 15px;
+    color: var(--color-texto-primario);
 }

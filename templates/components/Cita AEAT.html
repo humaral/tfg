@@ -1,29 +1,42 @@
-<h2>Información</h2>
-<div>
-    <div>
+<!-- 
+- Autor: Hugo Martín Alonso
+- Fecha: 20-10-2025
+- Descripción: componente con la información específica del trámite de solicitar una cita en la AEAT. 
+-->
+
+<div id="detalles-titulo">
+    <h2>Información</h2>
+</div>
+<div id="detalles-contenido">
+    <div id="contenido-col1">
         <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" value="{{peticion.informacion.dni}}" disabled>
+        <input type="text" id="dni" name="dni" value="{{peticion.informacion.dni}}" readonly>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="{{peticion.informacion.nombre}}" disabled>
+        <input type="text" id="nombre" name="nombre" value="{{peticion.informacion.nombre}}" readonly>
         <label for="servicio">Servicio:</label>
-        <input type="text" id="servicio" name="servicio" value="{{peticion.informacion.servicio}}" disabled>
+        <input type="text" id="servicio" name="servicio" value="{{peticion.informacion.servicio}}" readonly>
     </div>
-    <div>
-        <div>
+    <div id="contenido-col2">
+        <div id="contenido-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
-            <input type="datetime-local" id="fecha" value="{{peticion.informacion.fecha}}" disabled>
+            <div>
+                <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.strftime("%d/%m/%Y")}}" readonly>
+                <input type="time" id="hora" value="{{peticion.informacion.fecha.strftime("%H:%M")}}" readonly>
+            </div>
         </div>
-        <div>
+        <div id="contenido-ubicacion">
             <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
-            <input type="text" id="oficina" value="{{peticion.informacion.oficina}}" disabled>
-            <input type="text" id="direccion" value="{{peticion.informacion.direccion}}" disabled>
+            <div>
+                <input type="text" id="oficina" value="{{peticion.informacion.oficina}}" readonly>
+                <input type="text" id="direccion" value="{{peticion.informacion.direccion}}" readonly>
+            </div>
         </div>
         <div>
             <label>Modalidad:</label>
-            <input type="radio" id="presencial" name="modalidad" value="presencial" {%if peticion.informacion.modalidad == 'Presencial'%}checked{%endif%} disabled>
+            <input type="radio" id="presencial" name="modalidad" value="presencial" {%if peticion.informacion.modalidad == 'Presencial'%}checked{%endif%} readonly>
             <label for="presencial">Presencial</label>
             <iconify-icon for="presencial" icon="mdi:account-group-outline"></iconify-icon>
-            <input type="radio" id="telefono" name="modalidad" value="telefono" {%if peticion.informacion.modalidad == 'Telefónica'%}checked{%endif%} disabled>
+            <input type="radio" id="telefono" name="modalidad" value="telefono" {%if peticion.informacion.modalidad == 'Telefónica'%}checked{%endif%} readonly>
             <label for="telefono">Telefónica</label>
             <iconify-icon for="telefono" icon="solar:phone-outline"></iconify-icon>
         </div>

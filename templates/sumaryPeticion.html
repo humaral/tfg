@@ -9,48 +9,55 @@
 {%block title%}Petición #{{peticion.id}}{%endblock%}
 
 {%block css%}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/peticiones.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/peticiones.css')}}">
 {%endblock%}
-    
-{%block body%}
-    <main>
-        <div id="peticion-cabecera">
-            <a href="{{ url_for('peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
-            <div id="peticion-titulo">
-                <h1>Petición #{{ peticion.id }}, {{peticion.tramite}}</h1>
-                <p>Teléfono: {{peticion.telefono}}</p>
-            </div>
-        </div>
-        <div id="peticion-contenido">
-            <div id="peticion-timeline">
-                {%for hito in historial %}
-                    <div id="timeline-item">
-                        <div id="timeline-info">
-                            {%if hito.empleado %}
-                                <div class="perfil" id="timeline-perfil">
-                                    <img src={{hito.empleado.fotoPerfil}} alt="Foto de perfil del usuario"/>
-                                    <div id="perfil-titulo">
-                                        <p id="perfil-nombre">{{hito.empleado.nombre}} {{hito.empleado.apellido1}}</p>
-                                        <p id="perfil-rol">{{hito.empleado.rol}}</p>
-                                    </div>
-                                </div>
-                                <div id="timeline-linea-vertical"></div>        
-                            {%endif%}
-                            <h3 id="timeline-estado">{{ hito.estado }}</h3>
-                        </div>
 
-                        <div id="timeline-linea-vertical"></div>
-                        <div id="timeline-fecha">
-                            <p>{{ hito.fecha.strftime('%H:%M') }}</p>
-                            <p>{{ hito.fecha.strftime('%d/%m/%Y') }}</p>
-                        </div>
-                        <iconify-icon id="timeline-icon" icon={{hito.icono}}></iconify-icon>
-                    </div>
-                {%endfor%}
-            </div>
-            <div>
+{%block body%}
+<main id="peticion-page">
+    <div id="peticion-cabecera">
+        <a href="{{ url_for('peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
+        <div id="peticion-titulo">
+            <h1>Petición #{{ peticion.id }}, {{peticion.tramite}}</h1>
+            <p>Teléfono: {{peticion.telefono}}</p>
+        </div>
+    </div>
+    <div id="peticion-contenido">
+        <ul id="peticion-timeline">
+            {%for hito in historial %}
+            <li id="timeline-item">
+
+                <div id="timeline-time">
+                    <p id="timeline-fecha">{{ hito.fecha.strftime('%d %B %Y') }}</p>
+                    <p id="timeline-hora">{{ hito.fecha.strftime('%H:%M') }}</p>
+                </div>
+
+                {%if hito.empleado %}
+                    <img id="timeline-icon" src={{hito.empleado.fotoPerfil}} alt="Foto de perfil del usuario" />
+                {%else%}
+                    <iconify-icon id="timeline-icon" icon={{hito.icono}}></iconify-icon>
+                {%endif%}
+
+                <div id="timeline-info">
+                    <h3 id="timeline-estado">{{ hito.estado }}</h3>
+
+                    {%if hito.empleado %}
+                        <p id="timeline-user">{{hito.empleado.nombre}} {{hito.empleado.apellido1}}</p>
+                    {%endif%}                  
+                </div>
+   
+            </li>
+            {%endfor%}
+        </ul>
+
+        <div id="peticion-resumen">
+            <div id="peticion-detalles">
                 {%include "components/" + peticion.tramite + ".html" %}
             </div>
+            <div class="botones">
+                <button id="cancelar" onclick="">Cancelar</button>
+                <button id="guardar" onclick="">Guardar</button>
+            </div>
         </div>
-    </main>
+    </div>
+</main>
 {%endblock%}

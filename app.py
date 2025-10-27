@@ -3,6 +3,7 @@
 # Descripción: programa de inicialización de la aplicación.
 
 from flask import Flask, render_template, request, url_for, redirect
+from markupsafe import escape
 import os
 from datetime import datetime
 
@@ -19,29 +20,33 @@ def inject_globals():
     }
 
 @app.route("/")
-def inicio(name=None):
+def inicio():
     #DATABASE = os.path.join(app.instance_path, 'flaskr.sqlite')
+
+    #TODO: Comprobar si el usuario está autenticado, si lo esta redirigir a peticiones
     return redirect(url_for("login"))
 
 @app.route("/login")
-def login(name=None):
-
-    return render_template("login.html", person=name)
+def login():
+    if request.method == "POST":
+        # Aquí iría la lógica para autenticar al usuario
+        pass
+    else:
+        return render_template("login.html")
 
 @app.route("/peticiones")
-def peticiones(name=None):
+def peticiones():
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
-    return render_template("peticiones.html", orden_actual=orden, direccion_actual=direccion)
+    return render_template("peticiones.html", orden_actual=escape(orden), direccion_actual=escape(direccion))
 
 @app.route("/peticiones/<int:peticion_id>")
 def sumary_peticion(peticion_id):
+    #TODO: Obtener los datos de la petición desde la base de datos, utilizar escape si es necesario
     peticion = {
         'id': peticion_id,
         'telefono': 983983983,
         'tramite': 'Cita AEAT',
-        'estado': 'Revisable',
-        'fecha': '2025-05-03T15:41:00',
         'informacion': {
             "dni": "69834521J",
             "nombre": "Fran García",
@@ -49,10 +54,10 @@ def sumary_peticion(peticion_id):
             "oficina": "Administración de la Aeat en el Ejido",
             "direccion": "Av Bulevar de El Ejido, 168...",
             "servicio": "IVA",
-            "fecha": "2026-01-11T13:30:00"
+            "fecha": datetime(2026,1,11,13,30),
         }
     }
-
+    #TODO: Obtener el historial de la petición desde la base de datos
     historial = [
         {
             'fecha': datetime(2025,5,3,15,41),
@@ -97,18 +102,22 @@ def sumary_peticion(peticion_id):
     return render_template("sumaryPeticion.html", peticion=peticion, historial=historial)
 
 @app.route("/empleados")
-def empleados(name=None):
+def empleados():
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
-    return render_template("empleados.html", orden_actual=orden, direccion_actual=direccion)
+    return render_template("empleados.html", orden_actual=escape(orden), direccion_actual=escape(direccion))
 
 @app.route("/empleados/new")
-def new_empleado(name=None):
+def new_empleado():
     return render_template("registroEmpleados.html")
 
 @app.route("/estadisticas")
-def estadisticas(name=None):
+def estadisticas():
     return render_template("estadisticas.html")
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template("404.html"), 404
 
 if __name__ == "__main__":
     app.run(debug=True)
