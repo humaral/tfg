@@ -15,7 +15,7 @@
 {%block body%}
 <main id="peticion-page">
     <div id="peticion-cabecera">
-        <a href="{{ url_for('peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
+        <a href="{{ url_for('dashboard.peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
         <div id="peticion-titulo">
             <h1>Petición #{{ peticion.id }}, {{peticion.tramite}}</h1>
             <p>Teléfono: {{peticion.telefono}}</p>

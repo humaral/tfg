@@ -32,7 +32,7 @@
                     <thead>
                         <tr>
                             <th>
-                                <a href="{{url_for('peticiones', orden='id', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='id' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.peticiones', orden='id', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='id' else 'ascendente')}}">
                                     ID
                                     {%if orden_actual == 'id'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -44,7 +44,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('peticiones', orden='telefono', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='telefono' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.peticiones', orden='telefono', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='telefono' else 'ascendente')}}">
                                     Teléfono
                                     {%if orden_actual == 'telefono'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -56,7 +56,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('peticiones', orden='estado', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='estado' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.peticiones', orden='estado', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='estado' else 'ascendente')}}">
                                     Estado
                                     {%if orden_actual == 'estado'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -68,7 +68,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('peticiones', orden='tramite', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='tramite' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.peticiones', orden='tramite', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='tramite' else 'ascendente')}}">
                                     Trámite
                                     {%if orden_actual == 'tramite'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -80,7 +80,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('peticiones', orden='fecha', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='fecha' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.peticiones', orden='fecha', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='fecha' else 'ascendente')}}">
                                     Fecha de Creación
                                     {%if orden_actual == 'fecha'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -92,7 +92,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('peticiones', orden='asignacion', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='asignacion' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.peticiones', orden='asignacion', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='asignacion' else 'ascendente')}}">
                                     Asignado A
                                     {%if orden_actual == 'asignacion'%}
                                         {%if direccion_actual == 'ascendente'%}

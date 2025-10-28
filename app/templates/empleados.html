@@ -31,7 +31,7 @@
                     <thead>
                         <tr>
                             <th>
-                                <a href="{{url_for('empleados', orden='usuario', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='usuario' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.empleados', orden='usuario', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='usuario' else 'ascendente')}}">
                                     Usuario
                                     {%if orden_actual == 'usuario'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -43,7 +43,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('empleados', orden='nombre', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='nombre' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.empleados', orden='nombre', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='nombre' else 'ascendente')}}">
                                     Nombre
                                     {%if orden_actual == 'nombre'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -55,7 +55,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('empleados', orden='email', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='email' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.empleados', orden='email', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='email' else 'ascendente')}}">
                                     Email
                                     {%if orden_actual == 'email'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -67,7 +67,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('empleados', orden='rol', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='rol' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.empleados', orden='rol', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='rol' else 'ascendente')}}">
                                     Rol
                                     {%if orden_actual == 'rol'%}
                                         {%if direccion_actual == 'ascendente'%}
@@ -79,7 +79,7 @@
                                 </a>
                             </th>
                             <th>
-                                <a href="{{url_for('empleados', orden='activo', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='activo' else 'ascendente')}}">
+                                <a href="{{url_for('dashboard.empleados', orden='activo', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='activo' else 'ascendente')}}">
                                 ?    
                                     {%if orden_actual == 'activo'%}
                                         {%if direccion_actual == 'ascendente'%}
