@@ -10,3 +10,7 @@
 *.fls
 *.synctex.gz
 documents/build/
+
+#Archivos compilados por python automáticamente
+**/__pycache__/
+*.pyc

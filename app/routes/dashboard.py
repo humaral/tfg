@@ -96,3 +96,4 @@ def new_empleado():
 @dashboard_bp.route("/estadisticas")
 def estadisticas():
     return render_template("estadisticas.html")
+

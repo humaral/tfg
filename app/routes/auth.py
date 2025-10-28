@@ -1,6 +1,6 @@
 # Autor: Hugo Martín Alonso
 # Fecha: 17-10-2025
-# Descripción: Controlador de las rutas en la vista del login.
+# Descripción: Controlador de las rutas relacionadas con la autentificación.
 
 from flask import Blueprint, render_template, request, redirect, url_for, session
 

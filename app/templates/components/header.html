@@ -15,7 +15,7 @@
     <!--TODO Añadir if sesion iniciada, poner foto perfil y nombre, else:-->
     <a href="" id="user-logged">
         <div class="perfil">
-            <img src="/static/img/perfil/default.jpg" alt="Foto de perfil del usuario" />
+            <img src="{{url_for('uploads.fotoPerfil', filename='default.jpg')}}" alt="Foto de perfil del usuario" />
             <div id="perfil-titulo">
                 <p id="perfil-nombre">Hugo Martín</p>
                 <p id="perfil-rol">Administrador</p>
