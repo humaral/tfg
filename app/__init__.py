@@ -10,7 +10,6 @@ from datetime import datetime
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-# login_manager.login_view = "auth.login"
 
 def create_app():
 
@@ -18,7 +17,7 @@ def create_app():
     app.config.from_object(Config)
 
     db.init_app(app)
-    # login_manager.init_app(app)
+    login_manager.init_app(app)
 
     #TODO REVISAR DONDE IRÁ ESTO
     #Se establecen variables globales en las plantillas que se actualizan al refrescar la página
@@ -31,8 +30,14 @@ def create_app():
     
     from app import models
 
+    @login_manager.user_loader
+    def load_user(idEmpleado):
+        return models.Empleado.query.get(int(idEmpleado))
+
     from .routes import registrarRutas #NOTE Igual tiene que ir dentro de la función
     registrarRutas(app)
+
+    login_manager.login_view = "auth.login"
 
     return app
 

@@ -2,24 +2,39 @@
 # Fecha: 17-10-2025
 # Descripción: Controlador de las rutas relacionadas con la autentificación.
 
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_user, logout_user, login_required, current_user
+from app.models import Empleado
 
 auth_bp = Blueprint('auth', __name__)
 
 #Funcionalidad para mostrar el login, iniciar sesión y redirigir a peticiones
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login(): #TODO Crear ficheros de logs para mantener registros
-    if "username" in session:
+    if current_user.is_authenticated:
         return redirect(url_for("dashboard.peticiones"))
     else:
         if request.method == "POST":
-            session["username"] = request.form["username"]
-            return redirect(url_for("dashboard.peticiones"))
-        else:
-            return render_template("login.html")
+            
+            username = request.form['username']
+            password = request.form['password']
+
+            empleado = Empleado.query.filter_by(username=username).first()
+
+            if empleado and empleado.check_password(password):
+                login_user(empleado)
+                flash("Sesión iniciada correctamente", "success")
+                return redirect(url_for("dashboard.peticiones"))
+            else:
+                flash("Usuario y/o contraseña incorrectos", "error")
+
+        return render_template("login.html")
 
 #Funcionalidad para cerrar sesión
 @auth_bp.route("/logout")
+@login_required
 def logout():
-    session.clear()
+    logout_user()
+    flash("Sesión cerrada", "info")
     return redirect(url_for("auth.login"))
+

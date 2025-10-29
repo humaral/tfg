@@ -7,8 +7,8 @@ from . import db
 class Tramite(db.Model):
     __tablename__ = 'tramite'
 
-    idTramite = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     valor = db.Column(db.String(200), nullable=False)
     activo = db.Column(db.Boolean, nullable=False, server_default=db.text("1"))
 
-    peticiones = db.relationship('Peticion', backref='tramite')
+    peticiones = db.relationship('Peticion', back_populates='tramite')

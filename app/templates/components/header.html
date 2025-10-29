@@ -13,13 +13,15 @@
         </div>
     </a>
     <!--TODO Añadir if sesion iniciada, poner foto perfil y nombre, else:-->
-    <a href="" id="user-logged">
+    {%if current_user.is_authenticated%}
+    <a href="{{url_for('auth.logout')}}" id="user-logged">
         <div class="perfil">
-            <img src="{{url_for('uploads.fotoPerfil', filename='default.jpg')}}" alt="Foto de perfil del usuario" />
+            <img src="{{url_for('uploads.fotoPerfil', filename=current_user.fotoPerfil)}}" alt="Foto de perfil del usuario" />
             <div id="perfil-titulo">
-                <p id="perfil-nombre">Hugo Martín</p>
-                <p id="perfil-rol">Administrador</p>
+                <p id="perfil-nombre">{{current_user.nombre}} {{current_user.apellido1}}</p>
+                <p id="perfil-rol">{{current_user.rol.valor}}</p>
             </div>
         </div>
     </a>
+    {%endif%}
 </header>

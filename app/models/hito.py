@@ -7,10 +7,12 @@ from . import db
 class Hito(db.Model):
     __tablename__ = 'hito'
 
-    idHito = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    peticion = db.Column(db.Integer, db.ForeignKey('peticion.id'), nullable=False)
-    estado = db.Column(db.Integer, db.ForeignKey('estado.idEstado'), nullable=False)
-    updated_by = db.Column(db.Integer, db.ForeignKey('empleado.idEmpleado'), nullable=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    idPeticion = db.Column(db.Integer, db.ForeignKey('peticion.id'), nullable=False)
+    idEstado = db.Column(db.Integer, db.ForeignKey('estado.id'), nullable=False)
+    updated_by = db.Column(db.Integer, db.ForeignKey('empleado.id'), nullable=True)
     updated_at = db.Column(db.DateTime, server_default=db.text("CURRENT_TIMESTAMP"))
 
-    hitos = db.relationship('Hito', backref='peticion')
+    peticion = db.relationship('Peticion', back_populates='hitos')
+    empleado_editor = db.relationship("Empleado", back_populates="hitos_editados")
+    estado = db.relationship('Estado', back_populates='hitos')

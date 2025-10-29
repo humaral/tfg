@@ -9,9 +9,11 @@ class Peticion(db.Model):
     __tablename__ = 'peticion'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    tramite = db.Column(db.Integer, db.ForeignKey('tramites.idTramite'), nullable=False)
+    idTramite = db.Column(db.Integer, db.ForeignKey('tramite.id'), nullable=False)
     telefono = db.Column(db.Integer, nullable=False)
-    asignado_a = db.Column(db.Integer, db.ForeignKey('empleado.idEmpleado'), nullable=False)
+    asignado_a = db.Column(db.Integer, db.ForeignKey('empleado.id'), nullable=False)
     informacion = db.Column(JSON, nullable=False)
 
-    hitos = db.relationship('Hito', backref='peticion')
+    hitos = db.relationship('Hito', back_populates='peticion')
+    tramite = db.relationship('Tramite', back_populates='peticiones')
+    empleado_asignado = db.relationship("Empleado", back_populates="peticiones_asignadas")

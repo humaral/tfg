@@ -2,7 +2,8 @@
 # Fecha: 27-10-2025
 # Descripción: Controlador de las rutas en la vista del dashboard.
 
-from flask import Blueprint, render_template, request, session, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required
 from markupsafe import escape
 from datetime import datetime
 
@@ -10,19 +11,15 @@ from datetime import datetime
 dashboard_bp = Blueprint('dashboard', __name__)
 
 
-@dashboard_bp.before_request
-def verificar_sesion():
-    if 'usuario' not in session:
-        return redirect(url_for("auth.login"))
-
-
 @dashboard_bp.route("/peticiones")
+@login_required
 def peticiones():
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
     return render_template("peticiones.html", orden_actual=escape(orden), direccion_actual=escape(direccion))
 
 @dashboard_bp.route("/peticiones/<int:peticion_id>")
+@login_required
 def sumary_peticion(peticion_id):
     #TODO: Obtener los datos de la petición desde la base de datos, utilizar escape si es necesario
     peticion = {
@@ -84,16 +81,19 @@ def sumary_peticion(peticion_id):
     return render_template("sumaryPeticion.html", peticion=peticion, historial=historial)
 
 @dashboard_bp.route("/empleados")
+@login_required
 def empleados():
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
     return render_template("empleados.html", orden_actual=escape(orden), direccion_actual=escape(direccion))
 
 @dashboard_bp.route("/empleados/new")
+@login_required
 def new_empleado():
     return render_template("registroEmpleados.html")
 
 @dashboard_bp.route("/estadisticas")
+@login_required
 def estadisticas():
     return render_template("estadisticas.html")
 
