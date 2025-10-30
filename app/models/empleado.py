@@ -20,7 +20,6 @@ class Empleado(db.Model, UserMixin):
     fotoPerfil = db.Column(db.String(255), nullable=False, server_default=db.text("'default.jpg'")) #Guarda la ruta de la foto de perfil
 
     rol = db.relationship("Rol", back_populates="empleados")
-    peticiones_asignadas = db.relationship("Peticion", back_populates="empleado_asignado")
     hitos_editados = db.relationship("Hito", back_populates="empleado_editor")
 
     #NOTE como un toString para logs o console

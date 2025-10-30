@@ -45,12 +45,19 @@
     height: auto;
 }
 
-#peticion-cabecera {
+#peticion-cabecera{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#peticion-identificador {
     display: flex;
     align-items: center;
 }
 
-#peticion-cabecera iconify-icon {
+#peticion-identificador iconify-icon {
     font-size: x-large;
     font-weight: bold;
     margin: 0 20px;
@@ -84,6 +91,24 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#peticion-asignacion{
+    margin: 15px 35px;
+    width: 125px;
+    height: 50px;
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#peticion-asignacion:hover{
+    background-color: var(--color-secundario);
+    transition: 1s;
+}
+
 
 #peticion-contenido {
     display: flex;

@@ -21,10 +21,12 @@
                     <input type="search" placeholder="Nombre">
                     <input type="search" placeholder="Email">
                 </div>
+                {%if "crear_empleado" in session.permisos%}
                 <a id="nuevo-empleado">
                     <iconify-icon icon="lucide:user-round-plus"></iconify-icon>
                     Nuevo Empleado
                 </a>
+                {%endif%}
             </div>
             <div class="table" id="empleados-card">
                 <table class="table" id="empleados-table">

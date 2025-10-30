@@ -15,11 +15,17 @@
 {%block body%}
 <main id="peticion-page">
     <div id="peticion-cabecera">
-        <a href="{{ url_for('dashboard.peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
-        <div id="peticion-titulo">
-            <h1>Petición #{{ peticion.id }}, {{peticion.tramite}}</h1>
-            <p>Teléfono: {{peticion.telefono}}</p>
+        <div id="peticion-identificador">
+            <a href="{{ url_for('dashboard.peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
+            <div id="peticion-titulo">
+                <h1>Petición #{{ peticion.id }}, {{peticion.tramite}}</h1>
+                <p>Teléfono: {{peticion.telefono}}</p>
+            </div>
         </div>
+        {%if 'asignar_peticion' in session.permisos and not(peticion.asignada)%}
+        <button type="submit" id="peticion-asignacion">Asignar</button>
+        {%endif%}
+        
     </div>
     <div id="peticion-contenido">
         <ul id="peticion-timeline">
@@ -32,7 +38,7 @@
                 </div>
 
                 {%if hito.empleado %}
-                    <img id="timeline-icon" src={{hito.empleado.fotoPerfil}} alt="Foto de perfil del usuario" />
+                    <img id="timeline-icon" src={{url_for('uploads.fotoPerfil', filename=hito.empleado.fotoPerfil)}} alt="Foto de perfil del usuario" />
                 {%else%}
                     <iconify-icon id="timeline-icon" icon={{hito.icono}}></iconify-icon>
                 {%endif%}

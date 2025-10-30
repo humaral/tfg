@@ -29,6 +29,7 @@ def sumary_peticion(peticion_id):
         'id': peticion_id,
         'telefono': 983983983,
         'tramite': 'Cita AEAT',
+        'asignada':0,
         'informacion': {
             "dni": "69834521J",
             "nombre": "Fran García",
@@ -62,7 +63,7 @@ def sumary_peticion(peticion_id):
                 'apellido1': 'Martínez',
                 'apellido2': 'López',
                 'rol': 'Secretario',
-                'fotoPerfil': '/static/img/perfil/default.jpg'
+                'fotoPerfil': 'default.jpg'
 
             }
         },
@@ -75,7 +76,7 @@ def sumary_peticion(peticion_id):
                 'apellido1': 'Martínez',
                 'apellido2': 'López',
                 'rol': 'Secretario',
-                'fotoPerfil': '/static/img/perfil/default.jpg'
+                'fotoPerfil': 'default.jpg'
 
             }
         }

@@ -50,11 +50,10 @@ CREATE TABLE IF NOT EXISTS PETICION(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     idTramite INTEGER NOT NULL,
     telefono INTEGER NOT NULL,
-    asignado_a INTEGER,
+    asignada BOOLEAN NOT NULL DEFAULT 0,
     informacion JSON NOT NULL, --Formato JSON con la información recuperada por la IA  
     --TODO Añadir un registro de llamadas
-    FOREIGN KEY (idTramite) REFERENCES TRAMITE(id),
-    FOREIGN KEY (asignado_a) REFERENCES EMPLEADO(id)
+    FOREIGN KEY (idTramite) REFERENCES TRAMITE(id)
 );
 
 --Guarda los registros de cambio de estado de cada peticiÃ³n
