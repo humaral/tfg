@@ -2,5 +2,6 @@
 # Descripción: Inicializa el paquete utils.
 
 from .permisos import (
-    cargar_permisos
+    cargar_permisos,
+    permiso_requerido
 )

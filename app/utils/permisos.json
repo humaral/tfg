@@ -1,18 +1,15 @@
 {
-    "Administrador":{
-        "ver_peticiones": true,
-        "asignar-peticion": false,
-        "ver_empleados": true,
-        "crear_empleado": true,
-        "ver_estadisticas_generales": true,
-        "ver_estadisticas_secretario": false
-    },
-    "Secretario":{
-        "ver_peticiones": true,
-        "asignar-peticion": true,
-        "ver_empleados": false,
-        "crear_empleado": false,
-        "ver_estadisticas_generales": false,
-        "ver_estadisticas_secretario": true
-    }
+    "Administrador":[
+        "ver_peticiones",
+        "ver_empleados",
+        "crear_empleado",
+        "ver_estadisticas",
+        "ver_estadisticas_generales"
+    ],
+    "Secretario":[
+        "ver_peticiones",
+        "asignar_peticion",
+        "ver_estadisticas",
+        "ver_estadisticas_secretario"
+    ]
 }

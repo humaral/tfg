@@ -85,8 +85,8 @@ header, footer{
 }
 
 .perfil img{
-  height: 25px;
-  width: 25px;
+  height: 50px;
+  width: 50px;
   border: var(--bordes);
   border-radius: 100%;
   margin-right: 10px;
@@ -101,7 +101,7 @@ header, footer{
 
 .perfil #perfil-nombre{
   margin: 0;
-  font-size: medium;
+  font-size: large;
   font-weight: bold;
   color: var(--color-texto-primario);
   text-wrap: nowrap;
@@ -109,7 +109,7 @@ header, footer{
 
 .perfil #perfil-rol{
   margin: 0;
-  font-size: small;
+  font-size: medium;
   font-style: italic;
   color: var(--color-texto-secundario);
 }

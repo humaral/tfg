@@ -5,16 +5,22 @@
 -->
 
 <div class="menu">
+    {%if 'ver_peticiones' in session.permisos%}
     <a href="{{url_for('dashboard.peticiones', orden='id', direccion='ascendente')}}" id="menu-peticiones">
         <iconify-icon icon="material-symbols:list-rounded"></iconify-icon>
         <span>Peticiones</span>
     </a>
-    <a href="{{url_for('dashboard.empleados', orden='usuario', direccion='ascendente')}}" id="menu-empleados">
-        <iconify-icon icon="mdi:people"></iconify-icon>
-        <span>Empleados</span>
-    </a>
+    {%endif%}
+    {%if 'ver_empleados' in session.permisos%}
+        <a href="{{url_for('dashboard.empleados', orden='usuario', direccion='ascendente')}}" id="menu-empleados">
+            <iconify-icon icon="mdi:people"></iconify-icon>
+            <span>Empleados</span>
+        </a>
+    {%endif%}
+    {%if 'ver_estadisticas' in session.permisos%}
     <a href="{{url_for('dashboard.estadisticas')}}" id="menu-estadisticas">
         <iconify-icon icon="bx:stats"></iconify-icon>
         <span>Estadísticas</span>
+    {%endif%}
     </a>
 </div>

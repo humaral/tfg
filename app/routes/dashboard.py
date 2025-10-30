@@ -2,10 +2,11 @@
 # Fecha: 27-10-2025
 # Descripción: Controlador de las rutas en la vista del dashboard.
 
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, session, abort
 from flask_login import login_required
 from markupsafe import escape
 from datetime import datetime
+from app.utils import permiso_requerido
 
 
 dashboard_bp = Blueprint('dashboard', __name__)
@@ -13,6 +14,7 @@ dashboard_bp = Blueprint('dashboard', __name__)
 
 @dashboard_bp.route("/peticiones")
 @login_required
+@permiso_requerido("ver_peticiones")
 def peticiones():
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
@@ -20,6 +22,7 @@ def peticiones():
 
 @dashboard_bp.route("/peticiones/<int:peticion_id>")
 @login_required
+@permiso_requerido("ver_peticiones")
 def sumary_peticion(peticion_id):
     #TODO: Obtener los datos de la petición desde la base de datos, utilizar escape si es necesario
     peticion = {
@@ -82,6 +85,7 @@ def sumary_peticion(peticion_id):
 
 @dashboard_bp.route("/empleados")
 @login_required
+@permiso_requerido("ver_empleados")
 def empleados():
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
@@ -89,11 +93,18 @@ def empleados():
 
 @dashboard_bp.route("/empleados/new")
 @login_required
+@permiso_requerido("crear_empleado")
 def new_empleado():
     return render_template("registroEmpleados.html")
 
 @dashboard_bp.route("/estadisticas")
 @login_required
+@permiso_requerido("ver_estadisticas")
 def estadisticas():
-    return render_template("estadisticas.html")
+    if "ver_estadisticas_generales" in session["permisos"]:
+        return render_template("estadisticas.html")
+    elif "ver_estadisticas_secretario" in session["permisos"]:
+        return render_template("estadisticas.html")
+    else:
+        abort(404)
 
