@@ -69,6 +69,14 @@ header, footer{
   text-overflow: ellipsis;
 }
 
+
+#user-logged{
+  margin-left: auto;
+  margin-right: 25px;
+  align-self: center;
+  text-decoration: none;
+}
+
 .perfil{
   display: flex;
   flex-direction: row;
@@ -104,14 +112,6 @@ header, footer{
   font-size: small;
   font-style: italic;
   color: var(--color-texto-secundario);
-}
-
-/*DELETE revisar el boton de acceso y cambiarlo por el perfil*/
-#user-logged{
-  margin-left: auto;
-  margin-right: 25px;
-  align-self: center;
-  text-decoration: none;
 }
 
 html,body{
@@ -248,4 +248,18 @@ footer p{
 .pagination ul a{
     padding: 0 3px 0 3px;
     color: var(--color-primario);
+}
+
+/* Estilo del mensaje de error */
+.mensaje-error{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-bottom: 5px;
+}
+
+.mensaje-error p{
+  margin: 0;
+  padding: 0 0 5px 5px;
+  color: var(--color-terciario);
 }

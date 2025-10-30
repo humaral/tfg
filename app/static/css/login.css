@@ -47,6 +47,6 @@
 
 #login-card button:enabled {
   background-color: var(--color-primario);
-  transition: background-color 0.5s;
+  transition: background-color 0.2s;
   cursor: pointer;
 }

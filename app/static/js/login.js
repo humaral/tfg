@@ -1,37 +1,18 @@
-/*
-* Autor: Hugo Martín Alonso
-* Fecha: 25-09-2025
-* Descripción: script para dinamizar la página de login.
-*/
+/**
+ * Autor: Hugo Martín Alonso
+ * Fecha: 25-09-2025
+ * Descripción: script para dinamizar la página de login.
+ */
 
 
-//const enableLog = () => document.getElementById("login").disabled = false;
-//const disableLog = () => document.getElementById("login").disabled = true;
+const button = document.getElementById('login-button');
+const username = document.getElementById('login-username');
+const password = document.getElementById('login-password');
 
-const buttonLogin = document.getElementById("login");
-const usernameInput = document.getElementById("username");
-const passwordInput = document.getElementById("password");
+//Si los inputs no tienen ningún valor se desactiva el botón de inicio de sesión.
+function isEmpty(){
+    button.disabled = !(username.value.trim() && password.value.trim());
+}
 
-usernameInput.addEventListener("input", () => {
-    console.log("Usuario:", usernameInput.value);
-});
-
-buttonLogin.addEventListener("click", () => {
-    const username = usernameInput.value;
-    const password = passwordInput.value;
-});
-
-
-/* TODO acabar la función
-function isUserValid(username) {
-    
-    if(isNullOrEmpty(username)) {
-        return false;
-    }
-    else if(username.length < 3 || username.length > 20) {
-        return false;
-    }
-    else {
-        return true;
-    }
-}*/
+username.addEventListener('input', isEmpty);
+password.addEventListener('input', isEmpty);
