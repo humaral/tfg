@@ -2,9 +2,10 @@
 # Fecha: 17-10-2025
 # Descripción: Controlador de las rutas relacionadas con la autentificación.
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_user, logout_user, login_required, current_user
 from app.models import Empleado
+from app.utils import cargar_permisos
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -23,6 +24,7 @@ def login(): #TODO Crear ficheros de logs para mantener registros
 
             if empleado and empleado.check_password(password):
                 login_user(empleado)
+                cargar_permisos(empleado.rol.valor)
                 flash("Sesión iniciada correctamente", "success")
                 return redirect(url_for("dashboard.peticiones"))
             else:

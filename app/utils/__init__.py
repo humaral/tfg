@@ -1,2 +1,6 @@
 # Autor: Hugo Martín Alonso
 # Descripción: Inicializa el paquete utils.
+
+from .permisos import (
+    cargar_permisos
+)

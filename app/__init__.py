@@ -3,7 +3,7 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager #TODO CAMBIAR LOGIN A FLASK_LOGIN
+from flask_login import LoginManager
 from .config import Config
 from datetime import datetime
 
@@ -34,7 +34,7 @@ def create_app():
     def load_user(idEmpleado):
         return models.Empleado.query.get(int(idEmpleado))
 
-    from .routes import registrarRutas #NOTE Igual tiene que ir dentro de la función
+    from .routes import registrarRutas
     registrarRutas(app)
 
     login_manager.login_view = "auth.login"

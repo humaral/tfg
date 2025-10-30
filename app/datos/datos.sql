@@ -84,4 +84,5 @@ insert into ESTADO values(5,'Cancelada', 'charm:circle-cross');
 insert into ROL values(1,'Administrador');
 insert into ROL values(2,'Secretario');
 
-insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol) values ('hugo', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'admin@admin.com', 1); --Cuenta ADMIN, password = 'hugo'
+insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil) values ('hugo', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'admin@admin.com', 1, "test2.jpeg"); --Cuenta ADMIN, password = 'hugo'
+insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil) values ('ana', 'scrypt:32768:8:1$Eh7gm1DfhPhJxlpC$6946004565cbf141160315051bce87bae05a0fbe6b74110d4badc35bacb56aa153172b755fdc6ee43c38cbb9bf4f6d53dfaf249dc0e2ecfef483f68b14982f9f', 'Ana', 'Sanz', 'Sanz', 'ana@empleada.com', 2, "test1.jpg"); --Cuenta Secretario, password = 'ana'
