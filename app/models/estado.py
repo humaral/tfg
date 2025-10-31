@@ -12,3 +12,9 @@ class Estado(db.Model):
     icono = db.Column(db.String(100), nullable=False)
 
     hitos = db.relationship('Hito', back_populates='estado')
+
+
+    #NOTE como un toString para logs o console
+    def __repr__(self):
+        return f"<Estado_{self.valor}>"
+    

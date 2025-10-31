@@ -3,6 +3,7 @@
 # Descripción: Modelo con el histórico de los cambios de estado de una petición.
 
 from . import db
+from sqlalchemy import select
 
 class Hito(db.Model):
     __tablename__ = 'hito'
@@ -16,3 +17,8 @@ class Hito(db.Model):
     peticion = db.relationship('Peticion', back_populates='hitos')
     empleado_editor = db.relationship("Empleado", back_populates="hitos_editados")
     estado = db.relationship('Estado', back_populates='hitos')
+
+    #NOTE como un toString para logs o console
+    def __repr__(self):
+        return f"<Hito_{self.id}_{self.peticion.__repr__()}_{self.estado.__repr__()}{("_"+self.empleado_editor.__repr__()+"_") if self.updated_by else '_'}Fecha_{self.updated_at}>"
+    

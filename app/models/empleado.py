@@ -24,7 +24,7 @@ class Empleado(db.Model, UserMixin):
 
     #NOTE como un toString para logs o console
     def __repr__(self):
-        return f"<Empleado {self.username} --> {self.nombre} {self.apellido1} {self.apellido2 if self.apellido2 else ''} ({self.rol})>"
+        return f"<Empleado_{self.username}_Nombre_{self.nombre}_{self.apellido1}{("_"+self.apellido2+"_") if self.apellido2 else '_'}Email_{self.email}_{self.rol.__repr__()}>"
     
     def set_password(self, password):
         self.password = generate_password_hash(password)

@@ -4,8 +4,10 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
+from sqlalchemy import select
 from app.models import Empleado
 from app.utils import cargar_permisos
+from app import db
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -20,7 +22,8 @@ def login(): #TODO Crear ficheros de logs para mantener registros
             username = request.form['username']
             password = request.form['password']
 
-            empleado = Empleado.query.filter_by(username=username).first()
+            stmt = select(Empleado).where(Empleado.username==username)
+            empleado = db.session.scalars(stmt).first()
 
             if empleado and empleado.check_password(password):
                 login_user(empleado)

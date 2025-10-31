@@ -3,6 +3,7 @@
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import select
 from flask_login import LoginManager
 from .config import Config
 from datetime import datetime
@@ -32,7 +33,8 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(idEmpleado):
-        return models.Empleado.query.get(int(idEmpleado))
+        stmt = select(models.Empleado).where(models.Empleado.id == int(idEmpleado))
+        return db.session.scalars(stmt).first()
 
     from .routes import registrarRutas
     registrarRutas(app)

@@ -45,12 +45,11 @@ CREATE TABLE IF NOT EXISTS EMPLEADO(
     FOREIGN KEY (idRol) REFERENCES ROL(id)
 );
 
---Almacena la informaciÃ³n de cada request
+--Almacena la información de cada request
 CREATE TABLE IF NOT EXISTS PETICION(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     idTramite INTEGER NOT NULL,
     telefono INTEGER NOT NULL,
-    asignada BOOLEAN NOT NULL DEFAULT 0,
     informacion JSON NOT NULL, --Formato JSON con la información recuperada por la IA  
     --TODO Añadir un registro de llamadas
     FOREIGN KEY (idTramite) REFERENCES TRAMITE(id)
@@ -70,18 +69,34 @@ CREATE TABLE IF NOT EXISTS HITO(
 );
 
 
-insert into TRAMITE values(1,'Certificado de Empadronamietno',1);
-insert into TRAMITE values(2,'Cita AEAT',1);
-insert into TRAMITE values(3,'Consulta Centros de Día',1);
+insert into TRAMITE values 
+    (1,'Certificado de Empadronamietno',1),
+    (2,'Cita AEAT',1),
+    (3,'Consulta Centros de Día',1);
 
-insert into ESTADO values(1,'En Curso', 'mdi:progress-clock');
-insert into ESTADO values(2,'Revisable', 'ic:twotone-error');
-insert into ESTADO values(3,'Asignada', 'mdi:user-edit');
-insert into ESTADO values(4,'Completada', 'charm:circle-check');
-insert into ESTADO values(5,'Cancelada', 'charm:circle-cross');
+insert into ESTADO values
+    (1,'En Curso', 'mdi:progress-clock'),
+    (2,'Revisable', 'ic:twotone-error'),
+    (3,'Asignada', 'mdi:user-edit'),
+    (4,'Completada', 'charm:circle-check'),
+    (5,'Cancelada', 'charm:circle-cross');
 
-insert into ROL values(1,'Administrador');
-insert into ROL values(2,'Secretario');
+insert into ROL values (1,'Administrador'), (2,'Secretario');
 
-insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil) values ('hugo', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'admin@admin.com', 1, "test2.jpeg"); --Cuenta ADMIN, password = 'hugo'
-insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil) values ('ana', 'scrypt:32768:8:1$Eh7gm1DfhPhJxlpC$6946004565cbf141160315051bce87bae05a0fbe6b74110d4badc35bacb56aa153172b755fdc6ee43c38cbb9bf4f6d53dfaf249dc0e2ecfef483f68b14982f9f', 'Ana', 'Sanz', 'Sanz', 'ana@empleada.com', 2, "test1.jpg"); --Cuenta Secretario, password = 'ana'
+insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil) values 
+    ('hugo', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'admin@admin.com', 1, "test2.jpeg"), --Cuenta ADMIN, password = 'hugo'
+    ('ana', 'scrypt:32768:8:1$Eh7gm1DfhPhJxlpC$6946004565cbf141160315051bce87bae05a0fbe6b74110d4badc35bacb56aa153172b755fdc6ee43c38cbb9bf4f6d53dfaf249dc0e2ecfef483f68b14982f9f', 'Ana', 'Sanz', 'Sanz', 'ana@empleada.com', 2, "test1.jpg"); --Cuenta Secretario, password = 'ana'
+
+insert into PETICION(idTramite, telefono, informacion) values 
+    (2, 654654654, '{
+            "dni": "69834521J",
+            "nombre": "Fran García",
+            "modalidad": "Presencial",
+            "oficina": "Administración de la Aeat en el Ejido",
+            "direccion": "Av Bulevar de El Ejido - 168...",
+            "servicio": "IVA",
+            "fecha": "2026-01-11 13:30:00"
+        }');
+
+insert into HITO(idPeticion, idEstado) values
+    (1, 2);

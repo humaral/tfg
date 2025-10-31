@@ -20,8 +20,8 @@
         <div id="contenido-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
             <div>
-                <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.strftime("%d/%m/%Y")}}" readonly>
-                <input type="time" id="hora" value="{{peticion.informacion.fecha.strftime("%H:%M")}}" readonly>
+                <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.split(' ')[0]}}" readonly>
+                <input type="time" id="hora" value="{{peticion.informacion.fecha.split(' ')[1]}}" readonly>
             </div>
         </div>
         <div id="contenido-ubicacion">

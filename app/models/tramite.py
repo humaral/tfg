@@ -12,3 +12,8 @@ class Tramite(db.Model):
     activo = db.Column(db.Boolean, nullable=False, server_default=db.text("1"))
 
     peticiones = db.relationship('Peticion', back_populates='tramite')
+
+    #NOTE como un toString para logs o console
+    def __repr__(self):
+        return f"<Trámite_{self.valor}>"
+    

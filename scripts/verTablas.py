@@ -6,7 +6,7 @@ import sqlite3
 import os
 
 raiz = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-rutaBD = os.path.join(raiz, "datos\\datos.db")
+rutaBD = os.path.join(raiz, "app\\datos\\datos.db")
 
 conexion = sqlite3.connect(rutaBD)
 conexion.text_factory = str

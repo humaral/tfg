@@ -11,3 +11,8 @@ class Rol(db.Model):
     valor = db.Column(db.String(100), nullable=False)
 
     empleados = db.relationship("Empleado", back_populates="rol")
+
+    #NOTE como un toString para logs o console
+    def __repr__(self):
+        return f"<Rol_{self.valor}>"
+    

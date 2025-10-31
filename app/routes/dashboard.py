@@ -4,9 +4,12 @@
 
 from flask import Blueprint, render_template, request, session, abort
 from flask_login import login_required
+from sqlalchemy import select
 from markupsafe import escape
 from datetime import datetime
 from app.utils import permiso_requerido
+from app.models import Peticion, Hito
+from app import db
 
 
 dashboard_bp = Blueprint('dashboard', __name__)
@@ -20,68 +23,17 @@ def peticiones():
     direccion = request.args.get('direccion', 'ascendente')
     return render_template("peticiones.html", orden_actual=escape(orden), direccion_actual=escape(direccion))
 
-@dashboard_bp.route("/peticiones/<int:peticion_id>")
+@dashboard_bp.route("/peticiones/<int:idPeticion>")
 @login_required
 @permiso_requerido("ver_peticiones")
-def sumary_peticion(peticion_id):
-    #TODO: Obtener los datos de la petición desde la base de datos, utilizar escape si es necesario
-    peticion = {
-        'id': peticion_id,
-        'telefono': 983983983,
-        'tramite': 'Cita AEAT',
-        'asignada':0,
-        'informacion': {
-            "dni": "69834521J",
-            "nombre": "Fran García",
-            "modalidad": "Presencial",
-            "oficina": "Administración de la Aeat en el Ejido",
-            "direccion": "Av Bulevar de El Ejido, 168...",
-            "servicio": "IVA",
-            "fecha": datetime(2026,1,11,13,30),
-        }
-    }
-    #TODO: Obtener el historial de la petición desde la base de datos
-    historial = [
-        {
-            'fecha': datetime(2025,5,3,15,41),
-            'estado': 'Creada',
-            'icono': 'mdi:plus-box',
-            'empleado': None
-        },
-        {
-            'fecha': datetime(2025,5,5,9,30),
-            'estado': 'Revisable',
-            'icono': 'mdi:eye-check',
-            'empleado': None
-        },
-        {
-            'fecha': datetime(2025,5,6,16,15),
-            'estado': 'Asignada',
-            'icono': 'mdi:check-circle-outline',
-            'empleado': {
-                'nombre': 'Laura',
-                'apellido1': 'Martínez',
-                'apellido2': 'López',
-                'rol': 'Secretario',
-                'fotoPerfil': 'default.jpg'
+def sumary_peticion(idPeticion):
 
-            }
-        },
-        {
-            'fecha': datetime(2025,5,6,16,22),
-            'estado': 'Cancelada',
-            'icono': 'mdi:cross-circle-outline',
-            'empleado': {
-                'nombre': 'Laura',
-                'apellido1': 'Martínez',
-                'apellido2': 'López',
-                'rol': 'Secretario',
-                'fotoPerfil': 'default.jpg'
+    stmt = select(Peticion).where(Peticion.id==idPeticion)
+    peticion = db.session.scalars(stmt).first()
 
-            }
-        }
-    ]
-    
+    stmt = select(Hito).where(Hito.idPeticion==idPeticion)
+    historial = db.session.scalars(stmt).all()
+
     return render_template("sumaryPeticion.html", peticion=peticion, historial=historial)
 
 @dashboard_bp.route("/empleados")

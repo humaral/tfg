@@ -18,11 +18,11 @@
         <div id="peticion-identificador">
             <a href="{{ url_for('dashboard.peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
             <div id="peticion-titulo">
-                <h1>Petición #{{ peticion.id }}, {{peticion.tramite}}</h1>
+                <h1>Petición #{{ peticion.id }}, {{peticion.tramite.valor}}</h1>
                 <p>Teléfono: {{peticion.telefono}}</p>
             </div>
         </div>
-        {%if 'asignar_peticion' in session.permisos and not(peticion.asignada)%}
+        {%if 'asignar_peticion' in session.permisos and not(peticion.is_Asignada())%}
         <button type="submit" id="peticion-asignacion">Asignar</button>
         {%endif%}
         
@@ -33,21 +33,21 @@
             <li id="timeline-item">
 
                 <div id="timeline-time">
-                    <p id="timeline-fecha">{{ hito.fecha.strftime('%d %B %Y') }}</p>
-                    <p id="timeline-hora">{{ hito.fecha.strftime('%H:%M') }}</p>
+                    <p id="timeline-fecha">{{ hito.updated_at.strftime('%d %B %Y') }}</p>
+                    <p id="timeline-hora">{{ hito.updated_at.strftime('%H:%M') }}</p>
                 </div>
 
                 {%if hito.empleado %}
-                    <img id="timeline-icon" src={{url_for('uploads.fotoPerfil', filename=hito.empleado.fotoPerfil)}} alt="Foto de perfil del usuario" />
+                    <img id="timeline-icon" src="{{url_for('uploads.fotoPerfil', filename=hito.empleado_editor.fotoPerfil)}}" alt="Foto de perfil del usuario" />
                 {%else%}
-                    <iconify-icon id="timeline-icon" icon={{hito.icono}}></iconify-icon>
+                    <iconify-icon id="timeline-icon" icon={{hito.estado.icono}}></iconify-icon>
                 {%endif%}
 
                 <div id="timeline-info">
-                    <h3 id="timeline-estado">{{ hito.estado }}</h3>
+                    <h3 id="timeline-estado">{{ hito.estado.valor }}</h3>
 
                     {%if hito.empleado %}
-                        <p id="timeline-user">{{hito.empleado.nombre}} {{hito.empleado.apellido1}}</p>
+                        <p id="timeline-user">{{hito.empleado_editor.nombre}} {{hito.empleado_editor.apellido1}}</p>
                     {%endif%}                  
                 </div>
    
@@ -57,7 +57,7 @@
 
         <div id="peticion-resumen">
             <div id="peticion-detalles">
-                {%include "components/" + peticion.tramite + ".html" %}
+                {%include "components/" + peticion.tramite.valor + ".html" %}
             </div>
             <div class="botones">
                 <button id="cancelar" onclick="">Cancelar</button>
