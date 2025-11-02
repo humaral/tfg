@@ -4,7 +4,7 @@
 
 from flask import Blueprint, jsonify, render_template, request, session, abort
 from flask_login import login_required
-from sqlalchemy import select, func, asc, desc
+from sqlalchemy import select, func, asc, desc, or_
 from markupsafe import escape
 from app.utils import permiso_requerido
 from app.models import Peticion, Hito, Estado, Tramite, Empleado
@@ -19,14 +19,25 @@ dashboard_bp = Blueprint('dashboard', __name__)
 @permiso_requerido("ver_peticiones")
 def peticiones():
 
-    estados_posibles = db.session.scalars(select(Estado)).all()
-    tramites_posibles = db.session.scalars(select(Tramite).where(Tramite.activo==True)).all()
+    estados_posibles = db.session.scalars(select(Estado))
+    tramites_posibles = db.session.scalars(select(Tramite).where(Tramite.activo==True))
 
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
 
-    peticiones = db.session.scalars(select(Peticion).limit(10))
-    
+    stmt = select(Peticion).limit(10)
+    if direccion == "ascendente":
+        stmt = stmt.order_by(asc(getattr(Peticion, orden)))
+    else:
+        stmt = stmt.order_by(desc(getattr(Peticion, orden)))
+
+    paginas_totales = db.session.scalar(select(func.count()).select_from(Peticion))
+
+    peticiones = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
+
+
     return render_template("peticiones.html", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles, orden_actual=escape(orden), direccion_actual=escape(direccion), peticiones=peticiones)
 
 @dashboard_bp.route("/api/peticiones")
@@ -40,6 +51,7 @@ def api_peticiones():
 
     orden = request.args.get('orden')
     direccion = request.args.get('direccion')
+    
 
     stmt = select(Peticion)
     if id:
@@ -51,8 +63,11 @@ def api_peticiones():
     if idTramite:
         stmt = stmt.where(Peticion.idTramite==idTramite)
     if empleado:
-        #TODO consulta para obtener peticiones dependiendo de si el valor de empleado coincide con el user, nombre o apellido de un empleado
-        stmt = stmt
+        if empleado=='-':
+            stmt = stmt.where(Peticion.idEmpleadoAsignado.is_(None))
+        else:
+            subq = select(Empleado).where(or_(Empleado.username.like(f"%{empleado}%"),Empleado.nombre.like(f"%{empleado}%"),Empleado.apellido1.like(f"%{empleado}%"))).subquery()
+            stmt = stmt.join(subq, Peticion.idEmpleadoAsignado == subq.c.id)
     
     if direccion == "ascendente":
         stmt = stmt.order_by(asc(getattr(Peticion, orden)))
@@ -79,10 +94,9 @@ def api_peticiones():
 def sumary_peticion(idPeticion):
 
     stmt = select(Peticion).where(Peticion.id==idPeticion)
-    peticion = db.session.scalars(stmt).first()
-
+    peticion = db.session.scalar(stmt)
     stmt = select(Hito).where(Hito.idPeticion==idPeticion)
-    historial = db.session.scalars(stmt).all()
+    historial = db.session.scalars(stmt)
 
     return render_template("sumaryPeticion.html", peticion=peticion, historial=historial)
 

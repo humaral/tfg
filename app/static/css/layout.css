@@ -187,11 +187,18 @@ footer p{
 
 /*Estilos generales de las tablas*/
 .filter input, select{
+    position: relative;
     height: 25px;
     margin: 5px 5px 5px 5px;
     padding-left: 5px;
     border-radius: 8px;
     border: var(--bordes);
+}
+
+/* TODO: cambiar estilo */
+.filter input[title]:hover:after{
+  content: attr(title);
+  position: absolute;
 }
 
 .table table{

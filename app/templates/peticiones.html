@@ -16,8 +16,8 @@
 {%include "components/menu.html"%}
 <main id="peticiones-page">
     <div class="filter" id="peticiones-filter">
-        <input type="search" class="filter" id="filter-id" placeholder="Id">
-        <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono">
+        <input type="search" class="filter" id="filter-id" placeholder="Id" title="Filtrar por identificador de la petición.">
+        <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono" title="Filtrar por número telefónico">
         <!-- TODO cambiar los select obteniendo las opciones de la base de datos -->
         <select class="filter" id="filter-estado">
             <option value="0">--Selecciona un estado--</option>
@@ -31,7 +31,7 @@
             <option value="{{tramite.id}}">{{tramite.valor}}</option>
             {%endfor%}
         </select>
-        <input type="search" class="filter" id="filter-empleado" placeholder="Empleado Asignado">
+        <input type="search" class="filter" id="filter-empleado" placeholder="Empleado Asignado" title="Filtrar por empleado asignado. (Introduce '-' para peticiones sin asignar)">
     </div>
     <div class="table" id="peticiones-card">
         <table class="table" id="peticiones-table">
@@ -70,7 +70,7 @@
                     <td>{{peticion.tramite.valor}}</td>
                     <td>{{peticion.get_fechaCreacion()}}</td>
                     <td>
-                        {%if peticion.empleado%}
+                        {%if peticion.empleadoAsignado%}
                             {{peticion.empleadoAsignado.nombre}} {{peticion.empleadoAsignado.apellido1}}
                         {%else%}
                             -
@@ -84,15 +84,13 @@
     <!-- TODO hacer la paginacion dinamica -->
     <div class="pagination" id="peticiones-pagination">
         <ul class="pagination">
-            <a>&#171 Anterior</a>
+            <a>&#171</a>
+            <iconify-icon icon="iconoir:nav-arrow-left"></iconify-icon>
             <a>1</a>
             <a>2</a>
             <a>3</a>
-            ...
-            <a>18</a>
-            <a>19</a>
-            <a>20</a>
-            <a>Siguiente &#187</a>
+            <iconify-icon icon="iconoir:nav-arrow-right"></iconify-icon>
+            <a>&#187</a>
         </ul>
     </div>
 </main>

@@ -19,9 +19,14 @@
     <div id="contenido-col2">
         <div id="contenido-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
-            <div>
-                <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.split(' ')[0]}}" readonly>
-                <input type="time" id="hora" value="{{peticion.informacion.fecha.split(' ')[1]}}" readonly>
+            <div>  
+                {%if peticion.informacion.fecha%}
+                    <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.split(' ')[0]}}" readonly>
+                    <input type="time" id="hora" value="{{peticion.informacion.fecha.split(' ')[1]}}" readonly>
+                {%else%}
+                    <input type="date-local" id="fecha" readonly>
+                    <input type="time" id="hora" readonly>
+                {%endif%}
             </div>
         </div>
         <div id="contenido-ubicacion">

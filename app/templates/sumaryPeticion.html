@@ -37,8 +37,8 @@
                     <p id="timeline-hora">{{ hito.updated_at.strftime('%H:%M') }}</p>
                 </div>
 
-                {%if hito.empleado %}
-                    <img id="timeline-icon" src="{{url_for('uploads.fotoPerfil', filename=hito.empleado_editor.fotoPerfil)}}" alt="Foto de perfil del usuario" />
+                {%if hito.empleadoEditor %}
+                    <img id="timeline-icon" src="{{url_for('uploads.fotoPerfil', filename=hito.empleadoEditor.fotoPerfil)}}" alt="Foto de perfil del usuario" />
                 {%else%}
                     <iconify-icon id="timeline-icon" icon={{hito.estado.icono}}></iconify-icon>
                 {%endif%}
@@ -46,8 +46,8 @@
                 <div id="timeline-info">
                     <h3 id="timeline-estado">{{ hito.estado.valor }}</h3>
 
-                    {%if hito.empleado %}
-                        <p id="timeline-user">{{hito.empleado_editor.nombre}} {{hito.empleado_editor.apellido1}}</p>
+                    {%if hito.empleadoEditor %}
+                        <p id="timeline-user">{{hito.empleadoEditor.nombre}} {{hito.empleadoEditor.apellido1}}</p>
                     {%endif%}                  
                 </div>
    
