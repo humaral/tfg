@@ -206,15 +206,16 @@ footer p{
     border-radius: 4px;
     color: white;
     font-size: x-large;
+    user-select: none;
 }
 
-.table th a{
+.table th div{
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 5px 0 5px;
-    text-decoration: none;
     color: white;
+    cursor: pointer;
 }
 
 .table th iconify-icon{
@@ -233,10 +234,6 @@ footer p{
     padding-left: 5px;
     border-left: var(--bordes);
     border-right: var(--bordes);
-}
-
-.table a{
-    text-decoration: underline;
 }
 
 .pagination ul{

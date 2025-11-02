@@ -15,7 +15,7 @@ class Hito(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.text("CURRENT_TIMESTAMP"))
 
     peticion = db.relationship('Peticion', back_populates='hitos')
-    empleado_editor = db.relationship("Empleado", back_populates="hitos_editados")
+    empleadoEditor = db.relationship("Empleado", back_populates="hitosEditados")
     estado = db.relationship('Estado', back_populates='hitos')
 
     #NOTE como un toString para logs o console

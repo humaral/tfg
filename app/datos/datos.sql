@@ -49,10 +49,14 @@ CREATE TABLE IF NOT EXISTS EMPLEADO(
 CREATE TABLE IF NOT EXISTS PETICION(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     idTramite INTEGER NOT NULL,
+    idEstadoActual INTEGER NOT NULL,
+    idEmpleadoAsignado INTEGER,
     telefono INTEGER NOT NULL,
     informacion JSON NOT NULL, --Formato JSON con la información recuperada por la IA  
     --TODO Añadir un registro de llamadas
     FOREIGN KEY (idTramite) REFERENCES TRAMITE(id)
+    FOREIGN KEY (idEstadoActual) REFERENCES ESTADO(id)
+    FOREIGN KEY (idEmpleadoAsignado) REFERENCES EMPLEADO(id)
 );
 
 --Guarda los registros de cambio de estado de cada peticiÃ³n
@@ -87,8 +91,8 @@ insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, i
     ('hugo', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'admin@admin.com', 1, "test2.jpeg"), --Cuenta ADMIN, password = 'hugo'
     ('ana', 'scrypt:32768:8:1$Eh7gm1DfhPhJxlpC$6946004565cbf141160315051bce87bae05a0fbe6b74110d4badc35bacb56aa153172b755fdc6ee43c38cbb9bf4f6d53dfaf249dc0e2ecfef483f68b14982f9f', 'Ana', 'Sanz', 'Sanz', 'ana@empleada.com', 2, "test1.jpg"); --Cuenta Secretario, password = 'ana'
 
-insert into PETICION(idTramite, telefono, informacion) values 
-    (2, 654654654, '{
+insert into PETICION(idTramite, telefono, idEstadoActual, informacion) values 
+    (2, 654654654, 1, '{
             "dni": "69834521J",
             "nombre": "Fran García",
             "modalidad": "Presencial",
@@ -96,7 +100,31 @@ insert into PETICION(idTramite, telefono, informacion) values
             "direccion": "Av Bulevar de El Ejido - 168...",
             "servicio": "IVA",
             "fecha": "2026-01-11 13:30:00"
-        }');
+        }'),
+    (1, 612897211, 1, '{}'),
+    (2, 983983983, 1, '{}'),
+    (3, 999888777, 1, '{}'),
+    (1, 676000000, 1, '{}'),
+    (3, 717717717, 1, '{}'),
+    (2, 777777777, 1, '{}'),
+    (1, 622112134, 1, '{}'),
+    (2, 654666666, 1, '{}'),
+    (3, 917171717, 1, '{}'),
+    (1, 623457893, 1, '{}'),
+    (3, 758912430, 1, '{}'),
+    (2, 600010101, 1, '{}');
 
 insert into HITO(idPeticion, idEstado) values
-    (1, 2);
+    (1, 1),
+    (2, 1),
+    (3, 1),
+    (4, 1),
+    (5, 1),
+    (6, 1),
+    (7, 1),
+    (8, 1),
+    (9, 1),
+    (10, 1),
+    (11, 1),
+    (12, 1),
+    (13, 1);

@@ -7,6 +7,7 @@ from sqlalchemy import select
 from flask_login import LoginManager
 from .config import Config
 from datetime import datetime
+import locale
 
 
 db = SQLAlchemy()
@@ -20,6 +21,7 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
+    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
     #TODO REVISAR DONDE IRÁ ESTO
     #Se establecen variables globales en las plantillas que se actualizan al refrescar la página
     @app.context_processor

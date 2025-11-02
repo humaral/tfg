@@ -21,6 +21,10 @@
     flex-wrap: wrap;
 }
 
+#filter-id {
+    width: 60px;
+}
+
 #filter-telefono {
     width: 125px;
 }

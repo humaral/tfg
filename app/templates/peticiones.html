@@ -9,200 +9,98 @@
 {%block title%}Peticiones{%endblock%}
 
 {%block css%}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/peticiones.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/peticiones.css')}}">
 {%endblock%}
 
 {%block body%}
-    {%include "components/menu.html"%}
-    <main id="peticiones-page">
-            <div class="filter" id="peticiones-filter">
-                <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono">
-                <!-- TODO cambiar los select obteniendo las opciones de la base de datos -->
-                <select class="filter" id="filter-estado">
-                    <option value="">--Selecciona un estado--</option>
-                    <option value="curso">En Curso</option>
-                </select>
-                <select class="filter" id="filter-tramite">
-                    <option value="">--Selecciona un trámite--</option>
-                    <option value="aeat">Cita AEAT</option>
-                </select>
-            </div>
-            <div class="table" id="peticiones-card">
-                <table class="table" id="peticiones-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <a href="{{url_for('dashboard.peticiones', orden='id', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='id' else 'ascendente')}}">
-                                    ID
-                                    {%if orden_actual == 'id'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.peticiones', orden='telefono', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='telefono' else 'ascendente')}}">
-                                    Teléfono
-                                    {%if orden_actual == 'telefono'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.peticiones', orden='estado', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='estado' else 'ascendente')}}">
-                                    Estado
-                                    {%if orden_actual == 'estado'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.peticiones', orden='tramite', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='tramite' else 'ascendente')}}">
-                                    Trámite
-                                    {%if orden_actual == 'tramite'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.peticiones', orden='fecha', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='fecha' else 'ascendente')}}">
-                                    Fecha de Creación
-                                    {%if orden_actual == 'fecha'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.peticiones', orden='asignacion', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='asignacion' else 'ascendente')}}">
-                                    Asignado A
-                                    {%if orden_actual == 'asignacion'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                        </tr>
-                    </thead>
-                    <!-- TODO cambiar filas estáticas por contenido extraido de la base de datos -->
-                    <tbody>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td><a href="/login">0001</a></td>
-                            <td>654654654</td>
-                            <td>En Curso</td>
-                            <td>Cita AEAT</td>
-                            <td>05/05/2025 12:35h</td>
-                            <td>-</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- TODO hacer la paginacion dinamica -->
-            <div class="pagination" id="peticiones-pagination">
-                <ul class="pagination">
-                    <a>&#171 Anterior</a>
-                    <a>1</a>
-                    <a>2</a>
-                    <a>3</a>
-                    ...
-                    <a>18</a>
-                    <a>19</a>
-                    <a>20</a>
-                    <a>Siguiente &#187</a>
-                </ul>
-            </div>
-    </main>
+{%include "components/menu.html"%}
+<main id="peticiones-page">
+    <div class="filter" id="peticiones-filter">
+        <input type="search" class="filter" id="filter-id" placeholder="Id">
+        <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono">
+        <!-- TODO cambiar los select obteniendo las opciones de la base de datos -->
+        <select class="filter" id="filter-estado">
+            <option value="0">--Selecciona un estado--</option>
+            {%for estado in filtro_estados%}
+            <option value="{{estado.id}}">{{estado.valor}}</option>
+            {%endfor%}
+        </select>
+        <select class="filter" id="filter-tramite">
+            <option value="0">--Selecciona un trámite--</option>
+            {%for tramite in filtro_tramites%}
+            <option value="{{tramite.id}}">{{tramite.valor}}</option>
+            {%endfor%}
+        </select>
+        <input type="search" class="filter" id="filter-empleado" placeholder="Empleado Asignado">
+    </div>
+    <div class="table" id="peticiones-card">
+        <table class="table" id="peticiones-table">
+            <thead>
+                <tr>
+                    <th class="ordenable" data-orden="id">
+                        <div>
+                            ID
+                            <iconify-icon id="orden-icono" icon="tabler:arrow-up"></iconify-icon>
+                        </div>
+                    </th>
+                    <th class="ordenable" data-orden="telefono">
+                        <div> Teléfono </div>
+                    </th>
+                    <th class="ordenable" data-orden="estado">
+                        <div> Estado </div>
+                    </th>
+                    <th class="ordenable" data-orden="idTramite">
+                        <div> Trámite </div>
+                    </th>
+                    <th class="ordenable" data-orden="creacion">
+                        <div> Fecha de Creación </div>
+                    </th>
+                    <th class="ordenable" data-orden="asignacion">
+                        <div> Asignado A </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for peticion in peticiones%}
+                <tr>
+                    <td><a href='{{url_for("dashboard.sumary_peticion", idPeticion=peticion.id)}}'>{{peticion.id}}</a>
+                    </td>
+                    <td>{{peticion.telefono}}</td>
+                    <td>{{peticion.estadoActual.valor}}</td>
+                    <td>{{peticion.tramite.valor}}</td>
+                    <td>{{peticion.get_fechaCreacion()}}</td>
+                    <td>
+                        {%if peticion.empleado%}
+                            {{peticion.empleadoAsignado.nombre}} {{peticion.empleadoAsignado.apellido1}}
+                        {%else%}
+                            -
+                        {%endif%}
+                    </td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+    <!-- TODO hacer la paginacion dinamica -->
+    <div class="pagination" id="peticiones-pagination">
+        <ul class="pagination">
+            <a>&#171 Anterior</a>
+            <a>1</a>
+            <a>2</a>
+            <a>3</a>
+            ...
+            <a>18</a>
+            <a>19</a>
+            <a>20</a>
+            <a>Siguiente &#187</a>
+        </ul>
+    </div>
+</main>
+{%endblock%}
+
+{%block js%}
+<script>
+    const urlSumaryPeticion = "{{ url_for('dashboard.sumary_peticion', idPeticion=0) }}";
+</script>
+<script src='{{url_for("static", filename="js/peticiones.js")}}'></script>
 {%endblock%}
