@@ -243,6 +243,22 @@ footer p{
     border-right: var(--bordes);
 }
 
+.pagination{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 75%;
+  
+}
+
+.pagination > div{
+  display: flex;
+  flex-direction: row;
+  margin: 0 5px;
+  color: var(--color-texto-primario)
+}
+
 .pagination ul{
     display: flex;
     flex-direction: row;

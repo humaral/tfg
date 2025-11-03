@@ -16,8 +16,10 @@
 {%include "components/menu.html"%}
 <main id="peticiones-page">
     <div class="filter" id="peticiones-filter">
-        <input type="search" class="filter" id="filter-id" placeholder="Id" title="Filtrar por identificador de la petición.">
-        <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono" title="Filtrar por número telefónico">
+        <input type="search" class="filter" id="filter-id" placeholder="Id"
+            title="Filtrar por identificador de la petición.">
+        <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono"
+            title="Filtrar por número telefónico">
         <!-- TODO cambiar los select obteniendo las opciones de la base de datos -->
         <select class="filter" id="filter-estado">
             <option value="0">--Selecciona un estado--</option>
@@ -31,7 +33,8 @@
             <option value="{{tramite.id}}">{{tramite.valor}}</option>
             {%endfor%}
         </select>
-        <input type="search" class="filter" id="filter-empleado" placeholder="Empleado Asignado" title="Filtrar por empleado asignado. (Introduce '-' para peticiones sin asignar)">
+        <input type="search" class="filter" id="filter-empleado" placeholder="Empleado Asignado"
+            title="Filtrar por empleado asignado. (Introduce '-' para peticiones sin asignar)">
     </div>
     <div class="table" id="peticiones-card">
         <table class="table" id="peticiones-table">
@@ -49,7 +52,7 @@
                     <th class="ordenable" data-orden="estado">
                         <div> Estado </div>
                     </th>
-                    <th class="ordenable" data-orden="idTramite">
+                    <th class="ordenable" data-orden="tramite">
                         <div> Trámite </div>
                     </th>
                     <th class="ordenable" data-orden="creacion">
@@ -71,9 +74,9 @@
                     <td>{{peticion.get_fechaCreacion()}}</td>
                     <td>
                         {%if peticion.empleadoAsignado%}
-                            {{peticion.empleadoAsignado.nombre}} {{peticion.empleadoAsignado.apellido1}}
+                        {{peticion.empleadoAsignado.nombre}} {{peticion.empleadoAsignado.apellido1}}
                         {%else%}
-                            -
+                        -
                         {%endif%}
                     </td>
                 </tr>
@@ -82,16 +85,26 @@
         </table>
     </div>
     <!-- TODO hacer la paginacion dinamica -->
-    <div class="pagination" id="peticiones-pagination">
-        <ul class="pagination">
-            <a>&#171</a>
-            <iconify-icon icon="iconoir:nav-arrow-left"></iconify-icon>
-            <a>1</a>
-            <a>2</a>
-            <a>3</a>
-            <iconify-icon icon="iconoir:nav-arrow-right"></iconify-icon>
-            <a>&#187</a>
-        </ul>
+    <div class="pagination">
+        <div id="petciones-per_page">
+            <select class="filter" id="filter-per_page">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <p>Peticiones por página</p>
+        </div>
+        <div id="peticiones-pagination">
+            <ul id="lista-paginas">
+                <iconify-icon icon="iconoir:nav-arrow-left"></iconify-icon>
+                <a>1</a>
+                <a>2</a>
+                <a>3</a>
+                <iconify-icon icon="iconoir:nav-arrow-right"></iconify-icon>
+            </ul>
+        </div>
     </div>
 </main>
 {%endblock%}

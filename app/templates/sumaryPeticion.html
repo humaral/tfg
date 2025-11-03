@@ -22,7 +22,7 @@
                 <p>Teléfono: {{peticion.telefono}}</p>
             </div>
         </div>
-        {%if 'asignar_peticion' in session.permisos and not(peticion.idEmpleadoAsignado)%}
+        {%if 'asignar_peticion' in session.permisos and not(peticion.idEmpleadoAsignado) and (peticion.estadoActual.valor == "Revisable")%}
         <button type="submit" id="peticion-asignacion">Asignar</button>
         {%endif%}
         

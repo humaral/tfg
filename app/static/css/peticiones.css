@@ -36,11 +36,6 @@
     display: block;
 }
 
-#peticiones-pagination {
-    width: 75%;
-    align-items: start;
-}
-
 /* Página de una petición */
 #peticion-page {
     display: flex;

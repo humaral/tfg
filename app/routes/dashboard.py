@@ -4,7 +4,7 @@
 
 from flask import Blueprint, jsonify, render_template, request, session, abort
 from flask_login import login_required
-from sqlalchemy import select, func, asc, desc, or_
+from sqlalchemy import select, func, asc, desc, or_, case
 from markupsafe import escape
 from app.utils import permiso_requerido
 from app.models import Peticion, Hito, Estado, Tramite, Empleado
@@ -25,7 +25,7 @@ def peticiones():
     orden = request.args.get('orden', 'id')
     direccion = request.args.get('direccion', 'ascendente')
     page = request.args.get('page', 1, type=int)
-    per_page = 10
+    per_page = request.args.get('per_page', 10, type=int)
 
     stmt = select(Peticion).limit(10)
     if direccion == "ascendente":
@@ -38,7 +38,7 @@ def peticiones():
     peticiones = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
 
 
-    return render_template("peticiones.html", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles, orden_actual=escape(orden), direccion_actual=escape(direccion), peticiones=peticiones)
+    return render_template("peticiones.html", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles, orden_actual=escape(orden), direccion_actual=escape(direccion), peticiones=peticiones, page_actual=escape(page), per_page=escape(per_page))
 
 @dashboard_bp.route("/api/peticiones")
 @login_required
@@ -51,7 +51,9 @@ def api_peticiones():
 
     orden = request.args.get('orden')
     direccion = request.args.get('direccion')
-    
+
+    per_page = request.args.get('per_page', type=int)
+
 
     stmt = select(Peticion)
     if id:
@@ -69,12 +71,22 @@ def api_peticiones():
             subq = select(Empleado).where(or_(Empleado.username.like(f"%{empleado}%"),Empleado.nombre.like(f"%{empleado}%"),Empleado.apellido1.like(f"%{empleado}%"))).subquery()
             stmt = stmt.join(subq, Peticion.idEmpleadoAsignado == subq.c.id)
     
-    if direccion == "ascendente":
-        stmt = stmt.order_by(asc(getattr(Peticion, orden)))
-    else:
-        stmt = stmt.order_by(desc(getattr(Peticion, orden)))
+    direc = asc if direccion == "ascendente" else desc
+    
+    if orden in ("id", "telefono"):
+        stmt = stmt.order_by(direc(getattr(Peticion, orden)))
+    elif orden == "estado":
+        stmt = stmt.join(Estado, Peticion.idEstadoActual==Estado.id).order_by(direc(Estado.valor))
+    elif orden == "tramite":
+        stmt = stmt.join(Tramite, Peticion.idTramite==Tramite.id).order_by(direc(Tramite.valor))
+    elif orden == "creacion":
+        #TEST comprobar que funcion ya que el insert pone todas las peticiones con la misma fechas
+        stmt = stmt.join(Hito, (Peticion.id==Hito.idPeticion) & (Peticion.idEstadoActual == Hito.idEstado)).order_by(direc(Hito.updated_at))
+    elif orden == "asignacion":
+        stmt = stmt.outerjoin(Empleado, Peticion.idEmpleadoAsignado==Empleado.id).order_by(direc(Empleado.username).nulls_last(), direc(Peticion.id))
+    
+    peticiones = db.session.scalars(stmt.limit(per_page))
 
-    peticiones = db.session.scalars(stmt.limit(10))
 
     data = [{
         "id": p.id,

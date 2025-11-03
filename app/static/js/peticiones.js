@@ -10,6 +10,9 @@ let ordenActual = "id";
 let direccionActual = "ascendente";
 const icono = document.getElementById('orden-icono');
 
+const per_pageFiltro = document.getElementById("filter-per_page");
+const lista_paginas = document.getElementById("lista-paginas");
+
 document.querySelectorAll(".ordenable").forEach(th =>{
 
     th.addEventListener("click", () => {
@@ -35,7 +38,7 @@ document.querySelectorAll(".ordenable").forEach(th =>{
         
         th.querySelector("div").appendChild(icono);
 
-        actualizarTabla;
+        actualizarTabla();
 
     });
 });
@@ -49,13 +52,12 @@ async function actualizarTabla() {
         tramite: tramiteFiltro.value,
         empleado: empleadoFiltro.value,
         orden: ordenActual,
-        direccion: direccionActual
+        direccion: direccionActual,
+        per_page: per_pageFiltro.value
     });
 
     const res = await fetch(`/api/peticiones?${params}`);
     const data = await res.json();
-
-    // console.log(idFiltro.value, telefonoFiltro.value, data)
 
     tabla_body.innerHTML = data.map(p =>
         `<tr>
@@ -75,3 +77,5 @@ telefonoFiltro.addEventListener("input", actualizarTabla);
 estadoFiltro.addEventListener("change", actualizarTabla);
 tramiteFiltro.addEventListener("change", actualizarTabla);
 empleadoFiltro.addEventListener("input", actualizarTabla);
+
+per_pageFiltro.addEventListener("change", actualizarTabla);
