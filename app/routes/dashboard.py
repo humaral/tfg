@@ -9,6 +9,7 @@ from markupsafe import escape
 from app.utils import permiso_requerido
 from app.models import Peticion, Hito, Estado, Tramite, Empleado
 from app import db
+from math import ceil
 
 
 dashboard_bp = Blueprint('dashboard', __name__)
@@ -22,23 +23,7 @@ def peticiones():
     estados_posibles = db.session.scalars(select(Estado))
     tramites_posibles = db.session.scalars(select(Tramite).where(Tramite.activo==True))
 
-    orden = request.args.get('orden', 'id')
-    direccion = request.args.get('direccion', 'ascendente')
-    page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
-
-    stmt = select(Peticion).limit(10)
-    if direccion == "ascendente":
-        stmt = stmt.order_by(asc(getattr(Peticion, orden)))
-    else:
-        stmt = stmt.order_by(desc(getattr(Peticion, orden)))
-
-    paginas_totales = db.session.scalar(select(func.count()).select_from(Peticion))
-
-    peticiones = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
-
-
-    return render_template("peticiones.html", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles, orden_actual=escape(orden), direccion_actual=escape(direccion), peticiones=peticiones, page_actual=escape(page), per_page=escape(per_page))
+    return render_template("peticiones.html", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles)
 
 @dashboard_bp.route("/api/peticiones")
 @login_required
@@ -53,7 +38,9 @@ def api_peticiones():
     direccion = request.args.get('direccion')
 
     per_page = request.args.get('per_page', type=int)
-
+    page = request.args.get('page', type=int)
+    paginas_totales = ceil((db.session.scalar(select(func.count()).select_from(Peticion)))/per_page)
+    print(paginas_totales)
 
     stmt = select(Peticion)
     if id:
@@ -85,8 +72,7 @@ def api_peticiones():
     elif orden == "asignacion":
         stmt = stmt.outerjoin(Empleado, Peticion.idEmpleadoAsignado==Empleado.id).order_by(direc(Empleado.username).nulls_last(), direc(Peticion.id))
     
-    peticiones = db.session.scalars(stmt.limit(per_page))
-
+    peticiones = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
 
     data = [{
         "id": p.id,
@@ -94,10 +80,16 @@ def api_peticiones():
         "estado": p.estadoActual.valor,
         "tramite": p.tramite.valor,
         "creacion": p.get_fechaCreacion(),
-        "asignacion": f"{p.empleadoAsignado.nombre} {p.empleadoAsignado.apellido1}" if p.empleadoAsignado else '-'
+        "asignacion": f"{p.empleadoAsignado.nombre} {p.empleadoAsignado.apellido1}" if p.empleadoAsignado else '-',
     } for p in peticiones]
-    print(data)
-    return jsonify(data)
+    
+    return jsonify({
+        'peticiones': data,
+        'ordenActual': orden,
+        'direccionActual': direccion,
+        'pageActual': page,
+        'totalPages': paginas_totales
+    })
 
 
 @dashboard_bp.route("/peticiones/<int:idPeticion>")

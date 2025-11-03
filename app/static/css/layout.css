@@ -185,6 +185,7 @@ footer p{
   font-size: 15px;
 }
 
+
 /*Estilos generales de las tablas*/
 .filter input, select{
     position: relative;
@@ -199,6 +200,10 @@ footer p{
 .filter input[title]:hover:after{
   content: attr(title);
   position: absolute;
+}
+
+.filter select{
+  cursor: pointer;
 }
 
 .table table{
@@ -255,19 +260,40 @@ footer p{
 .pagination > div{
   display: flex;
   flex-direction: row;
-  margin: 0 5px;
+  align-items: center;
+  margin-left: 5px;
   color: var(--color-texto-primario)
 }
 
-.pagination ul{
+.pagination > div > div{
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding-left: 10px;
+    margin-right: 5px;
+    cursor: pointer;
 }
 
-.pagination ul a{
-    padding: 0 3px 0 3px;
-    color: var(--color-primario);
+.pagination .selected{
+  color: var(--color-primario);
+  font-weight: bold;
+  text-decoration: underline;
+}
+.pagination iconify-icon{
+  color: var(--color-primario);
+  font-weight: bold;
+  font-size: large;
+}
+.pagination a{
+    padding: 0 5px 0 5px;
+    color: var(--color-secundario);
+    text-decoration: none;
+}
+
+
+
+.pagination .filter{
+  cursor: pointer;
 }
 
 /* Estilo del mensaje de error */
@@ -283,3 +309,4 @@ footer p{
   padding: 0 0 5px 5px;
   color: var(--color-terciario);
 }
+

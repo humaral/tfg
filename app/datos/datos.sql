@@ -112,7 +112,19 @@ insert into PETICION(idTramite, telefono, idEstadoActual, idEmpleadoAsignado, in
     (3, 917171717, 1, null, '{}'),
     (1, 623457893, 1, null, '{}'),
     (3, 758912430, 1, null, '{}'),
-    (2, 600010101, 1, null, '{}');
+    (2, 600010101, 1, null, '{}'),
+    (1, 623457876, 1, null, '{}'),
+    (2, 623462631, 1, null, '{}'),
+    (3, 927485234, 1, null, '{}'),
+    (1, 724354521, 1, null, '{}'),
+    (3, 632451113, 1, null, '{}'),
+    (2, 609939409, 1, null, '{}'),
+    (1, 909467980, 1, null, '{}'),
+    (2, 948670000, 1, null, '{}'),
+    (3, 623452617, 1, null, '{}'),
+    (1, 623457885, 1, null, '{}'),
+    (3, 777345345, 1, null, '{}'),
+    (2, 600000000, 1, null, '{}');
 
 insert into HITO(idPeticion, idEstado, updated_by) values
     (1, 1, null),
@@ -127,4 +139,16 @@ insert into HITO(idPeticion, idEstado, updated_by) values
     (10, 1, null),
     (11, 1, null),
     (12, 1, null),
-    (13, 1, null);
+    (13, 1, null),
+    (14, 1, null),
+    (15, 1, null),
+    (16, 1, null),
+    (17, 1, null),
+    (18, 1, null),
+    (19, 1, null),
+    (20, 1, null),
+    (21, 1, null),
+    (22, 1, null),
+    (23, 1, null),
+    (24, 1, null),
+    (25, 1, null);
