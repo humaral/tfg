@@ -16,22 +16,21 @@
 {%include "components/menu.html"%}
 <main id="peticiones-page">
     <div class="filter" id="peticiones-filter">
-        <input type="search" class="filter" id="filter-id" placeholder="Id" title="Filtrar por identificador de la petición.">
-        <input type="search" class="filter" id="filter-telefono" placeholder="Teléfono" title="Filtrar por número telefónico.">
-        <!-- TODO cambiar los select obteniendo las opciones de la base de datos -->
-        <select class="filter" id="filter-estado">
+        <input type="search" class="filter" id="filter-id-peticiones" placeholder="Id" title="Filtrar por identificador de la petición.">
+        <input type="search" class="filter" id="filter-telefono-peticiones" placeholder="Teléfono" title="Filtrar por número telefónico.">
+        <select class="filter" id="filter-estado-peticiones">
             <option value="0">--Selecciona un estado--</option>
             {%for estado in filtro_estados%}
             <option value="{{estado.id}}">{{estado.valor}}</option>
             {%endfor%}
         </select>
-        <select class="filter" id="filter-tramite">
+        <select class="filter" id="filter-tramite-peticiones">
             <option value="0">--Selecciona un trámite--</option>
             {%for tramite in filtro_tramites%}
             <option value="{{tramite.id}}">{{tramite.valor}}</option>
             {%endfor%}
         </select>
-        <input type="search" class="filter" id="filter-empleado" placeholder="Empleado Asignado" title="Filtrar por empleado asignado. (Introduce '-' para peticiones sin asignar)">
+        <input type="search" class="filter" id="filter-empleado-peticiones" placeholder="Empleado Asignado" title="Filtrar por empleado asignado. (Introduce '-' para peticiones sin asignar)">
     </div>
     <div class="table" id="peticiones-card">
         <table class="table" id="peticiones-table">
@@ -40,7 +39,7 @@
                     <th class="ordenable" data-orden="id">
                         <div>
                             ID
-                            <iconify-icon id="orden-icono" icon="tabler:arrow-up"></iconify-icon>
+                            <iconify-icon id="orden-icono-peticiones" icon="tabler:arrow-up"></iconify-icon>
                         </div>
                     </th>
                     <th class="ordenable" data-orden="telefono">
@@ -61,30 +60,12 @@
                 </tr>
             </thead>
             <tbody>
-                {%for peticion in peticiones%}
-                <tr>
-                    <td><a href='{{url_for("dashboard.sumary_peticion", idPeticion=peticion.id)}}'>{{peticion.id}}</a>
-                    </td>
-                    <td>{{peticion.telefono}}</td>
-                    <td>{{peticion.estadoActual.valor}}</td>
-                    <td>{{peticion.tramite.valor}}</td>
-                    <td>{{peticion.get_fechaCreacion()}}</td>
-                    <td>
-                        {%if peticion.empleadoAsignado%}
-                        {{peticion.empleadoAsignado.nombre}} {{peticion.empleadoAsignado.apellido1}}
-                        {%else%}
-                        -
-                        {%endif%}
-                    </td>
-                </tr>
-                {%endfor%}
             </tbody>
         </table>
     </div>
-    <!-- TODO hacer la paginacion dinamica -->
     <div class="pagination">
         <div id="petciones-per_page">
-            <select class="filter" id="filter-per_page">
+            <select class="filter" id="filter-num-peticiones">
                 <option value="5">5</option>
                 <option value="10" selected>10</option>
                 <option value="25">25</option>
@@ -94,10 +75,10 @@
             <p>Peticiones por página</p>
         </div>
         <div id="peticiones-pagination">
-            <div id="menu-pages">
-                <iconify-icon id="prev-page" icon="iconoir:nav-arrow-left"></iconify-icon>
-                <span id="lista-pages"></span>
-                <iconify-icon id="next-page" icon="iconoir:nav-arrow-right"></iconify-icon>
+            <div>
+                <iconify-icon id="prev-page-peticiones" icon="iconoir:nav-arrow-left"></iconify-icon>
+                <span id="lista-pages-peticiones"></span>
+                <iconify-icon id="next-page-peticiones" icon="iconoir:nav-arrow-right"></iconify-icon>
             </div>
         </div>
     </div>
@@ -106,7 +87,7 @@
 
 {%block js%}
 <script>
-    const urlSumaryPeticion = "{{ url_for('dashboard.sumary_peticion', idPeticion=0) }}";
+    let urlSumaryPeticion = "{{ url_for('dashboard.sumary_peticion', idPeticion=0) }}";
 </script>
 <script src='{{url_for("static", filename="js/peticiones.js")}}'></script>
 {%endblock%}

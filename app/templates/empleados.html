@@ -9,123 +9,85 @@
 {%block title%}Empleados{%endblock%}
 
 {%block css%}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/empleados.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/empleados.css')}}">
 {%endblock%}
 
 {%block body%}
-    {%include "components/menu.html"%}
-    <main id="empleados-page">
-            <div class="filter" id="empleados-controllers">
-                <div id="empleados-filters">
-                    <input type="search" placeholder="Usuario">
-                    <input type="search" placeholder="Nombre">
-                    <input type="search" placeholder="Email">
-                </div>
-                {%if "crear_empleado" in session.permisos%}
-                <a id="nuevo-empleado">
-                    <iconify-icon icon="lucide:user-round-plus"></iconify-icon>
-                    Nuevo Empleado
-                </a>
-                {%endif%}
+{%include "components/menu.html"%}
+<main id="empleados-page">
+    <div id="empleados-controllers">
+        <div class="filter" id="empleados-filters">
+            <input type="search" class="filter" id="filter-username-empleados" placeholder="Usuario" title="Filtrar por usuario del empleado.">
+            <input type="search" class="filter" id="filter-nombre-empleados" placeholder="Nombre" title="Filtrar por nombre/apellidos del empleado.">
+            <input type="search" class="filter" id="filter-email-empleados" placeholder="Email" title="Filtrar por email del empleado.">
+            <select class="filter" class="filter" id="filter-rol-empleados">
+                <option value="0">--Selecciona un rol--</option>
+                {%for rol in filtro_roles%}
+                <option value="{{rol.id}}">{{rol.valor}}</option>
+                {%endfor%}
+            </select>
+            <div>
+                <label for="filter-activo-empleados">Activo:</label>
+                <input type="checkbox" class="filter" id="filter-activo-empleados" checked>
             </div>
-            <div class="table" id="empleados-card">
-                <table class="table" id="empleados-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <a href="{{url_for('dashboard.empleados', orden='usuario', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='usuario' else 'ascendente')}}">
-                                    Usuario
-                                    {%if orden_actual == 'usuario'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.empleados', orden='nombre', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='nombre' else 'ascendente')}}">
-                                    Nombre
-                                    {%if orden_actual == 'nombre'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.empleados', orden='email', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='email' else 'ascendente')}}">
-                                    Email
-                                    {%if orden_actual == 'email'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.empleados', orden='rol', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='rol' else 'ascendente')}}">
-                                    Rol
-                                    {%if orden_actual == 'rol'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                            <th>
-                                <a href="{{url_for('dashboard.empleados', orden='activo', direccion='descendente' if direccion_actual == 'ascendente' and orden_actual=='activo' else 'ascendente')}}">
-                                ?    
-                                    {%if orden_actual == 'activo'%}
-                                        {%if direccion_actual == 'ascendente'%}
-                                            <iconify-icon icon="tabler:arrow-up"></iconify-icon>
-                                        {%else%}
-                                            <iconify-icon icon="tabler:arrow-down"></iconify-icon>
-                                        {%endif%}
-                                    {%endif%}
-                                </a>
-                            </th>
-                        </tr>
-                    </thead>
-                    <!-- TODO cambiar filas estáticas por contenido extraido de la base de datos -->
-                    <tbody>
-                        <tr>
-                            <td>Sarape</td>
-                            <td>Sara Pérez González</td>
-                            <td>sara.perez@tramitestelefonicos.es</td>
-                            <td>Administrativo</td>
-                            <td><iconify-icon id="active-true" icon="charm:circle-tick"></iconify-icon></td>
-                        </tr>
-                        <tr>
-                            <td>Sarape</td>
-                            <td>Sara Pérez González</td>
-                            <td>sara.perez@tramitestelefonicos.es</td>
-                            <td>Administrativo</td>
-                            <td><iconify-icon id="active-false" icon="charm:circle-cross"></iconify-icon></td>
-                        </tr>
-                    </tbody>
-                </table>
+        </div>
+        {%if "crear_empleado" in session.permisos%}
+        <a id="nuevo-empleado">
+            <iconify-icon icon="lucide:user-round-plus"></iconify-icon>
+            Nuevo Empleado
+        </a>
+        {%endif%}
+    </div>
+    <div class="table" id="empleados-card">
+        <table class="table" id="empleados-table">
+            <thead>
+                <tr>
+                    <th class="ordenable" data-orden="username">
+                        <div>
+                            Usuario
+                            <iconify-icon id="orden-icono-empleados" icon="tabler:arrow-up"></iconify-icon>
+                        </div>
+                    </th>
+                    <th class="ordenable" data-orden="nombre">
+                        <div> Nombre </div>
+                    </th>
+                    <th class="ordenable" data-orden="email">
+                        <div> Email </div>
+                    </th>
+                    <th class="ordenable" data-orden="rol">
+                        <div> Rol </div>
+                    </th>
+                    <th>
+                        <div> ? </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <div id="empleados-per_page">
+            <select class="filter" id="filter-num-empleados">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <p>Empleados por página</p>
+        </div>
+        <div id="empleados-pagination">
+            <div>
+                <iconify-icon id="prev-page-empleados" icon="iconoir:nav-arrow-left"></iconify-icon>
+                <span id="lista-pages-empleados"></span>
+                <iconify-icon id="next-page-empleados" icon="iconoir:nav-arrow-right"></iconify-icon>
             </div>
-            <!-- TODO hacer la paginacion dinamica -->
-            <div class="pagination" id="empleados-pagination">
-                <ul class="pagination">
-                    <a>&#171 Anterior</a>
-                    <a>1</a>
-                    <a>2</a>
-                    <a>3</a>
-                    ...
-                    <a>18</a>
-                    <a>19</a>
-                    <a>20</a>
-                    <a>Siguiente &#187</a>
-                </ul>
-            </div>
-    </main>
+        </div>
+    </div>
+</main>
+{%endblock%}
+
+{%block js%}
+<script src='{{url_for("static", filename="js/empleados.js")}}'></script>
 {%endblock%}

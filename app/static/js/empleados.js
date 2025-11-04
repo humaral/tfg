@@ -1,22 +1,22 @@
-const menuPeticiones = document.getElementById("menu-peticiones")
+const menuPeticiones = document.getElementById("menu-empleados")
 menuPeticiones.setAttribute("class", "selected")
 
-const idFiltro = document.getElementById("filter-id-peticiones");
-const telefonoFiltro = document.getElementById("filter-telefono-peticiones");
-const estadoFiltro = document.getElementById("filter-estado-peticiones");
-const tramiteFiltro = document.getElementById("filter-tramite-peticiones");
-const empleadoFiltro = document.getElementById("filter-empleado-peticiones");
+const usernameFiltro = document.getElementById("filter-username-empleados");
+const nombreFiltro = document.getElementById("filter-nombre-empleados");
+const emailFiltro = document.getElementById("filter-email-empleados");
+const rolFiltro = document.getElementById("filter-rol-empleados");
+const activoFiltro = document.getElementById("filter-activo-empleados");
 
-const tabla_peticiones = document.getElementById("peticiones-table").querySelector("tbody");
+const tabla_empleados = document.getElementById("empleados-table").querySelector("tbody");
 
-let ordenActual = "id";
+let ordenActual = "username";
 let direccionActual = "ascendente";
-const icono = document.getElementById('orden-icono-peticiones');
+const icono = document.getElementById('orden-icono-empleados');
 
-const per_pageFiltro = document.getElementById("filter-num-peticiones");
-const previousPageButton = document.getElementById("prev-page-peticiones");
-const listPages = document.getElementById("lista-pages-peticiones");
-const nextPageButton = document.getElementById("next-page-peticiones");
+const per_pageFiltro = document.getElementById("filter-num-empleados");
+const previousPageButton = document.getElementById("prev-page-empleados");
+const listPages = document.getElementById("lista-pages-empleados");
+const nextPageButton = document.getElementById("next-page-empleados");
 
 let pageActual = 1;
 let totalPages = 1;
@@ -55,28 +55,31 @@ document.querySelectorAll(".ordenable").forEach(th => {
 
 async function actualizarTabla() {
     const params = new URLSearchParams({
-        id: idFiltro.value,
-        telefono: telefonoFiltro.value,
-        estado: estadoFiltro.value,
-        tramite: tramiteFiltro.value,
-        empleado: empleadoFiltro.value,
+        username: usernameFiltro.value,
+        nombre: nombreFiltro.value,
+        email: emailFiltro.value,
+        rol: rolFiltro.value,
+        activo: activoFiltro.checked,
         orden: ordenActual,
         direccion: direccionActual,
         per_page: per_pageFiltro.value,
         page: pageActual
     });
 
-    const res = await fetch(`/api/peticiones?${params}`);
+    const res = await fetch(`/api/empleados?${params}`);
     const data = await res.json();
 
-    tabla_peticiones.innerHTML = data.peticiones.map(p =>
+    tabla_empleados.innerHTML = data.empleados.map(e =>
         `<tr>
-            <td><a href="${urlSumaryPeticion.replace('0', p.id)}">${p.id}</a></td>
-            <td>${p.telefono}</td>
-            <td>${p.estado}</td>
-            <td>${p.tramite}</td>
-            <td>${p.creacion}</td>
-            <td>${p.asignacion}</td>
+            <td>${e.username}</td>
+            <td>${e.nombre}</td>
+            <td>${e.email}</td>
+            <td>${e.rol}</td>
+            <td class="icono-empleados-activo">
+                ${e.activo
+                    ? `<iconify-icon id="active-true" icon="charm:circle-tick"></iconify-icon>`
+                    : `<td><iconify-icon id="active-false" icon="charm:circle-cross"></iconify-icon>`}
+            </td>
         </tr>`
     ).join("");
 
@@ -122,11 +125,12 @@ function cargarPaginacion() {
 
 
 // Eventos
-idFiltro.addEventListener("input", actualizarTabla);
-telefonoFiltro.addEventListener("input", actualizarTabla);
-estadoFiltro.addEventListener("change", actualizarTabla);
-tramiteFiltro.addEventListener("change", actualizarTabla);
-empleadoFiltro.addEventListener("input", actualizarTabla);
+usernameFiltro.addEventListener("input", actualizarTabla);
+nombreFiltro.addEventListener("input", actualizarTabla);
+emailFiltro.addEventListener("input", actualizarTabla);
+rolFiltro.addEventListener("change", actualizarTabla);
+activoFiltro.addEventListener("change", actualizarTabla);
+
 
 per_pageFiltro.addEventListener("change", () =>{
     pageActual=1;

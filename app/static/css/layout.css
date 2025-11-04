@@ -4,8 +4,8 @@
 * Descripción: hoja de estilos generales de la página web, especificando el estilo de la cabecera, el pie de página y el menú.
 */
 
-:root{
-  --color-primario: rgb(2,46,89);
+:root {
+  --color-primario: rgb(2, 46, 89);
   --color-secundario: rgb(77, 110, 143);
   --color-terciario: rgb(119, 12, 12);
 
@@ -19,19 +19,21 @@
   --bordes: 1px solid #ccc;
 }
 
-header, footer{
+
+header,
+footer {
   width: 100%;
   display: flex;
 }
 
-.logo{
+.logo {
   display: flex;
   flex-direction: row;
   text-decoration: none;
   overflow: hidden;
 }
 
-.logo img{
+.logo img {
   height: 64px;
   width: auto;
   margin: 15px 5px 15px 15px;
@@ -70,21 +72,21 @@ header, footer{
 }
 
 
-#user-logged{
+#user-logged {
   margin-left: auto;
   margin-right: 25px;
   align-self: center;
   text-decoration: none;
 }
 
-.perfil{
+.perfil {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin: 5px;
 }
 
-.perfil img{
+.perfil img {
   height: 50px;
   width: 50px;
   border: var(--bordes);
@@ -92,14 +94,14 @@ header, footer{
   margin-right: 10px;
 }
 
-.perfil #perfil-titulo{
+.perfil #perfil-titulo {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
 }
 
-.perfil #perfil-nombre{
+.perfil #perfil-nombre {
   margin: 0;
   font-size: large;
   font-weight: bold;
@@ -107,14 +109,15 @@ header, footer{
   text-wrap: nowrap;
 }
 
-.perfil #perfil-rol{
+.perfil #perfil-rol {
   margin: 0;
   font-size: medium;
   font-style: italic;
   color: var(--color-texto-secundario);
 }
 
-html,body{
+html,
+body {
   margin: 0;
   padding: 0;
   font-family: monospace;
@@ -126,16 +129,16 @@ html,body{
   height: 100%;
 }
 
-main{
+main {
   flex: 1;
 }
 
-footer{
+footer {
   flex-direction: column;
   margin-bottom: 5px;
 }
 
-footer hr{
+footer hr {
   width: 100%;
   border-top: 1px dashed var(--color-texto-secundario);
   border-left: none;
@@ -143,10 +146,10 @@ footer hr{
   background: transparent;
   margin: 0 0 5px 0;
   opacity: 0.5;
-  
+
 }
 
-footer p{
+footer p {
   margin: 2px 0;
   padding: 0;
   font-size: 12px;
@@ -160,7 +163,7 @@ footer p{
   flex-direction: row;
 }
 
-.menu a{
+.menu a {
   display: flex;
   flex-direction: column;
   margin: 0 20px 0 20px;
@@ -181,83 +184,91 @@ footer p{
   height: 48px;
 }
 
-.menu a span{
+.menu a span {
   font-size: 15px;
 }
 
+.menu .selected {
+  color: var(--color-primario);
+  font-weight: bold;
+}
 
 /*Estilos generales de las tablas*/
-.filter input, select{
-    position: relative;
-    height: 25px;
-    margin: 5px 5px 5px 5px;
-    padding-left: 5px;
-    border-radius: 8px;
-    border: var(--bordes);
+.filter input,
+select {
+  position: relative;
+  height: 25px;
+  margin: 5px 5px 5px 5px;
+  padding-left: 5px;
+  border-radius: 8px;
+  border: var(--bordes);
 }
 
 /* TODO: cambiar estilo */
-.filter input[title]:hover:after{
+.filter input[title]:hover:after {
   content: attr(title);
   position: absolute;
 }
 
-.filter select{
+.filter select {
   cursor: pointer;
 }
 
-.table table{
-    width: 100%;
-    border: var(--bordes);
-    border-radius: 4px;
-    white-space: nowrap;
+.table table {
+  width: 100%;
+  border: var(--bordes);
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
-.table th{
-    background-color: var(--color-primario);
-    border-radius: 4px;
-    color: white;
-    font-size: x-large;
-    user-select: none;
+.table th {
+  background-color: var(--color-primario);
+  border-radius: 4px;
+  color: white;
+  font-size: x-large;
+  user-select: none;
 }
 
-.table th div{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5px 0 5px;
-    color: white;
-    cursor: pointer;
+.table th div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px 0 5px;
+  color: white;
 }
 
-.table th iconify-icon{
-    font-size: x-large;
-    color: white;
-    font-weight: bold;
+.table .ordenable{
+  cursor: pointer;
 }
 
-.table tr:nth-child(even){
-    background-color: var(--color-secundario);
+.table th iconify-icon {
+  font-size: x-large;
+  color: white;
+  font-weight: bold;
 }
 
-.table td{
-    color: var(--color-texto-primario);
-    font-size: large;
-    padding-left: 5px;
-    border-left: var(--bordes);
-    border-right: var(--bordes);
+.table tr:nth-child(even) {
+  background-color: var(--color-secundario);
 }
 
-.pagination{
+.table td {
+  color: var(--color-texto-primario);
+  font-size: large;
+  padding-left: 5px;
+  border-left: var(--bordes);
+  border-right: var(--bordes);
+}
+
+.pagination {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 75%;
-  
+
 }
 
-.pagination > div{
+.pagination>div {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -265,48 +276,48 @@ footer p{
   color: var(--color-texto-primario)
 }
 
-.pagination > div > div{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-left: 10px;
-    margin-right: 5px;
-    cursor: pointer;
+.pagination>div>div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.pagination .selected{
+.pagination .selected {
   color: var(--color-primario);
   font-weight: bold;
   text-decoration: underline;
 }
-.pagination iconify-icon{
+
+.pagination iconify-icon {
   color: var(--color-primario);
   font-weight: bold;
   font-size: large;
 }
-.pagination a{
-    padding: 0 5px 0 5px;
-    color: var(--color-secundario);
-    text-decoration: none;
+
+.pagination a {
+  padding: 0 5px 0 5px;
+  color: var(--color-secundario);
+  text-decoration: none;
 }
 
-
-
-.pagination .filter{
+.pagination .filter {
   cursor: pointer;
 }
 
 /* Estilo del mensaje de error */
-.mensaje-error{
+.mensaje-error {
   display: flex;
   flex-direction: column;
   align-items: start;
   margin-bottom: 5px;
 }
 
-.mensaje-error p{
+.mensaje-error p {
   margin: 0;
   padding: 0 0 5px 5px;
   color: var(--color-terciario);
 }
-

@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS EMPLEADO(
     email TEXT UNIQUE NOT NULL,
     idRol INTEGER NOT NULL,
     fotoPerfil TEXT NOT NULL DEFAULT 'default.jpg', --Ruta de la foto de perfil
-
+    activo BOOLEAN NOT NULL DEFAULT 1,
+    
     FOREIGN KEY (idRol) REFERENCES ROL(id)
 );
 

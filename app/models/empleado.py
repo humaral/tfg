@@ -18,6 +18,7 @@ class Empleado(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True, nullable=False)
     idRol = db.Column(db.Integer, db.ForeignKey('rol.id'), nullable=False)
     fotoPerfil = db.Column(db.String(255), nullable=False, server_default=db.text("'default.jpg'")) #Guarda la ruta de la foto de perfil
+    activo = db.Column(db.Boolean, nullable=False, server_deafult=db.text("1"))
 
     rol = db.relationship("Rol", back_populates="empleados")
     hitosEditados = db.relationship("Hito", back_populates="empleadoEditor")
