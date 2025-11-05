@@ -5,6 +5,7 @@
 from app import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from unidecode import unidecode
 
 class Empleado(db.Model, UserMixin):
     __tablename__ = "empleado"
@@ -33,3 +34,14 @@ class Empleado(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+    def generar_username(self):
+        user = unidecode(f"{self.nombre}.{self.apellido1}").lower().replace(" ","")
+        cont = 1
+
+        while db.session.scalar(db.select(Empleado).where(Empleado.username==user)):
+            cont +=1
+            user = f"{user}{cont}"
+
+        return user
+

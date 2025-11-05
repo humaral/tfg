@@ -2,11 +2,10 @@
 # Fecha: 27-10-2025
 # Descripción: Controlador de las rutas en la vista del dashboard.
 
-from flask import Blueprint, jsonify, render_template, request, session, abort
+from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
 from flask_login import login_required
-from sqlalchemy import select, func, asc, desc, or_, case
-from markupsafe import escape
-from app.utils import permiso_requerido
+from sqlalchemy import select, func, asc, desc, or_
+from app.utils import permiso_requerido, temporal_password
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
@@ -56,9 +55,12 @@ def api_peticiones():
         if empleado=='-':
             stmt = stmt.where(Peticion.idEmpleadoAsignado.is_(None))
         else:
-            #FIX ignorar tildes/mayusc
-            aux = unidecode(empleado.lower())
-            subq = select(Empleado).where(or_(Empleado.username.like(f"%{aux}%"),Empleado.nombre.like(f"%{aux}%"),Empleado.apellido1.like(f"%{aux}%"))).subquery()
+            subq = select(Empleado).where(or_(
+                Empleado.username.ilike(f"%{empleado}%"),
+                Empleado.nombre.ilike(f"%{empleado}%"),
+                Empleado.apellido1.ilike(f"%{empleado}%"),
+                Empleado.apellido2.ilike(f"%{empleado}%")
+                )).subquery()
             stmt = stmt.join(subq, Peticion.idEmpleadoAsignado == subq.c.id)
     
     direc = asc if direccion == "ascendente" else desc
@@ -171,11 +173,33 @@ def api_empleados():
         'totalPages': paginas_totales
     })
 
-@dashboard_bp.route("/empleados/new")
+@dashboard_bp.route("/new/empleado", methods=["GET", "POST"])
 @login_required
 @permiso_requerido("crear_empleado")
 def new_empleado():
+    if request.method == "POST":
+        nombre = request.form['nombre']
+        apellido1 = request.form['apellido1']
+        apellido2 = request.form['apellido2']
+        email = request.form['email']
+        rol = int(request.form['rol'])
+        print(rol)
+        stmt = select(Empleado).where(Empleado.email==email)
+        empleado = db.session.scalar(stmt)
+        if empleado:
+            flash("Ya existe un empleado con ese email.", "error")
+        else:
+            newEmpleado = Empleado(nombre=nombre, apellido1=apellido1, apellido2=apellido2, email=email, idRol=rol)
+            newEmpleado.username = newEmpleado.generar_username()
+            tempPass = temporal_password()
+            newEmpleado.set_password(tempPass)
+            db.session.add(newEmpleado)
+            db.session.commit()
+
+            return redirect(url_for("dashboard.empleados"))
+    
     return render_template("registroEmpleados.html")
+
 
 @dashboard_bp.route("/estadisticas")
 @login_required

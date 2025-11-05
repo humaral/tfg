@@ -14,11 +14,11 @@
 
 {%block body%}
 <main id="login-page">
-    <div class="card" , id="login-card">
+    <div id="login-card">
         <h1>Identificación de Empleado</h1>
-        <form class="form" , id="login-form" action="/login" method="post">
-            <input type="text" id="login-username" name="username" placeholder="Usuario" required>
-            <input type="password" id="login-password" name="password" placeholder="Contraseña" required>
+        <form id="login-form" method="post">
+            <input type="text" id="login-username" name="username" placeholder="Usuario / Correo Electrónico" required autocomplete="username">
+            <input type="password" id="login-password" name="password" placeholder="Contraseña" required autocomplete="current-password">
 
             {% with messages = get_flashed_messages(with_categories=False, category_filter="error") %}
                 {% if messages %}

@@ -5,3 +5,7 @@ from .permisos import (
     cargar_permisos,
     permiso_requerido
 )
+
+from .generatePassword import(
+    temporal_password
+)

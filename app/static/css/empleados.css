@@ -4,31 +4,31 @@
 * Descripción: hoja de estilos específicos de la página de empleados.
 */
 
-#empleados-page{
+#empleados-page {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-#empleados-controllers{
+#empleados-controllers {
     width: 75%;
     margin: 10px;
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
     align-items: flex-start;
     gap: 10px;
     flex-direction: row;
 }
 
-#empleados-filters{
+#empleados-filters {
     display: flex;
     flex-wrap: wrap;
     flex: 1;
     min-width: 0;
 }
 
-#label-activo-empleados{
+#label-activo-empleados {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -42,7 +42,7 @@
     color: var(--color-text-primario);
 }
 
-#nuevo-empleado{
+#nuevo-empleado {
     min-height: 35px;
     padding: 0 10px;
     border-radius: 16px;
@@ -52,17 +52,19 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    text-decoration: none;
 }
-#nuevo-empleado:hover{
+
+#nuevo-empleado:hover {
     background-color: var(--color-secundario);
     transition: 1s;
 }
 
-#nuevo-empleado iconify-icon{
+#nuevo-empleado iconify-icon {
     padding-right: 5px;
 }
 
-#empleados-card{
+#empleados-card {
     width: 75%;
     height: auto;
     overflow-x: auto;
@@ -70,16 +72,100 @@
 }
 
 /* TODO cambiar estilo, igual se pueden hacer clicables para desactivar una cuenta */
-.icono-empleados-activo{
+.icono-empleados-activo {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#active-true{
+#active-true {
     color: rgb(12, 59, 12);
 }
 
-#active-false{
+#active-false {
     color: var(--color-terciario);
+}
+
+/* Registro de empleados */
+#registro-empleados-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#registro-empleados-card {
+    background-color: white;
+    padding: 30px 50px;
+    border-radius: 15px;
+    box-shadow: var(--sombreado);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#registro-empleados-card h1 {
+    margin-bottom: 30px;
+    color: var(--color-texto-primario);
+}
+
+#registro-empleados-card input {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: var(--bordes);
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+#registro-empleados-rol {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+#registro-empleados-buttons {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#registro-empleados-guardar {
+    width: 25%;
+    padding: 12px;
+    background-color: var(--color-secundario);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: auto;
+}
+
+#registro-empleados-guardar:enabled {
+    background-color: var(--color-primario);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+#registro-empleados-cancelar {
+    width: 25%;
+    color: var(--color-terciario);
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: white;
+    text-decoration: none;
+}
+
+#registro-empleados-cancelar:hover {
+    text-decoration: underline;
 }
