@@ -123,9 +123,8 @@ def api_empleados():
     nombre = request.args.get('nombre', '')
     email = request.args.get('email', '')
     idRol = request.args.get('rol', type=int)
-    #FIX recibe siempre True, creo que es pq se le pasa 'true' 'false'
-    activo = request.args.get('activo', type=bool)
-    
+    activo = request.args.get('activo', '') in ['true', 'on', '1']
+
     orden = request.args.get('orden')
     direccion = request.args.get('direccion')
 
@@ -142,8 +141,8 @@ def api_empleados():
         stmt = stmt.where(Empleado.email.like(f"%{email}%"))
     if idRol:
         stmt = stmt.where(Empleado.idRol==idRol)
-    if activo:
-        stmt = stmt.where(Empleado.activo==activo)
+   
+    stmt = stmt.where(Empleado.activo==activo)
 
     direc = asc if direccion == "ascendente" else desc
     
@@ -153,7 +152,6 @@ def api_empleados():
         stmt = stmt.order_by(direc(Empleado.nombre), direc(Empleado.apellido1), direc(Empleado.apellido2))
     elif orden == "rol":
         stmt = stmt.join(Rol, Empleado.idRol==Rol.id).order_by(direc(Rol.valor))
-    
     
     empleados = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
 

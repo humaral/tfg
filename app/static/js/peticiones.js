@@ -52,7 +52,7 @@ document.querySelectorAll(".ordenable").forEach(th => {
     });
 });
 
-
+// Actualiza dinámicamente el contenido de la tabla
 async function actualizarTabla() {
     const params = new URLSearchParams({
         id: idFiltro.value,
@@ -119,7 +119,6 @@ function cargarPaginacion() {
         });
     });
 }
-
 
 // Eventos
 idFiltro.addEventListener("input", actualizarTabla);

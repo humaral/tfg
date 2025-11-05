@@ -44,7 +44,6 @@ document.querySelectorAll(".ordenable").forEach(th => {
             icono.setAttribute("icon", "tabler:arrow-up");
         }
 
-
         th.querySelector("div").appendChild(icono);
         pageActual=1;
         actualizarTabla();
@@ -52,7 +51,7 @@ document.querySelectorAll(".ordenable").forEach(th => {
     });
 });
 
-
+// Actualiza dinámicamente el contenido de la tabla
 async function actualizarTabla() {
     const params = new URLSearchParams({
         username: usernameFiltro.value,
@@ -122,7 +121,6 @@ function cargarPaginacion() {
         });
     });
 }
-
 
 // Eventos
 usernameFiltro.addEventListener("input", actualizarTabla);

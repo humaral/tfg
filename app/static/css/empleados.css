@@ -28,6 +28,20 @@
     min-width: 0;
 }
 
+#label-activo-empleados{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 25px;
+    margin: 5px 5px 5px 5px;
+    padding-left: 5px;
+    border-radius: 8px;
+    border: var(--bordes);
+    background-color: white;
+    color: var(--color-text-primario);
+}
+
 #nuevo-empleado{
     min-height: 35px;
     padding: 0 10px;

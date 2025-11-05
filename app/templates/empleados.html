@@ -26,10 +26,10 @@
                 <option value="{{rol.id}}">{{rol.valor}}</option>
                 {%endfor%}
             </select>
-            <div>
-                <label for="filter-activo-empleados">Activo:</label>
+            <label id="label-activo-empleados" for="filter-activo-empleados">
+                Activo:
                 <input type="checkbox" class="filter" id="filter-activo-empleados" checked>
-            </div>
+            </label>
         </div>
         {%if "crear_empleado" in session.permisos%}
         <a id="nuevo-empleado">
