@@ -108,24 +108,34 @@
     display: none;
 }
 
-#form-cambiar-pass input{
-    width: 175px;
-    padding: 10px 12px;
+.form-input-cambiar-pass{
+    display: flex;
+    flex-direction: row;
+    width: 235px;
     border: var(--bordes);
-    border-radius: 6px;
-    font-size: 1rem;
+    border-radius: 8px;
+    padding: 2px 5px;
 }
 
-#form-cambiar-pass input:focus{
-    outline: none;
-    border-color: var(--color-primario);
+.form-input-cambiar-pass input{
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 1rem;
+    border: none;
+}
+
+.form-input-cambiar-pass button{
+    background-color: transparent;
+    border: none;
+    font-size: large;
+    color: var(--color-primario);
 }
 
 #form-cambiar-pass .mensaje-error p {
     padding: 0;
 }
 
-#form-cambiar-pass button:disabled{
+#button-confirmar-cambio-pass:disabled{
     padding: 10px;
     background-color: var(--color-secundario);
     border: none;
@@ -133,10 +143,10 @@
     color: white;
     font-weight: 600;
     cursor: default;
-    width: 50%;
+    width: 45%;
 }
 
-#form-cambiar-pass button:enabled{
+#button-confirmar-cambio-pass:enabled{
     padding: 10px;
     background-color: var(--color-primario);
     border: none;
@@ -144,7 +154,7 @@
     color: white;
     font-weight: 600;
     cursor: pointer;
-    width: 50%;
+    width: 45%;
     transition: 1s;
 }
 

@@ -12,6 +12,9 @@ const newPass = document.getElementById('newPass');
 const confirmPass = document.getElementById('confirmPass');
 const buttonConfirmar = document.getElementById("button-confirmar-cambio-pass")
 
+const buttonCurrentPass = document.getElementById('button-currentPass');
+const buttonNewPass = document.getElementById('button-newPass');
+const buttonConfirmPass = document.getElementById('button-confirmPass');
 
 //TODO acabar
 // document.getElementById("foto-perfil").addEventListener("click", async (e) =>{
@@ -32,14 +35,28 @@ function isEmpty(){
     buttonConfirmar.disabled = !(currentPass.value.trim() && newPass.value.trim() && confirmPass.value.trim());
 }
 
+function mostrarPassword(input, button){
+    
+    if (input.type == "password") {
+        input.type = "text";
+        button.querySelector("iconify-icon").setAttribute("icon", "famicons:eye-outline");
+    }
+    else{
+        input.type = "password";
+        button.querySelector("iconify-icon").setAttribute("icon", "famicons:eye-off-outline");
+    }
+}
+
+
+
 currentPass.addEventListener('input', isEmpty);
 newPass.addEventListener('input', isEmpty);
 confirmPass.addEventListener('input', isEmpty);
 
-
-
+buttonCurrentPass.addEventListener('click', () => mostrarPassword(currentPass, buttonCurrentPass));
+buttonNewPass.addEventListener('click', () => mostrarPassword(newPass, buttonNewPass));
+buttonConfirmPass.addEventListener('click', () => mostrarPassword(confirmPass, buttonConfirmPass));
 
 buttonCambiarPass.addEventListener("click", ()=>{
-
     formCambiarPass.classList.toggle("hidden");
 });

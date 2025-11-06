@@ -48,12 +48,18 @@
             {% endwith %}
             <div id="form-cambiar-pass" class="{%if ocultar_pass_menu%}hidden{%endif%}">
                 <form method="POST">
-                    <input type="password" placeholder="Contraseña actual" id="currentPass" name="currentPass" required
-                        autocomplete="current-password" />
-                    <input type="password" placeholder="Contraseña nueva" id="newPass" name="newPass" required
-                        autocomplete="new-password" />
-                    <input type="password" placeholder="Confirma la nueva contraseña" id="confirmPass"
-                        name="confirmPass" required autocomplete="new-password" />
+                    <div class="form-input-cambiar-pass">
+                        <input type="password" placeholder="Contraseña actual" id="currentPass" name="currentPass" required autocomplete="current-password"/>
+                        <button type="button" id="button-currentPass"><iconify-icon icon="famicons:eye-off-outline"></iconify-icon></button>
+                    </div>
+                    <div class="form-input-cambiar-pass">
+                        <input type="password" placeholder="Contraseña nueva" id="newPass" name="newPass" required autocomplete="new-password" />
+                        <button type="button" id="button-newPass"><iconify-icon icon="famicons:eye-off-outline"></iconify-icon></button>
+                    </div>
+                    <div class="form-input-cambiar-pass">
+                        <input type="password" placeholder="Confirma la nueva contraseña" id="confirmPass" name="confirmPass" required autocomplete="new-password" />
+                        <button type="button" id="button-confirmPass"><iconify-icon icon="famicons:eye-off-outline"></iconify-icon></button>
+                    </div>
                     {% with messages = get_flashed_messages(with_categories=False, category_filter="error") %}
                     {% if messages %}
                     <div class="mensaje-error">

@@ -18,8 +18,12 @@
         <h1>Identificación de Empleado</h1>
         <form id="login-form" method="post">
             <input type="text" id="login-username" name="username" placeholder="Usuario / Correo Electrónico" required autocomplete="username">
-            <input type="password" id="login-password" name="password" placeholder="Contraseña" required autocomplete="current-password">
 
+            <div class="login-password-input">
+                <input type="password" id="login-password" name="password" placeholder="Contraseña" required autocomplete="current-password">
+                <button type="button" id="button-password"><iconify-icon icon="famicons:eye-off-outline"></iconify-icon></button>
+            </div>
+            
             {% with messages = get_flashed_messages(with_categories=False, category_filter="error") %}
                 {% if messages %}
                 <div class="mensaje-error">

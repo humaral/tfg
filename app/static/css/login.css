@@ -25,16 +25,54 @@
   color: var(--color-texto-primario);
 }
 
-#login-card input {
+#login-card form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#login-username {
   width: 90%;
-  padding: 12px;
+  padding: 12px 14px;
   margin-bottom: 15px;
   border: var(--bordes);
   border-radius: 8px;
   font-size: 16px;
+  box-sizing: border-box;
+  outline: none;
 }
 
-#login-card button {
+.login-password-input{ 
+  display: flex;
+  align-items: center;
+  width: 90%;
+  margin-bottom: 15px;
+  border: var(--bordes);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.login-password-input input{ 
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+}
+.login-password-input button{ 
+  background-color: transparent;
+  border: none;
+  font-size: large;
+  color: var(--color-primario);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+
+}
+
+#login-button {
   width: 100%;
   padding: 12px;
   background-color: var(--color-secundario);
@@ -45,7 +83,7 @@
   cursor: auto;
 }
 
-#login-card button:enabled {
+#login-button:enabled {
   background-color: var(--color-primario);
   transition: background-color 0.2s;
   cursor: pointer;

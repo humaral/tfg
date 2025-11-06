@@ -8,6 +8,7 @@
 const button = document.getElementById('login-button');
 const username = document.getElementById('login-username');
 const password = document.getElementById('login-password');
+const buttonPassword = document.getElementById('button-password')
 
 //Si los inputs no tienen ningún valor se desactiva el botón de inicio de sesión.
 function isEmpty(){
@@ -16,3 +17,15 @@ function isEmpty(){
 
 username.addEventListener('input', isEmpty);
 password.addEventListener('input', isEmpty);
+
+buttonPassword.addEventListener("click", () => {
+    
+    if (password.type == "password") {
+        password.type = "text";
+        buttonPassword.querySelector("iconify-icon").setAttribute("icon", "famicons:eye-outline");
+    }
+    else{
+        password.type = "password";
+        buttonPassword.querySelector("iconify-icon").setAttribute("icon", "famicons:eye-off-outline");
+    }
+});
