@@ -7,7 +7,9 @@
 :root {
   --color-primario: rgb(2, 46, 89);
   --color-secundario: rgb(77, 110, 143);
-  --color-terciario: rgb(119, 12, 12);
+
+  --color-error: rgb(119, 12, 12);
+  --color-exito: rgb(12, 59, 12);
 
   --color-texto-primario: black;
   --color-texto-secundario: #666;
@@ -72,7 +74,7 @@ footer {
 }
 
 
-#user-logged {
+.user-logged {
   margin-left: auto;
   margin-right: 25px;
   align-self: center;
@@ -309,7 +311,7 @@ select {
 }
 
 /* Estilo del mensaje de error */
-.mensaje-error {
+.mensaje-error, .mensaje-exito {
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -319,5 +321,11 @@ select {
 .mensaje-error p {
   margin: 0;
   padding: 0 0 5px 5px;
-  color: var(--color-terciario);
+  color: var(--color-error);
+}
+
+.mensaje-exito p{
+  margin: 10px 0 0 0;
+  padding: 0 0 5px 5px;
+  color: var(--color-exito);
 }

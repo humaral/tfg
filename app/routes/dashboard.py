@@ -3,7 +3,7 @@
 # Descripción: Controlador de las rutas en la vista del dashboard.
 
 from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
-from flask_login import login_required
+from flask_login import login_required, current_user
 from sqlalchemy import select, func, asc, desc, or_
 from app.utils import permiso_requerido, temporal_password
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
@@ -212,3 +212,30 @@ def estadisticas():
     else:
         abort(404)
 
+@dashboard_bp.route("/perfil/<username>", methods=["GET", "POST"])
+@login_required
+def perfil(username):
+    ocultar_pass_menu = True
+    
+
+    if request.method == "POST":
+        currentPassword = request.form['currentPass']
+        newPassword = request.form['newPass']
+        confirmPassword = request.form['confirmPass']
+
+        if not(current_user.check_password(currentPassword)):
+            flash("La contraseña actual es incorrecta", "error")
+            ocultar_pass_menu = False
+        elif newPassword != confirmPassword:
+            flash("Las contraseñas no coinciden", "error")
+            ocultar_pass_menu = False
+        elif currentPassword == newPassword:
+            flash("La nueva contraseña no puede ser igual a la antigua", "error")
+            ocultar_pass_menu = False  
+        else:
+            current_user.set_password(newPassword)
+            db.session.commit()
+            flash("Contraseña actualizada con éxito", "success")
+            return redirect(url_for("dashboard.perfil", username=username))
+
+    return render_template("perfil.html", ocultar_pass_menu=ocultar_pass_menu)

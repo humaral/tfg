@@ -14,7 +14,7 @@
     </a>
     <!--TODO Añadir if sesion iniciada, poner foto perfil y nombre, else:-->
     {%if current_user.is_authenticated%}
-    <a href="{{url_for('auth.logout')}}" id="user-logged">
+    <a href="{{url_for('dashboard.perfil', username=current_user.username)}}" class="user-logged">
         <div class="perfil">
             <img src="{{url_for('uploads.fotoPerfil', filename=current_user.fotoPerfil)}}" alt="Foto de perfil del usuario" />
             <div id="perfil-titulo">

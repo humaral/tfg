@@ -1,0 +1,78 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 06-11-2025
+- Descripción: vista con la información del perfil.
+-->
+
+{%extends "layout.html"%}
+
+{%block title%}Perfil{%endblock%}
+
+{%block css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/perfil.css')}}">
+{%endblock%}
+
+{%block body%}
+<main id="perfil-page">
+    <div id="perfil-info">
+        <div id="perfil-header">
+            <div id="perfil-imagen">
+                <input type="file" id="foto-perfil" accept="image/*" method="POST" hidden />
+                <label for="foto-perfil">
+                    <img src="{{url_for('uploads.fotoPerfil', filename=current_user.fotoPerfil)}}"
+                        alt="Cambiar foto de perfil" />
+                    <iconify-icon icon="material-symbols:edit"></iconify-icon>
+                </label>
+            </div>
+            <div>
+                <h1>Detalles de </h1>
+                <h1>{{current_user.apellido1}} {{current_user.apellido2}}, {{current_user.nombre}}:</h1>
+            </div>
+        </div>
+
+        <div id="perfil-detalles">
+
+            <h2>Usuario: {{current_user.username}}</h2>
+            <h2>Email: {{current_user.email}}</h2>
+            <h2>Rol: {{current_user.rol.valor}}</h2>
+
+            <button id="button-cambiar-pass">Cambiar Contraseña</button>
+            {% with messages = get_flashed_messages(with_categories=False, category_filter="success") %}
+            {% if messages %}
+            <div class="mensaje-exito">
+                {% for message in messages %}
+                <p> {{message}} </p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <div id="form-cambiar-pass" class="{%if ocultar_pass_menu%}hidden{%endif%}">
+                <form method="POST">
+                    <input type="password" placeholder="Contraseña actual" id="currentPass" name="currentPass" required
+                        autocomplete="current-password" />
+                    <input type="password" placeholder="Contraseña nueva" id="newPass" name="newPass" required
+                        autocomplete="new-password" />
+                    <input type="password" placeholder="Confirma la nueva contraseña" id="confirmPass"
+                        name="confirmPass" required autocomplete="new-password" />
+                    {% with messages = get_flashed_messages(with_categories=False, category_filter="error") %}
+                    {% if messages %}
+                    <div class="mensaje-error">
+                        {% for message in messages %}
+                        <p> {{message}} </p>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                    <button type="submit" id="button-confirmar-cambio-pass" disabled>Confirmar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <a href="{{url_for('auth.logout')}}" id="logout-button">Cerrar Sesión</a>
+</main>
+{%endblock%}
+
+{%block js%}
+<script src="{{url_for('static', filename='js/perfil.js')}}"></script>
+{%endblock%}

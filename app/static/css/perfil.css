@@ -1,0 +1,164 @@
+/*
+* Autor: Hugo Martín Alonso
+* Fecha: 06-11-2025
+* Descripción: hoja de estilos de la página del perfil de empleado.
+*/
+
+#perfil-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#perfil-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 750px;
+    width: 100%;
+    height: 100%;
+    margin: 40px;
+    background-color: white;
+    border-radius: 12px;
+    border: var(--bordes);
+    box-shadow: var(--sombreado);
+    gap: 30px;
+}
+
+#perfil-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+#perfil-imagen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#perfil-imagen img{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: var(--bordes);
+    cursor: pointer;
+}
+
+#perfil-imagen label{
+    font-size: x-large;
+    cursor: pointer;
+    color: var(--color-primario);
+}
+
+#perfil-header > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#perfil-header h1{
+    margin: 0;
+    color: var(--color-texto-primario);
+}
+
+#perfil-detalles {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#perfil-detalles h2{
+    margin: 8px 0;
+    font-weight: 500;
+    color: var(--color-texto-secundario);
+}
+
+#button-cambiar-pass{
+    margin-top: 25px;
+    padding: 10px;
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#button-cambiar-pass:hover{
+    background-color: var(--color-secundario);
+    transition: 0.2s;
+}
+
+#form-cambiar-pass form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+#form-cambiar-pass.hidden{
+    display: none;
+}
+
+#form-cambiar-pass input{
+    width: 175px;
+    padding: 10px 12px;
+    border: var(--bordes);
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+#form-cambiar-pass input:focus{
+    outline: none;
+    border-color: var(--color-primario);
+}
+
+#form-cambiar-pass .mensaje-error p {
+    padding: 0;
+}
+
+#form-cambiar-pass button:disabled{
+    padding: 10px;
+    background-color: var(--color-secundario);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: default;
+    width: 50%;
+}
+
+#form-cambiar-pass button:enabled{
+    padding: 10px;
+    background-color: var(--color-primario);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    width: 50%;
+    transition: 1s;
+}
+
+#logout-button {
+    margin-bottom: 50px;
+    padding: 10px 20px;
+    font-size: large;
+    background-color: var(--color-error);
+    color: white;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+#logout-button:hover {
+    text-decoration: underline;
+}

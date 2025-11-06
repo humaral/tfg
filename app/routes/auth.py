@@ -2,7 +2,7 @@
 # Fecha: 17-10-2025
 # Descripción: Controlador de las rutas relacionadas con la autentificación.
 
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy import select, or_
 from app.models import Empleado
@@ -28,7 +28,6 @@ def login(): #TODO Crear ficheros de logs para mantener registros
             if empleado and empleado.check_password(password):
                 login_user(empleado)
                 cargar_permisos(empleado.rol.valor)
-                flash("Sesión iniciada correctamente", "success")
                 return redirect(url_for("dashboard.peticiones"))
             else:
                 flash("Usuario y/o contraseña incorrectos", "error")
@@ -40,6 +39,6 @@ def login(): #TODO Crear ficheros de logs para mantener registros
 @login_required
 def logout():
     logout_user()
-    flash("Sesión cerrada", "info")
+    session.clear()
     return redirect(url_for("auth.login"))
 
