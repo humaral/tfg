@@ -1,11 +1,17 @@
-#error-404-page{
+/*
+* Autor: Hugo Martín Alonso
+* Fecha: 07-11-2025
+* Descripción: hoja de estilos específicos de la página de error 403.
+*/
+
+.error-page{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
 
-#error-404-cabecera{
+.error-cabecera{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -13,28 +19,30 @@
     
 }
 
-#error-404-cabecera iconify-icon{
+.error-cabecera iconify-icon{
     font-size: 12rem;
 }
 
-#error-404-cabecera h1{
+.error-cabecera h1{
     font-size: 15rem;
     margin: 0;
 }
 
-#error-404-page h2{
+.error-page h2{
     font-size: 3rem;
     color: var(--color-texto-primario);
     margin: 1rem 0 0 0;
 }
 
-#error-404-page p{
+.error-page p{
     font-size: 1.5rem;
     color: var(--color-texto-secundario);
-    margin-top: 1rem;
+    margin-top: 2rem;
+    max-width: 750px;
+    text-align: center;
 }
 
-#error-404-page a{
+.error-page a{
     margin-top: 2rem;
     font-size: 1.5rem;
     text-decoration: none;
