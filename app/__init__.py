@@ -36,7 +36,11 @@ def create_app():
     @login_manager.user_loader
     def load_user(idEmpleado):
         stmt = select(models.Empleado).where(models.Empleado.id == int(idEmpleado))
-        return db.session.scalar(stmt)
+        user = db.session.scalar(stmt)
+        
+        if user and not(user.activo):
+            return None
+        return user
 
     from .routes import registrarRutas
     registrarRutas(app)
