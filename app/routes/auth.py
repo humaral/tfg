@@ -25,12 +25,14 @@ def login(): #TODO Crear ficheros de logs para mantener registros
             stmt = select(Empleado).where(or_(Empleado.username==username, Empleado.email==username))
             empleado = db.session.scalar(stmt)
 
-            if empleado and empleado.check_password(password):
+            if not(empleado and empleado.check_password(password)):
+                flash("Usuario y/o contraseña incorrectos", "error")
+            elif not(empleado.activo):
+                flash("Cuenta desactivada, póngase en contacto con un Administrador", "error")
+            else:
                 login_user(empleado)
                 cargar_permisos(empleado.rol.valor)
                 return redirect(url_for("dashboard.peticiones"))
-            else:
-                flash("Usuario y/o contraseña incorrectos", "error")
 
         return render_template("login.html")
 

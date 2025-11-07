@@ -204,6 +204,7 @@ select {
   padding-left: 5px;
   border-radius: 8px;
   border: var(--bordes);
+  user-select: none;
 }
 
 /* TODO: cambiar estilo */

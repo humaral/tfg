@@ -83,7 +83,7 @@ async function actualizarTabla() {
             <td class="icono-empleados-activo">
                 ${e.activo
                     ? `<iconify-icon id="active-true-empleado" icon="charm:circle-tick"></iconify-icon>`
-                    : `<td><iconify-icon id="active-false-empleado" icon="charm:circle-cross"></iconify-icon>`}
+                    : `<iconify-icon id="active-false-empleado" icon="charm:circle-cross"></iconify-icon>`}
             </td>
         </tr>`
     ).join("");

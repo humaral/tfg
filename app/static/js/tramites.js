@@ -78,7 +78,7 @@ async function actualizarTabla() {
             <td class="icono-tramites-activo">
                 ${t.activo
                     ? `<iconify-icon id="active-true-tramite" icon="charm:circle-tick"></iconify-icon>`
-                    : `<td><iconify-icon id="active-false-tramite" icon="charm:circle-cross"></iconify-icon>`}
+                    : `<iconify-icon id="active-false-tramite" icon="charm:circle-cross"></iconify-icon>`}
             </td>
         </tr>`
     ).join("");
