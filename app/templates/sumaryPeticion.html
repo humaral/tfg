@@ -16,7 +16,7 @@
 <main id="peticion-page">
     <div id="peticion-cabecera">
         <div id="peticion-identificador">
-            <a href="{{ url_for('dashboard.peticiones') }}"><iconify-icon icon="weui:back-filled"></iconify-icon></a>
+            <a href="javascript:history.back()"><iconify-icon icon="famicons:chevron-back-outline"></iconify-icon></a>
             <div id="peticion-titulo">
                 <h1>Petición #{{ peticion.id }}, {{peticion.tramite.valor}}</h1>
                 <p>Teléfono: {{peticion.telefono}}</p>
