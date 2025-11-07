@@ -18,7 +18,7 @@ def fotoPerfil(filename):
     
     return send_from_directory(ruta, filename)
 
-# TODO acabar
+# TODO acabar subida de foto de perfil
 # @uploads_bp.route('/uploads/perfil', methods=["POST"])
 # @login_required
 # def subirFotoPerfil():

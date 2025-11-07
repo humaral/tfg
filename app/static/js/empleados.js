@@ -1,5 +1,11 @@
-const menuPeticiones = document.getElementById("menu-empleados")
-menuPeticiones.setAttribute("class", "selected")
+/**
+ * Autor: Hugo Martín Alonso
+ * Fecha: 04-11-2025
+ * Descripción: estilos dinámicos específicos de la página de empleados.
+ */
+
+const menuEmpleados = document.getElementById("menu-empleados")
+menuEmpleados.setAttribute("class", "selected")
 
 const usernameFiltro = document.getElementById("filter-username-empleados");
 const nombreFiltro = document.getElementById("filter-nombre-empleados");
@@ -76,8 +82,8 @@ async function actualizarTabla() {
             <td>${e.rol}</td>
             <td class="icono-empleados-activo">
                 ${e.activo
-                    ? `<iconify-icon id="active-true" icon="charm:circle-tick"></iconify-icon>`
-                    : `<td><iconify-icon id="active-false" icon="charm:circle-cross"></iconify-icon>`}
+                    ? `<iconify-icon id="active-true-empleado" icon="charm:circle-tick"></iconify-icon>`
+                    : `<td><iconify-icon id="active-false-empleado" icon="charm:circle-cross"></iconify-icon>`}
             </td>
         </tr>`
     ).join("");

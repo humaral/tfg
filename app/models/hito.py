@@ -18,7 +18,6 @@ class Hito(db.Model):
     empleadoEditor = db.relationship("Empleado", back_populates="hitosEditados")
     estado = db.relationship('Estado', back_populates='hitos')
 
-    #NOTE como un toString para logs o console
     def __repr__(self):
         return f"<Hito_{self.id}_{self.peticion.__repr__()}_{self.estado.__repr__()}{("_"+self.empleado_editor.__repr__()+"_") if self.updated_by else '_'}Fecha_{self.updated_at}>"
     

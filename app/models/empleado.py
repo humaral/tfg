@@ -25,7 +25,6 @@ class Empleado(db.Model, UserMixin):
     hitosEditados = db.relationship("Hito", back_populates="empleadoEditor")
     peticionesAsignadas = db.relationship("Peticion", back_populates="empleadoAsignado")
 
-    #NOTE como un toString para logs o console
     def __repr__(self):
         return f"<Empleado_{self.username}_Nombre_{self.nombre}_{self.apellido1}{("_"+self.apellido2+"_") if self.apellido2 else '_'}Email_{self.email}_{self.rol.__repr__()}>"
     

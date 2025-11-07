@@ -17,6 +17,12 @@
             <span>Empleados</span>
         </a>
     {%endif%}
+    {%if 'ver_tramites' in session.permisos%}
+    <a href="{{url_for('dashboard.tramites')}}" id="menu-tramites">
+        <iconify-icon icon="flowbite:landmark-solid"></iconify-icon>
+        <span>Trámites</span>
+    {%endif%}
+    </a>
     {%if 'ver_estadisticas' in session.permisos%}
     <a href="{{url_for('dashboard.estadisticas')}}" id="menu-estadisticas">
         <iconify-icon icon="bx:stats"></iconify-icon>

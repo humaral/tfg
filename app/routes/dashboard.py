@@ -68,14 +68,14 @@ def api_peticiones():
     if orden in ("id", "telefono"):
         stmt = stmt.order_by(direc(getattr(Peticion, orden)))
     elif orden == "estado":
-        stmt = stmt.join(Estado, Peticion.idEstadoActual==Estado.id).order_by(direc(Estado.valor))
+        stmt = stmt.join(Estado, Peticion.idEstadoActual==Estado.id).order_by(direc(func.lower(Estado.valor)))
     elif orden == "tramite":
-        stmt = stmt.join(Tramite, Peticion.idTramite==Tramite.id).order_by(direc(Tramite.valor))
+        stmt = stmt.join(Tramite, Peticion.idTramite==Tramite.id).order_by(direc(func.lower(Tramite.valor)))
     elif orden == "creacion":
         #TEST comprobar que funcion ya que el insert pone todas las peticiones con la misma fechas
         stmt = stmt.join(Hito, (Peticion.id==Hito.idPeticion) & (Peticion.idEstadoActual == Hito.idEstado)).order_by(direc(Hito.updated_at))
     elif orden == "asignacion":
-        stmt = stmt.outerjoin(Empleado, Peticion.idEmpleadoAsignado==Empleado.id).order_by(direc(Empleado.username).nulls_last(), direc(Peticion.id))
+        stmt = stmt.outerjoin(Empleado, Peticion.idEmpleadoAsignado==Empleado.id).order_by(direc(func.lower(Empleado.username)).nulls_last(), direc(Peticion.id))
     
     peticiones = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
 
@@ -149,11 +149,11 @@ def api_empleados():
     direc = asc if direccion == "ascendente" else desc
     
     if orden in ("username", "email"):
-        stmt = stmt.order_by(direc(getattr(Empleado, orden)))
+        stmt = stmt.order_by(direc(func.lower(getattr(Empleado, orden))))
     elif orden == "nombre":
-        stmt = stmt.order_by(direc(Empleado.nombre), direc(Empleado.apellido1), direc(Empleado.apellido2))
+        stmt = stmt.order_by(direc(func.lower(Empleado.nombre)), direc(func.lower(Empleado.apellido1)), direc(func.lower(Empleado.apellido2)))
     elif orden == "rol":
-        stmt = stmt.join(Rol, Empleado.idRol==Rol.id).order_by(direc(Rol.valor))
+        stmt = stmt.join(Rol, Empleado.idRol==Rol.id).order_by(direc(func.lower(Rol.valor)))
     
     empleados = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
 
@@ -183,7 +183,6 @@ def new_empleado():
         apellido2 = request.form['apellido2']
         email = request.form['email']
         rol = int(request.form['rol'])
-        print(rol)
         stmt = select(Empleado).where(Empleado.email==email)
         empleado = db.session.scalar(stmt)
         if empleado:
@@ -199,6 +198,80 @@ def new_empleado():
             return redirect(url_for("dashboard.empleados"))
     
     return render_template("registroEmpleados.html")
+
+
+@dashboard_bp.route("/tramites")
+@login_required
+@permiso_requerido("ver_tramites")
+def tramites():
+
+    return render_template("tramites.html")
+
+@dashboard_bp.route("/api/tramites")
+@login_required
+@permiso_requerido("ver_tramites")
+def api_tramites():
+    id = request.args.get('username', '')
+    valor = request.args.get('valor', '')
+    activo = request.args.get('activo', '') in ['true', 'on', '1']
+
+    orden = request.args.get('orden')
+    direccion = request.args.get('direccion')
+
+    per_page = request.args.get('per_page', type=int)
+    page = request.args.get('page', type=int)
+    paginas_totales = ceil((db.session.scalar(select(func.count()).select_from(Tramite)))/per_page)
+
+    stmt = select(Tramite)
+    if id:
+        stmt = stmt.where(Tramite.id.like(f"%{id}%"))
+    if valor:
+        stmt = stmt.where(Tramite.valor.like(f"%{valor}%"))
+   
+    stmt = stmt.where(Tramite.activo==activo)
+
+    direc = asc if direccion == "ascendente" else desc
+
+    if orden == "id":
+        stmt = stmt.order_by(direc(Tramite.id))
+    elif orden == "valor":
+        stmt = stmt.order_by(direc(func.lower(Tramite.valor)))
+    
+    tramites = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
+
+    data = [{
+        "id": t.id,
+        "nombre": t.valor,
+        "activo": t.activo,
+    } for t in tramites]
+    
+    return jsonify({
+        'tramites': data,
+        'ordenActual': orden,
+        'direccionActual': direccion,
+        'pageActual': page,
+        'totalPages': paginas_totales
+    })
+
+@dashboard_bp.route("/new/tramite", methods=["GET", "POST"])
+@login_required
+@permiso_requerido("crear_tramite")
+def new_tramite():
+    if request.method == "POST":
+        nombre = request.form['nombre']
+
+        stmt = select(Tramite).where(Tramite.valor==nombre)
+        tramite = db.session.scalar(stmt)
+        if tramite:
+            flash("Ya existe un trámite con ese nombre.", "error")
+        else:
+            newTramite = Tramite(valor=nombre)
+            db.session.add(newTramite)
+            db.session.commit()
+
+            return redirect(url_for("dashboard.tramites"))
+    
+    return render_template("registroTramites.html")
 
 
 @dashboard_bp.route("/estadisticas")

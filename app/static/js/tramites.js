@@ -1,28 +1,27 @@
 /**
  * Autor: Hugo Martín Alonso
- * Fecha: 31-10-2025
- * Descripción: estilos dinámicos específicos de la página de peticiones.
+ * Fecha: 07-11-2025
+ * Descripción: estilos dinámicos específicos de la página de tramites.
  */
 
-const menuPeticiones = document.getElementById("menu-peticiones")
-menuPeticiones.setAttribute("class", "selected")
 
-const idFiltro = document.getElementById("filter-id-peticiones");
-const telefonoFiltro = document.getElementById("filter-telefono-peticiones");
-const estadoFiltro = document.getElementById("filter-estado-peticiones");
-const tramiteFiltro = document.getElementById("filter-tramite-peticiones");
-const empleadoFiltro = document.getElementById("filter-empleado-peticiones");
+const menuTramites = document.getElementById("menu-tramites")
+menuTramites.setAttribute("class", "selected")
 
-const tabla_peticiones = document.getElementById("peticiones-table").querySelector("tbody");
+const idFiltro = document.getElementById("filter-id-tramites");
+const nombreFiltro = document.getElementById("filter-nombre-tramites");
+const activoFiltro = document.getElementById("filter-activo-tramites");
+
+const tabla_tramites = document.getElementById("tramites-table").querySelector("tbody");
 
 let ordenActual = "id";
 let direccionActual = "ascendente";
-const icono = document.getElementById('orden-icono-peticiones');
+const icono = document.getElementById('orden-icono-tramites');
 
-const per_pageFiltro = document.getElementById("filter-num-peticiones");
-const previousPageButton = document.getElementById("prev-page-peticiones");
-const listPages = document.getElementById("lista-pages-peticiones");
-const nextPageButton = document.getElementById("next-page-peticiones");
+const per_pageFiltro = document.getElementById("filter-num-tramites");
+const previousPageButton = document.getElementById("prev-page-tramites");
+const listPages = document.getElementById("lista-pages-tramites");
+const nextPageButton = document.getElementById("next-page-tramites");
 
 let pageActual = 1;
 let totalPages = 1;
@@ -50,7 +49,6 @@ document.querySelectorAll(".ordenable").forEach(th => {
             icono.setAttribute("icon", "tabler:arrow-up");
         }
 
-
         th.querySelector("div").appendChild(icono);
         pageActual=1;
         actualizarTabla();
@@ -62,27 +60,26 @@ document.querySelectorAll(".ordenable").forEach(th => {
 async function actualizarTabla() {
     const params = new URLSearchParams({
         id: idFiltro.value,
-        telefono: telefonoFiltro.value,
-        estado: estadoFiltro.value,
-        tramite: tramiteFiltro.value,
-        empleado: empleadoFiltro.value,
+        valor: nombreFiltro.value,
+        activo: activoFiltro.checked,
         orden: ordenActual,
         direccion: direccionActual,
         per_page: per_pageFiltro.value,
         page: pageActual
     });
 
-    const res = await fetch(`/api/peticiones?${params}`);
+    const res = await fetch(`/api/tramites?${params}`);
     const data = await res.json();
 
-    tabla_peticiones.innerHTML = data.peticiones.map(p =>
+    tabla_tramites.innerHTML = data.tramites.map(t =>
         `<tr>
-            <td><a href="${urlSumaryPeticion.replace('0', p.id)}">${p.id}</a></td>
-            <td>${p.telefono}</td>
-            <td>${p.estado}</td>
-            <td>${p.tramite}</td>
-            <td>${p.creacion}</td>
-            <td>${p.asignacion}</td>
+            <td>${t.id}</td>
+            <td>${t.nombre}</td>
+            <td class="icono-tramites-activo">
+                ${t.activo
+                    ? `<iconify-icon id="active-true-tramite" icon="charm:circle-tick"></iconify-icon>`
+                    : `<td><iconify-icon id="active-false-tramite" icon="charm:circle-cross"></iconify-icon>`}
+            </td>
         </tr>`
     ).join("");
 
@@ -128,10 +125,9 @@ function cargarPaginacion() {
 
 // Eventos
 idFiltro.addEventListener("input", actualizarTabla);
-telefonoFiltro.addEventListener("input", actualizarTabla);
-estadoFiltro.addEventListener("change", actualizarTabla);
-tramiteFiltro.addEventListener("change", actualizarTabla);
-empleadoFiltro.addEventListener("input", actualizarTabla);
+nombreFiltro.addEventListener("input", actualizarTabla);
+activoFiltro.addEventListener("change", actualizarTabla);
+
 
 per_pageFiltro.addEventListener("change", () =>{
     pageActual=1;

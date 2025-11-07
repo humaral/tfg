@@ -8,12 +8,11 @@ class Tramite(db.Model):
     __tablename__ = 'tramite'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    valor = db.Column(db.String(200), nullable=False)
+    valor = db.Column(db.String(200), unique=True, nullable=False)
     activo = db.Column(db.Boolean, nullable=False, server_default=db.text("1"))
 
     peticiones = db.relationship('Peticion', back_populates='tramite')
 
-    #NOTE como un toString para logs o console
     def __repr__(self):
         return f"<Trámite_{self.valor}>"
     

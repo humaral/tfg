@@ -8,11 +8,10 @@ class Rol(db.Model):
     __tablename__ = "rol"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    valor = db.Column(db.String(100), nullable=False)
+    valor = db.Column(db.String(100), unique=True, nullable=False)
 
     empleados = db.relationship("Empleado", back_populates="rol")
 
-    #NOTE como un toString para logs o console
     def __repr__(self):
         return f"<Rol_{self.valor}>"
     

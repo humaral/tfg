@@ -1,0 +1,80 @@
+<!-- 
+- Autor: Hugo Martín Alonso
+- Fecha: 07/11/2025
+- Descripción: Vista con la lista de trámites. 
+-->
+
+{%extends "layout.html"%}
+
+{%block title%}Trámites{%endblock%}
+
+{%block css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/tramites.css')}}">
+{%endblock%}
+
+{%block body%}
+{%include "components/menu.html"%}
+<main id="tramites-page">
+    <div id="tramites-controllers">
+        <div class="filter" id="tramites-filters">
+            <input type="search" class="filter" id="filter-id-tramites" placeholder="Id" title="Filtrar por id del tramite.">
+            <input type="search" class="filter" id="filter-nombre-tramites" placeholder="Nombre" title="Filtrar por nombre del trámite.">
+            <label id="label-activo-tramites" for="filter-activo-tramites">
+                Activo:
+                <input type="checkbox" class="filter" id="filter-activo-tramites" checked>
+            </label>
+        </div>
+        {%if "crear_tramite" in session.permisos%}
+        <a href="{{url_for('dashboard.new_tramite')}}" id="nuevo-tramite">
+            <iconify-icon icon="pajamas:issue-new"></iconify-icon>
+            Nuevo Trámite
+        </a>
+        {%endif%}
+    </div>
+    <div class="table" id="tramites-card">
+        <table class="table" id="tramites-table">
+            <thead>
+                <tr>
+                    <th class="ordenable" data-orden="id">
+                        <div>
+                            ID
+                            <iconify-icon id="orden-icono-tramites" icon="tabler:arrow-up"></iconify-icon>
+                        </div>
+                    </th>
+                    <th class="ordenable" data-orden="valor">
+                        <div> Nombre </div>
+                    </th>
+                    <th>
+                        <div> ? </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+        <div id="tramites-per_page">
+            <select class="filter" id="filter-num-tramites">
+                <option value="5">5</option>
+                <option value="10" selected>10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+            <p>Trámites por página</p>
+        </div>
+        <div id="tramites-pagination">
+            <div>
+                <iconify-icon id="prev-page-tramites" icon="iconoir:nav-arrow-left"></iconify-icon>
+                <span id="lista-pages-tramites"></span>
+                <iconify-icon id="next-page-tramites" icon="iconoir:nav-arrow-right"></iconify-icon>
+            </div>
+        </div>
+    </div>
+</main>
+{%endblock%}
+
+{%block js%}
+<script src='{{url_for("static", filename="js/tramites.js")}}'></script>
+{%endblock%}

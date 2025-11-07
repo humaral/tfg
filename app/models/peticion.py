@@ -21,7 +21,6 @@ class Peticion(db.Model):
     estadoActual = db.relationship('Estado', back_populates='peticiones')
     empleadoAsignado = db.relationship('Empleado', back_populates='peticionesAsignadas')
 
-    #NOTE como un toString para logs o console
     def __repr__(self):
         return f"<Petición_{self.id}_{self.tramite.__repr__()}_Teléfono_{self.telefono}>"
 

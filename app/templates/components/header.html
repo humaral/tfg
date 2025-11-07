@@ -12,7 +12,7 @@
             <p>Sistema Simulado de la Administración Pública</p>
         </div>
     </a>
-    <!--TODO Añadir if sesion iniciada, poner foto perfil y nombre, else:-->
+
     {%if current_user.is_authenticated%}
     <a href="{{url_for('dashboard.perfil', username=current_user.username)}}" class="user-logged">
         <div class="perfil">

@@ -16,7 +16,7 @@ const buttonCurrentPass = document.getElementById('button-currentPass');
 const buttonNewPass = document.getElementById('button-newPass');
 const buttonConfirmPass = document.getElementById('button-confirmPass');
 
-//TODO acabar
+//TODO acabar subida foto perfil
 // document.getElementById("foto-perfil").addEventListener("click", async (e) =>{
 
 //     const file = e.target.files[0];

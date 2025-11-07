@@ -135,7 +135,7 @@
     padding: 0;
 }
 
-#button-confirmar-cambio-pass:disabled{
+#button-confirmar-cambio-pass{
     padding: 10px;
     background-color: var(--color-secundario);
     border: none;
@@ -147,14 +147,8 @@
 }
 
 #button-confirmar-cambio-pass:enabled{
-    padding: 10px;
     background-color: var(--color-primario);
-    border: none;
-    border-radius: 6px;
-    color: white;
-    font-weight: 600;
     cursor: pointer;
-    width: 45%;
     transition: 1s;
 }
 

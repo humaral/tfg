@@ -13,21 +13,21 @@ DROP TABLE IF EXISTS TRAMITE;
 --Tipos de trámites que se gestionan en la aplicación
 CREATE TABLE IF NOT EXISTS TRAMITE(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	valor TEXT NOT NULL,
+	valor TEXT NOT NULL UNIQUE,
     activo BOOLEAN NOT NULL DEFAULT 1
 );
 
 --Enum de los posibles estados de una petición
 CREATE TABLE IF NOT EXISTS ESTADO(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    valor TEXT NOT NULL,
+    valor TEXT NOT NULL UNIQUE,
     icono TEXT NOT NULL
 );
 
 --Enum de los posibles roles de un usuario
 CREATE TABLE IF NOT EXISTS ROL(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    valor TEXT NOT NULL
+    valor TEXT NOT NULL UNIQUE
 );
 
 --Almacena los datos de los empleados
