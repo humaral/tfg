@@ -3,7 +3,8 @@
 
 from .permisos import (
     cargar_permisos,
-    permiso_requerido
+    permiso_requerido,
+    verificar_permiso
 )
 
 from .generatePassword import(

@@ -14,7 +14,7 @@ def cargar_permisos(rol):
         session["permisos"] = json.load(f)[rol]
 
 
-#Comprueba si un usuario tiene el permisos necesario
+#Comprueba si un usuario tiene el permisos necesario con un decorador
 def permiso_requerido(permiso):
     def decorator(f):
         @wraps(f)
@@ -27,3 +27,12 @@ def permiso_requerido(permiso):
                 return f(*args, **kwargs)
         return decorated_function
     return decorator
+
+#Comprueba si un usuario tiene el permisos necesario
+def verificar_permiso(permiso):
+    if not current_user.is_authenticated:
+        abort(401)
+    else:
+        if permiso not in session.get("permisos", []):
+            abort(403)
+    return

@@ -3,9 +3,11 @@
         "ver_peticiones",
         "ver_empleados",
         "crear_empleado",
+        "editar_empleado",
         "eliminar_empleado",
         "ver_tramites",
         "crear_tramite",
+        "editar_tramite",
         "eliminar_tramite",
         "ver_estadisticas",
         "ver_estadisticas_generales"

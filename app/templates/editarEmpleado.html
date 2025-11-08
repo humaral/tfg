@@ -1,0 +1,68 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 19-10-2025
+- Descripción: formulario de editar de emplados.
+-->
+
+
+{%extends "layout.html"%}
+
+{%block title%}Empleado{%endblock%}
+
+{%block css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/empleados.css')}}">
+{%endblock%}
+
+{%block body%}
+<main id="editar-empleados-page">
+    <div id="editar-empleados-card">
+        {%if empleado%}
+        <h1>Editar Empleado</h1>
+        {%else%}
+        <h1>Registrar Empleado</h1>
+        {%endif%}
+
+        <form id="editar-empleados-form" method="post">
+            <input type="text" id="editar-empleados-nombre" name="nombre" value="{{empleado.nombre}}" placeholder="Nombre" required autocomplete="given-name">
+            <input type="text" id="editar-empleados-apellido1" name="apellido1" value="{{empleado.apellido1}}" placeholder="Primer Apellido" required autocomplete="family-name">
+            <input type="text" id="editar-empleados-apellido2" name="apellido2" value="{{empleado.apellido2}}" placeholder="Segundo Apellido">
+            <input type="email" id="editar-empleados-email" name="email" value="{{empleado.email}}" placeholder="Email" required autocomplete="email">
+            <div id="editar-empleados-rol">
+                <div>
+                    <label for="administrador">Administrador</label>
+                    <input type="radio" id="administrador" name="rol" value="1" {%if empleado.idRol == 1 %}checked{%endif%}>
+                </div>
+                <div>
+                    <label for="secretario">Secretario</label>
+                    <input type="radio" id="secretario" name="rol" value="2" {%if empleado.idRol != 1 %}checked{%endif%}>
+                </div>
+            </div>
+
+            <div id="editar-empleados-activo">
+                <label for="activo"> Activo:</label>
+                <input type="checkbox" id="empleados-activo" name="activo" {%if not empleado or empleado.activo%}checked{%endif%}>
+            </div>
+            
+
+            {% with messages = get_flashed_messages(with_categories=False, category_filter="error") %}
+                {% if messages %}
+                <div class="mensaje-error">
+                    {% for message in messages %}
+                    <p> {{message}} </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+
+            <div id="editar-empleados-buttons">
+                <a href="{{url_for('dashboard.empleados')}}" id="editar-empleados-cancelar">Cancelar</a>
+                <button id="editar-empleados-guardar" type="submit" disabled> {%if empleado%}Editar{%else%}Crear{%endif%} </button>
+            </div>
+        </form>
+    </div>
+</main>
+{%endblock%}
+
+{%block js%}
+<script src='{{url_for("static", filename="js/editarEmpleado.js")}}'></script>
+{%endblock%}

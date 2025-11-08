@@ -81,9 +81,11 @@ async function actualizarTabla() {
             <td>${e.email}</td>
             <td>${e.rol}</td>
             <td class="icono-empleados-activo">
+                <a href="${urlEditarEmpleado}?id=${e.id}" class="button-activo">
                 ${e.activo
-                    ? `<iconify-icon id="active-true-empleado" icon="charm:circle-tick"></iconify-icon>`
-                    : `<iconify-icon id="active-false-empleado" icon="charm:circle-cross"></iconify-icon>`}
+                    ? `<iconify-icon class="active-true-empleado" icon="charm:circle-tick"></iconify-icon>`
+                    : `<iconify-icon class="active-false-empleado" icon="charm:circle-cross"></iconify-icon>`}
+                </a>
             </td>
         </tr>`
     ).join("");

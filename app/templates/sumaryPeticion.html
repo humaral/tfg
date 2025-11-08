@@ -31,10 +31,9 @@
         <ul id="peticion-timeline">
             {%for hito in historial %}
             <li id="timeline-item">
-
                 <div id="timeline-time">
                     <p id="timeline-fecha">{{ hito.updated_at.strftime('%d %B %Y') }}</p>
-                    <p id="timeline-hora">{{ hito.updated_at.strftime('%H:%M') }}</p>
+                    <p id="timeline-hora">{{ hito.updated_at.strftime('%H:%M:%S') }}</p>
                 </div>
 
                 {%if hito.empleadoEditor %}

@@ -26,4 +26,4 @@ class Peticion(db.Model):
 
     def get_fechaCreacion(self):
         hito_creacion = min(self.hitos, key=lambda h: h.updated_at)
-        return hito_creacion.updated_at.strftime("%d/%m/%Y %H:%Mh")
+        return hito_creacion.updated_at.strftime("%d/%m/%Y %H:%M:%S")

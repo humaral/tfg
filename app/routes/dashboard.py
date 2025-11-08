@@ -5,7 +5,7 @@
 from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import select, func, asc, desc, or_
-from app.utils import permiso_requerido, temporal_password
+from app.utils import permiso_requerido, temporal_password, verificar_permiso
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
@@ -158,6 +158,7 @@ def api_empleados():
     empleados = db.session.scalars(stmt.offset((page-1)*per_page).limit(per_page))
 
     data = [{
+        "id": e.id,
         "username": e.username,
         "nombre": f"{e.nombre} {e.apellido1}",
         "email": e.email,
@@ -173,31 +174,52 @@ def api_empleados():
         'totalPages': paginas_totales
     })
 
-@dashboard_bp.route("/new/empleado", methods=["GET", "POST"])
+@dashboard_bp.route("/empleado", methods=["GET", "POST"])
 @login_required
-@permiso_requerido("crear_empleado")
-def new_empleado():
+def edit_empleado():
+
+    idEmpleadoEditar = request.args.get('id', type=int)
+    empleadoEditar = db.session.scalar(select(Empleado).where(Empleado.id == idEmpleadoEditar))
+
+    if empleadoEditar:
+        verificar_permiso("editar_empleado")
+    else:
+        verificar_permiso("crear_empleado")
+
     if request.method == "POST":
         nombre = request.form['nombre']
         apellido1 = request.form['apellido1']
         apellido2 = request.form['apellido2']
         email = request.form['email']
         rol = int(request.form['rol'])
-        stmt = select(Empleado).where(Empleado.email==email)
-        empleado = db.session.scalar(stmt)
-        if empleado:
-            flash("Ya existe un empleado con ese email.", "error")
-        else:
-            newEmpleado = Empleado(nombre=nombre, apellido1=apellido1, apellido2=apellido2, email=email, idRol=rol)
-            newEmpleado.username = newEmpleado.generar_username()
-            tempPass = temporal_password()
-            newEmpleado.set_password(tempPass)
-            db.session.add(newEmpleado)
+        activo = 'activo' in request.form
+        
+        if empleadoEditar:
+            empleadoEditar.nombre = nombre
+            empleadoEditar.apellido1 = apellido1
+            empleadoEditar.apellido2 = apellido2
+            empleadoEditar.email = email
+            empleadoEditar.idRol = rol
+            empleadoEditar.activo = activo
             db.session.commit()
-
             return redirect(url_for("dashboard.empleados"))
+        else:
+
+            stmt = select(Empleado).where(Empleado.email==email)
+            empleado = db.session.scalar(stmt)
+            if empleado:
+                flash("Ya existe un empleado con ese email.", "error")
+            else:
+                newEmpleado = Empleado(nombre=nombre, apellido1=apellido1, apellido2=apellido2, email=email, idRol=rol, activo=activo)
+
+                newEmpleado.username = newEmpleado.generar_username()
+                tempPass = temporal_password()
+                newEmpleado.set_password(tempPass)
+                db.session.add(newEmpleado)
+                db.session.commit()
+                return redirect(url_for("dashboard.empleados"))
     
-    return render_template("registroEmpleados.html")
+    return render_template("editarEmpleado.html", empleado=empleadoEditar)
 
 
 @dashboard_bp.route("/tramites")
@@ -255,23 +277,37 @@ def api_tramites():
 
 @dashboard_bp.route("/new/tramite", methods=["GET", "POST"])
 @login_required
-@permiso_requerido("crear_tramite")
-def new_tramite():
+def edit_tramite():
+
+    idTramiteEditar = request.args.get("id", type=int)
+    tramiteEditar = db.session.scalar(select(Tramite).where(Tramite.id==idTramiteEditar))
+
+    if tramiteEditar:
+        verificar_permiso("editar_tramite")
+    else:
+        verificar_permiso("crear_tramite")
+
     if request.method == "POST":
         nombre = request.form['nombre']
+        activo = 'activo' in request.form
 
-        stmt = select(Tramite).where(Tramite.valor==nombre)
-        tramite = db.session.scalar(stmt)
-        if tramite:
-            flash("Ya existe un trámite con ese nombre.", "error")
-        else:
-            newTramite = Tramite(valor=nombre)
-            db.session.add(newTramite)
+        if tramiteEditar:
+            tramiteEditar.valor = nombre
+            tramiteEditar.activo = activo
             db.session.commit()
-
             return redirect(url_for("dashboard.tramites"))
+        else:
+            stmt = select(Tramite).where(Tramite.valor==nombre)
+            tramite = db.session.scalar(stmt)
+            if tramite:
+                flash("Ya existe un trámite con ese nombre.", "error")
+            else:
+                newTramite = Tramite(valor=nombre, activo=activo)
+                db.session.add(newTramite)
+                db.session.commit()
+                return redirect(url_for("dashboard.tramites"))
     
-    return render_template("registroTramites.html")
+    return render_template("editarTramite.html", tramite=tramiteEditar)
 
 
 @dashboard_bp.route("/estadisticas")

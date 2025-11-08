@@ -29,3 +29,5 @@ buttonPassword.addEventListener("click", () => {
         buttonPassword.querySelector("iconify-icon").setAttribute("icon", "famicons:eye-off-outline");
     }
 });
+
+isEmpty();

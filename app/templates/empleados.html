@@ -32,7 +32,7 @@
             </label>
         </div>
         {%if "crear_empleado" in session.permisos%}
-        <a href="{{url_for('dashboard.new_empleado')}}" id="nuevo-empleado">
+        <a href="{{url_for('dashboard.edit_empleado')}}" id="nuevo-empleado">
             <iconify-icon icon="lucide:user-round-plus"></iconify-icon>
             Nuevo Empleado
         </a>
@@ -89,5 +89,8 @@
 {%endblock%}
 
 {%block js%}
+<script>
+    const urlEditarEmpleado = "{{url_for('dashboard.edit_empleado')}}"
+</script>
 <script src='{{url_for("static", filename="js/empleados.js")}}'></script>
 {%endblock%}

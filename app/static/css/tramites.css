@@ -100,14 +100,14 @@
     color: var(--color-error);
 }
 
-/* Registro de tramites */
-#registro-tramites-page {
+/* editar de tramites */
+#editar-tramites-page {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#registro-tramites-card {
+#editar-tramites-card {
     background-color: white;
     padding: 30px 50px;
     border-radius: 15px;
@@ -119,12 +119,12 @@
     align-items: center;
 }
 
-#registro-tramites-card h1 {
+#editar-tramites-card h1 {
     margin-bottom: 30px;
     color: var(--color-texto-primario);
 }
 
-#registro-tramites-card input {
+#editar-tramites-card input {
     width: 90%;
     padding: 12px;
     margin-bottom: 15px;
@@ -133,7 +133,17 @@
     font-size: 16px;
 }
 
-#registro-tramites-buttons {
+#editar-tramites-activo{
+    display:flex;
+    width: 125px;
+    padding: 12px;
+    margin: 0 0 15px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#editar-tramites-buttons {
     width: 100%;
     margin-top: 15px;
     display: flex;
@@ -143,7 +153,7 @@
     align-items: center;
 }
 
-#registro-tramites-guardar {
+#editar-tramites-guardar {
     width: 25%;
     padding: 12px;
     background-color: var(--color-secundario);
@@ -154,13 +164,13 @@
     cursor: auto;
 }
 
-#registro-tramites-guardar:enabled {
+#editar-tramites-guardar:enabled {
     background-color: var(--color-primario);
     transition: background-color 0.2s;
     cursor: pointer;
 }
 
-#registro-tramites-cancelar {
+#editar-tramites-cancelar {
     width: 25%;
     color: var(--color-error);
     border: none;
@@ -170,6 +180,6 @@
     text-decoration: none;
 }
 
-#registro-tramites-cancelar:hover {
+#editar-tramites-cancelar:hover {
     text-decoration: underline;
 }

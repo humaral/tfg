@@ -1,0 +1,53 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 07-11-2025
+- Descripción: formulario de editar de nuevos trámites.
+-->
+
+
+{%extends "layout.html"%}
+
+{%block title%}Trámite{%endblock%}
+
+{%block css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/tramites.css')}}">
+{%endblock%}
+
+{%block body%}
+<main id="editar-tramites-page">
+    <div id="editar-tramites-card">
+        {%if tramite%}
+        <h1>Editar Trámites</h1>
+        {%else%}
+        <h1>Registrar Trámite</h1>
+        {%endif%}
+        <form id="editar-tramites-form" method="post">
+            <input type="text" id="editar-tramites-nombre" name="nombre" value="{{tramite.valor}}" placeholder="Nombre" required autocomplete="off">
+            
+            <div id="editar-tramites-activo">
+                <label for="activo"> Activo:</label>
+                <input type="checkbox" id="tramites-activo" name="activo" {%if not tramite or tramite.activo%}checked{%endif%}>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=False, category_filter="error") %}
+                {% if messages %}
+                <div class="mensaje-error">
+                    {% for message in messages %}
+                    <p> {{message}} </p>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            {% endwith %}
+
+            <div id="editar-tramites-buttons">
+                <a href="{{url_for('dashboard.tramites')}}" id="editar-tramites-cancelar">Cancelar</a>
+                <button id="editar-tramites-guardar" type="submit" disabled>Guardar</button>
+            </div>
+        </form>
+    </div>
+</main>
+{%endblock%}
+
+{%block js%}
+<script src='{{url_for("static", filename="js/editarTramite.js")}}'></script>
+{%endblock%}

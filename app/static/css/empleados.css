@@ -84,22 +84,29 @@
     align-items: center;
 }
 
-#active-true-empleado {
+.button-activo{
+    background-color: transparent;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+}
+
+.active-true-empleado {
     color: var(--color-exito);
 }
 
-#active-false-empleado {
+.active-false-empleado {
     color: var(--color-error);
 }
 
-/* Registro de empleados */
-#registro-empleados-page {
+/* editar de empleados */
+#editar-empleados-page {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#registro-empleados-card {
+#editar-empleados-card {
     background-color: white;
     padding: 30px 50px;
     border-radius: 15px;
@@ -111,12 +118,12 @@
     align-items: center;
 }
 
-#registro-empleados-card h1 {
+#editar-empleados-card h1 {
     margin-bottom: 30px;
     color: var(--color-texto-primario);
 }
 
-#registro-empleados-card input {
+#editar-empleados-card input {
     width: 90%;
     padding: 12px;
     margin-bottom: 15px;
@@ -125,17 +132,26 @@
     font-size: 16px;
 }
 
-#registro-empleados-rol {
+#editar-empleados-rol {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     padding: 12px;
-    margin-bottom: 15px;
     font-size: 16px;
 }
 
-#registro-empleados-buttons {
+#editar-empleados-activo{
+    display:flex;
+    width: 125px;
+    padding: 12px;
+    margin: 0 0 15px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#editar-empleados-buttons {
     width: 100%;
     margin-top: 15px;
     display: flex;
@@ -145,7 +161,7 @@
     align-items: center;
 }
 
-#registro-empleados-guardar {
+#editar-empleados-guardar {
     width: 25%;
     padding: 12px;
     background-color: var(--color-secundario);
@@ -156,13 +172,13 @@
     cursor: auto;
 }
 
-#registro-empleados-guardar:enabled {
+#editar-empleados-guardar:enabled {
     background-color: var(--color-primario);
     transition: background-color 0.2s;
     cursor: pointer;
 }
 
-#registro-empleados-cancelar {
+#editar-empleados-cancelar {
     width: 25%;
     color: var(--color-error);
     border: none;
@@ -172,6 +188,6 @@
     text-decoration: none;
 }
 
-#registro-empleados-cancelar:hover {
+#editar-empleados-cancelar:hover {
     text-decoration: underline;
 }
