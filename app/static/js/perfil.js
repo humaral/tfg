@@ -16,20 +16,24 @@ const buttonCurrentPass = document.getElementById('button-currentPass');
 const buttonNewPass = document.getElementById('button-newPass');
 const buttonConfirmPass = document.getElementById('button-confirmPass');
 
-//TODO acabar subida foto perfil
-// document.getElementById("foto-perfil").addEventListener("click", async (e) =>{
+const inputFoto = document.getElementById("foto-perfil")
 
-//     const file = e.target.files[0];
-//     console.log(file);
-//     if (!file) return;
 
-//     const formData = new FormData();
-//     formData.append("foto_perfil", file);
+inputFoto.addEventListener("change", async (e) =>{
 
-//     const response = await fetch("/uploads/perfil", {method:"POST", body: formData});
-//     const result = await response.json();
-//     console.log(response, result);
-// });
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("foto_perfil", file);
+
+    const response = await fetch("/uploads/perfil", {method:"POST", body: formData});
+    const result = await response.json();
+
+    if (result.success){
+        window.location.reload();
+    }
+});
 
 function isEmpty(){
     buttonConfirmar.disabled = !(currentPass.value.trim() && newPass.value.trim() && confirmPass.value.trim());

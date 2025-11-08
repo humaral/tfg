@@ -18,7 +18,7 @@
         <div id="perfil-header">
             <a href="javascript:history.back()"><iconify-icon icon="famicons:chevron-back-outline"></iconify-icon></a>
             <div id="perfil-imagen">
-                <input type="file" id="foto-perfil" accept="image/*" method="POST" hidden />
+                <input type="file" id="foto-perfil" accept="image/*" hidden />
                 <label for="foto-perfil">
                     <img src="{{url_for('uploads.fotoPerfil', filename=current_user.fotoPerfil)}}"
                         alt="Cambiar foto de perfil" />
