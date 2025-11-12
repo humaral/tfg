@@ -12,13 +12,22 @@
     flex-direction: column;
 }
 
-#peticiones-filter {
+#peticiones-controllers {
     width: 75%;
     margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    flex-direction: row;
+}
+
+#peticiones-filter {
     display: flex;
     justify-content: start;
     flex-direction: row;
     flex-wrap: wrap;
+    flex: 1;
 }
 
 #filter-id {
@@ -27,6 +36,30 @@
 
 #filter-telefono {
     width: 125px;
+}
+
+#nueva-peticion {
+    min-width: 125px;
+    min-height: 40px;
+    padding: 0 10px;
+    border-radius: 16px;
+    background-color: var(--color-primario);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+}
+
+#nueva-peticion:hover {
+    background-color: var(--color-secundario);
+    transition: 1s;
+}
+
+#nueva-peticion iconify-icon {
+    padding-right: 5px;
 }
 
 #peticiones-card {
@@ -215,6 +248,7 @@
     font-size: large;
 }
 
+/*Plantillas información*/
 #detalles-titulo{
     background-color: var(--color-primario);
     border-radius: 15px 15px 0 0;
@@ -248,7 +282,8 @@
     text-align: left;
 }
 
-#detalles-contenido input{
+/* TODO arreglar estilo */
+/* #detalles-contenido input{
     border: none;
     background: none;
     outline: none;
@@ -258,7 +293,7 @@
     color: var(--color-texto-primario);
     width: 100%;
     text-align: left;
-}
+} */
 
 #detalles-contenido input:disabled {
     color: var(--color-texto-primario);
@@ -292,4 +327,66 @@
     font-family: monospace;
     font-size: 15px;
     color: var(--color-texto-primario);
+}
+
+/*Crear peticion*/
+#crear-peticion-page{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex: 1;
+}
+
+#crear-peticion-card{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 75%;
+    margin: 25px 0;
+}
+
+#crear-peticion-template{
+    border: var(--bordes);
+    border-radius: 16px;
+}
+
+#crear-peticion-buttons {
+    width: 100%;
+    margin: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+}
+
+#crear-peticion-guardar {
+    width: 75px;
+    padding: 12px;
+    background-color: var(--color-secundario);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: auto;
+}
+
+#crear-peticion-guardar:enabled {
+    background-color: var(--color-primario);
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+#crear-peticion-cancelar {
+    width: 25%;
+    color: var(--color-error);
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#crear-peticion-cancelar:hover {
+    text-decoration: underline;
 }

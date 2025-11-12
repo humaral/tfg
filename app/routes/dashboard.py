@@ -108,6 +108,30 @@ def sumary_peticion(idPeticion):
 
     return render_template("sumaryPeticion.html", peticion=peticion, historial=historial)
 
+@dashboard_bp.route("/new/peticion", methods=["GET", "POST"])
+@login_required
+@permiso_requerido("crear_peticion")
+def new_peticion():
+    
+    tramites = db.session.scalars(select(Tramite).where(Tramite.activo==True))
+    
+    if request.method == "POST":
+
+        telefonoLlamada = request.form["telefonoLlamada"]
+        tramite = request.form["tramite"]
+        idTramite = db.session.scalar(select(Tramite.id).where(Tramite.valor==tramite))
+
+        informacion = {k:v for k, v in request.form.items() if k not in ["telefonoLlamada", "tramite"]}
+
+        newPeticion = Peticion(telefono=telefonoLlamada, idTramite=idTramite, idEstadoActual = 1, informacion=informacion)
+        db.session.add(newPeticion)
+        db.session.flush()
+        newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
+        db.session.add(newHito)
+        db.session.commit()
+
+    return render_template("crearPeticion.html", tramites=tramites)
+
 
 @dashboard_bp.route("/empleados")
 @login_required
@@ -275,7 +299,7 @@ def api_tramites():
         'totalPages': paginas_totales
     })
 
-@dashboard_bp.route("/new/tramite", methods=["GET", "POST"])
+@dashboard_bp.route("/edit/tramite", methods=["GET", "POST"])
 @login_required
 def edit_tramite():
 
@@ -320,6 +344,7 @@ def estadisticas():
         return render_template("estadisticas.html")
     else:
         abort(404)
+
 
 @dashboard_bp.route("/perfil/<username>", methods=["GET", "POST"])
 @login_required

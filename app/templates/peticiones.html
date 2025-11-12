@@ -15,22 +15,30 @@
 {%block body%}
 {%include "components/menu.html"%}
 <main id="peticiones-page">
-    <div class="filter" id="peticiones-filter">
-        <input type="search" class="filter" id="filter-id-peticiones" placeholder="Id" title="Filtrar por identificador de la petición.">
-        <input type="search" class="filter" id="filter-telefono-peticiones" placeholder="Teléfono" title="Filtrar por número telefónico.">
-        <select class="filter" id="filter-estado-peticiones">
-            <option value="0">--Selecciona un estado--</option>
-            {%for estado in filtro_estados%}
-            <option value="{{estado.id}}">{{estado.valor}}</option>
-            {%endfor%}
-        </select>
-        <select class="filter" id="filter-tramite-peticiones">
-            <option value="0">--Selecciona un trámite--</option>
-            {%for tramite in filtro_tramites%}
-            <option value="{{tramite.id}}">{{tramite.valor}}</option>
-            {%endfor%}
-        </select>
-        <input type="search" class="filter" id="filter-empleado-peticiones" placeholder="Empleado Asignado" title="Filtrar por empleado asignado. (Introduce '-' para peticiones sin asignar)">
+    <div id="peticiones-controllers">
+        <div class="filter" id="peticiones-filter">
+            <input type="search" class="filter" id="filter-id-peticiones" placeholder="Id" title="Filtrar por identificador de la petición.">
+            <input type="search" class="filter" id="filter-telefono-peticiones" placeholder="Teléfono" title="Filtrar por número telefónico.">
+            <select class="filter" id="filter-estado-peticiones">
+                <option value="0">--Selecciona un estado--</option>
+                {%for estado in filtro_estados%}
+                <option value="{{estado.id}}">{{estado.valor}}</option>
+                {%endfor%}
+            </select>
+            <select class="filter" id="filter-tramite-peticiones">
+                <option value="0">--Selecciona un trámite--</option>
+                {%for tramite in filtro_tramites%}
+                <option value="{{tramite.id}}">{{tramite.valor}}</option>
+                {%endfor%}
+            </select>
+            <input type="search" class="filter" id="filter-empleado-peticiones" placeholder="Empleado Asignado" title="Filtrar por empleado asignado. (Introduce '-' para peticiones sin asignar)">
+        </div>
+        {%if "crear_peticion" in session.permisos%}
+        <a href="{{url_for('dashboard.new_peticion')}}" id="nueva-peticion">
+            <iconify-icon icon="qlementine-icons:new-16"></iconify-icon>
+            Crear Petición
+        </a>
+        {%endif%}
     </div>
     <div class="table" id="peticiones-card">
         <table class="table" id="peticiones-table">

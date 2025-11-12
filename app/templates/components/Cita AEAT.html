@@ -5,22 +5,26 @@
 -->
 
 <div id="detalles-titulo">
+    {%if peticion%}
     <h2>Información</h2>
+    {%else%}
+    <h2>Introduce los Datos</h2>
+    {%endif%}
 </div>
 <div id="detalles-contenido">
     <div id="contenido-col1">
         <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" value="{{peticion.informacion.dni}}" readonly>
+        <input type="text" id="dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" readonly{%endif%}>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" value="{{peticion.informacion.nombre}}" readonly>
+        <input type="text" id="nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" readonly{%endif%}>
         <label for="servicio">Servicio:</label>
-        <input type="text" id="servicio" name="servicio" value="{{peticion.informacion.servicio}}" readonly>
+        <input type="text" id="servicio" name="servicio" {%if peticion%}value="{{peticion.informacion.servicio}}" readonly{%endif%}>
     </div>
     <div id="contenido-col2">
         <div id="contenido-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
             <div>  
-                {%if peticion.informacion.fecha%}
+                {%if peticion and peticion.informacion.fecha%}
                     <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.split(' ')[0]}}" readonly>
                     <input type="time" id="hora" value="{{peticion.informacion.fecha.split(' ')[1]}}" readonly>
                 {%else%}
@@ -32,16 +36,16 @@
         <div id="contenido-ubicacion">
             <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
             <div>
-                <input type="text" id="oficina" value="{{peticion.informacion.oficina}}" readonly>
-                <input type="text" id="direccion" value="{{peticion.informacion.direccion}}" readonly>
+                <input type="text" id="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" readonly{%endif%}>
+                <input type="text" id="direccion" {%if peticion%}value="{{peticion.informacion.direccion}}" readonly{%endif%}>
             </div>
         </div>
         <div>
             <p>Modalidad:</p>
-            <input type="radio" id="presencial" name="modalidad" value="presencial" {%if peticion.informacion.modalidad == 'Presencial'%}checked{%endif%} readonly>
+            <input type="radio" id="presencial" name="modalidad" value="presencial" {%if peticion%}{%if peticion.informacion.modalidad == 'Presencial'%}checked{%endif%} readonly{%endif%}>
             <label for="presencial">Presencial</label>
             <iconify-icon for="presencial" icon="mdi:account-group-outline"></iconify-icon>
-            <input type="radio" id="telefono" name="modalidad" value="telefono" {%if peticion.informacion.modalidad == 'Telefónica'%}checked{%endif%} readonly>
+            <input type="radio" id="telefono" name="modalidad" value="telefono" {%if peticion%}{%if peticion.informacion.modalidad == 'Telefónica'%}checked{%endif%} readonly{%endif%}>
             <label for="telefono">Telefónica</label>
             <iconify-icon for="telefono" icon="solar:phone-outline"></iconify-icon>
         </div>

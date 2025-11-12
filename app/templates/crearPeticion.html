@@ -1,0 +1,43 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 09-11-2025
+- Descripción: formulario de creación de peticiones.
+-->
+
+
+{%extends "layout.html"%}
+
+{%block title%}Crear Petición{%endblock%}
+
+{%block css%}
+<link rel="stylesheet" href="{{url_for('static', filename='css/peticiones.css')}}">
+{%endblock%}
+
+{%block body%}
+<main id="crear-peticion-page">
+    <form id="crear-peticion-card" method="post">
+
+        <h1>Crear Petición</h1>
+
+        <input type="tel" id="crear-peticion-telefono" name="telefonoLlamada" placeholder="Teléfono" autocomplete="off" required pattern="^(?:\+34|0034)?[6789]\d{8}$">
+
+        <select name="tramite" id="crear-peticion-tramite">
+            <option value="0">--Selecciona un trámite--</option>
+            {%for tramite in tramites%}
+            <option value="{{tramite.valor}}">{{tramite.valor}}</option>
+            {%endfor%}
+        </select>
+
+        <div id="crear-peticion-template"></div>
+        
+        <div id="crear-peticion-buttons">
+            <a href="{{url_for('dashboard.empleados')}}" id="crear-peticion-cancelar">Cancelar</a>
+            <button id="crear-peticion-guardar" type="submit" disabled> Crear </button>
+        </div>
+    </form>
+</main>
+{%endblock%}
+
+{%block js%}
+<script src='{{url_for("static", filename="js/crearPeticion.js")}}'></script>
+{%endblock%}
