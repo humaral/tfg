@@ -90,7 +90,7 @@ insert into ROL values (1,'Administrador'), (2,'Secretario');
 
 insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil, activo) values 
     ('hugo.martin', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'admin@admin.com', 1, "hugo.martin.jpeg",1), --Cuenta ADMIN, password = 'hugo'
-    ('ana.sanz', 'scrypt:32768:8:1$Eh7gm1DfhPhJxlpC$6946004565cbf141160315051bce87bae05a0fbe6b74110d4badc35bacb56aa153172b755fdc6ee43c38cbb9bf4f6d53dfaf249dc0e2ecfef483f68b14982f9f', 'Ana', 'Sanz', 'Sanz', 'ana@empleada.com', 2, "ana.sanz.jpeg", 1); --Cuenta Secretario, password = 'ana'
+    ('juan.sanz', 'scrypt:32768:8:1$yPFFaKxuHiLwb1Ws$44f7d1759109b6b0fd3e01a33a3512e4abf9565d5075c4428d94917fe4956b98c9a17310270e9f99fd4c89c64c2112137e7dcafd25460810394a8ffa6ea8903b', 'Juan', 'Sanz', 'Sanz', 'juan@empleado.com', 2, "juan.sanz.jpeg", 1); --Cuenta Secretario, password = 'juan'
 
 insert into PETICION(idTramite, telefono, idEstadoActual, idEmpleadoAsignado, informacion) values 
     (2, 654654654, 1, null, '{

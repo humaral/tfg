@@ -6,8 +6,8 @@ import sqlite3
 import os
 
 ruta_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-ruta_bd = os.path.join(ruta_base, "app\\datos\\datos.db")
-ruta_sql = os.path.join(ruta_base, "app\\datos\\datos.sql")
+ruta_bd = os.path.join(ruta_base, "app\\data\\data.db")
+ruta_sql = os.path.join(ruta_base, "app\\data\\data.sql")
 
 
 conn = sqlite3.connect(ruta_bd)

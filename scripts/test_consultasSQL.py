@@ -1,6 +1,6 @@
 import sqlite3
 
-conexion = sqlite3.connect("./app/datos/datos.db")
+conexion = sqlite3.connect("./app/data/data.db")
 cursor = conexion.cursor()
 
 stmt2 = "SELECT * FROM Hito WHERE idEstado==1"
