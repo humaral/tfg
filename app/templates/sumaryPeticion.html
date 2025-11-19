@@ -16,14 +16,14 @@
 <main id="peticion-page">
     <div id="peticion-cabecera">
         <div id="peticion-identificador">
-            <a href="javascript:history.back()"><iconify-icon icon="famicons:chevron-back-outline"></iconify-icon></a>
+            <a href="{{url_for('dashboard.peticiones')}}"><iconify-icon icon="famicons:chevron-back-outline"></iconify-icon></a>
             <div id="peticion-titulo">
                 <h1>Petición #{{ peticion.id }}, {{peticion.tramite.valor}}</h1>
                 <p>Teléfono: {{peticion.telefono}}</p>
             </div>
         </div>
-        {%if 'asignar_peticion' in session.permisos and not(peticion.idEmpleadoAsignado) and (peticion.estadoActual.valor == "Revisable")%}
-        <button type="submit" id="peticion-asignacion">Asignar</button>
+        {%if 'asignar_peticion' in session.permisos and not(peticion.idEmpleadoAsignado) and (peticion.estadoActual.valor == "Pendiente")%}
+        <form method="post"><button type="submit" id="peticion-asignacion" name="asignar">Asignar</button></form>
         {%endif%}
         
     </div>
@@ -55,14 +55,18 @@
         </ul>
 
         <div id="peticion-resumen">
-            <div id="peticion-detalles">
-                {%include "components/" + peticion.tramite.valor + ".html" %}
-            </div>
-            <!-- TODO mostrar solo si la peticion esta asignada -->
-            <div class="botones">
-                <button id="cancelar" onclick="">Cancelar</button>
-                <button id="guardar" onclick="">Guardar</button>
-            </div>
+            <form method="post">
+                <div id="peticion-detalles">
+                    {%include "components/" + peticion.tramite.valor + ".html" %}
+                </div>
+                {%if (peticion.estadoActual.valor == "Asignada")%}
+                <div class="botones">
+                    <button type="submit" id="peticion-cancelar" name="cancelar">Cancelar</button>
+                    <button type="submit" id="peticion-actualizar" name="actualizar">Actualizar</button>
+                    <button type="submit" id="peticion-completar" name="completar">Completar</button>
+                </div>
+                {%endif%}
+            </form>
         </div>
     </div>
 </main>

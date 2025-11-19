@@ -9,7 +9,9 @@ from flask_login import current_user
 
 #Devuelve la lista de permisos del usuario. Rol = current_user.rol.valor
 def cargar_permisos(rol):
-    ruta = os.path.join(os.path.dirname(__file__), "permisos.json")
+
+    ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"data\\permisos.json")
+
     with open(ruta, "r", encoding="utf-8") as f:
         session["permisos"] = json.load(f)[rol]
 

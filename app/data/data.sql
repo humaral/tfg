@@ -80,11 +80,12 @@ insert into TRAMITE values
     (3,'Consulta Centros de Día',1);
 
 insert into ESTADO values
-    (1,'En Curso', 'mdi:progress-clock'),
-    (2,'Revisable', 'ic:twotone-error'),
-    (3,'Asignada', 'mdi:user-edit'),
-    (4,'Completada', 'charm:circle-check'),
-    (5,'Cancelada', 'charm:circle-cross');
+    (1,'Creado', 'qlementine-icons:new-16'),
+    (2,'En Curso', 'mdi:progress-clock'),
+    (3,'Pendiente', 'ic:twotone-error'),
+    (4,'Asignada', 'mdi:user-edit'),
+    (5,'Completada', 'charm:circle-tick'),
+    (6,'Cancelada', 'charm:circle-cross');
 
 insert into ROL values (1,'Administrador'), (2,'Secretario');
 

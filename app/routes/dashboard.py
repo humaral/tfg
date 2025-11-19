@@ -5,7 +5,7 @@
 from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import select, func, asc, desc, or_
-from app.utils import permiso_requerido, temporal_password, verificar_permiso
+from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
@@ -96,15 +96,50 @@ def api_peticiones():
         'totalPages': paginas_totales
     })
 
-@dashboard_bp.route("/peticiones/<int:idPeticion>")
+@dashboard_bp.route("/peticiones/<int:idPeticion>", methods=["GET", "POST"])
 @login_required
 @permiso_requerido("ver_peticiones")
 def sumary_peticion(idPeticion):
 
     stmt = select(Peticion).where(Peticion.id==idPeticion)
     peticion = db.session.scalar(stmt)
-    stmt = select(Hito).where(Hito.idPeticion==idPeticion)
-    historial = db.session.scalars(stmt)
+
+    if(peticion == None):
+        abort(404)
+
+    if request.method =="POST":
+        
+        if 'completar' in request.form:
+            rpa_certificado_empadronamiento(peticion.informacion)
+            peticion.idEstadoActual = 5
+            db.session.flush()
+            newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
+            db.session.add(newHito)
+            peticion.idEmpleadoAsignado = None
+            db.session.commit()
+
+        elif 'asignar' in request.form:
+            peticion.idEstadoActual = 4
+            peticion.idEmpleadoAsignado = current_user.id
+            db.session.flush()
+            newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
+            db.session.add(newHito)
+            db.session.commit()
+
+        elif 'actualizar' in request.form:
+            informacion = {k:v for k, v in request.form.items() if k !="actualizar"}
+            peticion.informacion = informacion
+            db.session.commit()
+
+        elif 'cancelar' in request.form:
+            peticion.idEstadoActual = 6
+            db.session.flush()
+            newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
+            db.session.add(newHito)
+            peticion.idEmpleadoAsignado = None
+            db.session.commit()
+
+    historial = db.session.scalars(select(Hito).where(Hito.idPeticion==idPeticion))
 
     return render_template("sumaryPeticion.html", peticion=peticion, historial=historial)
 
@@ -128,7 +163,22 @@ def new_peticion():
         db.session.flush()
         newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
         db.session.add(newHito)
+        db.session.flush()
+
+        newPeticion.idEstadoActual = 2
+        db.session.flush()
+        newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
+        db.session.add(newHito)
         db.session.commit()
+
+        if tramite == "Certificado de Empadronamiento":
+            newPeticion.idEstadoActual = 3
+            db.session.flush()
+            newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
+            db.session.add(newHito)
+            db.session.commit()
+
+        return redirect(url_for("dashboard.peticiones"))
 
     return render_template("crearPeticion.html", tramites=tramites)
 

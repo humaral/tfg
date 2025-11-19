@@ -38,3 +38,5 @@ inputTramite.addEventListener("change", isEmpty);
 inputTelefono.addEventListener("input", isEmpty);
 
 isEmpty();
+
+/* TODO cambiar comprobaciones de estilos en campos telefono, dni...*/

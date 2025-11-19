@@ -10,3 +10,7 @@ from .permisos import (
 from .generatePassword import(
     temporal_password
 )
+
+from .rpa import(
+    rpa_certificado_empadronamiento
+)

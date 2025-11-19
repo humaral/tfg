@@ -14,40 +14,38 @@
 <div id="detalles-contenido">
     <div id="contenido-col1">
         <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" readonly{%endif%}>
+        <input type="text" id="dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
         <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" readonly{%endif%}>
+        <input type="text" id="nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
         <label for="servicio">Servicio:</label>
-        <input type="text" id="servicio" name="servicio" {%if peticion%}value="{{peticion.informacion.servicio}}" readonly{%endif%}>
+        <input type="text" id="servicio" name="servicio" {%if peticion%}value="{{peticion.informacion.servicio}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
     </div>
     <div id="contenido-col2">
         <div id="contenido-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
             <div>  
                 {%if peticion and peticion.informacion.fecha%}
-                    <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.split(' ')[0]}}" readonly>
-                    <input type="time" id="hora" value="{{peticion.informacion.fecha.split(' ')[1]}}" readonly>
+                    <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.split(' ')[0]}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
+                    <input type="time" id="hora" value="{{peticion.informacion.fecha.split(' ')[1]}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
                 {%else%}
-                    <input type="date-local" id="fecha" readonly>
-                    <input type="time" id="hora" readonly>
+                    <input type="date-local" id="fecha" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
+                    <input type="time" id="hora" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
                 {%endif%}
             </div>
         </div>
         <div id="contenido-ubicacion">
             <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
             <div>
-                <input type="text" id="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" readonly{%endif%}>
-                <input type="text" id="direccion" {%if peticion%}value="{{peticion.informacion.direccion}}" readonly{%endif%}>
+                <input type="text" id="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
+                <input type="text" id="direccion" {%if peticion%}value="{{peticion.informacion.direccion}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
             </div>
         </div>
         <div>
             <p>Modalidad:</p>
-            <input type="radio" id="presencial" name="modalidad" value="presencial" {%if peticion%}{%if peticion.informacion.modalidad == 'Presencial'%}checked{%endif%} readonly{%endif%}>
-            <label for="presencial">Presencial</label>
-            <iconify-icon for="presencial" icon="mdi:account-group-outline"></iconify-icon>
-            <input type="radio" id="telefono" name="modalidad" value="telefono" {%if peticion%}{%if peticion.informacion.modalidad == 'Telefónica'%}checked{%endif%} readonly{%endif%}>
-            <label for="telefono">Telefónica</label>
-            <iconify-icon for="telefono" icon="solar:phone-outline"></iconify-icon>
+            <select name="modalidad" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
+                <option value="presencial" {%if peticion and peticion.informacion.modalidad == 'Presencial'%}selected{%endif%}>Presencial <iconify-icon for="presencial" icon="mdi:account-group-outline"></iconify-icon></option>
+                <option value="telefono" {%if peticion and peticion.informacion.modalidad == 'Telefonica'%}selected{%endif%}>Telefónica <iconify-icon for="telefono" icon="solar:phone-outline"></iconify-icon></iconify-icon></option>
+            </select>
         </div>
     </div>
 
