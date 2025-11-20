@@ -7,7 +7,6 @@ from sqlalchemy import select
 from flask_login import LoginManager
 from .config import Config
 from datetime import datetime
-import locale
 
 
 db = SQLAlchemy()
@@ -20,9 +19,7 @@ def create_app():
 
     db.init_app(app)
     login_manager.init_app(app)
-
-    locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
-    #TODO REVISAR DONDE IRÁ ESTO
+    
     #Se establecen variables globales en las plantillas que se actualizan al refrescar la página
     @app.context_processor
     def inject_globals():
@@ -41,10 +38,7 @@ def create_app():
     def load_user(idEmpleado):
         stmt = select(models.Empleado).where(models.Empleado.id == int(idEmpleado))
         user = db.session.scalar(stmt)
-        
-        if user and not(user.activo):
-            return None
-        return user
+        return user if user and user.activo else None
 
     from .routes import registrarRutas
     registrarRutas(app)

@@ -141,6 +141,23 @@
     transition: 1s;
 }
 
+#peticion-desasignacion{
+    margin: 15px 35px;
+    width: 125px;
+    height: 50px;
+    background-color: var(--color-error);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#peticion-desasignacion:hover{
+    background-color: var(--color-error-hover);
+    transition: 1s;
+}
+
 
 #peticion-contenido {
     display: flex;

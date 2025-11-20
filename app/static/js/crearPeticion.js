@@ -7,12 +7,12 @@
 const inputTramite = document.getElementById("crear-peticion-tramite");
 const templateContainer = document.getElementById("crear-peticion-template");
 
-const inputTelefono = document.getElementById("crear-peticion-telefono");
+const inputTelefonoLlamada = document.getElementById("crear-peticion-telefono");
 const buttonGuardar = document.getElementById("crear-peticion-guardar");
 
+
 function isEmpty(){
-    buttonGuardar.disabled = !(inputTelefono.value.trim() && inputTramite.value!='0');
-    console.log(!(inputTelefono.value.trim() && inputTramite.value!='0'))
+    buttonGuardar.disabled = !(inputTelefonoLlamada.value.trim() && inputTramite.value!='0');
 }
 
 inputTramite.addEventListener("change", async () => {
@@ -28,15 +28,36 @@ inputTramite.addEventListener("change", async () => {
     const html = await response.text();
 
     templateContainer.innerHTML = html;
+
+    const inputTelefono = document.getElementById("certificado-empadronamiento-telefono");
+    const inputDNI = document.getElementById("certificado-empadronamiento-dni");
+    if (inputTelefono){
+        inputTelefono.addEventListener("invalid", ()=>{
+            inputTelefono.setCustomValidity("Introduce un número telefónico español váldio.");
+        });
+        inputTelefono.addEventListener("input", ()=>{
+            inputTelefono.setCustomValidity("");
+        });
+    }
+    
+    if (inputDNI){
+        inputDNI.addEventListener("invalid", ()=>{
+            inputDNI.setCustomValidity("Introduce un DNI váldio.");
+        });
+        inputDNI.addEventListener("input", ()=>{
+            inputDNI.setCustomValidity("");
+        });
+    }
 });
 
-inputTelefono.addEventListener("invalid", ()=>{
-    inputTelefono.setCustomValidity("Introduce un número telefónico español váldio.");
+inputTelefonoLlamada.addEventListener("invalid", ()=>{
+    inputTelefonoLlamada.setCustomValidity("Introduce un número telefónico español váldio.");
+});
+inputTelefonoLlamada.addEventListener("input", ()=>{
+    inputTelefonoLlamada.setCustomValidity("");
 });
 
 inputTramite.addEventListener("change", isEmpty);
-inputTelefono.addEventListener("input", isEmpty);
+inputTelefonoLlamada.addEventListener("input", isEmpty);
 
 isEmpty();
-
-/* TODO cambiar comprobaciones de estilos en campos telefono, dni...*/

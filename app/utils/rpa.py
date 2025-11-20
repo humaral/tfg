@@ -10,7 +10,6 @@ from selenium.webdriver.support import expected_conditions
 
 def rpa_certificado_empadronamiento(informacion):
 
-    #NOTE mirar de abrir en nueva pestaña
     driver = webdriver.Chrome()
 
     driver.get("https://www.valladolid.es/es/temas/hacemos/padron-habitantes/solicitud-volante-certificado-empadronamiento-certificado-c")

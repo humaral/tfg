@@ -1,7 +1,7 @@
 # Autor: Hugo Martín Alonso
 # Fecha: 18-11-2025
 # Descripción: Controlador de las rutas relacionadas con las copias de las páginas donde se realizan los trámites.
-
+#DELETE
 from flask import Blueprint, render_template
 
 

@@ -25,6 +25,9 @@
         {%if 'asignar_peticion' in session.permisos and not(peticion.idEmpleadoAsignado) and (peticion.estadoActual.valor == "Pendiente")%}
         <form method="post"><button type="submit" id="peticion-asignacion" name="asignar">Asignar</button></form>
         {%endif%}
+        {%if peticion.idEmpleadoAsignado == current_user.id%}
+        <form method="post"><button type="submit" id="peticion-desasignacion" name="desasignar">Desasignar</button></form>
+        {%endif%}
         
     </div>
     <div id="peticion-contenido">
@@ -70,4 +73,8 @@
         </div>
     </div>
 </main>
+{%endblock%}
+
+{%block js%}
+<script src='{{url_for("static", filename="js/sumaryPeticion.js")}}'></script>
 {%endblock%}

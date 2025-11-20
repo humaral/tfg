@@ -110,7 +110,8 @@ def sumary_peticion(idPeticion):
     if request.method =="POST":
         
         if 'completar' in request.form:
-            rpa_certificado_empadronamiento(peticion.informacion)
+            if peticion.idTramite == 1:  #Certificado de empadronamiento
+                rpa_certificado_empadronamiento(peticion.informacion)
             peticion.idEstadoActual = 5
             db.session.flush()
             newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
@@ -126,11 +127,19 @@ def sumary_peticion(idPeticion):
             db.session.add(newHito)
             db.session.commit()
 
+        elif 'desasignar' in request.form:
+            peticion.idEstadoActual = 3
+            peticion.idEmpleadoAsignado = None
+            db.session.flush()
+            newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual)
+            db.session.add(newHito)
+            db.session.commit()
+
         elif 'actualizar' in request.form:
             informacion = {k:v for k, v in request.form.items() if k !="actualizar"}
             peticion.informacion = informacion
             db.session.commit()
-
+            
         elif 'cancelar' in request.form:
             peticion.idEstadoActual = 6
             db.session.flush()
@@ -364,7 +373,7 @@ def edit_tramite():
                 return redirect(url_for("dashboard.tramites"))
     
     return render_template("editarTramite.html", tramite=tramiteEditar)
-
+#TODO: Al editar el nombre de un tramite, cambiar el nombre de la plantilla html
 
 @dashboard_bp.route("/estadisticas")
 @login_required

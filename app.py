@@ -3,8 +3,9 @@
 # Descripción: programa de inicialización de la aplicación.
 
 from app import create_app
-import os
- 
+import locale
+
+locale.setlocale(locale.LC_TIME, 'es_ES.UTF-8')
 app = create_app()
 
 if __name__ == "__main__":

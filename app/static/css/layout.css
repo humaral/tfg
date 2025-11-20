@@ -9,7 +9,11 @@
   --color-secundario: rgb(77, 110, 143);
 
   --color-error: rgb(119, 12, 12);
+  --color-error-hover: rgb(204, 70, 70);
   --color-exito: rgb(12, 59, 12);
+  --color-exito-hover: rgb(66, 204, 66);
+  --color-warning: rgb(153, 102, 0);
+  --color-warning-hover: rgb(221, 189, 94);
 
   --color-texto-primario: black;
   --color-texto-secundario: #666;

@@ -14,17 +14,17 @@
 <div id="detalles-contenido">
     <div id="contenido-col1">
         <label for="certificado-empadronamiento-dni">DNI:</label>
-        <input type="text" id="certificado-empadronamiento-dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}"  {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required pattern="^\d{8}\w{1}$">
+        <input type="text" id="certificado-empadronamiento-dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required pattern="^\d{8}\w{1}$">
         <label for="certificado-empadronamiento-nombre">Nombre:</label>
-        <input type="text" id="certificado-empadronamiento-nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}"  {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <input type="text" id="certificado-empadronamiento-nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="certificado-empadronamiento-apellidos">Apellidos:</label>
-        <input type="text" id="certificado-empadronamiento-apellidos" name="apellidos" {%if peticion%}value="{{peticion.informacion.apellidos}}"  {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <input type="text" id="certificado-empadronamiento-apellidos" name="apellidos" {%if peticion%}value="{{peticion.informacion.apellidos}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="certificado-empadronamiento-telefono">Teléfono:</label>
-        <input type="tel" id="certificado-empadronamiento-telefono" name="telefono" {%if peticion%}value="{{peticion.informacion.telefono}}"  {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required pattern="^(?:\+34|0034)?[6789]\d{8}$">
+        <input type="tel" id="certificado-empadronamiento-telefono" name="telefono" {%if peticion%}value="{{peticion.informacion.telefono}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required pattern="^(?:\+34|0034)?[6789]\d{8}$">
         <label for="certificado-empadronamiento-email">Email:</label>
-        <input type="email" id="certificado-empadronamiento-email" name="email" {%if peticion%}value="{{peticion.informacion.email}}"  {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
+        <input type="email" id="certificado-empadronamiento-email" name="email" {%if peticion%}value="{{peticion.informacion.email}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
         <label for="certificado-empadronamiento-motivo">Motivo de la solicitud:</label>
-        <input type="text" id="certificado-empadronamiento-motivo" name="motivo" {%if peticion%}value="{{peticion.informacion.motivo}}"  {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <textarea id="certificado-empadronamiento-motivo" name="motivo" rows="5"  {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%} required>{%if peticion%}{{peticion.informacion.motivo}}{%endif%}</textarea>
     </div>
 
 </div>
