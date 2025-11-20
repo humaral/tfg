@@ -5,7 +5,7 @@
 from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import select, func, asc, desc, or_
-from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento
+from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento, crear_peticion
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
@@ -158,27 +158,9 @@ def new_peticion():
 
         informacion = {k:v for k, v in request.form.items() if k not in ["telefonoLlamada", "tramite"]}
 
-        newPeticion = Peticion(telefono=telefonoLlamada, idTramite=idTramite, idEstadoActual = 1, informacion=informacion)
-        db.session.add(newPeticion)
-        db.session.flush()
-        newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
-        db.session.add(newHito)
-        db.session.flush()
+        idPeticion = crear_peticion(telefonoLlamada, idTramite, informacion)
 
-        newPeticion.idEstadoActual = 2
-        db.session.flush()
-        newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
-        db.session.add(newHito)
-        db.session.commit()
-
-        if tramite == "Certificado de Empadronamiento":
-            newPeticion.idEstadoActual = 3
-            db.session.flush()
-            newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
-            db.session.add(newHito)
-            db.session.commit()
-
-        return redirect(url_for("dashboard.peticiones"))
+        return redirect(url_for("dashboard.sumary_peticion", idPeticion=idPeticion))
 
     return render_template("crearPeticion.html", tramites=tramites)
 

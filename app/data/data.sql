@@ -80,7 +80,7 @@ insert into TRAMITE values
     (3,'Consulta Centros de Día',1);
 
 insert into ESTADO values
-    (1,'Creado', 'qlementine-icons:new-16'),
+    (1,'Creada', 'qlementine-icons:new-16'),
     (2,'En Curso', 'mdi:progress-clock'),
     (3,'Pendiente', 'ic:twotone-error'),
     (4,'Asignada', 'mdi:user-edit'),
@@ -92,65 +92,3 @@ insert into ROL values (1,'Administrador'), (2,'Secretario');
 insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil, activo) values 
     ('hugo.martin', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'admin@admin.com', 1, "hugo.martin.jpeg",1), --Cuenta ADMIN, password = 'hugo'
     ('juan.sanz', 'scrypt:32768:8:1$yPFFaKxuHiLwb1Ws$44f7d1759109b6b0fd3e01a33a3512e4abf9565d5075c4428d94917fe4956b98c9a17310270e9f99fd4c89c64c2112137e7dcafd25460810394a8ffa6ea8903b', 'Juan', 'Sanz', 'Sanz', 'juan@empleado.com', 2, "juan.sanz.jpeg", 1); --Cuenta Secretario, password = 'juan'
-
-insert into PETICION(idTramite, telefono, idEstadoActual, idEmpleadoAsignado, informacion) values 
-    (2, 654654654, 1, null, '{
-            "dni": "69834521J",
-            "nombre": "Fran García",
-            "modalidad": "Presencial",
-            "oficina": "Administración de la Aeat en el Ejido",
-            "direccion": "Av Bulevar de El Ejido - 168...",
-            "servicio": "IVA",
-            "fecha": "2026-01-11 13:30:00"
-        }'),
-    (1, 612897211, 1, null, '{}'),
-    (2, 983983983, 1, 1, '{}'),
-    (3, 999888777, 1, 2, '{}'),
-    (1, 676000000, 1, 1, '{}'),
-    (3, 717717717, 1, 2, '{}'),
-    (2, 777777777, 1, null, '{}'),
-    (1, 622112134, 1, null, '{}'),
-    (2, 654666666, 1, null, '{}'),
-    (3, 917171717, 1, null, '{}'),
-    (1, 623457893, 1, null, '{}'),
-    (3, 758912430, 1, null, '{}'),
-    (2, 600010101, 1, null, '{}'),
-    (1, 623457876, 1, null, '{}'),
-    (2, 623462631, 1, null, '{}'),
-    (3, 927485234, 1, null, '{}'),
-    (1, 724354521, 1, null, '{}'),
-    (3, 632451113, 1, null, '{}'),
-    (2, 609939409, 1, null, '{}'),
-    (1, 909467980, 1, null, '{}'),
-    (2, 948670000, 1, null, '{}'),
-    (3, 623452617, 1, null, '{}'),
-    (1, 623457885, 1, null, '{}'),
-    (3, 777345345, 1, null, '{}'),
-    (2, 600000000, 1, null, '{}');
-
-insert into HITO(idPeticion, idEstado, updated_by) values
-    (1, 1, null),
-    (2, 1, null),
-    (3, 1, 1),
-    (4, 1, 2),
-    (5, 1, 1),
-    (6, 1, 2),
-    (7, 1, null),
-    (8, 1, null),
-    (9, 1, null),
-    (10, 1, null),
-    (11, 1, null),
-    (12, 1, null),
-    (13, 1, null),
-    (14, 1, null),
-    (15, 1, null),
-    (16, 1, null),
-    (17, 1, null),
-    (18, 1, null),
-    (19, 1, null),
-    (20, 1, null),
-    (21, 1, null),
-    (22, 1, null),
-    (23, 1, null),
-    (24, 1, null),
-    (25, 1, null);

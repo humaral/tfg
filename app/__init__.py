@@ -31,6 +31,10 @@ def create_app():
             "current_year": datetime.now().year
         }
     
+    if app.config['REINICIAR_BD_ON_STARTUP']:
+        from .utils import reiniciar_bd
+        reiniciar_bd(app)
+
     from app import models
 
     @login_manager.user_loader

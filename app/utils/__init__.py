@@ -7,10 +7,14 @@ from .permisos import (
     verificar_permiso
 )
 
-from .generatePassword import(
-    temporal_password
+from .dashboard_utils import(
+    temporal_password,
+    crear_peticion
 )
 
 from .rpa import(
     rpa_certificado_empadronamiento
 )
+
+from .reiniciarBD import(
+    reiniciar_bd)
