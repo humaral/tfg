@@ -260,14 +260,22 @@ def edit_empleado():
         activo = 'activo' in request.form
         
         if empleadoEditar:
-            empleadoEditar.nombre = nombre
-            empleadoEditar.apellido1 = apellido1
-            empleadoEditar.apellido2 = apellido2
-            empleadoEditar.email = email
-            empleadoEditar.idRol = rol
-            empleadoEditar.activo = activo
-            db.session.commit()
+            if 'reset_pass' in request.form:
+                tempPass = temporal_password()
+                empleadoEditar.set_password(tempPass)
+                db.session.commit()
+                #TODO notificar al empleado de su nueva contraseña
+                
+            else:
+                empleadoEditar.nombre = nombre
+                empleadoEditar.apellido1 = apellido1
+                empleadoEditar.apellido2 = apellido2
+                empleadoEditar.email = email
+                empleadoEditar.idRol = rol
+                empleadoEditar.activo = activo
+                db.session.commit()
             return redirect(url_for("dashboard.empleados"))
+        
         else:
 
             stmt = select(Empleado).where(Empleado.email==email)
@@ -280,6 +288,7 @@ def edit_empleado():
                 newEmpleado.username = newEmpleado.generar_username()
                 tempPass = temporal_password()
                 newEmpleado.set_password(tempPass)
+                #TODO notificar al empleado de su nueva contraseña
                 db.session.add(newEmpleado)
                 db.session.commit()
                 return redirect(url_for("dashboard.empleados"))

@@ -43,7 +43,6 @@
                 <input type="checkbox" id="empleados-activo" name="activo" {%if not empleado or empleado.activo%}checked{%endif%}>
             </div>
             
-
             {% with messages = get_flashed_messages(with_categories=False, category_filter="error") %}
                 {% if messages %}
                 <div class="mensaje-error">
@@ -56,6 +55,9 @@
 
             <div id="editar-empleados-buttons">
                 <a href="{{url_for('dashboard.empleados')}}" id="editar-empleados-cancelar">Cancelar</a>
+                {%if empleado%}
+                <button type="submit" id="editar-empleados-reset-pass" name="reset_pass">Resetear Contraseña</button>
+                {%endif%}
                 <button id="editar-empleados-guardar" type="submit" disabled> {%if empleado%}Editar{%else%}Crear{%endif%} </button>
             </div>
         </form>

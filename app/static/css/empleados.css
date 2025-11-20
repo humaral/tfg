@@ -145,7 +145,7 @@
     display:flex;
     width: 125px;
     padding: 12px;
-    margin: 0 0 15px 15px;
+    margin-left: 15px;
     font-size: 16px;
     cursor: pointer;
     user-select: none;
@@ -162,7 +162,7 @@
 }
 
 #editar-empleados-guardar {
-    width: 25%;
+    width: 30%;
     padding: 12px;
     background-color: var(--color-secundario);
     color: white;
@@ -178,6 +178,23 @@
     cursor: pointer;
 }
 
+#editar-empleados-reset-pass{
+    width: 30%;
+    padding: 3px;
+    background-color: var(--color-warning);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#editar-empleados-reset-pass:hover{
+    background-color: var(--color-warning-hover);
+    color: black;
+    transition: 0.3s;
+}
+
 #editar-empleados-cancelar {
     width: 25%;
     color: var(--color-error);
@@ -190,4 +207,6 @@
 
 #editar-empleados-cancelar:hover {
     text-decoration: underline;
+    color: var(--color-error-hover);
+    transition: 0.2s;
 }
