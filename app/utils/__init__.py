@@ -16,5 +16,5 @@ from .rpa import(
     rpa_certificado_empadronamiento
 )
 
-from .reiniciarBD import(
+from .utils_db import(
     reiniciar_bd)

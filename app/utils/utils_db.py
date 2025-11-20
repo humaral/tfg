@@ -8,8 +8,8 @@ from app.utils import crear_peticion
 
 def reiniciar_bd(app):
 
-    ruta_base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    ruta_sql = os.path.join(ruta_base, "data\\data.sql")
+    ruta_base = app.config['DB_PATH']
+    ruta_sql = os.path.join(ruta_base, "data.sql")
 
     with app.app_context():
 
@@ -23,7 +23,8 @@ def reiniciar_bd(app):
         conn.close()
 
         poblar_peticiones()
-        
+
+
 def poblar_peticiones():
     for i in range(25):   
         tel=random.randint(600000000, 999999999)
