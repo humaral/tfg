@@ -1,5 +1,13 @@
 # tfg
 
+Instalar dependencias:
+pip install requirements.txt
+
+Ejecutar la app:
+py app.py
+
+Ejecutar el servidor smtpd:
+py -m aiosmtpd -n -l localhost:1025
 
 
 ## Getting started

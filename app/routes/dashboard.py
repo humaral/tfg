@@ -5,7 +5,7 @@
 from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import select, func, asc, desc, or_
-from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento, crear_peticion
+from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento, crear_peticion, enviar_mail
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
@@ -263,7 +263,11 @@ def edit_empleado():
                 tempPass = temporal_password()
                 empleadoEditar.set_password(tempPass)
                 db.session.commit()
-                #TODO notificar al empleado de su nueva contraseña
+                enviar_mail(
+                    subject="Restablecimiento de contraseña",
+                    recipients=[empleadoEditar.email],
+                    body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\n\nSe ha restablecido tu contraseña. Tu nueva contraseña temporal es: {tempPass}\nPor favor, cámbiala en tu próximo inicio de sesión."
+                )
                 
             else:
                 empleadoEditar.nombre = nombre
@@ -271,9 +275,14 @@ def edit_empleado():
                 empleadoEditar.apellido2 = apellido2
                 empleadoEditar.email = email
                 empleadoEditar.idRol = rol
-                empleadoEditar.activo = activo
 
-                if not(empleadoEditar.activo):  #Si se desactiva la cuenta, desasignar todas las peticiones asignadas
+                if empleadoEditar.activo and not(activo):  #Si se desactiva la cuenta, desasignar todas las peticiones asignadas
+                    empleadoEditar.activo = activo
+                    enviar_mail(
+                        subject="Cuenta desactivada",
+                        recipients=[empleadoEditar.email],
+                        body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\nTu cuenta en el sistema simulado de trámites telefónicos ha sido desactivada. Si crees que se trata de un error contacta con un administrador del sistema."
+                    )
                     for p in empleadoEditar.peticionesAsignadas:
                         p.idEstadoActual = 3  #Estado "Pendiente"
                         p.idEmpleadoAsignado = None
@@ -281,6 +290,13 @@ def edit_empleado():
                         newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
                         db.session.add(newHito)
                         db.session.flush()
+                elif not(empleadoEditar.activo) and activo:
+                    empleadoEditar.activo = activo
+                    enviar_mail(
+                        subject="Cuenta activada",
+                        recipients=[empleadoEditar.email],
+                        body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\nTu cuenta en el sistema simulado de trámites telefónicos ha sido activada. Tu usuario es: {empleadoEditar.username}.\n Si no recuerdas tu contraseña puedes solicitar un restablecimiento de la misma."
+                    )
 
                 db.session.commit()
             return redirect(url_for("dashboard.empleados"))
@@ -297,9 +313,22 @@ def edit_empleado():
                 newEmpleado.username = newEmpleado.generar_username()
                 tempPass = temporal_password()
                 newEmpleado.set_password(tempPass)
-                #TODO notificar al empleado de su nueva contraseña
                 db.session.add(newEmpleado)
                 db.session.commit()
+
+                if newEmpleado.activo:
+                    enviar_mail(
+                        subject="Empleado creado",
+                        recipients=[newEmpleado.email],
+                        body=f"Hola {newEmpleado.nombre} {newEmpleado.apellido1},\nYa tienes acceso al sistetma simulado de trámites telefónicos.\n Tu usuario es: {newEmpleado.username} y tu contraseña temporal es: {tempPass}\nPor favor, cámbiala en tu próximo inicio de sesión."
+                    )
+                else:
+                    enviar_mail(
+                        subject="Empleado creado",
+                        recipients=[newEmpleado.email],
+                        body=f"Hola {newEmpleado.nombre} {newEmpleado.apellido1},\nSe ha creado tu cuenta en el sistema simulado de trámites telefónicos, pero actualmente está desactivada. \n Tu usuario es: {newEmpleado.username} y tu contraseña temporal es: {tempPass}\n Para activarla contacta con un administrador del sistema y no olvides actualizar la contraseña en tu próximo inicio de sesión."
+                    )
+
                 return redirect(url_for("dashboard.empleados"))
     
     return render_template("editarEmpleado.html", empleado=empleadoEditar)

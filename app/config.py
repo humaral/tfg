@@ -14,6 +14,16 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(DB_PATH, 'data.db')}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    MAIL_SERVER = "localhost"
+    MAIL_PORT = 1025
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = None
+    MAIL_PASSWORD = None
+    MAIL_DEFAULT_SENDER = ("Trámites Telefónicos", "noreply@tramitestelefonicos.es")
+
+
+
     APP_VERSION = "0.1 \u03B2"
 
     DEBUG = True

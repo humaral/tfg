@@ -18,3 +18,7 @@ from .rpa import(
 
 from .utils_db import(
     reiniciar_bd)
+
+from .mail import(
+    enviar_mail
+)
