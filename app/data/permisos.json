@@ -9,14 +9,12 @@
         "crear_tramite",
         "editar_tramite",
         "eliminar_tramite",
-        "ver_estadisticas",
-        "ver_estadisticas_generales"
+        "ver_estadisticas"
     ],
     "Secretario":[
         "ver_peticiones",
         "crear_peticion",
         "asignar_peticion",
-        "ver_estadisticas",
-        "ver_estadisticas_secretario"
+        "ver_estadisticas"
     ]
 }

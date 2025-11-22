@@ -21,8 +21,9 @@ class Config:
     MAIL_USERNAME = None
     MAIL_PASSWORD = None
     MAIL_DEFAULT_SENDER = ("Trámites Telefónicos", "noreply@tramitestelefonicos.es")
+    MAIL_SUPPRESS_SEND = True
 
     APP_VERSION = "0.1 \u03B2"
 
     DEBUG = True
-    REINICIAR_BD_ON_STARTUP = True
+    REINICIAR_BD_ON_STARTUP = False

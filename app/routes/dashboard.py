@@ -435,12 +435,7 @@ def edit_tramite():
 @login_required
 @permiso_requerido("ver_estadisticas")
 def estadisticas():
-    if "ver_estadisticas_generales" in session["permisos"]:
-        return render_template("estadisticas.jinja")
-    elif "ver_estadisticas_secretario" in session["permisos"]:
-        return render_template("estadisticas.jinja")
-    else:
-        abort(404)
+    return render_template("estadisticas.jinja")
 
 
 @dashboard_bp.route("/perfil/<username>", methods=["GET", "POST"])
