@@ -35,12 +35,13 @@ class Empleado(db.Model, UserMixin):
         return check_password_hash(self.password, password)
     
     def generar_username(self):
-        user = unidecode(f"{self.nombre}.{self.apellido1}").lower().replace(" ","")
+        base_user = unidecode(f"{self.nombre}.{self.apellido1}").lower().replace(" ","")
+        user = base_user
         cont = 1
 
         while db.session.scalar(db.select(Empleado).where(Empleado.username==user)):
             cont +=1
-            user = f"{user}{cont}"
+            user = f"{base_user}{cont}"
 
         return user
 
