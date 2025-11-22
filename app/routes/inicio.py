@@ -17,4 +17,4 @@ def start():
 @login_required
 @permiso_requerido("crear_peticion")
 def get_plantilla(nombre):
-    return render_template(f"components/{nombre}.html", peticion=None)
+    return render_template(f"components/tramites/{nombre}.html", peticion=None)

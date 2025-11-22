@@ -24,7 +24,7 @@
         <select name="tramite" id="crear-peticion-tramite">
             <option value="0">--Selecciona un trámite--</option>
             {%for tramite in tramites%}
-            <option value="{{tramite.valor}}">{{tramite.valor}}</option>
+            <option value="{{tramite.id}}">{{tramite.valor}}</option>
             {%endfor%}
         </select>
 

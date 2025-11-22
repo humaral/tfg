@@ -17,14 +17,14 @@ function isEmpty(){
 
 inputTramite.addEventListener("change", async () => {
 
-    const tramite = inputTramite.value;
+    const idTramite = inputTramite.value;
 
-    if(tramite=='0'){
+    if(idTramite=='0'){
         templateContainer.innerHTML = "";
         return;
     }
     
-    const response = await fetch(`/cargar_plantilla/${tramite}`);
+    const response = await fetch(`/cargar_plantilla/${idTramite}`);
     const html = await response.text();
 
     templateContainer.innerHTML = html;

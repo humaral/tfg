@@ -60,7 +60,7 @@
         <div id="peticion-resumen">
             <form method="post">
                 <div id="peticion-detalles">
-                    {%include "components/" + peticion.tramite.valor + ".html" %}
+                    {%include "components/tramites/" ~ peticion.idTramite ~ ".html" %}
                 </div>
                 {%if (peticion.estadoActual.valor == "Asignada")%}
                 <div class="botones">
