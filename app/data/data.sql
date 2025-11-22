@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS TRAMITE(
 CREATE TABLE IF NOT EXISTS ESTADO(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     valor TEXT NOT NULL UNIQUE,
-    icono TEXT NOT NULL
+    icono TEXT NOT NULL,
+    color TEXT NOT NULL
 );
 
 --Enum de los posibles roles de un usuario
@@ -80,12 +81,12 @@ insert into TRAMITE values
     (3,'Consulta Centros de Día',1);
 
 insert into ESTADO values
-    (1,'Creada', 'qlementine-icons:new-16'),
-    (2,'En Curso', 'mdi:progress-clock'),
-    (3,'Pendiente', 'ic:twotone-error'),
-    (4,'Asignada', 'mdi:user-edit'),
-    (5,'Completada', 'charm:circle-tick'),
-    (6,'Cancelada', 'charm:circle-cross');
+    (1,'Creada', 'qlementine-icons:new-16', '#022e59'),
+    (2,'En Curso', 'mdi:progress-clock', '#b49000ff'),
+    (3,'Pendiente', 'ic:twotone-error', '#cf6208ff'),
+    (4,'Asignada', 'mdi:user-edit', 'black'),
+    (5,'Completada', 'charm:circle-tick', '#00af40ff'),
+    (6,'Cancelada', 'charm:circle-cross', '#d80000ff');
 
 insert into ROL values (1,'Administrador'), (2,'Secretario');
 

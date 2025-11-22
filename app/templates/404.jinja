@@ -1,10 +1,10 @@
 <!--
 - Autor: Hugo Martín Alonso
-- Fecha: 07-11-2025
-- Descripción: página de error 403 (acceso denegado por falta de permisos) personalizada. 
+- Fecha: 27-10-2025
+- Descripción: página de error 404 personalizada. 
 -->
 
-{%extends "layout.html"%}
+{%extends "layout.jinja"%}
 
 {%block title%}Página no encontrada{%endblock%}
 
@@ -16,11 +16,11 @@
     <main class="error-page">
         <div class="error-cabecera">
             <h1>4</h1>
-            <iconify-icon icon="picon:forbidden"></iconify-icon>
-            <h1>3</h1>
+            <iconify-icon icon="si:error-duotone"></iconify-icon>
+            <h1>4</h1>
         </div>
-        <h2>ACCESO DENEGADO</h2>
-        <p>No cuenta con los permisos necesarios para acceder a este recurso. Para más información, contacte con un administrador del sistema.</p>
+        <h2>PÁGINA NO ENCONTRADA</h2>
+        <p>Lo sentimos, la página que buscas no existe.</p>
         <a href="{{ url_for('inicio.start') }}"><iconify-icon icon="typcn:arrow-back"></iconify-icon> Volver a la página principal</a>
     </main>
 {%endblock%}

@@ -25,4 +25,4 @@ class Config:
     APP_VERSION = "0.1 \u03B2"
 
     DEBUG = True
-    REINICIAR_BD_ON_STARTUP = False
+    REINICIAR_BD_ON_STARTUP = True

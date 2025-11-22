@@ -4,7 +4,7 @@
 - Descripción: vista resumen con la información de una petición concreta.
 -->
 
-{%extends "layout.html"%}
+{%extends "layout.jinja"%}
 
 {%block title%}Petición #{{peticion.id}}{%endblock%}
 
@@ -42,7 +42,7 @@
                 {%if hito.empleadoEditor %}
                     <img id="timeline-icon" src="{{url_for('uploads.fotoPerfil', filename=hito.empleadoEditor.fotoPerfil)}}" alt="Foto de perfil del usuario" />
                 {%else%}
-                    <iconify-icon id="timeline-icon" icon={{hito.estado.icono}}></iconify-icon>
+                    <iconify-icon id="timeline-icon" icon="{{hito.estado.icono}}" style="color: {{hito.estado.color}};"></iconify-icon>
                 {%endif%}
 
                 <div id="timeline-info">
@@ -60,7 +60,7 @@
         <div id="peticion-resumen">
             <form method="post">
                 <div id="peticion-detalles">
-                    {%include "components/tramites/" ~ peticion.idTramite ~ ".html" %}
+                    {%include "components/tramites/" ~ peticion.idTramite ~ ".jinja" %}
                 </div>
                 {%if (peticion.estadoActual.valor == "Asignada")%}
                 <div class="botones">

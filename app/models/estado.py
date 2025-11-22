@@ -10,6 +10,7 @@ class Estado(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     valor = db.Column(db.String(100), unique=True, nullable=False)
     icono = db.Column(db.String(100), nullable=False)
+    color = db.Column(db.String(50), nullable=False)
 
     hitos = db.relationship('Hito', back_populates='estado')
     peticiones = db.relationship('Peticion', back_populates='estadoActual')

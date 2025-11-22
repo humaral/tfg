@@ -4,7 +4,7 @@
 - Descripción: Vista con la lista de trámites. 
 -->
 
-{%extends "layout.html"%}
+{%extends "layout.jinja"%}
 
 {%block title%}Trámites{%endblock%}
 
@@ -13,7 +13,7 @@
 {%endblock%}
 
 {%block body%}
-{%include "components/menu.html"%}
+{%include "components/menu.jinja"%}
 <main id="tramites-page">
     <div id="tramites-controllers">
         <div class="filter" id="tramites-filters">

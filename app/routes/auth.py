@@ -34,7 +34,7 @@ def login(): #TODO Crear ficheros de logs para mantener registros
                 cargar_permisos(empleado.rol.valor)
                 return redirect(url_for("dashboard.peticiones"))
 
-        return render_template("login.html")
+        return render_template("login.jinja")
 
 #Funcionalidad para cerrar sesión
 @auth_bp.route("/logout")

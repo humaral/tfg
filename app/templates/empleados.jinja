@@ -4,7 +4,7 @@
 - Descripción: vista de la lista de empleados.
 -->
 
-{%extends "layout.html"%}
+{%extends "layout.jinja"%}
 
 {%block title%}Empleados{%endblock%}
 
@@ -13,7 +13,7 @@
 {%endblock%}
 
 {%block body%}
-{%include "components/menu.html"%}
+{%include "components/menu.jinja"%}
 <main id="empleados-page">
     <div id="empleados-controllers">
         <div class="filter" id="empleados-filters">

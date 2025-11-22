@@ -23,7 +23,7 @@ def peticiones():
     estados_posibles = db.session.scalars(select(Estado))
     tramites_posibles = db.session.scalars(select(Tramite))
 
-    return render_template("peticiones.html", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles)
+    return render_template("peticiones.jinja", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles)
 
 @dashboard_bp.route("/api/peticiones")
 @login_required
@@ -149,7 +149,7 @@ def sumary_peticion(idPeticion):
 
     historial = db.session.scalars(select(Hito).where(Hito.idPeticion==idPeticion))
 
-    return render_template("sumaryPeticion.html", peticion=peticion, historial=historial)
+    return render_template("sumaryPeticion.jinja", peticion=peticion, historial=historial)
 
 @dashboard_bp.route("/new/peticion", methods=["GET", "POST"])
 @login_required
@@ -168,7 +168,7 @@ def new_peticion():
 
         return redirect(url_for("dashboard.sumary_peticion", idPeticion=idPeticion))
 
-    return render_template("crearPeticion.html", tramites=tramites)
+    return render_template("crearPeticion.jinja", tramites=tramites)
 
 
 @dashboard_bp.route("/empleados")
@@ -177,7 +177,7 @@ def new_peticion():
 def empleados():
     roles_posibles = db.session.scalars(select(Rol))
 
-    return render_template("empleados.html", filtro_roles = roles_posibles)
+    return render_template("empleados.jinja", filtro_roles = roles_posibles)
 
 @dashboard_bp.route("/api/empleados")
 @login_required
@@ -329,7 +329,7 @@ def edit_empleado():
 
                 return redirect(url_for("dashboard.empleados"))
     
-    return render_template("editarEmpleado.html", empleado=empleadoEditar)
+    return render_template("editarEmpleado.jinja", empleado=empleadoEditar)
 
 
 @dashboard_bp.route("/tramites")
@@ -337,7 +337,7 @@ def edit_empleado():
 @permiso_requerido("ver_tramites")
 def tramites():
 
-    return render_template("tramites.html")
+    return render_template("tramites.jinja")
 
 @dashboard_bp.route("/api/tramites")
 @login_required
@@ -429,16 +429,16 @@ def edit_tramite():
                 db.session.commit()
                 return redirect(url_for("dashboard.tramites"))
     
-    return render_template("editarTramite.html", tramite=tramiteEditar)
+    return render_template("editarTramite.jinja", tramite=tramiteEditar)
 
 @dashboard_bp.route("/estadisticas")
 @login_required
 @permiso_requerido("ver_estadisticas")
 def estadisticas():
     if "ver_estadisticas_generales" in session["permisos"]:
-        return render_template("estadisticas.html")
+        return render_template("estadisticas.jinja")
     elif "ver_estadisticas_secretario" in session["permisos"]:
-        return render_template("estadisticas.html")
+        return render_template("estadisticas.jinja")
     else:
         abort(404)
 
@@ -469,4 +469,4 @@ def perfil(username):
             flash("Contraseña actualizada con éxito", "success")
             return redirect(url_for("dashboard.perfil", username=username))
 
-    return render_template("perfil.html", ocultar_pass_menu=ocultar_pass_menu)
+    return render_template("perfil.jinja", ocultar_pass_menu=ocultar_pass_menu)
