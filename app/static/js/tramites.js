@@ -76,10 +76,10 @@ async function actualizarTabla() {
             <td>${t.id}</td>
             <td>${t.nombre}</td>
             <td class="icono-tramites-activo">
-                <a href="${urlEditarTramite}?id=${t.id}" class="button-activo">
+                <a href="${urlEditarTramite}?id=${t.id}" class="button-activo-tramites">
                 ${t.activo
-                    ? `<iconify-icon id="active-true-tramite" icon="charm:circle-tick"></iconify-icon>`
-                    : `<iconify-icon id="active-false-tramite" icon="charm:circle-cross"></iconify-icon>`}
+                    ? `<iconify-icon class="activo-true-tramite" icon="charm:circle-tick"></iconify-icon>`
+                    : `<iconify-icon class="activo-false-tramite" icon="charm:circle-cross"></iconify-icon>`}
                 </a>
             </td>
         </tr>`

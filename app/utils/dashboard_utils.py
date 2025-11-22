@@ -12,28 +12,37 @@ def temporal_password():
 
 
 def crear_peticion(telefono, idTramite, informacion):
-
-    newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=1, informacion=informacion) #Creada
-    db.session.add(newPeticion)
-    db.session.flush()
-
-    hitoCreacion = Hito(idPeticion=newPeticion.id, idEstado=newPeticion.idEstadoActual)
-    db.session.add(hitoCreacion)
-    db.session.flush()
-
-
-    newPeticion.idEstadoActual = 2 #En Curso
-    db.session.flush()
-    hitoEnCurso = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
-    db.session.add(hitoEnCurso)
-    db.session.flush()
-
-    if idTramite == 1: #Certificado de empadronamiento
-        newPeticion.idEstadoActual = 3 #Pendiente
+    
+    tramite = db.session.scalar(db.select(Tramite).where(Tramite.id == idTramite))
+    
+    if not tramite or not tramite.activo:
+        newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=6, informacion=informacion) #Cancelada
+        db.session.add(newPeticion)
         db.session.flush()
-        newHito = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
-        db.session.add(newHito)
+        hitoCancelacion = Hito(idPeticion=newPeticion.id, idEstado=newPeticion.idEstadoActual)
+        db.session.add(hitoCancelacion)
+        db.session.commit()
 
-    db.session.commit()
+    else:
+        newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=1, informacion=informacion) #Creada
+        db.session.add(newPeticion)
+        db.session.flush()
+        hitoCreacion = Hito(idPeticion=newPeticion.id, idEstado=newPeticion.idEstadoActual)
+        db.session.add(hitoCreacion)
+        db.session.flush()
+
+        newPeticion.idEstadoActual = 2 #En Curso
+        db.session.flush()
+        hitoEnCurso = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
+        db.session.add(hitoEnCurso)
+        db.session.flush()
+
+        if idTramite == 1: #Certificado de empadronamiento
+            newPeticion.idEstadoActual = 3 #Pendiente
+            db.session.flush()
+            hitoPendiente = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
+            db.session.add(hitoPendiente)
+
+        db.session.commit()
     
     return newPeticion.id

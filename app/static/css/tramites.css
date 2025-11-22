@@ -85,6 +85,9 @@
     display: block;
 }
 
+#th-activo-tramites {
+    width: 0;
+}
 
 .icono-tramites-activo {
     display: flex;
@@ -92,11 +95,18 @@
     align-items: center;
 }
 
-#active-true-tramite {
+.button-activo-empleado {
+    background-color: transparent;
+    border: none;
+    font-size: large;
+    cursor: pointer;
+}
+
+.activo-true-tramite {
     color: var(--color-exito);
 }
 
-#active-false-tramite {
+.activo-false-tramite {
     color: var(--color-error);
 }
 

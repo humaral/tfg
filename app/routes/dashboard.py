@@ -21,7 +21,7 @@ dashboard_bp = Blueprint('dashboard', __name__)
 def peticiones():
 
     estados_posibles = db.session.scalars(select(Estado))
-    tramites_posibles = db.session.scalars(select(Tramite).where(Tramite.activo==True))
+    tramites_posibles = db.session.scalars(select(Tramite))
 
     return render_template("peticiones.html", filtro_estados = estados_posibles, filtro_tramites = tramites_posibles)
 
@@ -161,9 +161,7 @@ def new_peticion():
     if request.method == "POST":
 
         telefonoLlamada = request.form["telefonoLlamada"]
-        tramite = request.form["tramite"]
-        idTramite = db.session.scalar(select(Tramite.id).where(Tramite.valor==tramite))
-
+        idTramite = int(request.form["tramite"])
         informacion = {k:v for k, v in request.form.items() if k not in ["telefonoLlamada", "tramite"]}
 
         idPeticion = crear_peticion(telefonoLlamada, idTramite, informacion)
@@ -212,7 +210,7 @@ def api_empleados():
 
     direc = asc if direccion == "ascendente" else desc
     
-    if orden in ("username", "email"):
+    if orden in ("username", "email"): #TODO cuando el mismo user pasa de mas de 10 ordena mal
         stmt = stmt.order_by(direc(func.lower(getattr(Empleado, orden))))
     elif orden == "nombre":
         stmt = stmt.order_by(direc(func.lower(Empleado.nombre)), direc(func.lower(Empleado.apellido1)), direc(func.lower(Empleado.apellido2)))
@@ -405,6 +403,18 @@ def edit_tramite():
 
         if tramiteEditar:
             tramiteEditar.valor = nombre
+            
+            if tramiteEditar.activo and not(activo):  #Si se desactiva el trámite, cancelar todas las peticiones activas de ese trámite
+                for p in tramiteEditar.peticiones:
+                    if p.idEstadoActual not in [5, 6]:
+                        p.idEstadoActual = 6 #Cancelada
+                        p.idEmpleadoAsignado = None
+                        db.session.flush()
+                        newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
+                        db.session.add(newHito)
+                        db.session.flush()
+
+
             tramiteEditar.activo = activo
             db.session.commit()
             return redirect(url_for("dashboard.tramites"))

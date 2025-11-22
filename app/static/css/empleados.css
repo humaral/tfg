@@ -77,24 +77,28 @@
     display: block;
 }
 
+#th-activo-empleados {
+    width: 0;
+}
+
 .icono-empleados-activo {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.button-activo{
+.button-activo-empleado {
     background-color: transparent;
     border: none;
     font-size: large;
     cursor: pointer;
 }
 
-.active-true-empleado {
+.activo-true-empleado {
     color: var(--color-exito);
 }
 
-.active-false-empleado {
+.activo-false-empleado {
     color: var(--color-error);
 }
 
