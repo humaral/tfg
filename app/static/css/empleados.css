@@ -77,7 +77,6 @@
     display: block;
 }
 
-/* TODO cambiar estilo, igual se pueden hacer clicables para desactivar una cuenta */
 .icono-empleados-activo {
     display: flex;
     justify-content: center;

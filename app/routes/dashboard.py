@@ -72,7 +72,6 @@ def api_peticiones():
     elif orden == "tramite":
         stmt = stmt.join(Tramite, Peticion.idTramite==Tramite.id).order_by(direc(func.lower(Tramite.valor)))
     elif orden == "creacion":
-        #TEST comprobar que funcion ya que el insert pone todas las peticiones con la misma fechas
         stmt = stmt.join(Hito, (Peticion.id==Hito.idPeticion) & (Peticion.idEstadoActual == Hito.idEstado)).order_by(direc(Hito.updated_at))
     elif orden == "asignacion":
         stmt = stmt.outerjoin(Empleado, Peticion.idEmpleadoAsignado==Empleado.id).order_by(direc(func.lower(Empleado.username)).nulls_last(), direc(Peticion.id))
@@ -273,6 +272,16 @@ def edit_empleado():
                 empleadoEditar.email = email
                 empleadoEditar.idRol = rol
                 empleadoEditar.activo = activo
+
+                if not(empleadoEditar.activo):  #Si se desactiva la cuenta, desasignar todas las peticiones asignadas
+                    for p in empleadoEditar.peticionesAsignadas:
+                        p.idEstadoActual = 3  #Estado "Pendiente"
+                        p.idEmpleadoAsignado = None
+                        db.session.flush()
+                        newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
+                        db.session.add(newHito)
+                        db.session.flush()
+
                 db.session.commit()
             return redirect(url_for("dashboard.empleados"))
         
@@ -382,7 +391,6 @@ def edit_tramite():
                 return redirect(url_for("dashboard.tramites"))
     
     return render_template("editarTramite.html", tramite=tramiteEditar)
-#TODO: Al editar el nombre de un tramite, cambiar el nombre de la plantilla html
 
 @dashboard_bp.route("/estadisticas")
 @login_required
