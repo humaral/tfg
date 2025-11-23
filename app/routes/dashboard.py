@@ -111,7 +111,7 @@ def sumary_peticion(idPeticion):
         if 'completar' in request.form:
             if peticion.idTramite == 1:  #Certificado de empadronamiento
                 rpa_certificado_empadronamiento(peticion.informacion)
-            peticion.idEstadoActual = 5
+            peticion.idEstadoActual = 4
             db.session.flush()
             newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
             db.session.add(newHito)
@@ -119,7 +119,7 @@ def sumary_peticion(idPeticion):
             db.session.commit()
 
         elif 'asignar' in request.form:
-            peticion.idEstadoActual = 4
+            peticion.idEstadoActual = 3
             peticion.idEmpleadoAsignado = current_user.id
             db.session.flush()
             newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
@@ -127,7 +127,7 @@ def sumary_peticion(idPeticion):
             db.session.commit()
 
         elif 'desasignar' in request.form:
-            peticion.idEstadoActual = 3
+            peticion.idEstadoActual = 2
             peticion.idEmpleadoAsignado = None
             db.session.flush()
             newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual)
@@ -140,7 +140,7 @@ def sumary_peticion(idPeticion):
             db.session.commit()
             
         elif 'cancelar' in request.form:
-            peticion.idEstadoActual = 6
+            peticion.idEstadoActual = 5
             db.session.flush()
             newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
             db.session.add(newHito)
@@ -282,7 +282,7 @@ def edit_empleado():
                         body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\nTu cuenta en el sistema simulado de trámites telefónicos ha sido desactivada. Si crees que se trata de un error contacta con un administrador del sistema."
                     )
                     for p in empleadoEditar.peticionesAsignadas:
-                        p.idEstadoActual = 3  #Estado "Pendiente"
+                        p.idEstadoActual = 2  #Estado "Pendiente"
                         p.idEmpleadoAsignado = None
                         db.session.flush()
                         newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
@@ -406,8 +406,8 @@ def edit_tramite():
             
             if tramiteEditar.activo and not(activo):  #Si se desactiva el trámite, cancelar todas las peticiones activas de ese trámite
                 for p in tramiteEditar.peticiones:
-                    if p.idEstadoActual not in [5, 6]:
-                        p.idEstadoActual = 6 #Cancelada
+                    if p.idEstadoActual not in [4, 5]:
+                        p.idEstadoActual = 5 #Cancelada
                         p.idEmpleadoAsignado = None
                         db.session.flush()
                         newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)

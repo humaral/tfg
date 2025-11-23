@@ -82,11 +82,10 @@ insert into TRAMITE values
 
 insert into ESTADO values
     (1,'Creada', 'qlementine-icons:new-16', '#022e59'),
-    (2,'En Curso', 'mdi:progress-clock', '#b49000ff'),
-    (3,'Pendiente', 'ic:twotone-error', '#cf6208ff'),
-    (4,'Asignada', 'mdi:user-edit', 'black'),
-    (5,'Completada', 'charm:circle-tick', '#00af40ff'),
-    (6,'Cancelada', 'charm:circle-cross', '#d80000ff');
+    (2,'Pendiente', 'ic:twotone-error', '#cf6208ff'),
+    (3,'Asignada', 'mdi:user-edit', '#b49000ff'),
+    (4,'Completada', 'charm:circle-tick', '#00af40ff'),
+    (5,'Cancelada', 'charm:circle-cross', '#d80000ff');
 
 insert into ROL values (1,'Administrador'), (2,'Secretario');
 

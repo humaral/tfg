@@ -16,7 +16,7 @@ def crear_peticion(telefono, idTramite, informacion):
     tramite = db.session.scalar(db.select(Tramite).where(Tramite.id == idTramite))
     
     if not tramite or not tramite.activo:
-        newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=6, informacion=informacion) #Cancelada
+        newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=5, informacion=informacion) #Cancelada
         db.session.add(newPeticion)
         db.session.flush()
         hitoCancelacion = Hito(idPeticion=newPeticion.id, idEstado=newPeticion.idEstadoActual)
@@ -31,14 +31,8 @@ def crear_peticion(telefono, idTramite, informacion):
         db.session.add(hitoCreacion)
         db.session.flush()
 
-        newPeticion.idEstadoActual = 2 #En Curso
-        db.session.flush()
-        hitoEnCurso = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
-        db.session.add(hitoEnCurso)
-        db.session.flush()
-
         if idTramite == 1: #Certificado de empadronamiento
-            newPeticion.idEstadoActual = 3 #Pendiente
+            newPeticion.idEstadoActual = 2 #Pendiente
             db.session.flush()
             hitoPendiente = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
             db.session.add(hitoPendiente)

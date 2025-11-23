@@ -1,7 +1,8 @@
 # tfg
 
 Instalar dependencias:
-pip install requirements.txt
+C:/Users/hmaof/Documents/proyecto/tfg/.venv/Scripts/Activate.ps1
+pip install -r requirements.txt
 
 Ejecutar la app:
 py app.py
