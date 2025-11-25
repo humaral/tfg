@@ -4,15 +4,15 @@
 - Descripción: componente con la información específica del trámite de solicitar certificado de empadronaiento. 
 -->
 
-<div id="detalles-titulo">
+<div class="detalles-titulo">
     {%if peticion%}
     <h2>Información</h2>
     {%else%}
     <h2>Introduce los Datos</h2>
     {%endif%}
 </div>
-<div id="detalles-contenido">
-    <div id="contenido-col1">
+<div class="detalles-contenido">
+    <div class="contenido-col1">
         <label for="certificado-empadronamiento-dni">DNI:</label>
         <input type="text" id="certificado-empadronamiento-dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required pattern="^\d{8}\w{1}$">
         <label for="certificado-empadronamiento-nombre">Nombre:</label>

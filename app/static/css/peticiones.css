@@ -87,6 +87,8 @@
 #peticion-identificador {
     display: flex;
     align-items: center;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 #peticion-identificador iconify-icon {
@@ -100,11 +102,15 @@
 #peticion-titulo {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin: 20px 0;
+    flex-shrink: 1;
+    min-width: 0;
 }
 
 #peticion-titulo h1 {
     margin: 0%;
+    padding: 0%;
     font-size: 30px;
     color: var(--color-texto-primario);
     font-weight: bold;
@@ -115,6 +121,7 @@
 
 #peticion-titulo p {
     margin: 0%;
+    padding: 0%;
     font-size: 18px;
     color: var(--color-texto-secundario);
     font-weight: normal;
@@ -158,14 +165,14 @@
     transition: 1s;
 }
 
-
 #peticion-contenido {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     width: 100%;
     flex: 1;
+    margin-top: 20px;
 }
 
 #peticion-timeline {
@@ -243,9 +250,8 @@
     text-wrap: nowrap;
 }
 
-
 #peticion-resumen {
-    margin: 20px;
+    margin: 0 20px 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -259,91 +265,60 @@
     border-radius: 15px;
     box-shadow: var(--sombreado);
     text-align: center;
-    width: 90%;
-    max-width: 900px;
+    width: 100%;
     overflow: hidden;
-    font-size: large;
 }
 
-/*Plantillas información*/
-#detalles-titulo{
-    background-color: var(--color-primario);
-    border-radius: 15px 15px 0 0;
-    padding: 12px 20px;
-}
-
-#detalles-titulo h2 {
-    color: white;
-    margin: 0;
-    font-size: 24px;
-    text-align: start;
-}
-
-#detalles-contenido {
+.botones{
     display: flex;
     justify-content: space-between;
-    gap: 60px;
-    padding: 20px 40px;
+    margin: 15px;
 }
 
-#detalles-contenido > div{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-#detalles-contenido label {
-    font-weight: bold;
-    margin-bottom: 4px;
-    text-align: left;
-}
-
-/* TODO arreglar estilo */
-/* #detalles-contenido input{
+#peticion-cancelar{
+    padding: 15px;
+    background-color: var(--color-error);
+    color: white;
     border: none;
-    background: none;
-    outline: none;
-    padding: 0;
-    font-size: 15px;
-    font-weight: normal;
-    color: var(--color-texto-primario);
-    width: 100%;
-    text-align: left;
-} */
-
-#detalles-contenido input:disabled {
-    color: var(--color-texto-primario);
-    opacity: 1;
-    cursor: default;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-#detalles-contenido > div > div{
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
+#peticion-cancelar:hover{
+    text-decoration: underline;
+    background-color: var(--color-error-hover);
+    transition: 0.3s;
 }
 
-#detalles-contenido iconify-icon {
-    font-size: 20px;
-    color: var(--color-texto-primario);
-    flex-shrink: 0;
+#peticion-actualizar{
+    padding: 15px;
+    background-color: var(--color-warning);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+#peticion-actualizar:hover{
+    background-color: var(--color-warning-hover);
+    color: black;
+    transition: 0.3s;
 }
 
-#oficina{
+#peticion-completar{
+    padding: 15px;
+    background-color: var(--color-primario);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
     font-weight: bold;
 }
-
-#direccion{
-    color: var(--color-texto-secundario);
-    font-size: 14px;
-    margin-top: 2px;
-}
-
-#fecha{
-    font-family: monospace;
-    font-size: 15px;
-    color: var(--color-texto-primario);
+#peticion-completar:hover{
+    background-color: var(--color-secundario);
+    transition: 0.3s;
 }
 
 /*Crear peticion*/
@@ -351,15 +326,33 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    flex: 1;
 }
 
 #crear-peticion-card{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    width: 75%;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     margin: 25px 0;
+    padding: 20px;
+    border: var(--bordes);
+    border-radius: 16px;
+    box-shadow: var(--sombreado);
+    min-width: 300px;
+}
+
+#crear-peticion-card h1{
+    font-size: 30px;
+    color: var(--color-texto-primario);
+}
+
+#crear-peticion-telefono, #crear-peticion-tramite{
+    padding: 5px;
+    border: var(--bordes);
+    border-radius: 8px;
+    font-size: 16px;
+    height: auto;
 }
 
 #crear-peticion-template{
@@ -368,7 +361,7 @@
 }
 
 #crear-peticion-buttons {
-    width: 100%;
+    width: 90%;
     margin: 15px;
     display: flex;
     flex-direction: row;
@@ -380,7 +373,7 @@
 
 #crear-peticion-guardar {
     width: 75px;
-    padding: 12px;
+    padding: 10px;
     background-color: var(--color-secundario);
     color: white;
     border: none;
@@ -391,7 +384,7 @@
 
 #crear-peticion-guardar:enabled {
     background-color: var(--color-primario);
-    transition: background-color 0.2s;
+    transition: 0.2s;
     cursor: pointer;
 }
 
@@ -406,4 +399,59 @@
 
 #crear-peticion-cancelar:hover {
     text-decoration: underline;
+    color: var(--color-error-hover);
+}
+
+/*Plantillas información*/
+.detalles-titulo{
+    background-color: var(--color-primario);
+    border-radius: 15px 15px 0 0;
+    padding: 12px 20px;
+}
+
+.detalles-titulo h2 {
+    color: white;
+    margin: 0;
+    font-size: 20px;
+    text-align: start;
+}
+
+.detalles-contenido {
+    display: flex;
+    justify-content: space-between;
+    gap: 60px;
+    padding: 20px 40px;
+}
+
+.detalles-contenido > div{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 300px;
+}
+
+.detalles-contenido label {
+    font-weight: bold;
+    text-align: left;
+    font-size: 16px;
+}
+
+.detalles-contenido input, .detalles-contenido textarea{    
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--color-texto-primario);
+    text-align: left;
+    cursor: text;
+    border: var(--bordes);
+    border-radius: 8px;
+    padding: 5px;
+    resize: none;
+}
+
+.detalles-contenido input:read-only, .detalles-contenido textarea:read-only{
+    border: none;
+    background: none;
+    outline: none;
+    cursor: default;
 }

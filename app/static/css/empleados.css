@@ -212,5 +212,4 @@
 #editar-empleados-cancelar:hover {
     text-decoration: underline;
     color: var(--color-error-hover);
-    transition: 0.2s;
 }

@@ -146,6 +146,8 @@ def sumary_peticion(idPeticion):
             db.session.add(newHito)
             peticion.idEmpleadoAsignado = None
             db.session.commit()
+        
+        return redirect(url_for("dashboard.sumary_peticion", idPeticion=idPeticion))
 
     historial = db.session.scalars(select(Hito).where(Hito.idPeticion==idPeticion))
 

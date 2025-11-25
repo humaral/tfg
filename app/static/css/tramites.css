@@ -193,4 +193,5 @@
 
 #editar-tramites-cancelar:hover {
     text-decoration: underline;
+    color: var(--color-error-hover);
 }

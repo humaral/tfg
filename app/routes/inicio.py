@@ -17,5 +17,4 @@ def start():
 @login_required
 @permiso_requerido("crear_peticion")
 def get_plantilla(nombre):
-    #TODO comprobar si existe plantilla
     return render_template(f"components/tramites/{nombre}.jinja", peticion=None)
