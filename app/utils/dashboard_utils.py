@@ -11,7 +11,7 @@ def temporal_password():
     return ''.join(secrets.choice(chars) for _ in range(12))
 
 
-def crear_peticion(telefono, idTramite, informacion):
+def crear_peticion(telefono, idTramite, informacion, idCreador=None):
     
     tramite = db.session.scalar(db.select(Tramite).where(Tramite.id == idTramite))
     
@@ -27,7 +27,7 @@ def crear_peticion(telefono, idTramite, informacion):
         newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=1, informacion=informacion) #Creada
         db.session.add(newPeticion)
         db.session.flush()
-        hitoCreacion = Hito(idPeticion=newPeticion.id, idEstado=newPeticion.idEstadoActual)
+        hitoCreacion = Hito(idPeticion=newPeticion.id, idEstado=newPeticion.idEstadoActual, updated_by=idCreador)
         db.session.add(hitoCreacion)
         db.session.flush()
 

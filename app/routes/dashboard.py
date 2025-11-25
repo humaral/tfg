@@ -164,7 +164,7 @@ def new_peticion():
         idTramite = int(request.form["tramite"])
         informacion = {k:v for k, v in request.form.items() if k not in ["telefonoLlamada", "tramite"]}
 
-        idPeticion = crear_peticion(telefonoLlamada, idTramite, informacion)
+        idPeticion = crear_peticion(telefonoLlamada, idTramite, informacion, idCreador=current_user.id)
 
         return redirect(url_for("dashboard.sumary_peticion", idPeticion=idPeticion))
 
