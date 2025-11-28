@@ -180,6 +180,7 @@
     list-style: none;
     width: 100%;
     max-width: 600px;
+    min-width: 250px;
 }
 
 #peticion-timeline::before {
@@ -419,7 +420,7 @@
 .detalles-contenido {
     display: flex;
     justify-content: space-between;
-    gap: 60px;
+    gap: 10px;
     padding: 20px 40px;
 }
 
@@ -454,4 +455,26 @@
     background: none;
     outline: none;
     cursor: default;
+}
+
+#tarjeta-sanitaria-motivo{
+    display: flex;
+    gap: 35px;
+    align-items: center;
+    justify-content: center;
+}
+
+#tarjeta-sanitaria-motivo label{
+    font-weight: normal;
+    font-size: 14px;
+}
+
+#tarjeta-sanitaria-direccion{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+#tarjeta-sanitaria-direccion input{
+    width: 45px;
 }
