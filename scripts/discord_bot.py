@@ -1,21 +1,20 @@
-import discord, os, asyncio, json
+import discord, os, asyncio, json, sys
 from discord.ext import commands, voice_recv
 from dotenv import load_dotenv
 import numpy as np
 from vosk import Model, KaldiRecognizer
-import logging, pyogg, opuslib, resampy
+import logging, pyogg, opuslib
+from scipy.signal import resample_poly
 
-logging.getLogger('discord').setLevel(logging.WARNING)
-logging.getLogger('discord.gateway').setLevel(logging.ERROR)
-logging.getLogger('discord.voice_state').setLevel(logging.ERROR)
-logging.getLogger('discord.ext.voice_recv').setLevel(logging.ERROR)
-logging.getLogger('discord.ext.voice_recv.reader').setLevel(logging.ERROR)
-logging.getLogger('discord.ext.voice_recv.opus').setLevel(logging.ERROR)
+# for name in logging.root.manager.loggerDict:
+#     logging.getLogger(name).setLevel(logging.CRITICAL)
+
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 model = Model(os.path.join(os.path.dirname(__file__), "vosk-model-small-es-0.42"))
+
 
 intents = discord.Intents.default()
 intents.voice_states = True
@@ -32,12 +31,14 @@ class OpusDecoder:
 
 
 class VoskSink(voice_recv.AudioSink):
-    def __init__(self, sample_rate=48000, channels=1):
+    def __init__(self):
         super().__init__()
         self.decoder = OpusDecoder()
         self.recognizer = KaldiRecognizer(model, 16000)
         self.buffer = bytearray()
-    
+        self.chunk_size = int(16000 * 2 * 0.02)  # 20ms * 2 bytes/sample
+        self.last_partial = ""
+
     def wants_opus(self):
         return True
     
@@ -45,36 +46,40 @@ class VoskSink(voice_recv.AudioSink):
         if data.opus is None:
             return
         
-        pcm = self.decoder.decode(data.opus)
+        pcm48k = self.decoder.decode(data.opus).astype(np.float32)
         
-        pcm_16k = resampy.resample(
-            pcm.astype(np.float32),
-            48000,
-            16000
-        ).astype(np.int16)
+        pcm_16k = resample_poly(pcm48k, up=1, down=3).astype(np.int16)
         
         self.buffer.extend(pcm_16k.tobytes())
         
-        chunk_size = int(16000 * 2 * 0.1)  # 0.1 s * 2 bytes/sample
         
-        while len(self.buffer) >= chunk_size:
-            raw = self.buffer[:chunk_size]
-            self.buffer = self.buffer[chunk_size:]
+        while len(self.buffer) >= self.chunk_size:
+            raw = self.buffer[:self.chunk_size]
+            self.buffer = self.buffer[self.chunk_size:]
             
             if self.recognizer.AcceptWaveform(bytes(raw)):
-                self.print_result(self.recognizer.Result())
+                self.print_result(self.recognizer.Result(), final=True)
             else:
-                self.print_result(self.recognizer.PartialResult())
+                self.print_result(self.recognizer.PartialResult(), final=False)
 
-    def print_result(self, result_json):
+    def print_result(self, result_json, final=False):
         try:
-            res = json.loads(result_json)
-            text = res.get("text", "").strip()
-            if text:
-                print(f"TRANSCRIPCION: {text}")
-        except Exception as e:
-            print("Error al parsear resultado:", e)        
-    
+            data = json.loads(result_json)
+            text = ""
+            
+            if final:
+                text = data.get("text", "").strip()
+                if text:
+                    print(f"\nTRANSCRIPCION FINAL: {text}\n")
+                self.last_partial = ""
+            else:
+                text = data.get("partial", "").strip()
+                if text and text != self.last_partial:
+                    print(f"TRANSCRIPCION: {text}", end="\r", flush=True)
+                    self.last_partial = text
+        except:
+            pass
+
     def cleanup(self):
         pass
 
