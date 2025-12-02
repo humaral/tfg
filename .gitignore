@@ -14,3 +14,10 @@ documents/build/
 #Archivos compilados por python automáticamente
 **/__pycache__/
 *.pyc
+
+# Entornos virtuales y configuraciones con claves secretas y tokens
+.venv/
+.env
+
+#De momento no subo al git el modelo vosk
+scripts/vosk-model-small-es-0.42
