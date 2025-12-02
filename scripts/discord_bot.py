@@ -1,13 +1,12 @@
-import discord, os, asyncio, json, sys
+import discord, os, asyncio, json, logging, pyogg, opuslib, threading, queue
 from discord.ext import commands, voice_recv
 from dotenv import load_dotenv
 import numpy as np
-from vosk import Model, KaldiRecognizer
-import logging, pyogg, opuslib
+from vosk import Model, KaldiRecognizer 
 from scipy.signal import resample_poly
 
-# for name in logging.root.manager.loggerDict:
-#     logging.getLogger(name).setLevel(logging.CRITICAL)
+for name in logging.root.manager.loggerDict:
+    logging.getLogger(name).setLevel(logging.CRITICAL)
 
 
 load_dotenv()
@@ -29,15 +28,36 @@ class OpusDecoder:
         pcm = self.decoder.decode(opus_bytes, frame_size=960, decode_fec=False)
         return np.frombuffer(pcm, dtype=np.int16)
 
+class VoskWorker(threading.Thread):
+    def __init__(self, audio_queue):
+        super().__init__(daemon=True)
+        self.audio_queue = audio_queue
+        self.recognizer = KaldiRecognizer(model, 16000)
+        self.last_partial = ""
+    def run(self):
+        while True:
+            pcm16k = self.audio_queue.get()
+            if pcm16k is None:
+                break
+            if self.recognizer.AcceptWaveform(pcm16k):
+                res = json.loads(self.recognizer.Result())
+                txt = res.get("text", "").strip()
+                if txt:
+                    print(f"\nTRANSCRIPCION FINAL: {txt}")
+                self.last_partial=""
+            else:
+                res = json.loads(self.recognizer.PartialResult())
+                txt = res.get("partial", "").strip()
+                if txt and txt != self.last_partial:
+                    print(f"TRANSCRIPCION: {txt}", end="\r", flush=True)
+                    self.last_partial=txt
+
 
 class VoskSink(voice_recv.AudioSink):
-    def __init__(self):
+    def __init__(self, audio_queue):
         super().__init__()
         self.decoder = OpusDecoder()
-        self.recognizer = KaldiRecognizer(model, 16000)
-        self.buffer = bytearray()
-        self.chunk_size = int(16000 * 2 * 0.02)  # 20ms * 2 bytes/sample
-        self.last_partial = ""
+        self.audio_queue = audio_queue
 
     def wants_opus(self):
         return True
@@ -48,19 +68,12 @@ class VoskSink(voice_recv.AudioSink):
         
         pcm48k = self.decoder.decode(data.opus).astype(np.float32)
         
-        pcm_16k = resample_poly(pcm48k, up=1, down=3).astype(np.int16)
+        pcm_16k = resample_poly(pcm48k, up=1, down=3).astype(np.int16).tobytes()
         
-        self.buffer.extend(pcm_16k.tobytes())
-        
-        
-        while len(self.buffer) >= self.chunk_size:
-            raw = self.buffer[:self.chunk_size]
-            self.buffer = self.buffer[self.chunk_size:]
-            
-            if self.recognizer.AcceptWaveform(bytes(raw)):
-                self.print_result(self.recognizer.Result(), final=True)
-            else:
-                self.print_result(self.recognizer.PartialResult(), final=False)
+        try:
+            self.audio_queue.put_nowait(pcm_16k)
+        except queue.Full:
+            pass
 
     def print_result(self, result_json, final=False):
         try:
@@ -97,12 +110,20 @@ async def on_voice_state_update(member, before, after):
         if await should_connect(member):
             channel = after.channel
             if channel.guild.voice_client is None:
+
+                audio_queue = queue.Queue(maxsize=50)
+                worker = VoskWorker(audio_queue)
+                worker.start()
+
                 vc = await channel.connect(
                     cls=voice_recv.VoiceRecvClient,
                     self_mute=False,
                     self_deaf=False
                 )
-                vc.listen(VoskSink())
+                vc.audio_queue = audio_queue
+                vc.worker = worker
+                vc.listen(VoskSink(audio_queue))
+
     if before.channel is not None:
         channel = before.channel
         vc = channel.guild.voice_client
@@ -110,6 +131,11 @@ async def on_voice_state_update(member, before, after):
             return
         humans = [m for m in channel.members if not m.bot]
         if len(humans)==0:
+            try:
+                vc.audio_queue.put_nowait(None)
+            except:
+                pass
+
             await vc.disconnect(force=True)
 
 
