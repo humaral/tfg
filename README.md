@@ -11,6 +11,9 @@ Ejecutar el servidor smtpd:
 py -m aiosmtpd -n -l localhost:1025
 
 
+crear un .env con DISCORD_TOKEN y VOSK_MODEL_PATH
+y añadir la carpeta con el modelo Vosk que se quiera usar (https://alphacephei.com/vosk/models)
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.

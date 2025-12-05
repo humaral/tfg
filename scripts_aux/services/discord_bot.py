@@ -2,23 +2,33 @@ import discord, os, asyncio, json, logging, pyogg, opuslib, threading, queue
 from discord.ext import commands, voice_recv
 from dotenv import load_dotenv
 import numpy as np
-from vosk import Model, KaldiRecognizer 
+from vosk import Model, KaldiRecognizer, SetLogLevel
 from scipy.signal import resample_poly
 
-for name in logging.root.manager.loggerDict:
-    logging.getLogger(name).setLevel(logging.CRITICAL)
 
+for name in logging.root.manager.loggerDict: #Silencia los logs de discord
+    logging.getLogger(name).setLevel(logging.CRITICAL)
+SetLogLevel(-1) #Silencia los logs de Vosk
 
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
-model = Model(os.path.join(os.path.dirname(__file__), "vosk-model-small-es-0.42"))
+print("Cargando modelo Vosk...")
+try:
+    model = Model(os.getenv("VOSK_MODEL_PATH"))
+    print("\nModelo cargado en local.")
+except:
+    print("\nNo se ha podido cargar el modelo.")
+    exit()
 
 
 intents = discord.Intents.default()
+intents.message_content = True
 intents.voice_states = True
 intents.guilds = True
+intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)
+
 
 class OpusDecoder:
     def __init__(self, rate=48000, channels=1):
@@ -73,24 +83,7 @@ class VoskSink(voice_recv.AudioSink):
         try:
             self.audio_queue.put_nowait(pcm_16k)
         except queue.Full:
-            pass
-
-    def print_result(self, result_json, final=False):
-        try:
-            data = json.loads(result_json)
-            text = ""
-            
-            if final:
-                text = data.get("text", "").strip()
-                if text:
-                    print(f"\nTRANSCRIPCION FINAL: {text}\n")
-                self.last_partial = ""
-            else:
-                text = data.get("partial", "").strip()
-                if text and text != self.last_partial:
-                    print(f"TRANSCRIPCION: {text}", end="\r", flush=True)
-                    self.last_partial = text
-        except:
+            print("[WARNNING] La cola de audio está llena, se perdió un paquete.")
             pass
 
     def cleanup(self):
@@ -99,44 +92,48 @@ class VoskSink(voice_recv.AudioSink):
 
 @bot.event
 async def on_ready():
-    print(f'El bot {bot.user} se ha conectado correctamente a Discord')
+    print(f'\nEl bot {bot.user} se ha conectado correctamente a Discord')
 
-async def should_connect(member):
-    return not member.bot and member.voice is not None
 
 @bot.event
 async def on_voice_state_update(member, before, after):
     if after.channel is not None and before.channel != after.channel:
-        if await should_connect(member):
-            channel = after.channel
-            if channel.guild.voice_client is None:
+        if not member.bot and member.voice is not None:
+            canal = after.channel
+            print(f"\n{member} se ha conectado a {canal}.")
 
-                audio_queue = queue.Queue(maxsize=50)
-                worker = VoskWorker(audio_queue)
-                worker.start()
+            users = [user for user in canal.members if not user.bot]
+            if len(users)==1:
+                if canal.guild.voice_client is None:
 
-                vc = await channel.connect(
-                    cls=voice_recv.VoiceRecvClient,
-                    self_mute=False,
-                    self_deaf=False
-                )
-                vc.audio_queue = audio_queue
-                vc.worker = worker
-                vc.listen(VoskSink(audio_queue))
+                    audio_queue = queue.Queue(maxsize=50)
+                    transcriptor = VoskWorker(audio_queue)
+                    transcriptor.start()
+
+                    voz = await canal.connect(cls=voice_recv.VoiceRecvClient)
+                    print(f"\n{bot.user} se ha conectado a {canal}.")
+                    voz.audio_queue = audio_queue
+                    voz.transcriptor = transcriptor
+                    voz.listen(VoskSink(audio_queue))
+            else:
+                await member.move_to(None)
+                print(f'{canal} ocupado. Expulsando a {member}.')
+
 
     if before.channel is not None:
-        channel = before.channel
-        vc = channel.guild.voice_client
-        if vc is None or vc.channel !=channel:
+        canal = before.channel
+        print(f"\n{member} ha salido de {canal}.")
+        voz = canal.guild.voice_client
+        if voz is None:
             return
-        humans = [m for m in channel.members if not m.bot]
-        if len(humans)==0:
+        users = [user for user in canal.members if not user.bot]
+        if len(users)==0:
             try:
-                vc.audio_queue.put_nowait(None)
+                voz.audio_queue.put_nowait(None)
             except:
                 pass
 
-            await vc.disconnect(force=True)
+            await voz.disconnect(force=True)
 
 
 bot.run(DISCORD_TOKEN)
