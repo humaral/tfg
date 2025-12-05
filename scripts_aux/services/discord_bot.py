@@ -1,4 +1,4 @@
-import discord, os, asyncio, json, logging, pyogg, opuslib, threading, queue
+import discord, os, asyncio, json, logging, pyogg, opuslib, threading, queue, time
 from discord.ext import commands, voice_recv
 from dotenv import load_dotenv
 import numpy as np
@@ -21,6 +21,7 @@ except:
     print("\nNo se ha podido cargar el modelo.")
     exit()
 
+SILENCE_THRESHOLD = 1.5
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -43,24 +44,30 @@ class VoskWorker(threading.Thread):
         super().__init__(daemon=True)
         self.audio_queue = audio_queue
         self.recognizer = KaldiRecognizer(model, 16000)
-        self.last_partial = ""
+        self.last_audio_time = time.time()
+
+    def forzar_final(self):
+        res = json.loads(self.recognizer.FinalResult())
+        txt = res.get("text", "").strip()
+        if txt:
+            print(f"\nUser: {txt}")
+        return txt
+        
     def run(self):
         while True:
-            pcm16k = self.audio_queue.get()
+            try:
+                pcm16k = self.audio_queue.get(timeout=0.1)
+            except queue.Empty:
+                if time.time() - self.last_audio_time > SILENCE_THRESHOLD:
+                    self.forzar_final()
+                    self.last_audio_time = time.time()
+                continue
+
             if pcm16k is None:
                 break
-            if self.recognizer.AcceptWaveform(pcm16k):
-                res = json.loads(self.recognizer.Result())
-                txt = res.get("text", "").strip()
-                if txt:
-                    print(f"\nTRANSCRIPCION FINAL: {txt}")
-                self.last_partial=""
-            else:
-                res = json.loads(self.recognizer.PartialResult())
-                txt = res.get("partial", "").strip()
-                if txt and txt != self.last_partial:
-                    print(f"TRANSCRIPCION: {txt}", end="\r", flush=True)
-                    self.last_partial=txt
+            
+            self.last_audio_time = time.time()
+            self.recognizer.AcceptWaveform(pcm16k)
 
 
 class VoskSink(voice_recv.AudioSink):
