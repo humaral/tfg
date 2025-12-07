@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import numpy as np
 from vosk import Model, KaldiRecognizer, SetLogLevel
 from scipy.signal import resample_poly
-
+from normalizar import transcribir_numeros_letras
 
 for name in logging.root.manager.loggerDict: #Silencia los logs de discord
     logging.getLogger(name).setLevel(logging.CRITICAL)
@@ -16,12 +16,15 @@ DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 print("Cargando modelo Vosk...")
 try:
     model = Model(os.getenv("VOSK_MODEL_PATH"))
+    
+
     print("\nModelo cargado en local.")
 except:
     print("\nNo se ha podido cargar el modelo.")
     exit()
 
-SILENCE_THRESHOLD = 1.5
+
+SILENCE_THRESHOLD = 1.0
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -39,42 +42,78 @@ class OpusDecoder:
         pcm = self.decoder.decode(opus_bytes, frame_size=960, decode_fec=False)
         return np.frombuffer(pcm, dtype=np.int16)
 
-class VoskWorker(threading.Thread):
-    def __init__(self, audio_queue):
+class STTWorker(threading.Thread):
+    def __init__(self, audio_input_queue, text_queue):
         super().__init__(daemon=True)
-        self.audio_queue = audio_queue
+        self.audio_input_queue = audio_input_queue
+        self.text_queue = text_queue
         self.recognizer = KaldiRecognizer(model, 16000)
         self.last_audio_time = time.time()
 
-    def forzar_final(self):
+    def final_frase(self):
         res = json.loads(self.recognizer.FinalResult())
         txt = res.get("text", "").strip()
+        txt = transcribir_numeros_letras(txt)
         if txt:
-            print(f"\nUser: {txt}")
-        return txt
+            print(f"[USER]: {txt}")
+            self.text_queue.put(txt)
         
     def run(self):
         while True:
             try:
-                pcm16k = self.audio_queue.get(timeout=0.1)
+                pcm16k = self.audio_input_queue.get(timeout=0.1)
             except queue.Empty:
                 if time.time() - self.last_audio_time > SILENCE_THRESHOLD:
-                    self.forzar_final()
+                    self.final_frase()
                     self.last_audio_time = time.time()
                 continue
 
             if pcm16k is None:
+                self.text_queue.put(None)
                 break
             
             self.last_audio_time = time.time()
             self.recognizer.AcceptWaveform(pcm16k)
 
+class AgentWorker(threading.Thread):
+    def __init__(self, text_queue, audio_output_queue):
+        super().__init__(daemon=True)
+        self.text_queue = text_queue
+        self.audio_output_queue = audio_output_queue
+
+    def run(self):
+        while True:
+            user_text = self.text_queue.get()
+            if user_text is None:
+                self.audio_output_queue.put(None)
+                break
+
+            bot_anwser_text = "Esta sería la respuesta que dará el bot."
+            print(f"[BOT]: {bot_anwser_text}")
+
+            bot_anwser_audio = ""
+            self.audio_output_queue.put(bot_anwser_audio)
+            
+class TTSWorker(threading.Thread):
+    def __init__(self, audio_output_queue):
+        super().__init__(daemon=True)
+        self.audio_output_queue = audio_output_queue
+
+    def run(self):
+        while True:
+            audio = self.audio_output_queue.get()
+            if audio is None:
+                break
+
+            #Reproducir audio
+
+
 
 class VoskSink(voice_recv.AudioSink):
-    def __init__(self, audio_queue):
+    def __init__(self, audio_input_queue):
         super().__init__()
         self.decoder = OpusDecoder()
-        self.audio_queue = audio_queue
+        self.audio_input_queue = audio_input_queue
 
     def wants_opus(self):
         return True
@@ -88,7 +127,7 @@ class VoskSink(voice_recv.AudioSink):
         pcm_16k = resample_poly(pcm48k, up=1, down=3).astype(np.int16).tobytes()
         
         try:
-            self.audio_queue.put_nowait(pcm_16k)
+            self.audio_input_queue.put_nowait(pcm_16k)
         except queue.Full:
             print("[WARNNING] La cola de audio está llena, se perdió un paquete.")
             pass
@@ -113,15 +152,23 @@ async def on_voice_state_update(member, before, after):
             if len(users)==1:
                 if canal.guild.voice_client is None:
 
-                    audio_queue = queue.Queue(maxsize=50)
-                    transcriptor = VoskWorker(audio_queue)
+                    audio_input_queue = queue.Queue(maxsize=50)
+                    text_queue = queue.Queue()
+                    audio_output_queue = queue.Queue()
+
+                    transcriptor = STTWorker(audio_input_queue, text_queue)
+                    logica = AgentWorker(text_queue, audio_output_queue)
+                    reproductor = TTSWorker(audio_output_queue)
+
                     transcriptor.start()
+                    logica.start()
+                    reproductor.start()
 
                     voz = await canal.connect(cls=voice_recv.VoiceRecvClient)
                     print(f"\n{bot.user} se ha conectado a {canal}.")
-                    voz.audio_queue = audio_queue
+                    voz.audio_input_queue = audio_input_queue
                     voz.transcriptor = transcriptor
-                    voz.listen(VoskSink(audio_queue))
+                    voz.listen(VoskSink(audio_input_queue))
             else:
                 await member.move_to(None)
                 print(f'{canal} ocupado. Expulsando a {member}.')
@@ -136,7 +183,7 @@ async def on_voice_state_update(member, before, after):
         users = [user for user in canal.members if not user.bot]
         if len(users)==0:
             try:
-                voz.audio_queue.put_nowait(None)
+                voz.audio_input_queue.put_nowait(None)
             except:
                 pass
 
