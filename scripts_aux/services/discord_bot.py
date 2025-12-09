@@ -1,10 +1,13 @@
-import discord, os, asyncio, json, logging, pyogg, opuslib, threading, queue, time
+import discord, os, asyncio, json, logging, pyogg, opuslib, threading, queue, time, io
 from discord.ext import commands, voice_recv
+from discord import FFmpegPCMAudio
 from dotenv import load_dotenv
 import numpy as np
 from vosk import Model, KaldiRecognizer, SetLogLevel
 from scipy.signal import resample_poly
 from normalizar import transcribir_numeros_letras
+from dialogflow import enviar_texto
+
 
 for name in logging.root.manager.loggerDict: #Silencia los logs de discord
     logging.getLogger(name).setLevel(logging.CRITICAL)
@@ -16,13 +19,12 @@ DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 print("Cargando modelo Vosk...")
 try:
     model = Model(os.getenv("VOSK_MODEL_PATH"))
-    
-
     print("\nModelo cargado en local.")
 except:
     print("\nNo se ha podido cargar el modelo.")
     exit()
 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("DIALOGFLOW_CREDENTIALS")
 
 SILENCE_THRESHOLD = 1.0
 
@@ -39,8 +41,10 @@ class OpusDecoder:
         self.decoder = opuslib.Decoder(rate, channels)
     
     def decode(self, opus_bytes):
-        pcm = self.decoder.decode(opus_bytes, frame_size=960, decode_fec=False)
-        return np.frombuffer(pcm, dtype=np.int16)
+        pcm48 = self.decoder.decode(opus_bytes, frame_size=960, decode_fec=False)
+        pcm48 = np.frombuffer(pcm48, dtype=np.int16).astype(np.float32)
+        return resample_poly(pcm48, up=1, down=3).astype(np.int16).tobytes()
+
 
 class STTWorker(threading.Thread):
     def __init__(self, audio_input_queue, text_queue):
@@ -76,37 +80,62 @@ class STTWorker(threading.Thread):
             self.recognizer.AcceptWaveform(pcm16k)
 
 class AgentWorker(threading.Thread):
-    def __init__(self, text_queue, audio_output_queue):
+    def __init__(self, text_queue, audio_output_queue, session_id):
         super().__init__(daemon=True)
         self.text_queue = text_queue
         self.audio_output_queue = audio_output_queue
+        self.session_id = session_id
+        self.welcome_done = False
+
+    def conexion_dialogflow(self, texto=None, bienvenida=False):
+        texto_respuesta, audio_respuesta = enviar_texto(self.session_id, user_text=texto, bienvenida=bienvenida)
+
+        print(f"[BOT]: {texto_respuesta}")
+        self.audio_output_queue.put(audio_respuesta)
+
 
     def run(self):
+        if not self.welcome_done:
+            self.conexion_dialogflow(bienvenida=True)
+            self.welcome_done = True
+
         while True:
             user_text = self.text_queue.get()
             if user_text is None:
                 self.audio_output_queue.put(None)
                 break
 
-            bot_anwser_text = "Esta sería la respuesta que dará el bot."
-            print(f"[BOT]: {bot_anwser_text}")
-
-            bot_anwser_audio = ""
-            self.audio_output_queue.put(bot_anwser_audio)
+            self.conexion_dialogflow(texto=user_text)
             
 class TTSWorker(threading.Thread):
-    def __init__(self, audio_output_queue):
+    def __init__(self, audio_output_queue, vc):
         super().__init__(daemon=True)
+        self.vc = vc
         self.audio_output_queue = audio_output_queue
 
     def run(self):
         while True:
-            audio = self.audio_output_queue.get()
-            if audio is None:
+            audio16k = self.audio_output_queue.get()
+
+            if audio16k is None:
                 break
 
-            #Reproducir audio
+            try:
 
+                pcm16 = np.frombuffer(audio16k, dtype=np.int16).astype(np.float32)
+                pcm48 = resample_poly(pcm16, up=3, down=1)
+                pcm48 = np.repeat(pcm48[:, None], 2, axis=1).flatten()
+
+                pcm48 = np.clip(pcm48, -32768, 32767).astype(np.int16).tobytes()
+                
+                source = discord.PCMAudio(io.BytesIO(pcm48))
+                self.vc.play(source)
+
+                while self.vc.is_playing(): 
+                    time.sleep(0.01)
+
+            except Exception as e:
+                print("Error reproduciendo TTS:", e)
 
 
 class VoskSink(voice_recv.AudioSink):
@@ -122,9 +151,10 @@ class VoskSink(voice_recv.AudioSink):
         if data.opus is None:
             return
         
-        pcm48k = self.decoder.decode(data.opus).astype(np.float32)
-        
-        pcm_16k = resample_poly(pcm48k, up=1, down=3).astype(np.int16).tobytes()
+        # pcm48k = self.decoder.decode(data.opus).astype(np.float32)
+
+        # pcm_16k = resample_poly(pcm48k, up=1, down=3).astype(np.int16).tobytes()
+        pcm_16k = self.decoder.decode(data.opus)
         
         try:
             self.audio_input_queue.put_nowait(pcm_16k)
@@ -152,22 +182,22 @@ async def on_voice_state_update(member, before, after):
             if len(users)==1:
                 if canal.guild.voice_client is None:
 
+                    voz = await canal.connect(cls=voice_recv.VoiceRecvClient)
+                    print(f"\n{bot.user} se ha conectado a {canal}.")
+
                     audio_input_queue = queue.Queue(maxsize=50)
                     text_queue = queue.Queue()
                     audio_output_queue = queue.Queue()
+                    session_id = f"discord-{member.id}"
 
                     transcriptor = STTWorker(audio_input_queue, text_queue)
-                    logica = AgentWorker(text_queue, audio_output_queue)
-                    reproductor = TTSWorker(audio_output_queue)
+                    logica = AgentWorker(text_queue, audio_output_queue, session_id)
+                    reproductor = TTSWorker(audio_output_queue, voz)
 
                     transcriptor.start()
                     logica.start()
                     reproductor.start()
 
-                    voz = await canal.connect(cls=voice_recv.VoiceRecvClient)
-                    print(f"\n{bot.user} se ha conectado a {canal}.")
-                    voz.audio_input_queue = audio_input_queue
-                    voz.transcriptor = transcriptor
                     voz.listen(VoskSink(audio_input_queue))
             else:
                 await member.move_to(None)
@@ -182,11 +212,6 @@ async def on_voice_state_update(member, before, after):
             return
         users = [user for user in canal.members if not user.bot]
         if len(users)==0:
-            try:
-                voz.audio_input_queue.put_nowait(None)
-            except:
-                pass
-
             await voz.disconnect(force=True)
 
 

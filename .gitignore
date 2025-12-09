@@ -21,3 +21,4 @@ documents/build/
 
 #De momento no subo al git el modelo vosk
 scripts_aux/services/models
+scripts_aux/services/keys
