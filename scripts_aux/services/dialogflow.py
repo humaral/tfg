@@ -34,5 +34,3 @@ def enviar_texto(session_id, user_text=None, bienvenida=False):
     texto = response.query_result.fulfillment_text
     audio = response.output_audio
     return texto, audio
-
-
