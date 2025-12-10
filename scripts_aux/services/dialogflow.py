@@ -1,5 +1,5 @@
 import os, tempfile, json
-from google.cloud import dialogflow_v2, texttospeech
+from google.cloud import dialogflow_v2
 from dotenv import load_dotenv
 
 if "GOOGLE_APPLICATION_CREDENTIALS" not in os.environ:

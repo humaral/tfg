@@ -7,6 +7,7 @@ from vosk import Model, KaldiRecognizer, SetLogLevel
 from scipy.signal import resample_poly
 from normalizar import transcribir_numeros_letras
 from dialogflow import enviar_texto
+from google.cloud import speech
 
 
 for name in logging.root.manager.loggerDict: #Silencia los logs de discord
@@ -16,17 +17,22 @@ SetLogLevel(-1) #Silencia los logs de Vosk
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
-print("Cargando modelo Vosk...")
-try:
-    model = Model(os.getenv("VOSK_MODEL_PATH"))
-    print("\nModelo cargado en local.")
-except:
-    print("\nNo se ha podido cargar el modelo.")
-    exit()
+SILENCE_THRESHOLD = 1.2
+USE_LOCAL_STT = True
+
+
+if USE_LOCAL_STT:
+    print("Cargando modelo Vosk...")
+    try:
+        model = Model(os.getenv("VOSK_MODEL_PATH"))
+        print("\nModelo cargado en local.")
+    except:
+        print("\nNo se ha podido cargar el modelo.")
+        exit()
+
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv("DIALOGFLOW_CREDENTIALS")
 
-SILENCE_THRESHOLD = 1.5
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -46,7 +52,7 @@ class OpusDecoder:
         return resample_poly(pcm48, up=1, down=3).astype(np.int16).tobytes()
 
 
-class STTWorker(threading.Thread):
+class STTWorkerVosk(threading.Thread):
     def __init__(self, audio_input_queue, text_queue):
         super().__init__(daemon=True)
         self.audio_input_queue = audio_input_queue
@@ -79,6 +85,58 @@ class STTWorker(threading.Thread):
             self.last_audio_time = time.time()
             self.recognizer.AcceptWaveform(pcm16k)
 
+class STTWorkerGoogle(threading.Thread):
+    def __init__(self, audio_input_queue, text_queue):
+        super().__init__(daemon=True)
+        self.audio_input_queue = audio_input_queue
+        self.text_queue = text_queue
+        self.client = speech.SpeechClient()
+        self.config=speech.RecognitionConfig(
+            encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+            sample_rate_hertz=16000,
+            language_code="es-ES",
+            enable_automatic_punctuation=False,
+        )
+
+        self.last_audio_time = time.time()
+        self.buffer = bytearray()
+
+    def final_frase(self):
+        if not self.buffer:
+            return
+        audio_bytes = bytes(self.buffer)
+        self.buffer = bytearray()
+        try:
+            audio = speech.RecognitionAudio(content=audio_bytes)
+            response = self.client.recognize(config=self.config, audio=audio)
+            for result in response.results:
+                txt = result.alternatives[0].transcript.strip()
+                if txt:
+                    txt = transcribir_numeros_letras(txt)
+                    print(f"[USER]: {txt}")
+                    self.text_queue.put(txt)
+        except Exception as e:
+            print(f"Error en Google STT: {e}")
+    
+    def run(self):
+        while True:
+            try:
+                pcm16k = self.audio_input_queue.get(timeout=0.1)
+                
+            except queue.Empty:
+                if self.buffer and (time.time() - self.last_audio_time > SILENCE_THRESHOLD):
+                    self.final_frase()
+                    self.last_audio_time = time.time()
+                continue
+            
+            if pcm16k is None:
+                self.text_queue.put(None)
+                break
+
+            self.last_audio_time = time.time()
+            self.buffer.extend(pcm16k)
+            
+
 class AgentWorker(threading.Thread):
     def __init__(self, text_queue, audio_output_queue, session_id):
         super().__init__(daemon=True)
@@ -89,7 +147,6 @@ class AgentWorker(threading.Thread):
 
     def conexion_dialogflow(self, texto=None, bienvenida=False):
         texto_respuesta, audio_respuesta = enviar_texto(self.session_id, user_text=texto, bienvenida=bienvenida)
-
         print(f"[BOT]: {texto_respuesta}")
         self.audio_output_queue.put(audio_respuesta)
 
@@ -190,7 +247,10 @@ async def on_voice_state_update(member, before, after):
                     audio_output_queue = queue.Queue()
                     session_id = f"discord-{member.id}-{uuid.uuid4()}"
 
-                    transcriptor = STTWorker(audio_input_queue, text_queue)
+                    if USE_LOCAL_STT:
+                        transcriptor = STTWorkerVosk(audio_input_queue, text_queue)
+                    else:
+                        transcriptor = STTWorkerGoogle(audio_input_queue, text_queue)
                     logica = AgentWorker(text_queue, audio_output_queue, session_id)
                     reproductor = TTSWorker(audio_output_queue, voz)
 
