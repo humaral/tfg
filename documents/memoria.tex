@@ -164,6 +164,14 @@
 %Diseño______________________________________
 \chapter{Diseño}
 
+%TODO Incluir esto en el diseño del agente:
+1º WELCOME -> bienvenida del bot y activa contexto de esperando tramite
+2º User dice el tramite que quiere
+3º Si tramite empadronamiento/cita AEAT/tarjeta SACYl el Bot hace slot filling con los datos que necesita.
+3ºA si es cita, el bot tiene que mantener un flujo adicional para al saber el día dar horas disponibles, hasta que el user confirma fecha y hora. Dando opcion a elegir otro dia si no le gusta las horas.
+3ºB Si el tramite es informacion de centros de día, u otras informaciones relevantes de cuaalquier tramite, se consulta la base de conocimiento para responder cualquier pregunta.
+4º Una vez que se obtienen todos los datos necesarios se pide confrimacion de los datos al user y se le da la opcion de cambiar cualquiera.
+5º si todo es correcto y el user no tiene mas preguntas, se finaliza la llamada, mandando la peticion recogida al backend
 
     \section{Arquitectura del sistema}
 

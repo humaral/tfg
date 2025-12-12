@@ -1,6 +1,5 @@
-import discord, os, asyncio, json, logging, pyogg, opuslib, threading, queue, time, io, uuid
+import discord, os, json, logging, pyogg, opuslib, threading, queue, time, io, uuid, re
 from discord.ext import commands, voice_recv
-from discord import FFmpegPCMAudio
 from dotenv import load_dotenv
 import numpy as np
 from vosk import Model, KaldiRecognizer, SetLogLevel
@@ -63,8 +62,8 @@ class STTWorkerVosk(threading.Thread):
     def final_frase(self):
         res = json.loads(self.recognizer.FinalResult())
         txt = res.get("text", "").strip()
-        txt = transcribir_numeros_letras(txt)
         if txt:
+            txt = transcribir_numeros_letras(txt)
             print(f"[USER]: {txt}")
             self.text_queue.put(txt)
         
@@ -96,6 +95,7 @@ class STTWorkerGoogle(threading.Thread):
             sample_rate_hertz=16000,
             language_code="es-ES",
             enable_automatic_punctuation=False,
+            # model="latest_long"
         )
 
         self.last_audio_time = time.time()
@@ -147,7 +147,8 @@ class AgentWorker(threading.Thread):
 
     def conexion_dialogflow(self, texto=None, bienvenida=False):
         texto_respuesta, audio_respuesta = enviar_texto(self.session_id, user_text=texto, bienvenida=bienvenida)
-        print(f"[BOT]: {texto_respuesta}")
+        txt = re.sub(r'<[^>]+>', '', texto_respuesta)
+        print(f"[BOT]: {txt}")
         self.audio_output_queue.put(audio_respuesta)
 
 
@@ -181,11 +182,13 @@ class TTSWorker(threading.Thread):
 
                 pcm16 = np.frombuffer(audio16k, dtype=np.int16).astype(np.float32)
                 pcm48 = resample_poly(pcm16, up=3, down=1)
-                pcm48 = np.repeat(pcm48[:, None], 2, axis=1).flatten()
 
+                pcm48 = np.repeat(pcm48[:, None], 2, axis=1).flatten()
+                
                 pcm48 = np.clip(pcm48, -32768, 32767).astype(np.int16).tobytes()
                 
                 source = discord.PCMAudio(io.BytesIO(pcm48))
+
                 self.vc.play(source)
 
                 while self.vc.is_playing(): 
@@ -207,10 +210,7 @@ class VoskSink(voice_recv.AudioSink):
     def write(self, user, data):
         if data.opus is None:
             return
-        
-        # pcm48k = self.decoder.decode(data.opus).astype(np.float32)
 
-        # pcm_16k = resample_poly(pcm48k, up=1, down=3).astype(np.int16).tobytes()
         pcm_16k = self.decoder.decode(data.opus)
         
         try:

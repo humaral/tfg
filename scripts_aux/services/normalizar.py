@@ -26,6 +26,8 @@ def transcribir_numeros_letras(texto):
             buffer += NUMEROS[w]
         elif w in LETRAS:
             buffer += LETRAS[w]
+        elif w.isdigit():
+            buffer += w
         else:
             if buffer:
                 result.append(buffer)

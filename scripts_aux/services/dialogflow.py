@@ -18,7 +18,13 @@ def enviar_texto(session_id, user_text=None, bienvenida=False):
 
     audio_config = dialogflow_v2.OutputAudioConfig(
         audio_encoding=dialogflow_v2.OutputAudioEncoding.OUTPUT_AUDIO_ENCODING_LINEAR_16,
-        sample_rate_hertz = 16000    
+        sample_rate_hertz = 16000,
+        synthesize_speech_config=dialogflow_v2.SynthesizeSpeechConfig(
+            voice=dialogflow_v2.VoiceSelectionParams(
+                name="es-ES-Neural2-G"
+            ),
+            speaking_rate=1.0
+        ),
     )
     
     if bienvenida:
@@ -30,7 +36,13 @@ def enviar_texto(session_id, user_text=None, bienvenida=False):
     else:
         return 
 
-    response = dialogflow_client.detect_intent(request={"session":session, "query_input":query_input, "output_audio_config":audio_config})
+    response = dialogflow_client.detect_intent(
+        request={
+            "session":session,
+            "query_input":query_input,
+            "output_audio_config":audio_config
+        }
+    )
     texto = response.query_result.fulfillment_text
     audio = response.output_audio
     return texto, audio
