@@ -6,7 +6,8 @@ from .auth import auth_bp
 from .dashboard import dashboard_bp
 from .error import error_bp
 from .uploads import uploads_bp
-from .mock_tramites import mock_tramties_bp
+from .mock_tramites import mock_tramties_bp #DELETE
+from .dialogflow_webhook import dialogflow_webhook_bp
 
 def registrarRutas(app):
     app.register_blueprint(inicio_bp)
@@ -14,5 +15,6 @@ def registrarRutas(app):
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(error_bp)
     app.register_blueprint(uploads_bp)
-    app.register_blueprint(mock_tramties_bp)
+    app.register_blueprint(mock_tramties_bp) #DELETE
+    app.register_blueprint(dialogflow_webhook_bp)
     

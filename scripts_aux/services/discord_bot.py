@@ -258,6 +258,7 @@ async def on_voice_state_update(member, before, after):
                     logica.start()
                     reproductor.start()
 
+                    voz.audio_input_queue = audio_input_queue
                     voz.listen(VoskSink(audio_input_queue))
             else:
                 await member.move_to(None)
@@ -272,6 +273,10 @@ async def on_voice_state_update(member, before, after):
             return
         users = [user for user in canal.members if not user.bot]
         if len(users)==0:
+            try:
+                voz.audio_input_queue.put(None)
+            except:
+                pass
             await voz.disconnect(force=True)
 
 

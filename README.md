@@ -6,6 +6,7 @@ pip install -r requirements.txt
 
 Ejecutar la app:
 py app.py
+ngrok http 5000
 
 Ejecutar el servidor smtpd:
 py -m aiosmtpd -n -l localhost:1025
@@ -13,6 +14,9 @@ py -m aiosmtpd -n -l localhost:1025
 
 crear un .env con DISCORD_TOKEN y VOSK_MODEL_PATH
 y añadir la carpeta con el modelo Vosk que se quiera usar (https://alphacephei.com/vosk/models)
+
+añadir token de ngrok:
+ngrok config add-authtoken TOKEN
 
 ## Getting started
 

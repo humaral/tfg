@@ -78,8 +78,7 @@ CREATE TABLE IF NOT EXISTS HITO(
 insert into TRAMITE values 
     (1,'Certificado de Empadronamiento',1),
     (2,'Cita AEAT',1),
-    (3,'Consulta Centros de Día',1),
-    (4, 'Tarjeta Sanitaria SACYL', 1);
+    (3, 'Tarjeta Sanitaria SACYL', 1);
 
 insert into ESTADO values
     (1,'Creada', 'qlementine-icons:new-16', '#022e59'),
