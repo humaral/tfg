@@ -10,7 +10,7 @@ NUMEROS = {
 
 LETRAS = {
     "a":"A", "be":"B", "ce":"C", "de":"D", "e":"E", "efe":"F", "ge":"G", "hache":"H", "i":"I", "jota":"J",
-    "ca":"K", "ele":"L", "eme":"M", "ene":"N", "eñe":"Ñ", "o":"O", "pe":"P", "cu":"Q", "erre":"R", "ese":"S",
+    "ca":"K", "ka":"K", "ele":"L", "eme":"M", "ene":"N", "eñe":"Ñ", "o":"O", "pe":"P", "cu":"Q", "erre":"R", "ese":"S",
     "te":"T", "u":"U", "uve":"V", "uve doble":"W", "equis":"X", "i griega":"Y", "ceta":"Z", 
     "b":"B", "c":"C", "d":"D", "f":"F", "g":"G", "h":"H", "j":"J", "k":"K", "l":"L", "m":"M", "n":"N",
     "ñ":"Ñ", "p":"P", "q":"Q", "r":"R", "s":"S", "t":"T", "v":"V", "w":"W", "x":"X", "y":"Y", "z":"Z"
