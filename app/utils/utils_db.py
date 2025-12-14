@@ -32,5 +32,4 @@ def poblar_peticiones():
         crear_peticion(tel, 1, {"nombre":"Juan", "apellidos":"Pérez", "dni":"12312345A", "telefono":tel})
 
     crear_peticion(612345678, 2, {})
-    crear_peticion(712345678, 3, {})
-    crear_peticion(812345678, 4, {"nombre":"Ana", "apellido1":"Gómez", "nacimiento":str(date(1950, 12, 21)), "motivo":"perdida", "provincia":"VALLADOLID", "centro":"Barrio España", "localidad":"Valladolid", "calle":"Ejemplo de calle", "numero":"34", "piso":"3", "puerta":"B"})
+    crear_peticion(812345678, 3, {"nombre":"Ana", "apellido1":"Gómez", "nacimiento":str(date(1950, 12, 21)), "motivo":"perdida", "provincia":"VALLADOLID", "centro":"Barrio España", "localidad":"Valladolid", "calle":"Ejemplo de calle", "numero":"34", "piso":"3", "puerta":"B"})

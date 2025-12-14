@@ -17,7 +17,7 @@ load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 SILENCE_THRESHOLD = 1.2
-USE_LOCAL_STT = True
+USE_LOCAL_STT = False
 
 
 if USE_LOCAL_STT:

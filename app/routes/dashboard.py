@@ -405,6 +405,7 @@ def edit_tramite():
         if tramiteEditar:
             tramiteEditar.valor = nombre
             
+            
             if tramiteEditar.activo and not(activo):  #Si se desactiva el trámite, cancelar todas las peticiones activas de ese trámite
                 for p in tramiteEditar.peticiones:
                     if p.idEstadoActual not in [4, 5]:
