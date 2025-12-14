@@ -42,7 +42,7 @@ def webhook():
                     {
                         "name": f"{req["session"]}/contexts/esperando_confirmacion",
                         "lifespanCount":5,
-                        "parameters": certificado_empadronamiento
+                        "parameters": params
                     }
                 ]
             }
