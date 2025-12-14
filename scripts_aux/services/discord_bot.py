@@ -17,7 +17,7 @@ load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 SILENCE_THRESHOLD = 1.2
-USE_LOCAL_STT = False
+USE_LOCAL_STT = True
 
 
 if USE_LOCAL_STT:
@@ -46,9 +46,14 @@ class OpusDecoder:
         self.decoder = opuslib.Decoder(rate, channels)
     
     def decode(self, opus_bytes):
-        pcm48 = self.decoder.decode(opus_bytes, frame_size=960, decode_fec=False)
-        pcm48 = np.frombuffer(pcm48, dtype=np.int16).astype(np.float32)
-        return resample_poly(pcm48, up=1, down=3).astype(np.int16).tobytes()
+        if not opus_bytes:
+            return None
+        try:
+            pcm48 = self.decoder.decode(opus_bytes, frame_size=960, decode_fec=True)
+            pcm48 = np.frombuffer(pcm48, dtype=np.int16).astype(np.float32)
+            return resample_poly(pcm48, up=1, down=3).astype(np.int16).tobytes()
+        except opuslib.exceptions.OpusError:
+            return None
 
 
 class STTWorkerVosk(threading.Thread):
@@ -212,7 +217,8 @@ class VoskSink(voice_recv.AudioSink):
             return
 
         pcm_16k = self.decoder.decode(data.opus)
-        
+        if pcm_16k is None:
+            return
         try:
             self.audio_input_queue.put_nowait(pcm_16k)
         except queue.Full:
