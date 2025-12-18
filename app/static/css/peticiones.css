@@ -178,9 +178,7 @@
 #peticion-timeline {
     position: relative;
     list-style: none;
-    width: 100%;
-    max-width: 600px;
-    min-width: 250px;
+    width: 350px;
 }
 
 #peticion-timeline::before {

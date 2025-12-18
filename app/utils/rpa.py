@@ -14,12 +14,12 @@ def rpa_certificado_empadronamiento(informacion):
 
     driver.get("https://www.valladolid.es/es/temas/hacemos/padron-habitantes/solicitud-volante-certificado-empadronamiento-certificado-c")
 
-    driver.find_element(By.ID, "principal.gr_datos.nombre").send_keys(informacion["nombre"])
-    driver.find_element(By.ID, "principal.gr_datos.apellidos").send_keys(informacion["apellidos"])
-    driver.find_element(By.ID, "principal.gr_datos.dni_nie").send_keys(informacion["dni"])
-    driver.find_element(By.ID, "principal.gr_datos.telefono").send_keys(informacion["telefono"])
-    driver.find_element(By.ID, "principal.gr_datos.email").send_keys(informacion["email"])
-    driver.find_element(By.ID, "principal.gr_datos.motivo").send_keys(informacion["motivo"])
+    driver.find_element(By.ID, "principal.gr_datos.nombre").send_keys(informacion.get("nombre",""))
+    driver.find_element(By.ID, "principal.gr_datos.apellidos").send_keys(informacion.get("apellidos",""))
+    driver.find_element(By.ID, "principal.gr_datos.dni_nie").send_keys(informacion.get("dni",""))
+    driver.find_element(By.ID, "principal.gr_datos.telefono").send_keys(informacion.get("telefono",""))
+    driver.find_element(By.ID, "principal.gr_datos.email").send_keys(informacion.get("email",""))
+    driver.find_element(By.ID, "principal.gr_datos.motivo").send_keys(informacion.get("motivo",""))
 
     old_url = driver.current_url
 
