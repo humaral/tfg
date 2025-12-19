@@ -145,7 +145,7 @@ def sumary_peticion(idPeticion):
                     informacion.pop("hora", None)
                 elif modalidad == "presencial":
                     informacion.pop("email", None)
-
+            print(informacion)
             peticion.informacion = informacion
             db.session.commit()
             

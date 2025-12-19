@@ -19,8 +19,10 @@
         <input type="text" id="cita-aeat-nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="cita-aeat-servicio">Servicio:</label>
         <select id="cita-aeat-servicio" name="servicio" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
-            {# TODO añadir todas las opciones del select #}
-            <option value="renta" {%if peticion and peticion.informacion.servicio == 'Renta'%}selected{%endif%}>Renta</option>
+            <option value="" disabled {%if not peticion%}selected{%endif%}>--Selecciona Servicio--</option>
+            {%for s in servicios_aeat%}
+            <option value="{{s.servicio}}" {%if peticion and peticion.informacion.servicio == s.servicio %}selected{%endif%}>{{s.servicio}}</option>
+            {%endfor%}
         </select>
     </div>
     <div id="contenido-col2">
@@ -33,15 +35,19 @@
         <label id="cita-aeat-label-oficina" for="cita-aeat-oficina">Oficina:</label>
         <div id="cita-aeat-oficina">
             <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
-            {# TODO cambiarlo a select #}
-            <input type="text" id="cita-aeat-campo-oficina" name="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+            <select id="cita-aeat-campo-oficina" name="oficina" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
+                <option value="" disabled {%if not peticion or peticion.informacion.modalidad == "virtual"%}selected{%endif%}>--Selecciona Oficina--</option>
+                {%for o in oficinas_aeat_vall%}
+                <option value="{{o.oficina}}" {%if peticion and peticion.informacion.oficina == o.oficina %}selected{%endif%}>{{o.oficina}}</option>
+                {%endfor%}
+            </select>
         </div>
         <label id="cita-aeat-label-fecha" for="cita-aeat-fecha">Fecha:</label>
         <div id="cita-aeat-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
-            <input type="date" id="cita-aeat-dia" name="dia" {%if peticion%}value="{{peticion.informacion.dia}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+            <input type="date" id="cita-aeat-dia" name="dia" min="{{current_date}}" {%if peticion%}value="{{peticion.informacion.dia}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
             <iconify-icon icon="tabler:clock-hour-2"></iconify-icon>
-            <input type="time" id="cita-aeat-hora" name="hora" {%if peticion%}value="{{peticion.informacion.hora}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+            <input type="time" id="cita-aeat-hora" name="hora" min="09:00" max="14:00" step="1800" {%if peticion%}value="{{peticion.informacion.hora}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         </div>
         <label id="cita-aeat-label-email" for="cita-aeat-email">Email:</label>
         <input type="email" id="cita-aeat-email" name="email" {%if peticion%}value="{{peticion.informacion.email}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>

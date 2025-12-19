@@ -271,7 +271,7 @@
 .botones{
     display: flex;
     justify-content: space-between;
-    margin: 15px;
+    margin: 25px 50px;
 }
 
 #peticion-cancelar{
@@ -453,6 +453,15 @@
     background: none;
     outline: none;
     cursor: default;
+}
+
+.detalles-contenido select{
+    color: black;
+    cursor: pointer;
+}
+.detalles-contenido select:disabled{
+    cursor: default;
+    opacity: 100%;
 }
 
 #cita-aeat-modalidad{

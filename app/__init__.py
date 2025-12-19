@@ -5,10 +5,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import select
 from flask_login import LoginManager
-from flask_mail import Mail, Message
+from flask_mail import Mail
 from .config import Config
 from datetime import datetime
-
+import csv, os
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -26,9 +26,23 @@ def create_app():
     #Se establecen variables globales en las plantillas que se actualizan al refrescar la página
     @app.context_processor
     def inject_globals():
+
+        with open(os.path.join(app.root_path, "data/centros_salud_vall.csv"), newline="", encoding="utf-8") as f:
+            centros_salud_vall = list(csv.DictReader(f))
+        with open(os.path.join(app.root_path, "data/municipios_vall.csv"), newline="", encoding="utf-8") as f:
+            municipios_vall = list(csv.DictReader(f))
+        with open(os.path.join(app.root_path, "data/oficina_aeat_vall.csv"), newline="", encoding="utf-8") as f:
+            oficinas_aeat_vall = list(csv.DictReader(f))
+        with open(os.path.join(app.root_path, "data/servicios_aeat.csv"), newline="", encoding="utf-8") as f:
+            servicios_aeat = list(csv.DictReader(f))
+            
         return {
             "current_date": datetime.now().strftime('%d/%m/%Y'),
-            "current_year": datetime.now().year
+            "current_year": datetime.now().year,
+            "centros_salud_vall": centros_salud_vall,
+            "municipios_vall": municipios_vall,
+            "oficinas_aeat_vall": oficinas_aeat_vall,
+            "servicios_aeat": servicios_aeat
         }
     
     if app.config['REINICIAR_BD_ON_STARTUP']:

@@ -16,7 +16,7 @@
         <label for="tarjeta-sanitaria-nombre">Nombre:</label>
         <input type="text" id="tarjeta-sanitaria-nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="tarjeta-sanitaria-apellidos">Primer Apellido:</label>
-        <input type="text" id="tarjeta-sanitaria-apellidos" name="apellidos" {%if peticion%}value="{{peticion.informacion.apellido1}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <input type="text" id="tarjeta-sanitaria-apellidos" name="apellido1" {%if peticion%}value="{{peticion.informacion.apellido1}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="tarjeta-sanitaria-nacimiento">Fecha de Nacimiento:</label>
         <input type="date" id="tarjeta-sanitaria-nacimiento" name="nacimiento" {%if peticion%}value="{{peticion.informacion.nacimiento}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="tarjeta-sanitaria-motivo">Motivo de la solicitud:</label>
@@ -33,25 +33,30 @@
     </div>
     <div class="contenido-col2">
         <label for="tarjeta-sanitaria-localidad">Localidad:</label>
-        <select id="tarjeta-sanitaria-localidad" name="localidad" {%if peticion%}value="{{peticion.informacion.localidad}}"  {%if (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}{%endif%} required>
-            {# FIX #}
-            <option>Valladolid</option>
+        <select id="tarjeta-sanitaria-localidad" name="localidad" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
+            <option value="" disabled {%if not peticion%}selected{%endif%}>--Selecciona Localidad--</option>
+            {%for m in municipios_vall%}
+            <option value="{{m.localidad}}" {%if peticion and peticion.informacion.localidad == m.localidad %}selected{%endif%}>{{m.localidad}}</option>
+            {%endfor%}
         </select>
 
-        <label for="tarjeta-sanitaria-centro">Centro de Salud:</label>
-        <select id="tarjeta-sanitaria-provincia" name="provincia" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
-            {# FIX #}
+        <label for="tarjeta-sanitaria-centro-salud">Centro de Salud:</label>
+        <select id="tarjeta-sanitaria-centro-salud" name="centro_salud" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
+            <option value="" disabled {%if not peticion%}selected{%endif%}>--Selecciona Centro de Salud--</option>
+            {%for c in centros_salud_vall%}
+            <option value="{{c.centro_salud}}" {%if peticion and peticion.informacion.centro_salud == c.centro_salud %}selected{%endif%}>{{c.centro_salud}}</option>
+            {%endfor%}
         </select>
 
         <label for="tarjeta-sanitaria-calle">Calle:</label>
         <input type="text" id="tarjeta-sanitaria-calle" name="calle" {%if peticion%}value="{{peticion.informacion.calle}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <div id="tarjeta-sanitaria-direccion">
             <label for="tarjeta-sanitaria-numero">Nº:</label>
-            <input type="text" id="tarjeta-sanitaria-numero" name="numero" {%if peticion%}value="{{peticion.informacion.numero}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+            <input type="number" id="tarjeta-sanitaria-numero" name="numero" min="0" {%if peticion%}value="{{peticion.informacion.numero}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
             <label for="tarjeta-sanitaria-piso">Piso:</label>
-            <input type="text" id="tarjeta-sanitaria-piso" name="piso" {%if peticion%}value="{{peticion.informacion.piso}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+            <input type="number" id="tarjeta-sanitaria-piso" name="piso" min="0" {%if peticion%}value="{{peticion.informacion.piso}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
             <label for="tarjeta-sanitaria-puerta">Pta.:</label>
-            <input type="text" id="tarjeta-sanitaria-puerta" name="puerta" {%if peticion%}value="{{peticion.informacion.puerta}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+            <input type="text" id="tarjeta-sanitaria-puerta" name="puerta" {%if peticion%}value="{{peticion.informacion.puerta}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
         </div>
     </div> 
 </div>

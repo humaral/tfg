@@ -21,7 +21,7 @@
             <input type="search" class="filter" id="filter-nombre-empleados" placeholder="Nombre" title="Filtrar por nombre/apellidos del empleado.">
             <input type="search" class="filter" id="filter-email-empleados" placeholder="Email" title="Filtrar por email del empleado.">
             <select class="filter" class="filter" id="filter-rol-empleados">
-                <option value="0">--Selecciona un rol--</option>
+                <option value="0" selected>--Selecciona un Rol--</option>
                 {%for rol in filtro_roles%}
                 <option value="{{rol.id}}">{{rol.valor}}</option>
                 {%endfor%}

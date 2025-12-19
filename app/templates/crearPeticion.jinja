@@ -22,7 +22,7 @@
         <input type="tel" id="crear-peticion-telefono" name="telefonoLlamada" placeholder="Teléfono" autocomplete="off" required pattern="^(?:\+34|0034)?[6789]\d{8}$">
 
         <select name="tramite" id="crear-peticion-tramite">
-            <option value="0">--Selecciona un trámite--</option>
+            <option value="0" disabled selected>--Selecciona un Trámite--</option>
             {%for tramite in tramites%}
             <option value="{{tramite.id}}">{{tramite.valor}}</option>
             {%endfor%}
