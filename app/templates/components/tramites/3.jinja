@@ -32,10 +32,17 @@
         </div>
     </div>
     <div class="contenido-col2">
-        <label for="tarjeta-sanitaria-provincia">Provinvia:</label>
-        <select id="tarjeta-sanitaria-provincia" name="provincia" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required></select>
+        <label for="tarjeta-sanitaria-localidad">Localidad:</label>
+        <select id="tarjeta-sanitaria-localidad" name="localidad" {%if peticion%}value="{{peticion.informacion.localidad}}"  {%if (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}{%endif%} required>
+            {# FIX #}
+            <option>Valladolid</option>
+        </select>
+
         <label for="tarjeta-sanitaria-centro">Centro de Salud:</label>
-        
+        <select id="tarjeta-sanitaria-provincia" name="provincia" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
+            {# FIX #}
+        </select>
+
         <label for="tarjeta-sanitaria-calle">Calle:</label>
         <input type="text" id="tarjeta-sanitaria-calle" name="calle" {%if peticion%}value="{{peticion.informacion.calle}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <div id="tarjeta-sanitaria-direccion">

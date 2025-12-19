@@ -4,49 +4,49 @@
 - Descripción: componente con la información específica del trámite de solicitar una cita en la AEAT. 
 -->
 
-<div id="detalles-titulo">
+<div class="detalles-titulo">
     {%if peticion%}
     <h2>Información</h2>
     {%else%}
     <h2>Introduce los Datos</h2>
     {%endif%}
 </div>
-<div id="detalles-contenido">
+<div class="detalles-contenido">
     <div id="contenido-col1">
-        <label for="dni">DNI:</label>
-        <input type="text" id="dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
-        <label for="servicio">Servicio:</label>
-        <input type="text" id="servicio" name="servicio" {%if peticion%}value="{{peticion.informacion.servicio}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
+        <label for="cita-aeat-dni">DNI:</label>
+        <input type="text" id="cita-aeat-dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <label for="cita-aeat-nombre">Nombre:</label>
+        <input type="text" id="cita-aeat-nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <label for="cita-aeat-servicio">Servicio:</label>
+        <select id="cita-aeat-servicio" name="servicio" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
+            {# TODO añadir todas las opciones del select #}
+            <option value="renta" {%if peticion and peticion.informacion.servicio == 'Renta'%}selected{%endif%}>Renta</option>
+        </select>
     </div>
     <div id="contenido-col2">
-        <div id="contenido-fecha">
-            <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
-            <div>  
-                {%if peticion and peticion.informacion.fecha%}
-                    <input type="date-local" id="fecha" value="{{peticion.informacion.fecha.split(' ')[0]}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
-                    <input type="time" id="hora" value="{{peticion.informacion.fecha.split(' ')[1]}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
-                {%else%}
-                    <input type="date-local" id="fecha" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
-                    <input type="time" id="hora" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}>
-                {%endif%}
-            </div>
-        </div>
-        <div id="contenido-ubicacion">
+        <label for="cita-aeat-modalidad">Modalidad:</label>
+        <button id="cita-aeat-modalidad" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
+            <iconify-icon {%if peticion.informacion.modalidad == 'presencial'%}icon="raphael:employee"{%else%}icon="tabler:video"{%endif%}></iconify-icon>
+            <p>{{peticion.informacion.modalidad}}</p>
+        </button>
+        {%if peticion.informacion.modalidad == 'presencial'%}
+        <label for="cita-aeat-oficina">Oficina:</label>
+        <div id="cita-aeat-oficina">
             <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
-            <div>
-                <input type="text" id="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
-                <input type="text" id="direccion" {%if peticion%}value="{{peticion.informacion.direccion}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%}>
-            </div>
+            {# TODO cambiarlo a select #}
+            <input type="text" name="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         </div>
-        <div>
-            <p>Modalidad:</p>
-            <select name="modalidad" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
-                <option value="presencial" {%if peticion and peticion.informacion.modalidad == 'Presencial'%}selected{%endif%}>Presencial <iconify-icon for="presencial" icon="mdi:account-group-outline"></iconify-icon></option>
-                <option value="telefono" {%if peticion and peticion.informacion.modalidad == 'Telefonica'%}selected{%endif%}>Telefónica <iconify-icon for="telefono" icon="solar:phone-outline"></iconify-icon></iconify-icon></option>
-            </select>
+        <label for="cita-aeat-fecha">Fecha:</label>
+        <div id="cita-aeat-fecha">
+            <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
+            <input type="date" id="cita-aeat-dia" name="dia" value="{{peticion.informacion.dia}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%} required>
+            <iconify-icon icon="tabler:clock-hour-2"></iconify-icon>
+            <input type="time" id="cita-aeat-hora" name="hora" value="{{peticion.informacion.hora}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%} required>
         </div>
+        {%elif peticion.informacion.modalidad == 'virtual'%}
+        <label for="cita-aeat-email">Email:</label>
+        <input type="email" id="cita-aeat-email" name="email" {%if peticion%}value="{{peticion.informacion.email}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        {%endif%}
     </div>
 
 </div>

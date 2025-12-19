@@ -455,6 +455,57 @@
     cursor: default;
 }
 
+#cita-aeat-modalidad{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    border: var(--bordes);
+    border-radius: 12px;
+    width: 100px;
+    color: var(--color-texto-primario);
+}
+#cita-aeat-modalidad:disabled{
+    cursor: default;
+}
+#cita-aeat-modalidad:enabled{
+    cursor: pointer;
+}
+#cita-aeat-modalidad iconify-icon{
+    font-size: x-large;
+}
+#cita-aeat-modalidad p{
+    margin: 0;
+}
+
+#cita-aeat-oficina{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+}
+#cita-aeat-oficina iconify-icon{
+    font-size: large;
+}
+#cita-aeat-oficina input{
+    width: 100%;
+}
+
+#cita-aeat-fecha{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+}
+#cita-aeat-fecha iconify-icon{
+    font-size: large;
+}
+#cita-aeat-fecha input{
+    width: 100%;
+}
+
 #tarjeta-sanitaria-motivo{
     display: flex;
     gap: 35px;
