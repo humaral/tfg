@@ -28,9 +28,23 @@ if (inputDNI) {
 }
 
 //Cita AEAT
+const inputDNIAEAT = document.getElementById("cita-aeat-dni");
+if (inputDNIAEAT) {
+    inputDNIAEAT.addEventListener("invalid", () => {
+        inputDNIAEAT.setCustomValidity("Introduce un número telefónico español váldio.");
+    });
+    inputDNIAEAT.addEventListener("input", () => {
+        inputDNIAEAT.setCustomValidity("");
+    });
+}
+
 const buttonModalidad = document.getElementById("cita-aeat-modalidad");
-const inputOficina = document.getElementById("cita-aeat-oficina");
-const inputFecha = document.getElementById("cita-aeat-fecha");
+const inputModalidad = document.getElementById("cita-aeat-modalidad-hidden");
+const divOficina = document.getElementById("cita-aeat-oficina");
+const inputOficina = document.getElementById("cita-aeat-campo-oficina");
+const divFecha = document.getElementById("cita-aeat-fecha");
+const inputDia = document.getElementById("cita-aeat-dia");
+const inputHora = document.getElementById("cita-aeat-hora");
 const inputEmail = document.getElementById("cita-aeat-email");
 const labelOficina = document.getElementById("cita-aeat-label-oficina");
 const labelFecha = document.getElementById("cita-aeat-label-fecha");
@@ -42,13 +56,20 @@ if (buttonModalidad) {
     const texto = buttonModalidad.querySelector("p");
 
     const actualizarPlantilla = (modalidad) => {
+
+        inputModalidad.value = modalidad;
+
         if (modalidad == "presencial") {
             icono.setAttribute("icon", "raphael:employee");
             texto.textContent = "Presencial";
 
-            inputOficina.style.display = "flex";
-            inputFecha.style.display = "flex";
+            divOficina.style.display = "flex";
+            inputOficina.required = true;
+            divFecha.style.display = "flex";
+            inputDia.required = true;
+            inputHora.required = true;
             inputEmail.style.display = "none";
+            inputEmail.required = false;
             labelOficina.style.display = "block";
             labelFecha.style.display = "block";
             labelEmail.style.display = "none";
@@ -57,9 +78,13 @@ if (buttonModalidad) {
             icono.setAttribute("icon", "tabler:video");
             texto.textContent = "Virtual";
 
-            inputOficina.style.display = "none";
-            inputFecha.style.display = "none";
+            divOficina.style.display = "none";
+            inputOficina.required = false;
+            divFecha.style.display = "none";
+            inputDia.required = false;
+            inputHora.required = false;
             inputEmail.style.display = "block";
+            inputEmail.required = true;
             labelOficina.style.display = "none";
             labelFecha.style.display = "none";
             labelEmail.style.display = "block";

@@ -136,6 +136,16 @@ def sumary_peticion(idPeticion):
 
         elif 'actualizar' in request.form:
             informacion = {k:v for k, v in request.form.items() if k !="actualizar"}
+            
+            if peticion.idTramite == 2: #Cita AEAT
+                modalidad = informacion.get("modalidad")
+                if modalidad == "virtual":
+                    informacion.pop("oficina", None)
+                    informacion.pop("dia", None)
+                    informacion.pop("hora", None)
+                elif modalidad == "presencial":
+                    informacion.pop("email", None)
+
             peticion.informacion = informacion
             db.session.commit()
             
@@ -165,6 +175,15 @@ def new_peticion():
         idTramite = int(request.form["tramite"])
         informacion = {k:v for k, v in request.form.items() if k not in ["telefonoLlamada", "tramite"]}
 
+        if idTramite == 2: #Cita AEAT
+            modalidad = informacion.get("modalidad")
+            if modalidad == "virtual":
+                informacion.pop("oficina", None)
+                informacion.pop("dia", None)
+                informacion.pop("hora", None)
+            elif modalidad == "presencial":
+                informacion.pop("email", None)
+                
         idPeticion = crear_peticion(telefonoLlamada, idTramite, informacion, idCreador=current_user.id)
 
         return redirect(url_for("dashboard.sumary_peticion", idPeticion=idPeticion))

@@ -14,7 +14,7 @@
 <div class="detalles-contenido">
     <div id="contenido-col1">
         <label for="cita-aeat-dni">DNI:</label>
-        <input type="text" id="cita-aeat-dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <input type="text" id="cita-aeat-dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required pattern="^\d{8}\w{1}$">
         <label for="cita-aeat-nombre">Nombre:</label>
         <input type="text" id="cita-aeat-nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="cita-aeat-servicio">Servicio:</label>
@@ -28,6 +28,7 @@
         <button id="cita-aeat-modalidad" type="button" data-modalidad="{% if peticion and peticion.informacion.modalidad == 'presencial' %}presencial{% else %}virtual{% endif %}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
             <iconify-icon {%if peticion and peticion.informacion.modalidad == 'presencial'%}icon="raphael:employee"{%else%}icon="tabler:video"{%endif%}></iconify-icon>
             <p>{%if peticion and peticion.informacion.modalidad == 'presencial'%}Presencial{%else%}Virtual{%endif%}</p>
+            <input type="hidden" id="cita-aeat-modalidad-hidden" name="modalidad" value="{% if peticion %}{{peticion.informacion.modalidad}}{% else %}virtual{% endif %}">
         </button>
         <label id="cita-aeat-label-oficina" for="cita-aeat-oficina">Oficina:</label>
         <div id="cita-aeat-oficina">
