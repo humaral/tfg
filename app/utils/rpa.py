@@ -32,3 +32,31 @@ def rpa_certificado_empadronamiento(informacion):
     finally:
         driver.quit()
     return
+
+def rpa_cita_aeat(informacion):
+
+    driver = webdriver.Chrome()
+
+    driver.get("https://www2.agenciatributaria.gob.es/wlpl/TOCP-MUTE/internet/identificacion")
+
+    driver.find_element(By.ID, "fnif").send_keys(informacion.get("dni",""))
+    driver.find_element(By.ID, "fnombre").send_keys(informacion.get("nombre",""))
+
+    driver.find_element(By.XPATH, "//button[@type='submit']").click()
+
+    # driver.find_element(By.ID, "principal.gr_datos.dni_nie").send_keys(informacion.get("dni",""))
+    # driver.find_element(By.ID, "principal.gr_datos.telefono").send_keys(informacion.get("telefono",""))
+    # driver.find_element(By.ID, "principal.gr_datos.email").send_keys(informacion.get("email",""))
+    # driver.find_element(By.ID, "principal.gr_datos.motivo").send_keys(informacion.get("motivo",""))
+
+    old_url = driver.current_url
+
+    try:
+        WebDriverWait(driver, 60).until(
+            expected_conditions.url_changes(old_url)
+        )
+    except:
+        pass
+    finally:
+        driver.quit()
+    return

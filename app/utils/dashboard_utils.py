@@ -36,6 +36,16 @@ def crear_peticion(telefono, idTramite, informacion, idCreador=None):
             db.session.flush()
             hitoPendiente = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
             db.session.add(hitoPendiente)
+        elif idTramite == 2: #Cita AEAT
+            newPeticion.idEstadoActual = 2 #Pendiente
+            db.session.flush()
+            hitoPendiente = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
+            db.session.add(hitoPendiente)
+        elif idTramite == 3: #Tarjeta Sanitaria SACYl
+            newPeticion.idEstadoActual = 2 #Pendiente
+            db.session.flush()
+            hitoPendiente = Hito(idPeticion = newPeticion.id, idEstado = newPeticion.idEstadoActual)
+            db.session.add(hitoPendiente)
 
         db.session.commit()
     

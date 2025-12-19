@@ -25,28 +25,26 @@
     </div>
     <div id="contenido-col2">
         <label for="cita-aeat-modalidad">Modalidad:</label>
-        <button id="cita-aeat-modalidad" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
-            <iconify-icon {%if peticion.informacion.modalidad == 'presencial'%}icon="raphael:employee"{%else%}icon="tabler:video"{%endif%}></iconify-icon>
-            <p>{{peticion.informacion.modalidad}}</p>
+        <button id="cita-aeat-modalidad" type="button" data-modalidad="{% if peticion and peticion.informacion.modalidad == 'presencial' %}presencial{% else %}virtual{% endif %}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
+            <iconify-icon {%if peticion and peticion.informacion.modalidad == 'presencial'%}icon="raphael:employee"{%else%}icon="tabler:video"{%endif%}></iconify-icon>
+            <p>{%if peticion and peticion.informacion.modalidad == 'presencial'%}Presencial{%else%}Virtual{%endif%}</p>
         </button>
-        {%if peticion.informacion.modalidad == 'presencial'%}
-        <label for="cita-aeat-oficina">Oficina:</label>
+        <label id="cita-aeat-label-oficina" for="cita-aeat-oficina">Oficina:</label>
         <div id="cita-aeat-oficina">
             <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
             {# TODO cambiarlo a select #}
-            <input type="text" name="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+            <input type="text" id="cita-aeat-campo-oficina" name="oficina" {%if peticion%}value="{{peticion.informacion.oficina}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         </div>
-        <label for="cita-aeat-fecha">Fecha:</label>
+        <label id="cita-aeat-label-fecha" for="cita-aeat-fecha">Fecha:</label>
         <div id="cita-aeat-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
-            <input type="date" id="cita-aeat-dia" name="dia" value="{{peticion.informacion.dia}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%} required>
+            <input type="date" id="cita-aeat-dia" name="dia" {%if peticion%}value="{{peticion.informacion.dia}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
             <iconify-icon icon="tabler:clock-hour-2"></iconify-icon>
-            <input type="time" id="cita-aeat-hora" name="hora" value="{{peticion.informacion.hora}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%} required>
+            <input type="time" id="cita-aeat-hora" name="hora" {%if peticion%}value="{{peticion.informacion.hora}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         </div>
-        {%elif peticion.informacion.modalidad == 'virtual'%}
-        <label for="cita-aeat-email">Email:</label>
+        <label id="cita-aeat-label-email" for="cita-aeat-email">Email:</label>
         <input type="email" id="cita-aeat-email" name="email" {%if peticion%}value="{{peticion.informacion.email}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
-        {%endif%}
+
     </div>
 
 </div>
