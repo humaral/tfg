@@ -28,19 +28,19 @@ def reiniciar_bd(app):
 
 def poblar_peticiones():
 
-    crear_peticion(627899040, 1, {"nombre":"Manuel", "apellidos":"Pérez", "dni":"12312345A", "telefono":627899040}),
-    crear_peticion(722643980, 2, {"dni" : "75849123L", "nombre" : "Juan González Aparicio", "servicio" : "Renta", "modalidad" : "presencial", "oficina" : "Delegación Especial de Castilla y León", "dia" : str(date(2026, 2, 12)), "hora" : str(time(10, 30)), "email" : ""}),
-    crear_peticion(834521234, 2, {"dni" : "12507943Z", "nombre" : "Sara Alonso García", "servicio" : "Registro en Cl@ve", "modalidad" : "virtual", "oficina" : "", "dia" : "", "hora" : "", "email" : "saraaa@gmail.com"}),
-    crear_peticion(952439538, 3, {"nombre":"Ana", "apellido1":"Gómez", "nacimiento":str(date(1950, 12, 21)), "motivo":"perdida", "centro_salud":"Barrio España", "localidad":"VALLADOLID", "calle":"Ejemplo de calle", "numero":"34", "piso":"2", "puerta":"B"})
+    crear_peticion("627899040", 1, {"nombre":"Manuel", "apellidos":"Pérez", "dni":"12312345A", "telefono":"627899040", "motivo":"Para realizar otros trámites."}),
+    crear_peticion("722643980", 2, {"dni" : "75849123L", "nombre" : "Juan González Aparicio", "servicio" : "Renta", "modalidad" : "presencial", "oficina" : "Delegación Especial de Castilla y León", "dia" : str(date(2026, 2, 12)), "hora" : str(time(10, 30))}),
+    crear_peticion("834521234", 2, {"dni" : "12507943Z", "nombre" : "Sara Alonso García", "servicio" : "Registro en Cl@ve", "modalidad" : "virtual", "email" : "saraaa@gmail.com"}),
+    crear_peticion("952439538", 3, {"nombre":"Ana", "apellido1":"Gómez", "nacimiento":str(date(1950, 12, 21)), "motivo":"perdida", "centro_salud":"Barrio España", "localidad":"VALLADOLID", "calle":"Ejemplo de calle", "numero":"34", "piso":"2", "puerta":"B"})
     
     for i in range(26):   
         tel=random.randint(600000000, 999999999)
         
         opciones = [
-            lambda: crear_peticion(tel, 1, {"nombre":"Manuel", "apellidos":"Pérez", "dni":"12312345A", "telefono":tel, "motivo":"Para realizar otros trámites."}),
-            lambda: crear_peticion(tel, 2, {"dni" : "75849123L", "nombre" : "Juan González Aparicio", "servicio" : "Renta", "modalidad" : "presencial", "oficina" : "Delegación Especial de Castilla y León", "dia" : str(date(2026, 2, 12)), "hora" : str(time(10, 30)), "email" : ""}),
-            lambda: crear_peticion(tel, 2, {"dni" : "12507943Z", "nombre" : "Sara Alonso García", "servicio" : "Registro en Cl@ve", "modalidad" : "virtual", "oficina" : "", "dia" : "", "hora" : "", "email" : "saraaa@gmail.com"}),
-            lambda: crear_peticion(tel, 3, {"nombre":"Ana", "apellido1":"Gómez", "nacimiento":str(date(1950, 12, 21)), "motivo":"perdida", "centro_salud":"Barrio España", "localidad":"VALLADOLID", "calle":"Ejemplo de calle", "numero":"34", "piso":"2", "puerta":"B"})
+            lambda: crear_peticion(str(tel), 1, {"nombre":"Manuel", "apellidos":"Pérez", "dni":"12312345A", "telefono":str(tel), "motivo":"Para realizar otros trámites."}),
+            lambda: crear_peticion(str(tel), 2, {"dni" : "75849123L", "nombre" : "Juan González Aparicio", "servicio" : "Renta", "modalidad" : "presencial", "oficina" : "Delegación Especial de Castilla y León", "dia" : str(date(2026, 2, 12)), "hora" : str(time(10, 30))}),
+            lambda: crear_peticion(str(tel), 2, {"dni" : "12507943Z", "nombre" : "Sara Alonso García", "servicio" : "Registro en Cl@ve", "modalidad" : "virtual", "email" : "saraaa@gmail.com"}),
+            lambda: crear_peticion(str(tel), 3, {"nombre":"Ana", "apellido1":"Gómez", "nacimiento":str(date(1950, 12, 21)), "motivo":"perdida", "centro_salud":"Barrio España", "localidad":"VALLADOLID", "calle":"Ejemplo de calle", "numero":"34", "piso":"2", "puerta":"B"})
         ]
 
         random.choice(opciones)()

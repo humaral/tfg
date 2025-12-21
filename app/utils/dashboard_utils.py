@@ -16,7 +16,7 @@ def crear_peticion(telefono, idTramite, informacion, idCreador=None):
     tramite = db.session.scalar(db.select(Tramite).where(Tramite.id == idTramite))
     
     if not tramite or not tramite.activo:
-        newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=5, informacion=informacion) #Cancelada
+        newPeticion = Peticion(telefono=telefono, idTramite=idTramite, idEstadoActual=6, informacion=informacion) #Cancelada
         db.session.add(newPeticion)
         db.session.flush()
         hitoCancelacion = Hito(idPeticion=newPeticion.id, idEstado=newPeticion.idEstadoActual)
