@@ -13,7 +13,8 @@ from .dashboard_utils import(
 )
 
 from .rpa import(
-    rpa_certificado_empadronamiento
+    rpa_certificado_empadronamiento,
+    rpa_cita_aeat
 )
 
 from .utils_db import(

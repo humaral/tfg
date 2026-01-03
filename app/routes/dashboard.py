@@ -5,7 +5,7 @@
 from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import select, func, asc, desc, or_
-from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento, crear_peticion, enviar_mail
+from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento, rpa_cita_aeat, crear_peticion, enviar_mail
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
@@ -109,14 +109,19 @@ def sumary_peticion(idPeticion):
     if request.method =="POST":
         
         if 'completar' in request.form:
-            if peticion.idTramite == 1:  #Certificado de empadronamiento
-                rpa_certificado_empadronamiento(peticion.informacion)
-            peticion.idEstadoActual = 5 #Completada
-            db.session.flush()
-            newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
-            db.session.add(newHito)
-            peticion.idEmpleadoAsignado = None
-            db.session.commit()
+            if peticion.idTramite == 1: #Certificado de empadronamiento
+                completada = rpa_certificado_empadronamiento(peticion.informacion)
+            elif peticion.idTramite == 2: #Cita AEAT
+                completada = rpa_cita_aeat(peticion.informacion)
+            
+            if completada:
+                peticion.idEstadoActual = 5 #Completada
+                db.session.flush()
+                newHito = Hito(idPeticion = peticion.id, idEstado = peticion.idEstadoActual, updated_by = peticion.idEmpleadoAsignado)
+                db.session.add(newHito)
+                peticion.idEmpleadoAsignado = None
+                db.session.commit()
+            
 
         elif 'asignar' in request.form:
             peticion.idEstadoActual = 3 #Asignada
@@ -139,16 +144,10 @@ def sumary_peticion(idPeticion):
 
             if peticion.idTramite == 2: #Cita AEAT
                 modalidad = informacion.get("modalidad")
-                if modalidad == "virtual":
+                if modalidad == "telefonica":
                     informacion.pop("oficina", None)
                     informacion.pop("dia", None)
                     informacion.pop("hora", None)
-                elif modalidad == "presencial":
-                    informacion.pop("email", None)
-            
-            print(peticion.informacion)
-            print(informacion)
-            print(informacion == peticion.informacion)
 
             if(peticion.informacion != informacion):
                 newHito = Hito(idPeticion = peticion.id, idEstado = 4, updated_by = peticion.idEmpleadoAsignado) #Modificada

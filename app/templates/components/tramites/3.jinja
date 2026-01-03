@@ -18,7 +18,7 @@
         <label for="tarjeta-sanitaria-apellidos">Primer Apellido:</label>
         <input type="text" id="tarjeta-sanitaria-apellidos" name="apellido1" {%if peticion%}value="{{peticion.informacion.apellido1}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="tarjeta-sanitaria-nacimiento">Fecha de Nacimiento:</label>
-        <input type="date" id="tarjeta-sanitaria-nacimiento" name="nacimiento" {%if peticion%}value="{{peticion.informacion.nacimiento}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
+        <input type="date" id="tarjeta-sanitaria-nacimiento" name="nacimiento" max="{{current_date[6:10]}}-{{current_date[3:5]}}-{{current_date[0:2]}}" {%if peticion%}value="{{peticion.informacion.nacimiento}}"  {%if (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
         <label for="tarjeta-sanitaria-motivo">Motivo de la solicitud:</label>
         <div id="tarjeta-sanitaria-motivo">
             <div>

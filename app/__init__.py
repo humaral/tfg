@@ -34,7 +34,7 @@ def create_app():
         with open(os.path.join(app.root_path, "data/oficina_aeat_vall.csv"), newline="", encoding="utf-8") as f:
             oficinas_aeat_vall = list(csv.DictReader(f))
         with open(os.path.join(app.root_path, "data/servicios_aeat.csv"), newline="", encoding="utf-8") as f:
-            servicios_aeat = list(csv.DictReader(f))
+            servicios_aeat = list(csv.DictReader(f, delimiter=';'))
             
         return {
             "current_date": datetime.now().strftime('%d/%m/%Y'),

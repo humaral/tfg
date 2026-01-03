@@ -45,10 +45,8 @@ const inputOficina = document.getElementById("cita-aeat-campo-oficina");
 const divFecha = document.getElementById("cita-aeat-fecha");
 const inputDia = document.getElementById("cita-aeat-dia");
 const inputHora = document.getElementById("cita-aeat-hora");
-const inputEmail = document.getElementById("cita-aeat-email");
 const labelOficina = document.getElementById("cita-aeat-label-oficina");
 const labelFecha = document.getElementById("cita-aeat-label-fecha");
-const labelEmail = document.getElementById("cita-aeat-label-email");
 
 if (buttonModalidad) {
 
@@ -68,35 +66,40 @@ if (buttonModalidad) {
             divFecha.style.display = "flex";
             inputDia.required = true;
             inputHora.required = true;
-            inputEmail.style.display = "none";
-            inputEmail.required = false;
             labelOficina.style.display = "block";
             labelFecha.style.display = "block";
-            labelEmail.style.display = "none";
         }
         else {
-            icono.setAttribute("icon", "tabler:video");
-            texto.textContent = "Virtual";
+            icono.setAttribute("icon", "tabler:phone");
+            texto.textContent = "Telefónica";
 
             divOficina.style.display = "none";
             inputOficina.required = false;
             divFecha.style.display = "none";
             inputDia.required = false;
             inputHora.required = false;
-            inputEmail.style.display = "block";
-            inputEmail.required = true;
             labelOficina.style.display = "none";
             labelFecha.style.display = "none";
-            labelEmail.style.display = "block";
         }
         buttonModalidad.dataset.modalidad = modalidad;
     };
 
-    const modalidadinicial = buttonModalidad.dataset.modalidad || "virtual";
+    const modalidadinicial = buttonModalidad.dataset.modalidad || "telefonica";
     actualizarPlantilla(modalidadinicial);
 
     buttonModalidad.addEventListener("click", () => {
-        const nuevaModalidad = buttonModalidad.dataset.modalidad == "presencial" ? "virtual" : "presencial";
+        const nuevaModalidad = buttonModalidad.dataset.modalidad == "presencial" ? "telefonica" : "presencial";
         actualizarPlantilla(nuevaModalidad);
     });
 }
+
+inputDia.addEventListener("change", function() {
+    const fecha = new Date(this.value);
+    const dia = fecha.getDay();
+    console.log(fecha, dia);
+    if (dia === 0 || dia === 6) {
+        this.setCustomValidity("No se atienden citas los fines de semana.");
+    } else {
+        this.setCustomValidity("");
+    }
+});

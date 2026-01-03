@@ -519,12 +519,17 @@
     display: flex;
     gap: 35px;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
 }
-
 #tarjeta-sanitaria-motivo label{
     font-weight: normal;
     font-size: 14px;
+}
+#tarjeta-sanitaria-motivo input{
+    cursor: pointer;
+}
+#tarjeta-sanitaria-motivo :disabled{
+    cursor: default;
 }
 
 #tarjeta-sanitaria-direccion{

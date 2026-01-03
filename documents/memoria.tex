@@ -46,12 +46,12 @@
 
 %RESUMEN
 \begin{abstract}
-    
+
     Hoy en día se considera indispensable la conexión a Internet para realizar tareas cotidianas, aunque todavía existe un sector de la población que permanece al margen de estas tecnologías.
     
-    Este desarrollo presenta una solución accesible que puede ser utilizada por cualquier persona sin necesidad de conocimientos técnicos y disponiendo únicamente de una línea telefónica. Para ello, se han simulado distintos procedimientos administrativos que se llevan a cabo automáticamente, mediante una inteligencia artificial que responde la llamada, recopila la información necesaria e inicia la automatización del proceso.
+    Este desarrollo presenta una solución accesible que puede ser utilizada por cualquier persona sin necesidad de conocimientos técnicos y disponiendo únicamente de una línea telefónica. Para ello, se han simulado distintos procedimientos administrativos que se llevan a cabo automáticamente, mediante un agente conversacional de inteligencia artificial que responde la llamada, recopila la información necesaria e inicia la automatización del proceso.
     
-    Este trabajo demuestra que es posible reducir la brecha digital ofreciendo un servicio que actúa como intermediario entre las personas y la administración digital. De esta manera se sientan las bases para futuras propuestas inclusivas capaces de integrar a colectivos excluidos del entorno digital.
+    Este trabajo demuestra que es posible reducir la brecha digital ofreciendo un servicio alternativo, que actúa como intermediario entre las personas y la administración digital. De esta manera se sientan las bases para futuras propuestas inclusivas capaces de integrar a colectivos excluidos del entorno digital.
 \end{abstract}
 
 %INDICES
@@ -85,7 +85,7 @@
     Además, se opta por centrar el proyecto en las diligencias de la Administración pública, ya que la digitalización de estos servicios ha supuesto una barrera adicional, dificultando su realización para los sectores vulnerables. 
     Tal es el caso que el 60\% de la población opina que la informatización de los trámites administrativos vulnera sus derechos y el 74,5\% deseraía disponer de un portal único para realizar todos los procedimientos. \cite{ref4}
 
-    \section{Soluciones similares}
+    \section{Estado de la cuestión}
         A lo largo de los últimos años se han desarrollado múltiples iniciativas orientadas a reducir la brecha digital. 
         Sin embargo, ninguna de ellas ha logrado beneficiar a la mayoría de los sectores de la población, independientemente del grado en que se ven afectados por dicha brecha. 
         El proyecto presentado busca dar respuesta a esta desigualdad, abordándola desde la perspectiva de la falta de acceso y la dificultad de uso.
@@ -110,13 +110,17 @@
         En conclusión, la mayoría de las soluciones existentes se centran únicamente en un aspecto de la brecha digital y no logran integrar de manera efectiva a todos los sectores de la población. 
         Si bien se obtiene un buen resultado con la combinación de varias iniciativas, sigue sin ser equiparable a un sistema integral como el presentado.
         
+        %TODO Incluir referencias a soluciones de llamadas con ia existentes, cita SACYL
+
     \section{Objetivos}
     %TODO Revisar y completar objetivos
-        El objetivo principal de este proyecto consiste en la reducción de la brecha digital mediante un sistema accesible, que ofrece una alternativa para la realización de trámites administrativos online a cualquier persona, independientemente de su nivel de acceso o sus competencias digitales, a través de una llamada telefónica.
+        El objetivo principal de este proyecto consiste en la reducción de la brecha digital mediante un sistema accesible que ofrece una alternativa para la realización de trámites administrativos online a cualquier persona, independientemente de su nivel de acceso o sus competencias digitales, a través de una llamada telefónica.
         Para ello, se han establecido los siguientes objetivos específicos:
         \begin{enumerate}
-            \item Diseño e implementación de un prototipo funcional de atención telefónica automatizada, basado en inteligencia artificial, entrenado para ser capaz conversar con el usuario de forma natural y recopilar la información necesaria para iniciar los trámites.
-            \item Simulación de un conjunto representativo de procedimientos administrativos de diferente tipo.
+            \item Entrenamiento y configuración de un agente conversacional de inteligencia artificial, capaz de interactuar de forma natural y fluida con el usuario, con el fin orientar y recopilar la información necesaria del usuario para iniciar los trámites administrativos.
+            \item Desarrollo de una interfaz web administrativa para la gestión y supervisión de las solicitudes realizadas a través del sistema.
+            \item Simulación de un conjunto representativo de procedimientos administrativos de diferentes entidades y tipologías.
+            \item Implementación de un sistema de llamadas VoIP para la recepción de llamadas y la integración del agente conversacional.
         \end{enumerate}
 
     \section{Resumen del resto de la memoria}
@@ -161,6 +165,8 @@
 
     \section{Estimación de recursos y costes}
 
+    \section{Gasto real vs gasto estimado}
+
 %Diseño______________________________________
 \chapter{Diseño}
 
@@ -196,14 +202,13 @@
 
 
 %Conclusiones_________________________________
-\chapter{Conclusión}
+\chapter{Conclusiones y trabajo futuro}
 
-\section{Resumen de objetivos}
+\section{Conclusiones}
 
 \section{Trabajo futuro}
 %NOTE Mejoras en la app: gestión de trámites para que administradores añadan, modifiquen, eliminen tramites.
 
-\section{Reflexión personal}
 
 
 
