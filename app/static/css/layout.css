@@ -211,7 +211,6 @@ select {
   user-select: none;
 }
 
-/* TODO: cambiar estilo */
 .filter input[title]:hover:after {
   content: attr(title);
   position: absolute;

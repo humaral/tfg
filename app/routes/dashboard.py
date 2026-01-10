@@ -240,7 +240,7 @@ def api_empleados():
 
     direc = asc if direccion == "ascendente" else desc
     
-    if orden in ("username", "email"): #TODO cuando el mismo user pasa de mas de 10 ordena mal
+    if orden in ("username", "email"):
         stmt = stmt.order_by(direc(func.lower(getattr(Empleado, orden))))
     elif orden == "nombre":
         stmt = stmt.order_by(direc(func.lower(Empleado.nombre)), direc(func.lower(Empleado.apellido1)), direc(func.lower(Empleado.apellido2)))

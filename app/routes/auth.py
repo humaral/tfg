@@ -13,7 +13,7 @@ auth_bp = Blueprint('auth', __name__)
 
 #Funcionalidad para mostrar el login, iniciar sesión y redirigir a peticiones
 @auth_bp.route("/login", methods=["GET", "POST"])
-def login(): #TODO Crear ficheros de logs para mantener registros
+def login():
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.peticiones"))
     else:

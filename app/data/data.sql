@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS PETICION(
     idEmpleadoAsignado INTEGER,
     telefono INTEGER NOT NULL,
     informacion JSON NOT NULL, --Formato JSON con la información recuperada por la IA  
-    --TODO Añadir un registro de llamadas
+    
     FOREIGN KEY (idTramite) REFERENCES TRAMITE(id)
     FOREIGN KEY (idEstadoActual) REFERENCES ESTADO(id)
     FOREIGN KEY (idEmpleadoAsignado) REFERENCES EMPLEADO(id)
