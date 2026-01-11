@@ -176,6 +176,7 @@
             \item La integración con sistemas reales de las administraciones públicas, ya que el objetivo es simular con datos ficticios el inicio y cómo se llevaría a cabo el trámite, pero no se pretende completar ningún proceso real.
             \item El uso del agente de inteligencia artificial para otros fines distintos a la gestión de los trámites seleccionados.
             \item La utilización de la infraestructura de telefonía tradicional, dado que una solución VoIP reduce los costes asociados al uso y alquiler de líneas y ofrece una experiencia de interacción equivalente para el usuario.
+            \item El proyecto contempla solo fases de desarrollo y pruebas, no entra en el alcance del proyecto fases de producción ni publicación de la plataforma web.
         \end{itemize}
         
         \subsection{Trámites}
@@ -197,13 +198,92 @@
                     Además, se realiza también mediante un formulario en línea, evitando la necesidad de acudir presencialmente al centro de salud, evitando desplazamientos y esperas innecesarias.
             \end{itemize}
             
-
     \section{Requisitos}
+        A continuación se elicitan los requisitos funcionales, no funcionales y de información que debe cumplir el sistema:
+        \begin{enumerate}
+            \item[RF1.] El sistema deberá permitir a los usuarios finales interaccionar con él a través de una conversación telefónica.
+            \item[RF2.] El usuario podrá solicitar su certificado de empadronamiento de la ciudad de Valladolid.
+            \item[RF3.] El usuario podrá reservar una cita en la agencia tributaria para la provincia de Valladolid.
+            \item[RF4.] El usuario podrá obtener su tarjeta sanitaria de SACYL en caso de pérdida o robo en la provincia de Valladolid.
+            \item[RF5.] El sistema deberá permitir identificarse a los empleados con su usuario y contraseña en la plataforma web administrativa.
+            \item[RF6.] El sistema deberá almacenar todas las peticiones registradas a través de la IA.
+            \item[RF7.] El sistema deberá permitir a los empleados de la administración correspondiente asignarse y resolver manualmente las peticiones revisables que requieran asistencia humana.
+            \item[RF8.] El sistema mostrará a los empleados un listado con todas las peticiones del sistema y permitirá seleccionarlas individualmente para mostrar información de esa petición concreta.
+            \item[RF9.] El sistema deberá permitir a los administradores añadir otros empleados al sistema.
+            \item[RF10.] El sistema mostrará a los administradores una lista con los empleados registrados en el sistema, permitiendo desactivarlos o modificar su información.
+            \item[RF11.] El sistema mostrará a los administradores una lista con los trámites del sistema, permitiendo desactivarlos o modificar su información.
+            \item[RF12.] El sistema permitirá a los empleados consultar su información personal y modificar su contraseña.
+            \item[RF13.] El sistema deberá permitir a los secretarios crear una petición manualmente en la página web.
+            
+            \item[RFI1.] El sistema deberá almacenar la siguiente información con respecto a las peticiones:
+                \begin{itemize}
+                    \item ID (identificador único de cada petición)
+                    \item Tipo (Trámite 1, 2 o 3)
+                    \item Teléfono (número del llamante)
+                    \item Información (datos extraídos por la IA en la llamada) 
+                    \item Estado (creada, pendiente, asignada, modificada, completada o cancelada)
+                    \item Fecha de creación
+                    \item Fecha de modificación (empleado que se asignó la tarea)
+                \end{itemize}
+            \item[RFI2.] El sistema deberá almacenar la siguiente información con respecto a los empleados:
+                \begin{itemize}  
+                    \item Usuario
+                    \item Contraseña
+                    \item Nombre
+                    \item Primer apellido
+                    \item Segundo apellido
+                    \item Email
+                    \item Rol (administrador o secretario)
+                    \item Foto de perfil
+                    \item Estado (activo o inactivo)
+                \end{itemize}
+            \item[RFI3.] El sistema deberá almacenar la siguiente información con respecto a los trámites:
+                \begin{itemize}  
+                    \item ID (identificador único de cada trámite)
+                    \item Nombre del trámite
+                    \item Estado (activo o inactivo)
+                \end{itemize}
+                
+            %TODO añadir mas
+            \item[RNF1.] Los errores registrados por la IA, por falta de comprensión o entrenamiento no deben superar el 10\% de las peticiones.
+        \end{enumerate}
+    
 
     \section{Casos de uso}
 
     \section{Decisiones técnicas}
-
+        En esta sección se plantean las herramientas y tecnologías que se van a utilizar para llevar a cabo el desarrollo del proyecto, justificando cada una de ellas.
+        \begin{itemize}
+            \item Google Cloud: se va a utilizar esta plataforma en la nube para alojar los diferentes servicios de inteligencia artificial del proyecto.
+                Se prefiere esta opción frente a otras alternativas ya que integra un servicio propio de agentes conversacionales, ofreciendo un plan gratuito suficiente para el desarrollo.
+                \begin{itemize}
+                    \item Dialogflow ES: es la herramienta de Google Cloud para crear agentes conversacionales capaces de interpretar el lenguaje natural y las intenciones del usuario mediante algoritmos de machine learning. 
+                        Se utilizará para definir las intenciones y los flujos de conversación que podrán tener los usuarios con el agente, recopilar la información requerida para los trámites y devolver el audio a reproducir en la llamada.
+                        Esta opción es la más adecuada para proyectos pequeños con pocos trámites.
+                    \item Goolge Speech-to-Text: servicio de reconocimiento de voz que convierte el audio de las llamadas VoIP en texto para que pueda ser procesado por Dialogflow. 
+                        También se implementará un servicio speech-to-text local con Vosk para poder hacer consultas en desarrollo sin gastos de créditos de Google Cloud.
+                \end{itemize}
+            \item HTML + CSS + JavaScript: Lenguajes necesarios para programar el frontend de la aplicación web para empleados. 
+                Se usará también Jinja2, un motor de plantillas integrado con Flask que permite generar HTML de manera dinámica.
+            \item Python: se va a utilizar este lenguaje para programar la lógica del backend de la aplicación, servirá de conexión entre Dialogflow, la base de datos y la aplicación web. 
+                Se utilizará este lenguaje por su flexibilidad y facilidad para integrar todos los servicios. Algunas de las librerías que se emplearán son:
+                \begin{itemize}
+                    \item Flask: framework web para crear aplicaciones web. Se utilizará para desarrollar el backend de la aplicación.
+                    \item SQLAlchemy: sirve para interactuar con la base de datos SQLite de manera sencilla y eficiente.
+                    \item Discord.py: librería para interactuar con Discord y programar el bot que atenderá las llamadas VoIP.
+                    \item Google-Cloud-Dialogflow y Google-Cloud-Speech: para interactuar con los servicios de IA de Google Cloud.
+                    \item Selenium: para automatizar la simulación de los trámites en las webs oficiales.
+                \end{itemize}
+                Entre otras.
+            \item SQLite: es el lenguaje elegido para programar la base de datos ya que está integrado con Python y es suficiente para almacenar la información de nuestro sistema simulado. 
+            \item Discord: es una plataforma de comunicación que permite llamadas VoIP, se usará por la facilidad para crear aplicaciones y bots fácilmente programable en python.
+                El usuario iniciará una llamada uniéndose a un canal de Discord y el bot comenzará una conversación conectándose con las IA de Google Cloud.
+            \item Figma: herramienta de diseño para crear los mockups de la interfaz de usuario.
+            \item Gitlab: se usará un control de versiones para mantener actualizados todos los cambios en el código y la documentación del proyecto, y poder recuperar cualquier versión ante un imprevisto. 
+            \item Ngrok: crea un túnel desde el despliegue local para tener un endpoint público en desarrollo, necesario para comunicar el backend con Dialogflow. 
+                Es una herramienta segura que evita los costes de mantener un servidor propio para la implementación del proyecto, manteniéndonos dentro del alcance definido.
+            \end{itemize}
+    
     \section{Análisis de riesgos}
 
     \section{Dificultades observadas}
