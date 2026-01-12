@@ -34,6 +34,8 @@
 
 \usepackage[a-1b]{pdfx}
 \usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{float}
 
 \begin{document}
 
@@ -247,9 +249,15 @@
             %TODO añadir mas
             \item[RNF1.] Los errores registrados por la IA, por falta de comprensión o entrenamiento no deben superar el 10\% de las peticiones.
         \end{enumerate}
-    
 
     \section{Casos de uso}
+        \subsection{Diagrama de casos de uso:}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.6\textwidth]{diagramas/diagrama_casos_uso.png}
+            \caption{Diagrama de casos de uso.}
+        \end{figure}
+
         \subsection{Solicitud del certificado de empadronamiento:}  
             Actor principal: usuario.
 
@@ -311,7 +319,7 @@
                 \item[16.a] Si el usuario no confirma los datos, el sistema repite las preguntas correspondientes y se continua con el paso siguiente a la pregunta.
             \end{enumerate}
         
-        \subsection{Solicitar la tarjeta sanitaria de SACYL por pérdida o robo:}
+        \subsection{Solicitud la tarjeta sanitaria de SACYL por pérdida o robo:}
             Actor principal: usuario.
             
             Precondición: el usuario ha iniciado una llamada al sistema.
@@ -546,6 +554,8 @@
             \item Gitlab: se usará un control de versiones para mantener actualizados todos los cambios en el código y la documentación del proyecto, y poder recuperar cualquier versión ante un imprevisto. 
             \item Ngrok: crea un túnel desde el despliegue local para tener un endpoint público en desarrollo, necesario para comunicar el backend con Dialogflow. 
                 Es una herramienta segura que evita los costes de mantener un servidor propio para la implementación del proyecto, manteniéndonos dentro del alcance definido.
+            \item Draw.io: es una herramienta de diseño para crear los diagramas fácilmente para la memoria.
+            \item Latex: como sistema de composición de textos para escribir la memoria.
             \end{itemize}
     
     \section{Análisis de riesgos}
