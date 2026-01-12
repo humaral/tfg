@@ -296,38 +296,42 @@ def edit_empleado():
                     recipients=[empleadoEditar.email],
                     body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\n\nSe ha restablecido tu contraseña. Tu nueva contraseña temporal es: {tempPass}\nPor favor, cámbiala en tu próximo inicio de sesión."
                 )
-                
+                return redirect(url_for("dashboard.empleados"))
             else:
-                empleadoEditar.nombre = nombre
-                empleadoEditar.apellido1 = apellido1
-                empleadoEditar.apellido2 = apellido2
-                empleadoEditar.email = email
-                empleadoEditar.idRol = rol
+                existeEmpleadoConMismoEmail = db.session.scalar(select(Empleado).where(Empleado.email==email))
+                if existeEmpleadoConMismoEmail and existeEmpleadoConMismoEmail != empleadoEditar:
+                    flash("Ya existe un empleado con ese email.", "error")
+                else:
+                    empleadoEditar.nombre = nombre
+                    empleadoEditar.apellido1 = apellido1
+                    empleadoEditar.apellido2 = apellido2
+                    empleadoEditar.email = email
+                    empleadoEditar.idRol = rol                
 
-                if empleadoEditar.activo and not(activo):  #Si se desactiva la cuenta, desasignar todas las peticiones asignadas
-                    empleadoEditar.activo = activo
-                    enviar_mail(
-                        subject="Cuenta desactivada",
-                        recipients=[empleadoEditar.email],
-                        body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\nTu cuenta en el sistema simulado de trámites telefónicos ha sido desactivada. Si crees que se trata de un error contacta con un administrador del sistema."
-                    )
-                    for p in empleadoEditar.peticionesAsignadas:
-                        p.idEstadoActual = 2  #Pendiente
-                        p.idEmpleadoAsignado = None
-                        db.session.flush()
-                        newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
-                        db.session.add(newHito)
-                        db.session.flush()
-                elif not(empleadoEditar.activo) and activo:
-                    empleadoEditar.activo = activo
-                    enviar_mail(
-                        subject="Cuenta activada",
-                        recipients=[empleadoEditar.email],
-                        body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\nTu cuenta en el sistema simulado de trámites telefónicos ha sido activada. Tu usuario es: {empleadoEditar.username}.\n Si no recuerdas tu contraseña puedes solicitar un restablecimiento de la misma."
-                    )
+                    if empleadoEditar.activo and not(activo):  #Si se desactiva la cuenta, desasignar todas las peticiones asignadas
+                        empleadoEditar.activo = activo
+                        enviar_mail(
+                            subject="Cuenta desactivada",
+                            recipients=[empleadoEditar.email],
+                            body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\nTu cuenta en el sistema simulado de trámites telefónicos ha sido desactivada. Si crees que se trata de un error contacta con un administrador del sistema."
+                        )
+                        for p in empleadoEditar.peticionesAsignadas:
+                            p.idEstadoActual = 2  #Pendiente
+                            p.idEmpleadoAsignado = None
+                            db.session.flush()
+                            newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
+                            db.session.add(newHito)
+                            db.session.flush()
+                    elif not(empleadoEditar.activo) and activo:
+                        empleadoEditar.activo = activo
+                        enviar_mail(
+                            subject="Cuenta activada",
+                            recipients=[empleadoEditar.email],
+                            body=f"Hola {empleadoEditar.nombre} {empleadoEditar.apellido1},\nTu cuenta en el sistema simulado de trámites telefónicos ha sido activada. Tu usuario es: {empleadoEditar.username}.\n Si no recuerdas tu contraseña puedes solicitar un restablecimiento de la misma."
+                        )
 
-                db.session.commit()
-            return redirect(url_for("dashboard.empleados"))
+                    db.session.commit()
+                    return redirect(url_for("dashboard.empleados"))
         
         else:
 
@@ -432,23 +436,26 @@ def edit_tramite():
         activo = 'activo' in request.form
 
         if tramiteEditar:
-            tramiteEditar.valor = nombre
             
+            existeTramiteConMismoNombre = db.session.scalar(select(Tramite).where(Tramite.valor==nombre))
+            if existeTramiteConMismoNombre and existeTramiteConMismoNombre!=tramiteEditar:
+                flash("Ya existe un trámite con ese nombre.", "error")
+            else:
+                tramiteEditar.valor = nombre
             
-            if tramiteEditar.activo and not(activo):  #Si se desactiva el trámite, cancelar todas las peticiones activas de ese trámite
-                for p in tramiteEditar.peticiones:
-                    if p.idEstadoActual not in [5, 6]:
-                        p.idEstadoActual = 6 #Cancelada
-                        p.idEmpleadoAsignado = None
-                        db.session.flush()
-                        newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
-                        db.session.add(newHito)
-                        db.session.flush()
+                if tramiteEditar.activo and not(activo):  #Si se desactiva el trámite, cancelar todas las peticiones activas de ese trámite
+                    for p in tramiteEditar.peticiones:
+                        if p.idEstadoActual not in [5, 6]:
+                            p.idEstadoActual = 6 #Cancelada
+                            p.idEmpleadoAsignado = None
+                            db.session.flush()
+                            newHito = Hito(idPeticion = p.id, idEstado = p.idEstadoActual)
+                            db.session.add(newHito)
+                            db.session.flush()
 
-
-            tramiteEditar.activo = activo
-            db.session.commit()
-            return redirect(url_for("dashboard.tramites"))
+                tramiteEditar.activo = activo
+                db.session.commit()
+                return redirect(url_for("dashboard.tramites"))
         else:
             stmt = select(Tramite).where(Tramite.valor==nombre)
             tramite = db.session.scalar(stmt)

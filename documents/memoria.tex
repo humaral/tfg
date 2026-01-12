@@ -176,7 +176,7 @@
             \item La integración con sistemas reales de las administraciones públicas, ya que el objetivo es simular con datos ficticios el inicio y cómo se llevaría a cabo el trámite, pero no se pretende completar ningún proceso real.
             \item El uso del agente de inteligencia artificial para otros fines distintos a la gestión de los trámites seleccionados.
             \item La utilización de la infraestructura de telefonía tradicional, dado que una solución VoIP reduce los costes asociados al uso y alquiler de líneas y ofrece una experiencia de interacción equivalente para el usuario.
-            \item El proyecto contempla solo fases de desarrollo y pruebas, no entra en el alcance del proyecto fases de producción ni publicación de la plataforma web.
+            \item El proyecto contempla solo fases de desarrollo y pruebas, no entra en el alcance del proyecto fases de producción, envío real de correos electrónicos ni la publicación de la plataforma web.
         \end{itemize}
         
         \subsection{Trámites}
@@ -250,6 +250,270 @@
     
 
     \section{Casos de uso}
+        \subsection{Solicitud del certificado de empadronamiento:}  
+            Actor principal: usuario.
+
+            Precondición: El usuario ha iniciado la llamada al sistema.
+            
+            Secuencia normal:
+            \begin{enumerate}
+                \item El usuario solicita obtener el certificado de empadronamiento.
+                \item El sistema solicita el DNI.
+                \item El usuario proporciona el DNI.
+                \item El sistema solicita el nombre.
+                \item El usuario proporciona su nombre.
+                \item El sistema solicita el teléfono.
+                \item El usuario proporciona su teléfono.
+                \item El sistema solicita el motivo de la petición.
+                \item El usuario responde el motivo de la petición.
+                \item El sistema repite la información obtenida y solicita confirmación. 
+                \item El usuario confirma los datos.
+                \item El sistema almacena la petición.
+                \item El sistema rellena el formulario de solicitud del certificado de empadronamiento con los datos obtenidos.
+            \end{enumerate}
+            
+            Flujos alternativos: 
+            \begin{enumerate}
+                \item[11.a] Si el usuario no confirma los datos, el sistema repite las preguntas correspondientes y se continua con el paso siguiente a la pregunta.
+            \end{enumerate}
+        
+        \subsection{Solicitud de cita en la Agencia Tributaria:}
+            Actor principal: usuario.
+            
+            Precondición: El usuario ha iniciado una llamada al sistema. 
+            
+            Secuencia normal: 
+            \begin{enumerate}
+                \item El usuario solicita agendar una cita en la Agencia Tributaria.
+                \item El sistema solicita el DNI.
+                \item El usuario proporciona su DNI.
+                \item El sistema solicita el nombre completo.
+                \item El usuario proporciona su nombre completo.
+                \item El sistema solicita el tipo de servicio.
+                \item El usuario proporciona el tipo de servicio.
+                \item El sistema pregunta si prefiere cita telefónica o presencial.
+                \item El usuario responde que presencial.
+                \item El sistema solicita la oficina.
+                \item El usuario responde la oficina.
+                \item El sistema solicita fecha y hora preferible para la cita.
+                \item El usuario responde la fecha y hora.
+                \item El sistema comprueba que la fecha y hora es válida.
+                \item El sistema repite la información obtenida y solicita confirmación. 
+                \item El usuario confirma los datos.
+                \item El sistema almacena la petición.
+                \item El sistema rellena el formulario para agendar la cita.
+            \end{enumerate}
+            
+            Flujos alternativos: 
+            \begin{enumerate}
+                \item[9.a.] Si el usuario responde cita telefónica se continua con el paso 15.
+                \item[14.a.] Si la fecha u hora no es válida se vuelve al paso 12.
+                \item[16.a] Si el usuario no confirma los datos, el sistema repite las preguntas correspondientes y se continua con el paso siguiente a la pregunta.
+            \end{enumerate}
+        
+        \subsection{Solicitar la tarjeta sanitaria de SACYL por pérdida o robo:}
+            Actor principal: usuario.
+            
+            Precondición: el usuario ha iniciado una llamada al sistema.
+            
+            Secuencia normal: 
+            \begin{enumerate}
+                \item El usuario solicita la tarjeta sanitaria.
+                \item El sistema solicita el motivo (pérdida o robo).
+                \item El usuario proporciona el motivo (pérdida o robo).
+                \item El sistema solicita el nombre.
+                \item El usuario proporciona su nombre.
+                \item El sistema solicita el primer apellido.
+                \item El usuario proporciona su primer apellido.
+                \item El sistema solicita la fecha de nacimiento.
+                \item El usuario proporciona su fecha de nacimiento.
+                \item El sistema pregunta el centro de salud.
+                \item El usuario responde su centro de salud.
+                \item El sistema solicita la dirección.
+                \item El usuario responde la dirección.
+                \item El sistema repite la información obtenida y solicita confirmación. 
+                \item El usuario confirma los datos.
+                \item El sistema almacena la petición.
+                \item El sistema rellena el formulario para solicitar la tarjeta sanitaria.
+            \end{enumerate}
+        
+            Flujos alternativos: 
+            \begin{enumerate}
+                \item[15.a] Si el usuario no confirma los datos, el sistema repite las preguntas correspondientes y se continua con el paso siguiente a la pregunta.
+            \end{enumerate}    
+        
+        \subsection{Iniciar sesión:}
+        \label{subsec:2.4.4.}
+            Actor principal: empleado.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El sistema solicita el usuario o correo electrónico y la contraseña.
+                \item El empleado introduce su usuario o correo electrónico y su contraseña.
+                \item El sistema comprueba que los datos coinciden con un empleado e inicia sesión.
+            \end{enumerate}
+
+            Flujos alternativos:
+            \begin{enumerate}
+                \item[3.a.] Si los datos no coinciden con un empleado, el sistema informa de datos incorrectos y vuelve al paso 1.
+                \item[3.b.] Si los datos coinciden pero el ususario está desactivado, el sistema lo informa y vuelve al paso 1.
+            \end{enumerate}
+
+            Postcondiciones: el empleado está identificado en el sistema.
+
+        \subsection{Consultar detalles de una petición:}
+        \label{subsec:2.4.5.}
+            Actor principal: empleado.
+
+            Precondición: el empleado está identificado en el sistema.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El empleado va a la página con la lista de peticiones.
+                \item El empleado clica en el ID de la petición.
+                \item El sistema muestra la información de la petición.
+            \end{enumerate}
+
+        \subsection{Petición revisable:}
+            Actor principal: secretario.
+            
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Consultar detalles de una petición}.
+            
+            Secuencia normal: 
+            \begin{enumerate}
+                \item El secretario se asigna la petición.
+                \item El secretario modifica la información necesaria.
+                \item El secretario completa la petición.
+                \item El sistema inicia el trámite correspondiente a la petición.
+                \item El sistema actualiza el estado de la petición a completada. 
+            \end{enumerate}
+        
+            Flujos alternativos:
+            \begin{enumerate}
+                \item[3.a.] Si el secretario anula la petición, cambia y actualiza el estado a cancelada y finaliza el caso de uso. 
+            \end{enumerate}
+
+        \subsection{Consultar datos personales y cambiar contraseña:}
+            Actor principal: empleado.
+
+            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El empleado clica en su perfil.
+                \item El sistema muestra su información personal.
+                \item El empleado clica en cambiar contraseña.
+                \item El sistema solicita la contraseña actual y la contraseña nueva.
+                \item El empleado introduce la información.
+                \item El sistema comprueba que la contraseña actual es verídica.
+                \item El sistema actualiza la contraseña del empleado.
+            \end{enumerate}
+
+            Flujos alternativos:
+            \begin{enumerate}
+                \item[6.a.] Si la contraseña actual es incorrecta, el sistema lo informa y vuelve al paso 4.
+            \end{enumerate}
+
+        \subsection{Crear petición:}
+            Actor principal: secretario.
+
+            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El secretario va a la página con la lista de peticiones.
+                \item El secretario clica en crear petición.
+                \item El sistema solicita el teléfono y el trámite.
+                \item El secretario introduce el teléfono y el trámite.
+                \item El sistema solicita la información correspondiente al trámite.
+                \item El secretario introduce la información.
+                \item El sistema crea la petición e inicia el trámite.
+            \end{enumerate}
+
+        \subsection{Añadir empleados:}
+            Actor principal: administrador.
+
+            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El administrador va a la página con la lista de empleados.
+                \item El administrador selecciona añadir empleado.
+                \item El sistema solicita los datos del nuevo empleado.
+                \item El administrador rellena los datos.
+                \item El sistema comprueba que el email no está registrado ya en el sistema.
+                \item El sistema crea un usuario y una contraseña temporal.
+                \item El sistema envía al nuevo usuario su contraseña temporal.
+                \item El sistema almacena el nuevo empleado.
+            \end{enumerate}
+            
+            Flujos alternativos:
+            \begin{enumerate}
+                \item[5.a.] Si el email ya está registrado, el sistema lo informa y continua con el paso 3.
+            \end{enumerate}
+
+        \subsection{Modificar o desactivar empleados}
+            Actor principal: administrador.
+
+            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El administrador va a la página con la lista de empleados.
+                \item El administrador clica en el botón de la columna activo del empleado correspondiente.
+                \item El sistema muestra los campos con la información del empleado.
+                \item El administrador modifica la información correspondiente y clica en editar.
+                \item El sistema actualiza la información del empleado.
+            \end{enumerate}
+
+            Flujos alternativos:
+            \begin{enumerate}
+                \item[3.a.] El administrador clica en resetear contraseña, el sistema crea una contraseña temporal y se la envía al email del empleado.
+                \item[4.a.] El administrador modifica el email, el sistema comprueba que el email ya está registrado en el sistema, lo informa y vuelve al paso 3.
+                \item[4.b.] El administrador modifica el email, el sistema comprueba que el email no está registrado en el sistema y continua con el paso 5.
+                \item[4.c.] El administrador activa o desactiva el empleado, el sistema se lo avisa al email del empleado y continua en el paso 5.
+            \end{enumerate}
+
+        \subsection{Añadir trámites:}
+            Actor principal: administrador.
+
+            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El administrador va a la página con la lista de trámites.
+                \item El administrador clica en añadir trámite.
+                \item El sistema solicita el nombre y estado del trámite.
+                \item El administrador introduce el nombre y estado del trámite.
+                \item El sistema comprueba que no hay otro trámite con el mismo nombre.
+                \item El sistema actualiza los datos del trámite.
+            \end{enumerate}
+
+            Flujos alternativos:
+            \begin{enumerate}
+                \item[5.a.] El sistema comprueba que hay otro trámite con el mismo nombre, lo informa y vuelve al paso 3.
+            \end{enumerate}
+
+        \subsection{Modificar o desactivar trámites:}
+            Actor principal: administrador.
+
+            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+
+            Secuencia normal:
+            \begin{enumerate}
+                \item El administrador va a la página con la lista de trámites.
+                \item El administrador clica en el botón de la columna activo del trámite correspondiente.
+                \item El sistema muestra los campos con la información del trámite.
+                \item El administrador modifica la información correspondiente y clica en editar.
+                \item El sistema actualiza la información del trámite.
+            \end{enumerate}
+
+            Flujos alternativos:
+            \begin{enumerate}
+                \item[4.a.] El administrador modifica el nombre, el sistema comprueba que el nombre ya está registrado en el sistema, lo informa y vuelve al paso 3.
+                \item[4.b.] El administrador modifica el nombre, el sistema comprueba que el nombre no está registrado en el sistema y continua con el paso 5.
+                \item[4.c.] Si el administrador desactiva un trámite activo, el sistema cancela todas las peticiones no completadas de ese trámite y va al paso 5.
+            \end{enumerate}
 
     \section{Decisiones técnicas}
         En esta sección se plantean las herramientas y tecnologías que se van a utilizar para llevar a cabo el desarrollo del proyecto, justificando cada una de ellas.
