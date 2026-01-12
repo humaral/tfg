@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.0">
+  <diagram name="Página-1" id="Ui2T87aOIxXclpyN8R03">
+    <mxGraphModel dx="2253" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6O_UDZLpWvkardfaYZF0-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="830" width="370" x="290" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-2" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Solicitud certificado empadronamiento" vertex="1">
+          <mxGeometry height="60" width="125" x="320" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-3" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Solicitud tarjeta SACYL" vertex="1">
+          <mxGeometry height="60" width="125" x="320" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-4" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Iniciar sesión" vertex="1">
+          <mxGeometry height="60" width="125" x="375" y="524" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-5" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Solicitud cita AEAT" vertex="1">
+          <mxGeometry height="60" width="125" x="320" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-6" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Consultar detalles petición" vertex="1">
+          <mxGeometry height="60" width="125" x="360" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-7" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Petición revisable" vertex="1">
+          <mxGeometry height="60" width="125" x="540" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-8" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Consultar datos personales y cambiar contraseña" vertex="1">
+          <mxGeometry height="60" width="125" x="470" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-9" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Añadir trámites" vertex="1">
+          <mxGeometry height="60" width="125" x="220" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-10" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Modificar o desactivar empleados" vertex="1">
+          <mxGeometry height="60" width="125" x="227.5" y="710" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-11" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Añadir empleados" vertex="1">
+          <mxGeometry height="60" width="125" x="430" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-12" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Crear petición" vertex="1">
+          <mxGeometry height="60" width="125" x="445" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-14" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="Modificar o desactivar trámites" vertex="1">
+          <mxGeometry height="60" width="125" x="227.5" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-15" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="Usuario&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="45" x="90" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-16" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="&lt;div&gt;Empleado&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="45" x="55" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-17" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="&lt;div&gt;Secretario&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="45" x="135" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-19" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" value="&lt;div&gt;Administrador&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="45" x="10" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="6O_UDZLpWvkardfaYZF0-22" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Sistema" vertex="1">
+          <mxGeometry height="30" width="60" x="292.5" y="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
