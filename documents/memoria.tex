@@ -246,8 +246,9 @@
                     \item Estado (activo o inactivo)
                 \end{itemize}
                 
-            %TODO añadir mas
-            \item[RNF1.] Los errores registrados por la IA, por falta de comprensión o entrenamiento no deben superar el 10\% de las peticiones.
+            \item[RNF1.] Los errores registrados por la IA, por falta de comprensión o entrenamiento, no deben superar el 10\% de las peticiones.
+            \item[RNF2.] El tiempo de respuesta del agente conversacional en llamada no debe superar los 3 segundos para dar sensación de fluidez en la conversación.
+            \item[RNF3.] La interfaz de la web de empleados será intuitiva y fácil de usar, de forma que el 95\% de los empleados puedan completar tareas clave con menos de 2 errores y en menos de 5 minutos por tarea.
         \end{enumerate}
 
     \section{Casos de uso}
@@ -521,7 +522,36 @@
                 \item[4.a.] El administrador modifica el nombre, el sistema comprueba que el nombre ya está registrado en el sistema, lo informa y vuelve al paso 3.
                 \item[4.b.] El administrador modifica el nombre, el sistema comprueba que el nombre no está registrado en el sistema y continua con el paso 5.
                 \item[4.c.] Si el administrador desactiva un trámite activo, el sistema cancela todas las peticiones no completadas de ese trámite y va al paso 5.
-            \end{enumerate}
+            \end{enumerate}  
+    
+    \section{Modelo de dominio:}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{diagramas/modelo_domino.png}
+        \caption{Diagrama de casos de uso.}
+    \end{figure}
+
+%Planificación________________________________
+\chapter{Planificación}
+
+
+    \section{Metodología}
+
+    \section{Planificación temporal}
+
+    \section{Planificación estructural (PBS/WBS/Diag Flug/D Actividades)}
+
+    \section{Estimación de recursos y costes}
+
+    \section{Gasto real vs estimado}
+
+    \section{Análisis de riesgos}
+
+
+%Diseño______________________________________
+\chapter{Diseño}
+
+
 
     \section{Decisiones técnicas}
         En esta sección se plantean las herramientas y tecnologías que se van a utilizar para llevar a cabo el desarrollo del proyecto, justificando cada una de ellas.
@@ -557,50 +587,23 @@
             \item Draw.io: es una herramienta de diseño para crear los diagramas fácilmente para la memoria.
             \item Latex: como sistema de composición de textos para escribir la memoria.
             \end{itemize}
-    
-    \section{Análisis de riesgos}
 
-    \section{Dificultades observadas}
-
-%Planificación________________________________
-\chapter{Planificación}
-
-
-    \section{Metodología}
-
-    \section{Planificación temporal}
-
-    \section{Planificación estructural (PBS/WBS/Diag Flug/D Actividades)}
-
-    \section{Estimación de recursos y costes}
-
-    \section{Gasto real vs gasto estimado}
-
-%Diseño______________________________________
-\chapter{Diseño}
-
-%TODO Incluir esto en el diseño del agente:
-1º WELCOME -> bienvenida del bot y activa contexto de esperando tramite
-2º User dice el tramite que quiere
-3º Si tramite empadronamiento/cita AEAT/tarjeta SACYl el Bot hace slot filling con los datos que necesita.
-3ºA si es cita, el bot tiene que mantener un flujo adicional para al saber el día dar horas disponibles, hasta que el user confirma fecha y hora. Dando opcion a elegir otro dia si no le gusta las horas.
-3ºB Si el tramite es informacion de centros de día, u otras informaciones relevantes de cuaalquier tramite, se consulta la base de conocimiento para responder cualquier pregunta.
-4º Una vez que se obtienen todos los datos necesarios se pide confrimacion de los datos al user y se le da la opcion de cambiar cualquiera.
-5º si todo es correcto y el user no tiene mas preguntas, se finaliza la llamada, mandando la peticion recogida al backend
+    \section{Diseño de la interfaz de usuario (Mockups)}
 
     \section{Arquitectura del sistema}
 
     \section{Diseño de la base de datos}
 
-    \section{Diseño de la interfaz de usuario (Mockups)}
-
     \section{Diseño de la inteligencia artificial}
+        %TODO Incluir esto en el diseño del agente:
+        1º WELCOME -> bienvenida del bot y activa contexto de esperando tramite
+        2º User dice el tramite que quiere
+        3º Si tramite empadronamiento/cita AEAT/tarjeta SACYl el Bot hace slot filling con los datos que necesita.
+        3ºA si es cita, el bot tiene que mantener un flujo adicional para al saber el día dar horas disponibles, hasta que el user confirma fecha y hora. Dando opcion a elegir otro dia si no le gusta las horas.
+        3ºB Si el tramite es informacion de centros de día, u otras informaciones relevantes de cuaalquier tramite, se consulta la base de conocimiento para responder cualquier pregunta.
+        4º Una vez que se obtienen todos los datos necesarios se pide confrimacion de los datos al user y se le da la opcion de cambiar cualquiera.
+        5º si todo es correcto y el user no tiene mas preguntas, se finaliza la llamada, mandando la peticion recogida al backend
 
-    \section{Diseño de la seguridad}
-
-    \section{Diseño de la escalabilidad}
-
-    \section{Interacción}
 
 %Implementación_______________________________
 \chapter{Implementación}
@@ -614,6 +617,18 @@
 \chapter{Conclusiones y trabajo futuro}
 
 \section{Conclusiones}
+
+    \subsection{Dificultades observadas}
+        %TODO ACABAR
+        1. Coste de las tecnologías: 
+        2. Autentificación frente el sistema: surge
+        una necesidad en la producción futura del sistema y es la forma de
+        identificar al llamante. Esto es necesario para distintos trámites, en
+        cuestión de protección de datos y para evitar estafas. Para la simulación
+        actual no es del todo necesario, ya que es un entorno controlado, pero nos
+        reduce mucho el número de trámites que puedo elegir, ya que la mayoría no
+        están pensados a hacerlos por terceros y requieren de identificación
+        mediante DNI electrónico o certificado digital.
 
 \section{Trabajo futuro}
 %NOTE Mejoras en la app: gestión de trámites para que administradores añadan, modifiquen, eliminen tramites.
