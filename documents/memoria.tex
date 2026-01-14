@@ -150,7 +150,6 @@
         
 %Análisis_____________________________________
 \chapter{Análisis}
-% TODO Añadir el análisis
 
     \section{Audiencia}
         La audiencia objetivo de este proyecto se enfoca principalmente en los usuarios finales, pero también incluye a las entidades administrativas y a sus trabajadores que se beneficiarán de este sistema.
@@ -253,11 +252,11 @@
 
     \section{Casos de uso}
         \subsection{Diagrama de casos de uso:}
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.6\textwidth]{diagramas/diagrama_casos_uso.png}
-            \caption{Diagrama de casos de uso.}
-        \end{figure}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.6\textwidth]{diagramas/diagrama_casos_uso.png}
+                \caption{Diagrama de casos de uso.}
+            \end{figure}
 
         \subsection{Solicitud del certificado de empadronamiento:}  
             Actor principal: usuario.
@@ -290,7 +289,7 @@
             Actor principal: usuario.
             
             Precondición: El usuario ha iniciado una llamada al sistema. 
-            
+
             Secuencia normal: 
             \begin{enumerate}
                 \item El usuario solicita agendar una cita en la Agencia Tributaria.
@@ -352,7 +351,7 @@
             \end{enumerate}    
         
         \subsection{Iniciar sesión:}
-        \label{subsec:2.4.4.}
+        \label{subsec:2.4.5.}
             Actor principal: empleado.
 
             Secuencia normal:
@@ -371,10 +370,10 @@
             Postcondiciones: el empleado está identificado en el sistema.
 
         \subsection{Consultar detalles de una petición:}
-        \label{subsec:2.4.5.}
+        \label{subsec:2.4.6.}
             Actor principal: empleado.
 
-            Precondición: el empleado está identificado en el sistema.
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Inicia sesión}.
 
             Secuencia normal:
             \begin{enumerate}
@@ -386,7 +385,7 @@
         \subsection{Petición revisable:}
             Actor principal: secretario.
             
-            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Consultar detalles de una petición}.
+            Precondición: caso de uso \hyperref[subsec:2.4.6.]{2.4.6. Consultar detalles de una petición}.
             
             Secuencia normal: 
             \begin{enumerate}
@@ -405,7 +404,7 @@
         \subsection{Consultar datos personales y cambiar contraseña:}
             Actor principal: empleado.
 
-            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Inicia sesión}.
 
             Secuencia normal:
             \begin{enumerate}
@@ -426,7 +425,7 @@
         \subsection{Crear petición:}
             Actor principal: secretario.
 
-            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Inicia sesión}.
 
             Secuencia normal:
             \begin{enumerate}
@@ -442,7 +441,7 @@
         \subsection{Añadir empleados:}
             Actor principal: administrador.
 
-            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Inicia sesión}.
 
             Secuencia normal:
             \begin{enumerate}
@@ -464,7 +463,7 @@
         \subsection{Modificar o desactivar empleados}
             Actor principal: administrador.
 
-            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Inicia sesión}.
 
             Secuencia normal:
             \begin{enumerate}
@@ -486,7 +485,7 @@
         \subsection{Añadir trámites:}
             Actor principal: administrador.
 
-            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Inicia sesión}.
 
             Secuencia normal:
             \begin{enumerate}
@@ -506,7 +505,7 @@
         \subsection{Modificar o desactivar trámites:}
             Actor principal: administrador.
 
-            Precondición: caso de uso \hyperref[subsec:2.4.4.]{2.4.4. Inicia sesión}.
+            Precondición: caso de uso \hyperref[subsec:2.4.5.]{2.4.5. Inicia sesión}.
 
             Secuencia normal:
             \begin{enumerate}
@@ -525,11 +524,11 @@
             \end{enumerate}  
     
     \section{Modelo de dominio:}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1\textwidth]{diagramas/modelo_domino.png}
-        \caption{Diagrama de casos de uso.}
-    \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{diagramas/modelo_domino.png}
+            \caption{Modelo de dominio.}
+        \end{figure}
 
 %Planificación________________________________
 \chapter{Planificación}
@@ -550,7 +549,6 @@
 
 %Diseño______________________________________
 \chapter{Diseño}
-
 
 
     \section{Decisiones técnicas}
@@ -588,11 +586,91 @@
             \item Latex: como sistema de composición de textos para escribir la memoria.
             \end{itemize}
 
-    \section{Diseño de la interfaz de usuario (Mockups)}
+    \section{Diseño de la interfaz de usuario}
+        En esta sección se muestra el diseño adoptado en la interfaz de la aplicación web destinada a trabajadores de las administraciones públicas.
+        El concepto general de la interfaz se ha centrado en mostrar únicamente la información y funcionalidades necesarias en pantalla, manteniendo un estilo simple y claro que favorece la eficiencia y eficacia en el uso de la aplicación.
+
+        A continuación se presentan los mockups de las páginas principales del sistema.
+        En cada prototipo se describen los elementos que lo componen, explicando las funcionalidades que disponen los empleados.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{mockups/Login.png}
+            \caption{Prototipo visual de la página de login.}
+            \label{fig:4.1}
+        \end{figure}
+        La figura \ref{fig:4.1} muestra la pantalla de inicio de sesión del sistema. 
+        Se trata de la página inicial de la aplicación y la única accesible públicamente para usuarios ajenos al sistema.
+        Por ello, presenta únicamente un formulario de acceso en la parte central, que permite a los empleados identificarse fácilmente mediante sus credenciales.
+        
+        Para acceder a cualquier otra página del sistema es necesario autenticarse para garantizar la confidencialidad de la información.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{mockups/Peticiones.png}
+            \caption{Prototipo visual de la página de peticiones.}
+            \label{fig:4.2}
+        \end{figure}
+        La figura \ref{fig:4.2} muestra un listado con todas las peticiones del sistema. 
+        Se trata de la página principal de la aplicación, ya que es visible por todos los empleados.
+        
+        El componente principal es una tabla con la información básica de cada petición, incluyendo en la parte superior de la tabla una serie de filtros para localizar rápidamente la gestión deseada.
+        En cada fila de la tabla se incluye un link, situado en la columna con del ID, para navegar a una página con detalles específicos de cada petición.
+        Además, en la parte superior izquierda, debajo del logotipo, se incluye un menú para navegar entre las distintas páginas. 
+        
+        Por último, todas las páginas incluyen el perfil del empleado identificado en la parte superior derecha. 
+        Clicando sobre el perfil se puede navegar hasta la página con detalles del empleado.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{mockups/Peticion.png}
+            \caption{Prototipo visual de la página con detalles de una petición.}
+            \label{fig:4.3}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{mockups/Revisable.png}
+            \caption{Prototipo visual de la página de una petición revisable.}
+            \label{fig:4.4}
+        \end{figure}
+        Al clicar en el ID de una petición en la tabla de la imagen \ref{fig:4.2}, se muestra la página con detalles de la figura \ref{fig:4.3}.
+        En esta pantalla se podrá consultar los datos concretos de una petición para cada trámite. 
+        
+        En caso de ser una petición revisable, figura \ref{fig:4.4}, los empleados que tengan permiso, verán a la derecha del título de la petición un botón para asignársela.
+        Una vez asignada, los campos con la información se volverán modificables y los trabajadores podrán editar la petición o cancelarla.
+        
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{mockups/Empleados.png}
+            \caption{Prototipo visual de la página de empleados.}
+            \label{fig:4.5}
+        \end{figure}
+        Desde el menú superior, los administradores pueden navegar hasta la figura \ref{fig:4.5}, que muestra un listado con todos los empleados del sistema. 
+        El componente principal es una tabla similar a la de las peticiones, que incluye la información de cada empleado y los filtros necesarios para localizarlos rápidamente.
+        
+        A diferencia de la otra tabla, se añade una columna que indica si la cuenta de cada empleado está activa. 
+        Esta columna cumple una doble función, ya que, clicando sobre el valor correspondiente a un empleado, se navegará hasta una página donde se muestra su información, permitiendo modificarla.
+        
+        La posibilidad de desactivar cuentas impide el acceso al sistema de un empleado sin necesidad de eliminar su cuenta, perservando así la trazabilidad de la información.
+        
+        Por último, se incluye a la derecha de los filtros el botón para poder agregar nuevos empleados al sistema.
+        
+        La página que muestra la información de los trámites será exactamente igual a esta, manteniendo los mismos componenetes, disposición y funcionalidad.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{mockups/Estadisticas.png}
+            \caption{Prototipo visual de la página de estadísticas.}
+            \label{fig:4.6}
+        \end{figure}
+        Desde el menú de navegación, también se puede acceder a una sección de estadísticas.
+        Esta página está diseñada para mostrar información relevante sobre las peticiones y las llamadas recibidas.
+        Dado que se trata de un sistema simulado, no habrá datos suficientes para que la información sea representativa. 
+        Sin embargo, la sección queda incluida en el diseño como un desarrollo previsto a futuro.
 
     \section{Arquitectura del sistema}
 
-    \section{Diseño de la base de datos}
+        \subsection{Diseño de la base de datos}
 
     \section{Diseño de la inteligencia artificial}
         %TODO Incluir esto en el diseño del agente:
@@ -604,6 +682,7 @@
         4º Una vez que se obtienen todos los datos necesarios se pide confrimacion de los datos al user y se le da la opcion de cambiar cualquiera.
         5º si todo es correcto y el user no tiene mas preguntas, se finaliza la llamada, mandando la peticion recogida al backend
 
+    \section{Seguridad y control de accesos}
 
 %Implementación_______________________________
 \chapter{Implementación}
