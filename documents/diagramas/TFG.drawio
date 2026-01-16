@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.1" pages="3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.3.2" pages="4">
   <diagram name="Diagrama Casos de Uso" id="Ui2T87aOIxXclpyN8R03">
     <mxGraphModel dx="1426" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -506,6 +506,62 @@
           <mxGeometry relative="1" x="1" as="geometry">
             <mxPoint x="-10" y="25" as="offset" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="hnwUUlnRxUOuPrviOKWz" name="Decomposition &amp; Uses Style">
+    <mxGraphModel dx="1665" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-1" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="" vertex="1">
+          <mxGeometry height="280" width="490" x="60" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-2" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Presentación" vertex="1">
+          <mxGeometry height="76" width="124.51" x="237.74" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-3" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Lógica de negocio" vertex="1">
+          <mxGeometry height="76" width="124.51" x="78.49" y="324" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-4" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Persistencia" vertex="1">
+          <mxGeometry height="76" width="124.51" x="237.74" y="324" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-5" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Servicios" vertex="1">
+          <mxGeometry height="76" width="124.51" x="397" y="324" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Sistema de Trámites Telefónicos" vertex="1">
+          <mxGeometry height="30" width="194" x="203" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-7" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="" vertex="1">
+          <mxGeometry height="250" width="160" x="60.75" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-8" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Presentación" vertex="1">
+          <mxGeometry height="30" width="156.25" x="60.75" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-9" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Templates" vertex="1">
+          <mxGeometry height="70" width="114.68" x="83.40999999999997" y="534" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-10" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Routes" vertex="1">
+          <mxGeometry height="70" width="114.68" x="83.40999999999997" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-12" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="" vertex="1">
+          <mxGeometry height="140" width="160" x="254.74" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Persistencia" vertex="1">
+          <mxGeometry height="30" width="152.26" x="258.61" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-14" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Models" vertex="1">
+          <mxGeometry height="70" width="114.68" x="277.4" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-16" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="" vertex="1">
+          <mxGeometry height="140" width="160" x="450" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-17" parent="1" style="shape=folder;tabWidth=80;tabHeight=20;tabPosition=left;strokeWidth=2;html=1;whiteSpace=wrap;align=center;" value="Models" vertex="1">
+          <mxGeometry height="70" width="114.68" x="472.65999999999997" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="dbdK9xf2Qm2Zg9084bcX-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Lógica de negocio" vertex="1">
+          <mxGeometry height="30" width="152.26" x="453.87" y="480" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
