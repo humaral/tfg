@@ -735,7 +735,7 @@
           <mxGeometry height="327.5" width="150" x="561.6" y="551.25" as="geometry" />
         </mxCell>
         <mxCell id="NxPlIcFmOdO-T_wNAQ8e-58" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Models" vertex="1">
-          <mxGeometry height="30" width="86.25" x="541.6" y="575" as="geometry" />
+          <mxGeometry height="30" width="86.25" x="550" y="572.5" as="geometry" />
         </mxCell>
         <mxCell id="NxPlIcFmOdO-T_wNAQ8e-59" parent="1" style="html=1;whiteSpace=wrap;fillColor=#6a00ff;fontColor=#ffffff;strokeColor=#3700CC;" value="peticion" vertex="1">
           <mxGeometry height="35" width="110" x="577.7700000000001" y="741.25" as="geometry" />
@@ -801,7 +801,7 @@
           <mxGeometry height="227.5" width="140" x="474.51000000000005" y="917.5" as="geometry" />
         </mxCell>
         <mxCell id="NxPlIcFmOdO-T_wNAQ8e-73" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Servicios" vertex="1">
-          <mxGeometry height="30" width="156.25" x="435.35" y="947.5" as="geometry" />
+          <mxGeometry height="30" width="156.25" x="430.00000000000006" y="932.5" as="geometry" />
         </mxCell>
         <mxCell id="NxPlIcFmOdO-T_wNAQ8e-75" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Lógica de negocio" vertex="1">
           <mxGeometry height="30" width="156.25" x="541.6" y="450" as="geometry" />
@@ -840,7 +840,7 @@
           <mxGeometry height="50" width="110" x="677.01" y="917.5" as="geometry" />
         </mxCell>
         <mxCell id="NxPlIcFmOdO-T_wNAQ8e-84" parent="1" style="html=1;whiteSpace=wrap;" value="Discord" vertex="1">
-          <mxGeometry height="50" width="110" x="680" y="1012.5" as="geometry" />
+          <mxGeometry height="50" width="110" x="681.68" y="1000" as="geometry" />
         </mxCell>
         <mxCell id="NxPlIcFmOdO-T_wNAQ8e-85" edge="1" parent="1" source="NxPlIcFmOdO-T_wNAQ8e-24" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="NxPlIcFmOdO-T_wNAQ8e-83" value="">
           <mxGeometry relative="1" width="160" as="geometry">
