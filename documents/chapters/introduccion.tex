@@ -1,0 +1,89 @@
+Este documento constituye la memoria del Trabajo de Fin de Grado de la titulación de Ingeniería Informática, mención en Computación, de la Universidad de Valladolid. 
+A través de este informe se exponen las fases y decisiones tomadas a lo largo del desarrollo de un sistema computacional orientado a la gestión accesible de trámites burocráticos.
+    
+En este capítulo se presentan los motivos que justifican el valor de esta plataforma para determinados sectores de la sociedad y las soluciones similares existentes que pretenden reducir la brecha digital, destacando las diferencias con el proyecto propuesto. 
+También se indican los objetivos que se pretenden alcanzar con esta herramienta y, finalmente, un resumen estructural del resto de la memoria.
+
+\section{Motivación del tema}
+    La brecha digital se define como la desigualdad existente entre personas por causa de su exclusión a las tecnologías de la información y comunicación. 
+    Esta exclusión se manifiesta desde tres dimensiones diferentes.
+    \begin{itemize}
+        \item En primer lugar, en la falta de acceso a dispositivos tecnológicos o a una conexión a Internet. 
+            Esto puede deberse tanto a factores geográficos como a limitaciones económicas. 
+            En España, un 20\% de la población no dispone de un ordenador, y en hogares con ingresos inferiores a 1100€, el porcentaje asciende al 50\% con tan solo el 79,1\% con acceso a Internet.
+        \item En segundo lugar, en el uso de estas tecnologías. 
+            Una parte de la población carece de las competencias digitales necesarias para desenvolverse con facilidad en este entorno. 
+            Esto influye en gran medida cuando pretenden afrontar tareas más complejas, como la realización de trámites relacionados con la Administración pública, hasta el punto de que un 20\% de la población necesita ayuda para completar estas gestiones.
+        \item Por último, hay una brecha de aprovechamiento referida a la dificultad de obtener beneficios de las tecnologías, por ejemplo, para acceder a mejores oportunidades educativas o mejores puestos de trabajo. 
+            No obstante, este proyecto no se centra en esta dimensión.
+    \end{itemize}
+    Aunque se trata de un porcentaje reducido de la población, resulta evidente la necesidad de ofrecer soluciones que permitan a estas personas integrarse en el entorno digital. \cite{ref1}
+    
+    Teniendo en cuenta estas limitaciones, uno de los sectores más afectados por la brecha digital es el de las personas mayores, que no suelen estar tan familiarizados con las tecnologías y les afecta en gran medida la falta de acceso y de uso. 
+    Tanto es así que un 27,3\% de los españoles mayores de 65 años nunca han utilizado Internet \cite{ref2}. 
+    Por ello, es fundamental desarrollar una solución universal e intuitiva, que no requiera de ningún conocimiento previo.
+    En este sentido, una llamada telefónica es una opción muy adecuada, ya que es un medio de comunicación ampliamente utilizado por todos los sectores de la población, no requiere explicación previa, funciona incluso en zonas rurales de baja cobertura y no supone una barrera económica adicional, ya que el 99,8\% de los hogares españoles dispone de un teléfono ya sea móvil o fijo \cite{ref3}. 
+    De esta manera, se garantiza la accesibilidad del servicio y no se imponen nuevas limitaciones tecnológicas.
+
+    Además, se opta por centrar el proyecto en las diligencias de la Administración pública, ya que la digitalización de estos servicios ha supuesto una barrera adicional, dificultando su realización para los sectores vulnerables. 
+    Tal es el caso que el 60\% de la población opina que la informatización de los trámites administrativos vulnera sus derechos y el 74,5\% deseraía disponer de un portal único para realizar todos los procedimientos. \cite{ref4}
+
+\section{Estado de la cuestión}
+    A lo largo de los últimos años se han desarrollado múltiples iniciativas orientadas a reducir la brecha digital. 
+    Sin embargo, ninguna de ellas ha logrado beneficiar a la mayoría de los sectores de la población, independientemente del grado en que se ven afectados por dicha brecha. 
+    El proyecto presentado busca dar respuesta a esta desigualdad, abordándola desde la perspectiva de la falta de acceso y la dificultad de uso.
+
+    La mayoría de las soluciones existentes se centran en la formación y capacitación de los usuarios para introducirlos en el entorno digital. 
+    Existen múltiples cursos, talleres e incluso plataformas digitales como Cogniti que cumplen esta función. 
+    No obstante, presentan varias desventajas como la necesidad de disponer de un dispositivo y una conexión a Internet, lo que sigue suponiendo una barrera de acceso. 
+    Además, el aprendizaje requiere de un tiempo y esfuerzo que no todos los usuarios están dispuestos a invertir. 
+    A esto se suma que no todas las personas aprenden con la misma facilidad y, en muchos casos, los resultados obtenidos son limitados, ya que se adquieren únicamente conceptos básicos que no siempre se traducen en saber realizar tareas más complejas.
+
+    En cuanto a iniciativas orientadas a reducir la brecha de acceso, existen distintos proyectos para ampliar la cobertura en zonas desconectadas y volver las tecnologías más asequibles para personas con recursos limitados. 
+    Asimismo, están surgiendo diversas tecnologías, como la red 5G o el Internet satelital, que contribuyen a mejorar la conectividad en áreas donde las infraestructuras tradicionales, como la fibra óptica, resultan insuficientes o inviables.
+    Sin embargo, estas soluciones no abordan la brecha de uso, que sigue siendo un obstáculo para muchos usuarios.
+
+    En lo relativo a las páginas oficiales del gobierno, ha habido un esfuerzo por reducir la complejidad de sus trámites y hacerlos más accesibles mediante aplicaciones móviles.
+    Pese a este esfuerzo, las aplicaciones móviles no eximen a los usuarios con competencias digitales limitadas de necesitar ayuda externa para completar las gestiones.
+
+    Por último, en cuanto a soluciones que involucran llamadas telefónicas, existen líneas como el 060 para la atención administrativa general del Estado, que se utiliza prinicipalmente para ofrecer información o resolver dudas.
+    Además, existen sistemas más avanzados que incorporan reconocimiento del lenguaje natural para gestiones específicas, como la solicitud de citas médicas telefónicas de SACYL. 
+    No obstante, estas soluciones son bastante limitadas, ya que generalmente obligan al usuario a interactuar mediante menús predefinidos y suelen necesitar también de un operador humano para completar gestiones más complejas.
+    Del mismo modo, existen servicios con bots de atención automatizada, que al igual que en el caso anterior, tienen una funcionalidad muy limitada y no permiten la realización de trámites complejos.
+    A diferencia de estos sistemas, una inteligencia artificial conversacional avanzada permite mantener una interacción más natural, similar a una conversación humana, sin exigir respuestas rígidas.
+    Asimismo, ofrecen una mayor personalización y flexibilidad, ya que pueden entrenarse para realizar cualquier tarea o gestión necesaria, así como responder a cualquier duda sin interrumpir la conversación. 
+    Por ejemplo, un usuario puede estar solicitando un trámite y mientras la IA está recopilando los datos necesarios, el usuario puede interrumpir con una pregunta relacionada, y la IA responderá adecuadamente y continuará el trámite sin romper el flujo de la conversación.
+
+    Esta tecnología de inteligencia artificial conversacional está en constante evolución y mejora, ya que es relativamente reciente. Sin embargo, ya empiezan a aparecer soluciones comerciales que la integran en sus modelos de negocio para automatizar procesos de alto valor y reducir costes.
+
+    En conclusión, la mayoría de las soluciones existentes se centran únicamente en un aspecto de la brecha digital y no logran integrar de manera efectiva a todos los sectores de la población. 
+    Si bien se obtiene un buen resultado con la combinación de varias iniciativas, sigue sin ser equiparable a un sistema integral como el presentado.
+
+\section{Objetivos}
+    El objetivo principal de este proyecto consiste en la reducción de la brecha digital mediante un sistema accesible que ofrece una alternativa para la realización de trámites administrativos online a cualquier persona, independientemente de su nivel de acceso o sus competencias digitales, a través de una llamada telefónica.
+    Para ello, se han establecido los siguientes objetivos específicos:
+    \begin{enumerate}
+        \item Entrenamiento y configuración de un agente conversacional de inteligencia artificial, capaz de interactuar de forma natural y fluida con el usuario, con el fin de orientar y recopilar la información necesaria del beneficiario para iniciar los trámites administrativos.
+        \item Desarrollo de una interfaz web administrativa para la gestión y supervisión de las solicitudes realizadas a través del sistema.
+        \item Simulación de un conjunto representativo de procedimientos administrativos de diferentes entidades y tipologías.
+        \item Implementación de un sistema de llamadas VoIP para la recepción de llamadas y la integración del agente conversacional.
+    \end{enumerate}
+
+\section{Resumen del resto de la memoria}
+    Este documento se estructura en cinco capítulos principales, además de la introducción, donde se presenta el proyecto, y la conclusión, donde se explican las ideas finales y el desarrollo futuro. 
+    Destacando las fases principales del desarrollo de un sistema computacional.
+    
+    \begin{description}
+        \item[Capítulo 2 Análisis] Se estudian las necesidades del público objetivo del sistema. 
+        En base a este estudio, se establecen los requisitos del sistema y los trámites y procesos que se deben implementar, así como el alcance y las limitaciones de la solución.
+
+        \item[Capítulo 3 Planificación] Se organiza y estructura el trabajo a realizar. 
+        En este capítulo se define la metodología empleada, se establece la planificación temporal del proyecto y se realiza una estimación de recursos y costes.
+
+        \item[Capítulo 4 Diseño] Se detallan la arquitectura general y los distintos componentes del sistema. 
+        Aismismo, se presentan los diagramas y patrones de diseño eligidos, que servirán de base para la implementación.
+
+        \item[Capítulo 5 Implementación] Se describe el proceso de desarrollo del sistema, detallando la implementación de cada uno de los módulos.
+
+        \item[Capítulo 6 Pruebas] Se exponen las distintas pruebas realizadas parar verificar el correcto funcionamiento de cada uno de los componentas del sistema.
+    \end{description}

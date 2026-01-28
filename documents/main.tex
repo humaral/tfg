@@ -1,0 +1,234 @@
+% Plantilla iniciada por Diego Fidalgo
+% Modificada y adaptada por Yania Crespo
+
+\documentclass[openright,twoside,11pt]{book} 
+\usepackage[a4paper,left=2cm,top=2.5cm,right=1.5cm,bottom=2.5cm]{geometry} 
+\usepackage[spanish]{babel} % espanol
+\usepackage[utf8]{inputenc} % acentos sin codigo
+\usepackage[T1]{fontenc}
+\usepackage{graphicx} % gráficos
+\usepackage{pdflscape}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+\usepackage{xurl}
+\usepackage{bookmark}
+
+
+%% Mis paquetes
+\usepackage{ragged2e}
+\usepackage{tabularx}
+\usepackage{ifthen} % para la tabla de riesgos
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{eurosym} % para el euro
+\usepackage{listings}
+\usepackage{framed}
+\usepackage{newfloat}
+\usepackage{caption}
+\usepackage{graphicx}
+\usepackage{float}
+\DeclareFloatingEnvironment[fileext=frm,placement={!ht},name=Fragmento de código]{codefragment}
+
+\captionsetup[codefragment]{labelfont=bf}
+
+\setlength{\parskip}{10pt plus 1pt minus 1pt}
+ % Encabezado de las paginas pares e impares.
+\rhead[]{}
+
+\renewcommand{\headrulewidth}{0.5pt}
+
+% Pie de pagina de las paginas pares e impares.
+\rfoot[\thepage]{\thepage}
+\cfoot[]{}
+\renewcommand{\footrulewidth}{0pt}
+
+% Se redefine el verbatim si se desea (descomentar)
+%\renewenvironment{verbatim}{\begin{Verbatim}[frame=single,fontsize=\small]}{\end{Verbatim}}
+
+
+% Encabezado y pie de pagina de la pagina inicial de un capitulo.
+\fancypagestyle{plain}{
+\fancyhead[R]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0pt}
+}
+
+\pagestyle{fancy} % seleccionamos un estilo
+
+
+
+\renewcommand\spanishtablename{Tabla}
+\renewcommand{\spanishlisttablename}{Lista de Tablas} 
+\renewcommand{\spanishlistfigurename}{Lista de Figuras} 
+
+
+\newenvironment{changemargin}[2]{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{#1}%
+\setlength{\rightmargin}{#2}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}
+
+
+\date{2025-2026}
+\author{Hugo Martín Alonso}
+
+\title{Desarrollo de un sistema accesible para la gestión de trámites online a través de una IA telefónica}
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{changemargin}{2cm}{2cm}
+\begin{center}
+%\vspace*{-1in}
+\begin{figure}[htb]
+\begin{center}
+\includegraphics[width=3cm]{./img/logo}
+\end{center}
+\end{figure}
+\begin{large}
+\textbf{Universidad de Valladolid}
+\end{large}
+
+\vspace*{0.15in}
+
+\vspace*{0.6in}
+\begin{large}
+\textbf{ESCUELA DE INGENIERÍA INFORMÁTICA}
+
+\end{large}
+\vspace*{0.2in}
+\textbf{GRADO EN INGENIERÍA INFORMÁTICA}\\
+\textbf{Mención en Computación}
+\vspace*{0.5in}
+\rule{140mm}{0.1mm}\\
+\vspace*{0.3in}
+\begin{large}
+\textbf{{\LARGE Desarrollo de un sistema accesible para la gestión de trámites online a través de una IA telefónica\\}}
+\end{large}
+\vspace*{0.6in}
+\rule{140mm}{0.1mm}\\
+\vspace*{2in}
+\begin{large}
+\begin{flushright}
+\textbf{Alumno: Hugo Martín Alonso\\
+\vspace*{0.3in}
+Tutora: María Aránzazu Simón Hurtado}
+\end{flushright}
+\end{large}
+\end{center}
+\end{changemargin}
+
+\end{titlepage}
+
+\newpage
+\mbox{}	
+\thispagestyle{empty} % para que no se numere esta página
+
+\chapter*{}
+\pagenumbering{Roman} % para comenzar la numeración de paginas en números romanos
+\begin{flushright}
+\textit{%Dedicatoria,\\
+...}
+\end{flushright}
+
+\chapter*{Agradecimientos} % Se pone * si no queremos que añada la palabra "Capitulo"
+\addcontentsline{toc}{chapter}{Agradecimientos} % si queremos que aparezca en el índice
+\markboth{AGRADECIMIENTOS}{AGRADECIMIENTOS} % encabezado 
+
+...
+
+\chapter*{Resumen} % Se pone * si no queremos que añada la palabra "Capitulo"
+\addcontentsline{toc}{chapter}{Resumen} % si queremos que aparezca en el índice
+\markboth{RESUMEN}{RESUMEN} % encabezado
+
+
+Hoy en día se considera indispensable la conexión a Internet para realizar tareas cotidianas, aunque todavía existe un sector de la población que permanece al margen de estas tecnologías.
+   
+Este desarrollo presenta una solución accesible que puede ser utilizada por cualquier persona sin necesidad de conocimientos técnicos y disponiendo únicamente de una línea telefónica. Para ello, se han simulado distintos procedimientos administrativos que se llevan a cabo automáticamente, mediante un agente conversacional de inteligencia artificial que responde la llamada, recopila la información necesaria e inicia la automatización del proceso.
+    
+Este trabajo demuestra que es posible reducir la brecha digital ofreciendo un servicio alternativo, que actúa como intermediario entre las personas y la Administración digital. De esta manera se sientan las bases para futuras propuestas inclusivas capaces de integrar a colectivos excluidos del entorno digital.
+
+
+
+
+\chapter*{Abstract} % Se pone * si no queremos que añada la palabra "Capitulo"
+\addcontentsline{toc}{chapter}{Abstract} % si queremos que aparezca en el índice
+\markboth{ABSTRACT}{ABSTRACT} % encabezado
+%TODO END
+
+*********Escribir abstract
+
+
+
+\tableofcontents % indice de contenidos
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Lista de figuras} % para que aparezca en el índice de contenidos
+\listoffigures % índice de figuras
+
+\cleardoublepage
+\addcontentsline{toc}{chapter}{Lista de tablas} % para que aparezca en el índice de contenidos
+\listoftables % índice de tablas
+
+
+
+
+\chapter{Introducción}
+\pagenumbering{arabic} % para empezar la numeración con números
+\input{chapters/introduccion}
+
+\chapter{Análisis}
+\input{chapters/analisis}
+
+\chapter{Planificación}
+\input{chapters/planificacion}
+
+\chapter{Diseño}
+\input{chapters/diseno}
+
+\chapter{Implementación}
+\input{chapters/implementacion}
+
+\chapter{Pruebas}
+\input{chapters/pruebas}
+
+\chapter{Conclusiones y trabajo futuro}
+\input{chapters/conclusiones}
+
+
+%Esto es una cita: \cite{ej}. Tiene que hacer referencia a la etiqueta de un bibitem.
+
+%Esto es un enlace \href{www.enlace.net}{Enlace}
+
+% Esto es una url \url{http://www.uva.es}
+
+
+\cleardoublepage
+
+%\nocite{*}
+\bibliographystyle{plain}
+% La bibliografía se detalla en el archivo bibliografia.bib
+\bookmarksetup{startatroot}
+\bibliography{bibliografia}
+\addcontentsline{toc}{chapter}{Bibliografía}
+
+\appendix
+
+\chapter{Manuales}\label{aped.A}
+\input{anexos/a1manuales}
+
+\chapter{Resumen de enlaces adicionales}\label{aped.B}
+\input{anexos/a2enlaces}
+
+
+\end{document}
