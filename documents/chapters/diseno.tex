@@ -96,7 +96,7 @@
         \label{fig:4.4}
     \end{figure}
     Al clicar en el ID de una petición en la tabla de la imagen \ref{fig:4.2}, se muestra la página con detalles de la figura \ref{fig:4.3}.
-    En esta pantalla se podrá consultar los datos concretos de una petición para cada trámite. 
+    En esta pantalla se podrá consultar los datos recopilados de una petición para cada trámite, junto con una línea temporal que muestra los eventos de la gestión. 
         
     En caso de ser una petición revisable, figura \ref{fig:4.4}, los empleados que tengan permiso, verán a la derecha del título de la petición un botón para asignársela.
     Una vez asignada, los campos con la información se volverán modificables y los trabajadores podrán editar la petición o cancelarla.
@@ -161,7 +161,7 @@
         
     \begin{figure}[H]
         \centering
-        \includegraphics[width=1\textwidth]{img/diagramas/modelo_datos.png}
+        \includegraphics[width=0.75\textwidth]{img/diagramas/modelo_datos.png}
         \caption{Diagrama Entidad-Relación.}
         \label{fig:4.8}
     \end{figure}
@@ -175,7 +175,7 @@
         
     Las entities sirven para definir los tipos de datos o la forma en la que se extrae la información de las frases.
     En otras palabras, sirven para categorizar o etiquetar las palabras. 
-    Por ejemplo, "Quiero agendar una cita en la AEAT para mañana a las 10" podríamos extraer agendar una cita en la AEAT como una entidad de tipo trámite, mañana como fecha y las 10 como hora. 
+    Por ejemplo, "Quiero agendar una cita en la AEAT para mañana a las 10", podríamos extraer agendar una cita en la AEAT como una entidad de tipo trámite, mañana como fecha y las 10 como hora. 
     De esta forma también podemos saber que tipos de datos necesitamos al recopilar información, si un número, un texto, una dirección\dots
         
     Para la resolución de los trámites escogidos se han definido los siguientes intents: 
@@ -211,13 +211,116 @@
 
 \section{Diagramas de secuencia}
     A continuación se van a mostrar los diagramas de secuencia de los casos de uso más relevantes del sistema.
+
     \begin{figure}[H]
         \centering
         \includegraphics[width=1\textwidth]{img/diagramas/secuencia_llamada_telefonica.png}
         \caption{Diagrama de secuencia de una llamada telefónica al sistema.}
         \label{fig:4.10}
     \end{figure}
-    La figura \ref{fig:4.10} muestra el diagrama de secuencia base de una llamada telefónica de un usuario al sistema para realizar cualquier trámite. 
-    %TODO finish
+    La figura \ref{fig:4.10} muestra el diagrama de secuencia base de una llamada VoIP entre un usuario y el sistema para realizar cualquier trámite. 
+    El flujo inicia cuando el usuario entra en el canal de voz de Discord, lo que activa el bot y da comienzo a la conversación. 
+    Cada conversación se gestiona con cuatro hilos independientes: 
+    \begin{enumerate}
+        \item VoskSink: se encarga de capturar el audio de entrada del usuario en el canal de voz y añadirlo a una cola de entrada de audio.
+        \item STTWorkerGoogle: este hilo procesa la cola de entrada de audio, eniando los fragmentos al servicio de Google Speech-to-Text para convertirlos en texto y añadirlos a una cola de entrada de texto.
+        \item AgentWorker: procesa la cola de entrada de texto, enviando cada mensaje al agente de Dialogflow para obtener directamente el audio de respuesta, que agregará a una cola de salida de audio.
+        \item TTSWorker: gestiona la cola de salida de audio, reproduciendo cada fragmento en el canal de voz para que el usuario lo escuche.
+    \end{enumerate}
+    Este proceso se mantiene en bucle mientras la llamada permanezca activa, aunque, para cada trámite concreto, la conversación será diferente y estará guiada por el agente siguiendo el diagrama definido en la figura \ref{fig:4.9}. 
+    Cuando Dialogflow procesa el mensaje final, se finaliza la llamada y se envía la información recopilada al backend para generar la petición y almacenarla en la base de datos.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_login.png}
+        \caption{Diagrama de secuencia de inicio de sesión de un empleado.}
+        \label{fig:4.11}
+    \end{figure}
+    En la figura \ref{fig:4.11} se muestra el flujo de inicio de sesión en la aplicación web de empleados. 
+    El empleado introduce sus credenciales en el formulario de login, que se enviarán al backend para su verificación.
+    
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_detalles_peticion.png}
+        \caption{Diagrama de secuencia de consulta de los detalles de una petición.}
+        \label{fig:4.12}
+    \end{figure}
+    La figura \ref{fig:4.12} representa el diagrama correspondiente a la consulta de los detalles específicos de una petición.
+    Una vez en la vista con el listado de peticiones, el empleado busca la gestión deseada y clica en el ID para navegar a la página con los detalles. 
+    El sistema recuperará la información de la base de datos y la mostrará en pantalla.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/diagramas/secuencia_peticion_revisable.png}
+        \caption{Diagrama de secuencia de asignación de una petición revisable.}
+        \label{fig:4.13}
+    \end{figure}
+    La figura \ref{fig:4.13} corresponde al diagrama de secuencia para la asignación de una petición por un empleado. 
+    Desde la vista con los detalles de una petición revisable, el empleado puede clicar en un botón para asignársela. 
+    El sistema actualizará el estado de la petición en la base de datos y permitirá al empleado editar los campos y completar o cancelar la gestión. 
+    Si el empleado decide completar el trámite, se accederá al servicio de automatización para ejecutarlo en la web oficial correspondiente, para posteriormente actualizar su estado en la base de datos. 
+    Si la cancela también se actualizará el estado. 
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_cambiar_pass.png}
+        \caption{Diagrama de secuencia de cambio de contraseña de un empleado.}
+        \label{fig:4.14}
+    \end{figure}
+    En la figura \ref{fig:4.14} se muestra el digrama de secuencia correspondiente al cambio de contraseña de un empleado. 
+    Desde la vista del perfil se rellena el formulario de cambio de contraseña y se envía al backend. 
+    Si la contraseña actual es correcta, se actualizará la nueva en la base de datos.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/diagramas/secuencia_crear_peticion.png}
+        \caption{Diagrama de secuencia de creación de una petición por un empleado.}
+        \label{fig:4.15}
+    \end{figure}
+    La figura \ref{fig:4.15} representa el flujo de creación de una nueva petición por un empleado. 
+    Desde la vista con el listado de peticiones, el empleado clica en el botón para agregar una gestión nueva. 
+    Se mostrará un formulario que se rellenará con los datos necesarios, y al enviarlo, el sistema generará la petición y la almacenará en la base de datos.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_crear_empleado.png}
+        \caption{Diagrama de secuencia de creación de un empleado.}
+        \label{fig:4.16}
+    \end{figure}
+    La figura \ref{fig:4.16} se corresponde con el diagrama de secuencia para el caso de uso de añadir un nuevo empleado al sistema. 
+    El flujo es similar al de la creación de una petición, pero se inicia desde la vista con el listado de empleados. 
+    Cuando se envía el formulario, el sistema comprueba que no existe otro empleado con el mismo email, crea la cuenta y envía un correo electrónico al nuevo empleado con su contraseña temporal.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_editar_empleado.png}
+        \caption{Diagrama de secuencia de edición de un empleado.}
+        \label{fig:4.17}
+    \end{figure}
+    La figura \ref{fig:4.17} muestra el diagrama de secuencia para la modificación de la información de un empleado. 
+    Desde el mismo formulario de creación, se mostrará la información del empleado seleccionado, permitiendo editar los campos, resetear la contraseña o desactivar la cuenta. 
+    Si se modifica el email, el sistema comprobará que no existe otro empleado con el mismo. 
+    En caso de reseteo de contraseña o cambio en la activación de la cuenta, se notificará al empleado mediante un correo electrónico. 
+    Además, si se desactiva la cuenta de un empleado, el sistema desasignará todas las peticiones que tuviera asignadas para que pueda completarlas otro trabajador.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_crear_tramite.png}
+        \caption{Diagrama de secuencia de creación de un trámite.}
+        \label{fig:4.18}
+    \end{figure}
+    En la figura \ref{fig:4.18} se muestra el flujo de creación de un nuevo trámite. 
+    Esta secuencia es exactamente igual a la creación de un nuevo empleado, empezando desde la vista con el listado de trámites. 
+    En este caso, el sistema comprueba que no existe otro trámite con el mismo nombre antes de crearlo.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_editar_tramite.png}
+        \caption{Diagrama de secuencia de edición de un trámite.}
+        \label{fig:4.19}
+    \end{figure}
+    Por último, se muestra la figura \ref{fig:4.19}, que representa el diagrama de secuencia para la edición de un trámite. 
+    Similar a la edición de un empleado, se permite modificar el nombre y la activación de un trámite desde el mismo formulario de creación. 
+    Si se cambia el nombre, el sistema comprueba que no existe antes de modificarlo y si se desactiva, cancela todas las peticiones en curso de ese trámite.
 
 \section{Seguridad y control de accesos}
