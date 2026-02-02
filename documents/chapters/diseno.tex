@@ -241,7 +241,7 @@
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_detalles_peticion.png}
+        \includegraphics[width=0.4\textwidth]{img/diagramas/secuencia_detalles_peticion.png}
         \caption{Diagrama de secuencia de consulta de los detalles de una petición.}
         \label{fig:4.12}
     \end{figure}
@@ -323,4 +323,30 @@
     Similar a la edición de un empleado, se permite modificar el nombre y la activación de un trámite desde el mismo formulario de creación. 
     Si se cambia el nombre, el sistema comprueba que no existe antes de modificarlo y si se desactiva, cancela todas las peticiones en curso de ese trámite.
 
-\section{Seguridad y control de accesos}
+\section{Seguridad}
+    El diseño de la seguridad constituye un aspecto fundamental del sistema, dado que se maneja información sensible de los usuarios necesaria para completar las gestiones administrativas. 
+    Por ello, se han establecido una serie de medidas orientadas a garantizar la confidencialidad, integridad, disponibilidad, autenticidad y trazabilidad de la información.
+
+    En primer lugar, se protegerá el acceso de la aplicación web de empleados mediante un sistema de autenticación basado en credenciales. 
+    Cada empleado dispondrá de una cuenta con un usuario y correo único, junto con una contraseña que será tratada con una función hash para evitar su almacenamiento en texto plano. 
+
+    También se empleará un sistema de permisos para restringir el acceso a ciertas funcionalidades. 
+    Está funcionalidad permitirá definir diferentes roles de empleados, otorgando permisos específicos dependiendo de las responsabilidades de cada uno. 
+    Para el prototipo solamente hace falta definir dos roles: 
+    \begin{itemize}
+        \item Secretario: podrá visualizar todas las peticiones, crear nuevas y asignárselas.
+        \item Administrador: podrá gestionar empleados y trámites a parte de visualizar las peticiones.
+    \end{itemize}
+    Esta separación de roles garantiza la confidencialidad, integridad y autenticidad de la información, y deja un modelo adaptable a futuro para la fácil inclusión de nuevos roles y permisos. 
+    Pudiendo limitar los accesos a acciones, registros de la base de datos y vistas de la aplicación, dependiendo de la administración correspondiente, la ciudad o el tipo de trámite.
+
+    En segundo lugar, se mantendrá una trazabilidad completa sobre las peticiones en el sistema. 
+    Cada gestión dispondrá de un historial de eventos que registrará todos los cambios realizados, incluyendo la fecha y el empleado responsable. 
+    Además, no se podrán eliminar trámites ni empleados, sino que se podrán desactivar para mantener la información íntegra.
+
+    En cuanto a la disponibilidad, la página web se manteniene independiente del sistema de llamadas, de forma que si los servicios fallan, los empleados podrán seguir utilizándola.
+
+    Por último, en relación con la información sensible, la inteligencia artificial emplea los registros de las llamadas únicamente para mejorar la interpretación del agente conversacional, sin almacenar datos personales de manera permanente ni utilizarlos para entrenar modelos de uso general. 
+    Google asegura que su herramienta no almacena información personal de forma indefinida. 
+    No obstante, al tratarse de un prototipo basado en el uso de información ficticia, no se han implementado aspectos más avanzados de seguridad como el uso de protocolos de comunicación seguros o el cifrado de la información almacenada en la base de datos. 
+    Quedando estos puntos identificados como posibles mejoras para futuras versiones orientadas a un entonrno de producción real.
