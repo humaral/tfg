@@ -9,11 +9,59 @@
     Por ello, la planificación del proyecto se ha realizado tomando como base el análisis inicial, permitiendo organizar de forma coherente y estructural el desarrollo del trabajo.
 
 \section{Planificación temporal}
+    La organización temporal del proyecto se ha realizado siguiendo la dedicación exigida por la guía docente de la asignatura \cite{guiadocente-tfg}.
+    El proyecto se ha planificado para ser elavorado en un total de 300 horas, distribuidas en 15 semanas, dedicando aproximadamente 20 horas semanales al desarrollo del mismo.
 
-\section{Planificación estructural (PBS/WBS/Diag Flug/D Actividades)}
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c c c >{\centering\arraybackslash}p{8cm}|}
+        \hline
+        \textbf{Fase} & \textbf{Semanas} & \textbf{Horas} & \textbf{Entregables} \\ \hline
+        Análisis & 1 & 10 & Estudio del alcance de la aplicación, definición de requisitos y casos de uso\\
+        Planificación & 1 & 10 & Planificación temporal y estructural del proyecto\\
+        Diseño & 2 & 20 & Decisiones técnicas, diagramas UML, diseño de la base de datos y mockups\\
+        Implementación & 3-8 & 120 & Sistema funcional\\
+        Pruebas & 8-9 & 40 & Validación del sistema\\
+        Documentación & 10-15 & 100 & Memoria final y presentación\\
+        \hline
+        \end{tabular}
+        \caption{Planificación temporal inicial del proyecto.}
+    \end{table}
 
-\section{Estimación de recursos y costes}
+\section{Estimación de costes}
+    La estimación de costes se ha realizado considerando el tiempo de dedicación al proyecto y el coste asociado a la hora de trabajo.
+    El coste de un desarrollador junior se sitúa aproximadamente en 15€/h, lo que supone un coste total estimado de 4500€ para las 300 horas de trabajo planificadas. 
 
-\section{Gasto real vs estimado}
+    Durante la fase de desarrollo no se prevén costes adicionales, ya que se utilizarán herramientas gratuitas y servicios que ofrecen planes con créditos gratuitos suficientes para cubrir las necesidades del proyecto.
 
 \section{Análisis de riesgos}
+
+
+\section{Seguimiento del proyecto}
+    A lo largo del desarrollo del proyecto, se ha llevado un seguimiento detallado para controlar el gasto temporal real frente al planificado. 
+    En la tabla \ref{seguimiento} se muestra la comparativa entre la planificación temporal inicial y el progreso real del proyecto, permitiendo identificar desajustes y calcular el coste real del proyecto.
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c c c | c|}
+        \hline
+        \textbf{Fase} & \textbf{Horas Programadas} & \textbf{Horas Reales} \\ \hline
+        Análisis & 10 & 15 \\
+        Planificación & 10 & 8 \\
+        Diseño & 20 & 25 \\
+        Implementación & 120 & 180 \\
+        Pruebas & 40 & 35 \\
+        Documentación & 100 & 90\\
+        \hline
+        \end{tabular}
+        \caption{Seguimiento del proyecto.}
+        \label{seguimiento}
+    \end{table}
+    El gasto temporal real del proyecto asciende a 353 horas por imprevistos en la fase de implementación. 
+    
+    Inicialmente, estaba previsto el uso de la red telefónica para la comunicación entre los usuarios y el sistema, lo que no aumentaba el gasto temporal ya que venía integrado con los servicios de la IA.
+    Sin embargo, debido al elevado coste de esta solución en desarrollo, se optó por una solución basada en llamadas VoIP, que resulta completamente gratuita, pero implica un desarrollo adicional para integrar esta funcionalidad en el sistema.
+
+    En cuanto al coste real del proyecto, el gasto ascendería a 5295€, superando el presupuesto inicial en 795€. 
+    El gasto de la red telefónica hubiera supuesto un coste adicional de 1,50€ de establecimiento de llamada más 1€ adicional por minuto. 
+    Además, el coste de alquiler de una línea telefónica virtual hubiera implicado un gasto mensual de entre 5-10€. 
+    Estos gastos hubieran complicado el desarrollo del proyecto, limitando el número de llamadas que se podrían realizar durante la fase de implementación y pruebas, lo que hubiera afectado negativamente a la calidad del sistema.
