@@ -35,7 +35,21 @@
     Durante la fase de desarrollo no se prevén costes adicionales, ya que se utilizarán herramientas gratuitas y servicios que ofrecen planes con créditos gratuitos suficientes para cubrir las necesidades del proyecto.
 
 \section{Análisis de riesgos}
+    En esta sección se muestran los principales riesgos identificados durante la planificación del proyecto, junto con su probabilidad de ocurrencia, su impacto y las posibles medidas para mitigarlos. 
 
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{| p{4.5cm} | c | c | p{7cm} |}
+            \hline
+            \textbf{Riesgo} & \textbf{Probabilidad} & \textbf{Impacto} & \textbf{Salvaguarda} \\ \hline
+            Creditos insuficientes en servicios en la nube & Media & Alto & Monitorización del gasto de créditos y evitar el uso innecesario de recursos. \\ \hline
+            Incremento inesperado del coste de las tecnologías utilizadas & Baja & Medio & Evaluación continua de los costes asociados y búsqueda de alternativas gratuitas o de bajo coste. \\ \hline
+            Indisponibilidad temporal de los servicios externos & Baja & Alto & Uso de servicios consolidados con buen soporte. \\ \hline
+            Aparición de imprevistos que afecten al tiempo de desarrollo & Alta & Medio & Planificación de tiempo adicional para imprevistos y margen con la fecha límite de entrega. \\ \hline
+            Complejidad técnica en la integración de los distintos componentes del sistema & Media & Medio & Formación y estudio previo de las tecnologías utilizadas. \\ \hline
+        \end{tabular}
+        \caption{Análisis de riesgos del proyecto.}
+    \end{table}
 
 \section{Seguimiento del proyecto}
     A lo largo del desarrollo del proyecto, se ha llevado un seguimiento detallado para controlar el gasto temporal real frente al planificado. 
@@ -43,15 +57,15 @@
     \begin{table}[H]
         \centering
         \begin{tabular}{|c c c | c|}
-        \hline
-        \textbf{Fase} & \textbf{Horas Programadas} & \textbf{Horas Reales} \\ \hline
-        Análisis & 10 & 15 \\
-        Planificación & 10 & 8 \\
-        Diseño & 20 & 25 \\
-        Implementación & 120 & 180 \\
-        Pruebas & 40 & 35 \\
-        Documentación & 100 & 90\\
-        \hline
+            \hline
+            \textbf{Fase} & \textbf{Horas Programadas} & \textbf{Horas Reales} \\ \hline
+            Análisis & 10 & 15 \\
+            Planificación & 10 & 8 \\
+            Diseño & 20 & 25 \\
+            Implementación & 120 & 180 \\
+            Pruebas & 40 & 35 \\
+            Documentación & 100 & 90\\
+            \hline
         \end{tabular}
         \caption{Seguimiento del proyecto.}
         \label{seguimiento}
@@ -62,6 +76,6 @@
     Sin embargo, debido al elevado coste de esta solución en desarrollo, se optó por una solución basada en llamadas VoIP, que resulta completamente gratuita, pero implica un desarrollo adicional para integrar esta funcionalidad en el sistema.
 
     En cuanto al coste real del proyecto, el gasto ascendería a 5295€, superando el presupuesto inicial en 795€. 
-    El gasto de la red telefónica hubiera supuesto un coste adicional de 1,50€ de establecimiento de llamada más 1€ adicional por minuto. 
-    Además, el coste de alquiler de una línea telefónica virtual hubiera implicado un gasto mensual de entre 5-10€. 
+    El gasto de la red telefónica hubiera supuesto un coste adicional de 1,50€ de establecimiento de llamada más 1€ adicional por cada minuto. 
+    Además, el coste de alquiler de una línea telefónica virtual hubiera implicado un gasto mensual de entre 5-10€/mes. 
     Estos gastos hubieran complicado el desarrollo del proyecto, limitando el número de llamadas que se podrían realizar durante la fase de implementación y pruebas, lo que hubiera afectado negativamente a la calidad del sistema.
