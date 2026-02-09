@@ -1,4 +1,4 @@
-Este documento constituye la memoria del Trabajo de Fin de Grado de la titulación de Ingeniería Informática, mención en Computación, de la Universidad de Valladolid. 
+Este documento constituye la memoria del Trabajo de Fin de Grado de la titulación en Ingeniería Informática, mención en Computación, de la Universidad de Valladolid. 
 A través de este informe se exponen las fases y decisiones tomadas a lo largo del desarrollo de un sistema computacional orientado a la gestión accesible de trámites burocráticos.
     
 En este capítulo se presentan los motivos que justifican el valor de esta plataforma para determinados sectores de la sociedad y las soluciones similares existentes que pretenden reducir la brecha digital, destacando las diferencias con el proyecto propuesto. 
@@ -10,10 +10,10 @@ También se indican los objetivos que se pretenden alcanzar con esta herramienta
     \begin{itemize}
         \item En primer lugar, en la falta de acceso a dispositivos tecnológicos o a una conexión a Internet. 
             Esto puede deberse tanto a factores geográficos como a limitaciones económicas. 
-            En España, un 20\% de la población no dispone de un ordenador, y en hogares con ingresos inferiores a 1100€, el porcentaje asciende al 50\% con tan solo el 79,1\% con acceso a Internet.
+            En España, un 20\% de la población no dispone de un ordenador, y en hogares con ingresos inferiores a 1100€, el porcentaje asciende al 50\% con tan solo el 79,1\% con acceso a Internet. \cite{ref1}
         \item En segundo lugar, en el uso de estas tecnologías. 
             Una parte de la población carece de las competencias digitales necesarias para desenvolverse con facilidad en este entorno. 
-            Esto influye en gran medida cuando pretenden afrontar tareas más complejas, como la realización de trámites relacionados con la Administración pública, hasta el punto de que un 20\% de la población necesita ayuda para completar estas gestiones.
+            Esto influye en gran medida cuando pretenden afrontar tareas más complejas, como la realización de trámites relacionados con la Administración pública, hasta el punto de que un 20\% de la población necesita ayuda para completar estas gestiones. \cite{ref1}
         \item Por último, hay una brecha de aprovechamiento referida a la dificultad de obtener beneficios de las tecnologías, por ejemplo, para acceder a mejores oportunidades educativas o mejores puestos de trabajo. 
             No obstante, este proyecto no se centra en esta dimensión.
     \end{itemize}
@@ -26,7 +26,7 @@ También se indican los objetivos que se pretenden alcanzar con esta herramienta
     De esta manera, se garantiza la accesibilidad del servicio y no se imponen nuevas limitaciones tecnológicas.
 
     Además, se opta por centrar el proyecto en las diligencias de la Administración pública, ya que la digitalización de estos servicios ha supuesto una barrera adicional, dificultando su realización para los sectores vulnerables. 
-    Tal es el caso que el 60\% de la población opina que la informatización de los trámites administrativos vulnera sus derechos y el 74,5\% deseraía disponer de un portal único para realizar todos los procedimientos. \cite{ref4}
+    Tal es el caso que el 60\% de la población opina que la informatización de los trámites administrativos vulnera sus derechos y el 74,5\% desearía disponer de un portal único para realizar todos los procedimientos. \cite{ref4}
 
 \section{Estado de la cuestión}
     A lo largo de los últimos años se han desarrollado múltiples iniciativas orientadas a reducir la brecha digital. 
@@ -34,7 +34,7 @@ También se indican los objetivos que se pretenden alcanzar con esta herramienta
     El proyecto presentado busca dar respuesta a esta desigualdad, abordándola desde la perspectiva de la falta de acceso y la dificultad de uso.
 
     La mayoría de las soluciones existentes se centran en la formación y capacitación de los usuarios para introducirlos en el entorno digital. 
-    Existen múltiples cursos, talleres e incluso plataformas digitales como Cogniti que cumplen esta función. 
+    Existen múltiples cursos, talleres e incluso plataformas digitales como \href{https://cogniti.es/}{Cógniti} \cite{ref5} que cumplen esta función. 
     No obstante, presentan varias desventajas como la necesidad de disponer de un dispositivo y una conexión a Internet, lo que sigue suponiendo una barrera de acceso. 
     Además, el aprendizaje requiere de un tiempo y esfuerzo que no todos los usuarios están dispuestos a invertir. 
     A esto se suma que no todas las personas aprenden con la misma facilidad y, en muchos casos, los resultados obtenidos son limitados, ya que se adquieren únicamente conceptos básicos que no siempre se traducen en saber realizar tareas más complejas.
@@ -46,12 +46,13 @@ También se indican los objetivos que se pretenden alcanzar con esta herramienta
     En lo relativo a las páginas oficiales del gobierno, ha habido un esfuerzo por reducir la complejidad de sus trámites y hacerlos más accesibles mediante aplicaciones móviles.
     Pese a este esfuerzo, las aplicaciones móviles no eximen a los usuarios con competencias digitales limitadas de necesitar ayuda externa para completar las gestiones.
 
-    Por último, en cuanto a soluciones que involucran llamadas telefónicas, existen líneas como el 060 para la atención administrativa general del Estado, que se utiliza prinicipalmente para ofrecer información o resolver dudas.
+    Por último, en cuanto a soluciones que involucran llamadas telefónicas, existen líneas como el 060 para la atención administrativa general del Estado, que se utiliza principalmente para ofrecer información o resolver dudas.
     Además, existen sistemas más avanzados que incorporan reconocimiento del lenguaje natural para gestiones específicas, como la solicitud de citas médicas telefónicas de SACYL. 
     No obstante, estas soluciones son bastante limitadas, ya que generalmente obligan al usuario a interactuar mediante menús predefinidos y suelen necesitar también de un operador humano para completar gestiones más complejas.
     Del mismo modo, existen servicios con bots de atención automatizada, que al igual que en el caso anterior, tienen una funcionalidad muy limitada y no permiten la realización de trámites complejos.
     A diferencia de estos sistemas, una inteligencia artificial conversacional avanzada permite mantener una interacción más natural, similar a una conversación humana, sin exigir respuestas rígidas.
     Asimismo, ofrecen una mayor personalización y flexibilidad, ya que pueden entrenarse para realizar cualquier tarea o gestión necesaria, así como responder a cualquier duda sin interrumpir la conversación. 
+    %NOTE En las pruebas comprobar que esto es cierto:
     Por ejemplo, un usuario puede estar solicitando un trámite y mientras la IA está recopilando los datos necesarios, el usuario puede interrumpir con una pregunta relacionada, y la IA responderá adecuadamente y continuará el trámite sin romper el flujo de la conversación.
 
     Esta tecnología de inteligencia artificial conversacional está en constante evolución y mejora, ya que es relativamente reciente. Sin embargo, ya empiezan a aparecer soluciones comerciales que la integran en sus modelos de negocio para automatizar procesos de alto valor y reducir costes.
@@ -69,9 +70,9 @@ También se indican los objetivos que se pretenden alcanzar con esta herramienta
         \item Implementación de un sistema de llamadas VoIP para la recepción de llamadas y la integración del agente conversacional.
     \end{enumerate}
 
-\section{Resumen del resto de la memoria}
-    Este documento se estructura en cinco capítulos principales, además de la introducción, donde se presenta el proyecto, y la conclusión, donde se explican las ideas finales y el desarrollo futuro. 
-    Destacando las fases principales del desarrollo de un sistema computacional.
+\section{Estructura de la memoria}
+    Este documento se estructura en seis capítulos principales, además de la introducción, donde se presenta el proyecto.
+    Dichos capítulos siguen la estructura propia del desarrollo de un sistema computacional. A continuación se resume su contenido:
     
     \begin{description}
         \item[Capítulo 2 Análisis] Se estudian las necesidades del público objetivo del sistema. 
@@ -80,10 +81,12 @@ También se indican los objetivos que se pretenden alcanzar con esta herramienta
         \item[Capítulo 3 Planificación] Se organiza y estructura el trabajo a realizar. 
         En este capítulo se define la metodología empleada, se establece la planificación temporal del proyecto y se realiza una estimación de recursos y costes.
 
-        \item[Capítulo 4 Diseño] Se detallan la arquitectura general y los distintos componentes del sistema. 
-        Aismismo, se presentan los diagramas y patrones de diseño eligidos, que servirán de base para la implementación.
+        \item[Capítulo 4 Diseño] Se explican las decisiones tecnológicas tomadas, se detalla la arquitectura general y los distintos componentes del sistema. 
+        Asimismo, se presentan los diagramas y patrones de diseño elegidos, que servirán de base para la implementación.
 
-        \item[Capítulo 5 Implementación] Se describe el proceso de desarrollo del sistema, detallando la implementación de cada uno de los módulos.
+        \item[Capítulo 5 Implementación] Se describe el proceso de desarrollo del sistema, detallando la implementación de la aplicación web, el entrenamiento del agente conversacional, el desarrollo del sistema de llamadas VoIP y la integración de todos los componentes del sistema.
 
-        \item[Capítulo 6 Pruebas] Se exponen las distintas pruebas realizadas parar verificar el correcto funcionamiento de cada uno de los componentas del sistema.
+        \item[Capítulo 6 Pruebas] Se exponen las distintas pruebas realizadas para verificar el correcto funcionamiento de cada uno de los componentes del sistema.
+        
+        \item[Capítulo 7 Conclusiones y trabajo futuro] Se resumen los resultados obtenidos y se proponen distintas líneas de mejora y ampliación del proyecto para su desarrollo futuro.
     \end{description}

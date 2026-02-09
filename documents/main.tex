@@ -21,14 +21,14 @@
 \usepackage{ifthen} % para la tabla de riesgos
 \usepackage{hyperref}
 \usepackage{longtable}
+\usepackage{enumitem}
+\setlist{nolistsep}
 \usepackage{float}
 \usepackage{eurosym} % para el euro
 \usepackage{listings}
 \usepackage{framed}
 \usepackage{newfloat}
 \usepackage{caption}
-\usepackage{graphicx}
-\usepackage{float}
 \DeclareFloatingEnvironment[fileext=frm,placement={!ht},name=Fragmento de código]{codefragment}
 
 \captionsetup[codefragment]{labelfont=bf}
@@ -59,7 +59,7 @@
 
 \pagestyle{fancy} % seleccionamos un estilo
 
-
+\raggedbottom
 
 \renewcommand\spanishtablename{Tabla}
 \renewcommand{\spanishlisttablename}{Lista de Tablas} 
