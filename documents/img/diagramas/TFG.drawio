@@ -265,7 +265,7 @@
           <mxGeometry height="26" width="120" y="120" as="geometry" />
         </mxCell>
         <mxCell id="BqPBry9yQfbWrOHvaUoj-23" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/div&gt;Rol" vertex="1">
-          <mxGeometry height="92" width="120" x="80" y="468" as="geometry" />
+          <mxGeometry height="92" width="120" x="80" y="548" as="geometry" />
         </mxCell>
         <mxCell id="BqPBry9yQfbWrOHvaUoj-24" parent="BqPBry9yQfbWrOHvaUoj-23" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="Administrador" vertex="1">
           <mxGeometry height="26" width="120" y="40" as="geometry" />
@@ -274,7 +274,7 @@
           <mxGeometry height="26" width="120" y="66" as="geometry" />
         </mxCell>
         <mxCell id="BqPBry9yQfbWrOHvaUoj-27" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/div&gt;Trámite" vertex="1">
-          <mxGeometry height="140" width="120" x="440" y="420" as="geometry" />
+          <mxGeometry height="140" width="120" x="640" y="500" as="geometry" />
         </mxCell>
         <mxCell id="BqPBry9yQfbWrOHvaUoj-28" parent="BqPBry9yQfbWrOHvaUoj-27" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="Certificado de Empadronamiento" vertex="1">
           <mxGeometry height="40" width="120" y="40" as="geometry" />
@@ -286,7 +286,7 @@
           <mxGeometry height="30" width="120" y="110" as="geometry" />
         </mxCell>
         <mxCell id="BqPBry9yQfbWrOHvaUoj-31" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&amp;lt;&amp;lt;enumeration&amp;gt;&amp;gt;&lt;/div&gt;Estado" vertex="1">
-          <mxGeometry height="220" width="119" x="260" y="340" as="geometry" />
+          <mxGeometry height="220" width="119" x="360.5" y="420" as="geometry" />
         </mxCell>
         <mxCell id="BqPBry9yQfbWrOHvaUoj-32" parent="BqPBry9yQfbWrOHvaUoj-31" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="Creada" vertex="1">
           <mxGeometry height="30" width="119" y="40" as="geometry" />
@@ -339,7 +339,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="a6-kX41NhD4v2t29S21H-4" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Trámite" vertex="1">
-          <mxGeometry height="104" width="120" x="640" y="360" as="geometry" />
+          <mxGeometry height="104" width="120" x="640" y="350" as="geometry" />
         </mxCell>
         <mxCell id="a6-kX41NhD4v2t29S21H-5" parent="a6-kX41NhD4v2t29S21H-4" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- id: int" vertex="1">
           <mxGeometry height="26" width="120" y="26" as="geometry" />
