@@ -9,8 +9,8 @@ from dialogflow import enviar_texto
 from google.cloud import speech
 
 
-# for name in logging.root.manager.loggerDict: #Silencia los logs de discord
-#     logging.getLogger(name).setLevel(logging.CRITICAL)
+for name in logging.root.manager.loggerDict: #Silencia los logs de discord
+    logging.getLogger(name).setLevel(logging.CRITICAL)
 SetLogLevel(-1) #Silencia los logs de Vosk
 
 load_dotenv()

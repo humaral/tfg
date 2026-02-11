@@ -3,19 +3,19 @@
     
     \subsection{Frontend} 
         Para programar el frontend de la aplicación web para empleados se utilizará HTML, CSS y JavaScript. 
-        Se usará también Jinja2, un motor de plantillas integrado con Flask que permite generar HTML de manera dinámica.
-     
+        Se usará también Jinja2 \cite{ref6}, un motor de plantillas integrado con Flask que permite generar HTML de manera dinámica.
+    
     \subsection{Backend}
         Para programar la lógica del backend de la aplicación se utilizará Python. 
         Servirá de conexión entre Dialogflow, la base de datos y la aplicación web. 
             
         Se utilizará este lenguaje por su flexibilidad y facilidad para integrar todos los servicios. Algunas de las librerías que se emplearán son:
         \begin{itemize}
-            \item Flask: framework web para crear aplicaciones web. Se utilizará para desarrollar el backend de la aplicación.
-            \item SQLAlchemy: sirve para interactuar con la base de datos SQLite de manera sencilla y eficiente.
+            \item Flask \cite{ref7}: framework web para crear aplicaciones web. Se utilizará para desarrollar el backend de la aplicación.
+            \item SQLAlchemy \cite{ref8}: sirve para interactuar con la base de datos SQLite de manera sencilla y eficiente.
             \item Discord.py: librería para interactuar con Discord y programar el bot que atenderá las llamadas VoIP.
             \item Google-Cloud-Dialogflow y Google-Cloud-Speech: para interactuar con los servicios de IA de Google Cloud.
-            \item Selenium: para automatizar la simulación de los trámites en las webs oficiales.
+            \item Selenium \cite{ref9}: para automatizar la simulación de los trámites en las webs oficiales.
         \end{itemize}
 
     \subsection{Base de datos}
@@ -27,7 +27,7 @@
             \item Google Cloud: se va a utilizar esta plataforma en la nube para alojar los diferentes servicios de inteligencia artificial del proyecto.
                 Se prefiere esta opción frente a otras alternativas ya que integra un servicio propio de agentes conversacionales, ofreciendo un plan gratuito suficiente para el desarrollo.
                 \begin{itemize}
-                    \item Dialogflow ES: es la herramienta de Google Cloud para crear agentes conversacionales capaces de interpretar el lenguaje natural y las intenciones del usuario mediante algoritmos de machine learning. 
+                    \item Dialogflow ES \cite{ref10}: es la herramienta de Google Cloud para crear agentes conversacionales capaces de interpretar el lenguaje natural y las intenciones del usuario mediante algoritmos de machine learning. 
                         Se utilizará para definir las intenciones y los flujos de conversación que podrán tener los usuarios con el agente, recopilar la información requerida para los trámites y devolver el audio a reproducir en la llamada.
                         Esta opción es la más adecuada para proyectos pequeños con pocos trámites.
                     \item Goolge Speech-to-Text: servicio de reconocimiento de voz que convierte el audio de las llamadas VoIP en texto para que pueda ser procesado por Dialogflow. 
@@ -35,10 +35,25 @@
                 \end{itemize}
             \item Discord: es una plataforma de comunicación que permite llamadas VoIP, se usará por la facilidad para crear aplicaciones y bots fácilmente programable en python.
                 El usuario iniciará una llamada uniéndose a un canal de Discord y el bot comenzará una conversación conectándose con las IA de Google Cloud.
-            \item Gitlab: se usará un control de versiones para mantener actualizados todos los cambios en el código y la documentación del proyecto, y poder recuperar cualquier versión ante un imprevisto. 
-            \item Ngrok: crea un túnel desde el despliegue local para tener un endpoint público en desarrollo, necesario para comunicar el backend con Dialogflow. 
+            \item Github: se usará un control de versiones para mantener actualizados todos los cambios en el código y la documentación del proyecto, y poder recuperar cualquier versión ante un imprevisto. 
+            \item Ngrok \cite{ref11}: crea un túnel desde el despliegue local para tener un endpoint público en desarrollo, necesario para comunicar el backend con Dialogflow. 
                 Es una herramienta segura que evita los costes de mantener un servidor propio para la implementación del proyecto, manteniéndonos dentro del alcance definido.
         \end{itemize}
+
+        Antes de seleccionar estas herramientas, se valoraron otras alternativas con el fin de determinar qué solución se adaptaba mejor a los objetivos y limitaciones del proyecto. 
+        
+        En cuanto al canal de comunicación con los usuarios, se consideró el uso de la red telefónica tradicional mediante la integración propia de Dialogflow Phone Gateway, así como otras opciones como \href{https://www.twilio.com/}{Twilio} \cite{ref12}. 
+        Esta alternativa se ajustaba mejor al plantemamiento original del proyecto al permitir una interacción más realista. 
+        No obtante, fue descartada debido a los costes asociados por minuto de llamada y a la disponibilidad limitada de números telefónicos españoles en este tipo de plataformas. 
+        En muchos casos, los proveedores ofrecen principalmente números internacionales, lo que incrementa significativamente el coste del desarrollo.
+        
+        Respecto al agente conversacional, se analizaron otras alternativas como \href{https://synthflow.ai/}{Synthflow} \cite{ref13} y soluciones basadas en modelos LLM, como \href{https://dashboard.vapi.ai/}{Vapi} \cite{ref14}. 
+        Las soluciones basadas en modelos LLM ofrecen mayor naturalidad y libertad en la conversación, permitiendo interacciones más abiertas y menos estructuradas. 
+        Sin embargo, el objetivo del proyecto exige conversaciones guiadas orientadas a la recopilación precisa de la información necesaria para cada trámite. 
+        Por ello, se descartó está solución, ya que mantener un flujo estricto y limitado, evitando desviaciones temáticas o respuestas fuera del contexto del trámite, resulta más complejo con este tipo de modelos generativos. 
+
+        En cuanto a soluciones similares a Dialogflow, ofrecen prestaciones similares en la creación de agentes estructurados. 
+        No obstante, sus plan gratuitos o sistema de créditos resultan más limitados e insuficiente para la cantidad de pruebas necesarias durante el desarrollo, haciéndolas menos viables para el proyecto.
     
     \subsection{Documentación}
         Para la documentación del proyecto se utilizarán las siguientes herramientas:

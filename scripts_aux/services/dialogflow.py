@@ -43,6 +43,7 @@ def enviar_texto(session_id, user_text=None, bienvenida=False):
             "output_audio_config":audio_config
         }
     )
+    
     texto = response.query_result.fulfillment_text
     audio = response.output_audio
     return texto, audio
