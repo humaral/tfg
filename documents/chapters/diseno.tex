@@ -199,7 +199,7 @@
         \item Tramite certificado empadronamiento, tramite cita AEAT y tramite tarjeta SACYL: se activarán cuando el usuario los solicite y el evento de espera de trámite esté activo y solicitarán los datos necesarios para cada trámite.
         \item Cita AEAT Modalidad: una vez recuperada la información inicial del tramite cita AEAT, se activa este intent desde el backend solo si el servicio escogido ofrece también cita telefónica.
         \item Cita AEAT Presencial: si el usuario solicita una cita presencial, el bot recupera la información correspondiente sobre la oficina y la fecha.
-        \item Confirmar datos: una vez recuperada la información necesaria, se activará este intent para solicitar al usuario la vericidad de los datos y finalizar la llamada.
+        \item Confirmar datos: una vez recuperada la información necesaria, se activará este intent para solicitar al usuario la veracidad de los datos y finalizar la llamada.
         \item Cambiar campo: en caso de que haya algún dato erróneo, se activará este intent para que el usuario pueda modificarlo.
     \end{itemize}
 
@@ -207,7 +207,7 @@
     \begin{itemize}
         \item Centros de salud de Valladolid: un enum con los centros de salud de Valladolid.
         \item DNI o pasaporte: una entidad regexp para limitar la variable al formato del DNI o pasaporte.
-        \item Motivo tarjate SACYL: enum con los posibles motivos para solicitar la tarjeta.
+        \item Motivo tarjeta SACYL: enum con los posibles motivos para solicitar la tarjeta.
         \item Municipios Valladolid: enum con todos los municipios de Valladolid.
         \item Oficina AEAT Valladolid: enum con las oficinas disponibles de la agencia tributaria en Valladolid.
         \item Servicios AEAT: un enum con la lista de servicios de la agencia tributaria.
@@ -216,7 +216,7 @@
         \item Trámite: enum con los trámites disponibles.
     \end{itemize}
 
-    Por último, se ha definido en la figura \ref{fig:4.9} un digrama de flujo para definir la sescuencia prevista de una llamada al sistema.
+    Por último, se ha definido en la figura \ref{fig:4.9} un digrama de flujo para definir la secuencia prevista de una llamada al sistema.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{img/diagramas/diagrama_flujo_ia.png}
@@ -346,7 +346,7 @@
     Cada empleado dispondrá de una cuenta con un usuario y correo único, junto con una contraseña que será tratada con una función hash para evitar su almacenamiento en texto plano. 
 
     También se empleará un sistema de permisos para restringir el acceso a ciertas funcionalidades. 
-    Está funcionalidad permitirá definir diferentes roles de empleados, otorgando permisos específicos dependiendo de las responsabilidades de cada uno. 
+    Esta funcionalidad permitirá definir diferentes roles de empleados, otorgando permisos específicos dependiendo de las responsabilidades de cada uno. 
     Para el prototipo solamente hace falta definir dos roles: 
     \begin{itemize}
         \item Secretario: podrá visualizar todas las peticiones, crear nuevas y asignárselas.
