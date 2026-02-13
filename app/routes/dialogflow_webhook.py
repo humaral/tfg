@@ -164,6 +164,7 @@ def webhook():
                     ]
                 }
 
+    #TODO ver si es posible colgar llamada
     elif intent == INTENTS[4]: #Datos Correctos
         tel=random.randint(600000000, 999999999) #Genero un número telefónico aleatorio ya que al simularlo con discord no se obtiene este dato. Al subirlo a producción habría que sustituirlo por el número recuperado de la integración telefónica.
 

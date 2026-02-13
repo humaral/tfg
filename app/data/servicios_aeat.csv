@@ -1,38 +1,38 @@
-servicio
-Aplazamientos
-Apoderamietno para personas físicas
-Autorizaciones aduaneras (OEA establecimientos y regímenes)
-Censos y garantías
-Censos, IAE, NIF y domicilio fiscal
-Certificado electrónico FNMT para personas físicas
-Certificados tributarios
-Declaraciones informativas (modelo 180 184 190 720...)
-Deducción por maternidad
-Deducciones familiares (familia numerosa y discapacidad)
-Embargos
-Entrega/recogida de documentos (firma de certificados de origen CITES etc.)
-Garantías y facilidades de pago
-Impuesto de la Electricidad (modelo 560)
-Impuesto Hidrocarburos (Gasóleo Agrícola y Profesional)
-Impuesto sobre la Renta de No Residentes
-Impuesto sobre Sociedades
-Impuestos sobre Alcoholes y destilador artesanal. Impuesto tabaco
-Información comercio exterior (aduanas)
-Información general de Impuestos Especiales (hidrocarburos alcohol tabaco etc...)
-Información medioambientales (plástico fluorados valor producción etc...)
-INTRASTAT
-IVA
-Marcas fiscales
-Matriculación de vehículos (I.E.D.M.T.)
-Módulos
-Mutualistas: Formulario de solicitud de devolución
-Obtención Número de Referencia
-Otros trámites de Recaudación
-Pagar y consultar deudas
-Presentación de documentos en registro
-Recogida de notificaciones
-Recursos de Gestión Tributaria
-Recursos Recaudación
-Registro en Cl@ve
-Renta
-Tasa judicial. Canon de superficie de minas o de hidrocarburos
+servicio;llamada
+Aplazamientos;True
+Apoderamietno para personas físicas;False
+Autorizaciones aduaneras (OEA establecimientos y regímenes);False
+Censos y garantías;False
+Censos, IAE, NIF y domicilio fiscal;True
+Certificado electrónico FNMT para personas físicas;False
+Certificados tributarios;True
+Declaraciones informativas (modelo 180 184 190 720...);True
+Deducción por maternidad;True
+Deducciones familiares (familia numerosa y discapacidad);True
+Embargos;True
+Entrega/recogida de documentos (firma de certificados de origen CITES etc.);False
+Garantías y facilidades de pago;False
+Impuesto de la Electricidad (modelo 560);True
+Impuesto Hidrocarburos (Gasóleo Agrícola y Profesional);True
+Impuesto sobre la Renta de No Residentes;True
+Impuesto sobre Sociedades;True
+Impuestos sobre Alcoholes y destilador artesanal. Impuesto tabaco;False
+Información comercio exterior (aduanas);True
+Información general de Impuestos Especiales (hidrocarburos alcohol tabaco etc...);True
+Información medioambientales (plástico fluorados valor producción etc...);True
+INTRASTAT;True
+IVA;True
+Marcas fiscales;False
+Matriculación de vehículos (I.E.D.M.T.);True
+Módulos;True
+Mutualistas: Formulario de solicitud de devolución;False
+Obtención Número de Referencia;False
+Otros trámites de Recaudación;True
+Pagar y consultar deudas;True
+Presentación de documentos en registro;False
+Recogida de notificaciones;False
+Recursos de Gestión Tributaria;True
+Recursos Recaudación;True
+Registro en Cl@ve;False
+Renta;True
+Tasa judicial. Canon de superficie de minas o de hidrocarburos;True

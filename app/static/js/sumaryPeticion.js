@@ -38,6 +38,7 @@ if (inputDNIAEAT) {
     });
 }
 
+const inputServicio = document.getElementById("cita-aeat-servicio");
 const buttonModalidad = document.getElementById("cita-aeat-modalidad");
 const inputModalidad = document.getElementById("cita-aeat-modalidad-hidden");
 const divOficina = document.getElementById("cita-aeat-oficina");
@@ -84,10 +85,32 @@ if (buttonModalidad) {
         buttonModalidad.dataset.modalidad = modalidad;
     };
 
-    const modalidadinicial = buttonModalidad.dataset.modalidad || "telefonica";
+    const modalidadinicial = buttonModalidad.dataset.modalidad || "presencial";
     actualizarPlantilla(modalidadinicial);
 
+    const restriccionModalidadPorServicio = () => {
+        if (!inputServicio || inputServicio.selectedIndex < 0) return;
+
+        const servicioSeleccionado = inputServicio.options[inputServicio.selectedIndex];
+
+        const permiteLlamada = servicioSeleccionado.dataset.llamada === "True";
+
+        if(!permiteLlamada) {
+            actualizarPlantilla("presencial");
+            buttonModalidad.disabled = true;
+            buttonModalidad.classList.add("disabled");
+        }
+        else {
+            buttonModalidad.disabled = false;
+            buttonModalidad.classList.remove("disabled");
+        }
+    };
+
+    inputServicio.addEventListener("change", restriccionModalidadPorServicio);
+    restriccionModalidadPorServicio();
+
     buttonModalidad.addEventListener("click", () => {
+        if(buttonModalidad.disabled) return;
         const nuevaModalidad = buttonModalidad.dataset.modalidad == "presencial" ? "telefonica" : "presencial";
         actualizarPlantilla(nuevaModalidad);
     });

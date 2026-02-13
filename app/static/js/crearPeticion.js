@@ -61,6 +61,7 @@ inputTramite.addEventListener("change", async () => {
         });
     }
 
+    const inputServicio = document.getElementById("cita-aeat-servicio");
     const buttonModalidad = document.getElementById("cita-aeat-modalidad");
     const inputModalidad = document.getElementById("cita-aeat-modalidad-hidden");
     const divOficina = document.getElementById("cita-aeat-oficina");
@@ -107,25 +108,47 @@ inputTramite.addEventListener("change", async () => {
                 buttonModalidad.dataset.modalidad = modalidad;
             };
 
-            const modalidadinicial = buttonModalidad.dataset.modalidad || "telefonica";
+            const modalidadinicial = buttonModalidad.dataset.modalidad || "presencial";
             actualizarPlantilla(modalidadinicial);
 
+            const restriccionModalidadPorServicio = () => {
+                if (!inputServicio || inputServicio.selectedIndex < 0) return;
+
+                const servicioSeleccionado = inputServicio.options[inputServicio.selectedIndex];
+
+                const permiteLlamada = servicioSeleccionado.dataset.llamada === "True";
+
+                if(!permiteLlamada) {
+                    actualizarPlantilla("presencial");
+                    buttonModalidad.disabled = true;
+                    buttonModalidad.classList.add("disabled");
+                }
+                else {
+                    buttonModalidad.disabled = false;
+                    buttonModalidad.classList.remove("disabled");
+                }
+            };
+
+            inputServicio.addEventListener("change", restriccionModalidadPorServicio);
+            restriccionModalidadPorServicio();
+
             buttonModalidad.addEventListener("click", ()=>{
+                if(buttonModalidad.disabled) return;
                 const nuevaModalidad = buttonModalidad.dataset.modalidad =="presencial" ? "telefonica" : "presencial";
                 actualizarPlantilla(nuevaModalidad);
             });
     }
 
     inputDia.addEventListener("change", function() {
-    const fecha = new Date(this.value);
-    const dia = fecha.getDay();
-    console.log(fecha, dia);
-    if (dia === 0 || dia === 6) {
-        this.setCustomValidity("No se atienden citas los fines de semana.");
-    } else {
-        this.setCustomValidity("");
-    }
-});
+        const fecha = new Date(this.value);
+        const dia = fecha.getDay();
+        console.log(fecha, dia);
+        if (dia === 0 || dia === 6) {
+            this.setCustomValidity("No se atienden citas los fines de semana.");
+        } else {
+            this.setCustomValidity("");
+        }
+    });
 });
 
 inputTelefonoLlamada.addEventListener("invalid", ()=>{

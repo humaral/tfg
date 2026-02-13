@@ -10,7 +10,7 @@ import pandas as pd
 import os, re
 from datetime import datetime
 
-OFICINAS_AEAT = {"Administración de Medina del Campo":"Medina del Campo", "Delegación Especial de Castilla y León":"Valladolid"}
+OFICINAS_AEAT = {"Administración de Medina del Campo":"Medina Del Campo, Valladolid", "Delegación Especial de Castilla y León":"Valladolid, Valladolid", "":"Te llamamos"}
 
 def rpa_certificado_empadronamiento(informacion):
 
@@ -72,9 +72,9 @@ def rpa_cita_aeat(informacion):
         boton_localidad =driver.find_element(By.XPATH, "//button[text()='Aceptar']")
         driver.execute_script("arguments[0].click();", boton_localidad)
 
-        driver.find_element(By.XPATH, "//*[@id='btnMenu']").click()
 
         if informacion.get("modalidad","") != "telefonica":
+            driver.find_element(By.XPATH, "//*[@id='btnMenu']").click()
             input_dia = driver.find_element(By.ID, "input-date")
             driver.execute_script("arguments[0].value = arguments[1];", input_dia, informacion.get("dia",""))
             input_hora = driver.find_element(By.ID, "input-time")
@@ -83,40 +83,57 @@ def rpa_cita_aeat(informacion):
             driver.execute_script("arguments[0].click();", boton_fecha)
         
         
-
         citas = WebDriverWait(driver, 10).until(
-            expected_conditions.presence_of_all_elements_located((By.CSS_SELECTOR, "span.nobr"))
+            expected_conditions.presence_of_all_elements_located((By.CSS_SELECTOR, "div.p-3 > div.row"))
         )
-        #FIX
-        # for cita in citas:
-        #     texto = cita.get_attribute("aria-selected")
-        #     print("CITA DISPONIBLE:", texto)
-        #     if informacion.get("modalidad","") == "telefonica":
-        #         if("Te llamamos" in texto.get(["direccion"],"") ):
-        #             print("VIURTUALss")
-        #             print("Cita telefónica en la AEAT Asignada Correctamente.")
-        #             driver.quit()
-        #             return True
-        #     else:
-        #         direccion = OFICINAS_AEAT.get(informacion.get("oficina",""), "") in texto.get(["direccion"],"")
-        #         print("DIRECCION:", direccion)
-        #         fecha = re.search(r"\d{2}-\d{2}-\d{4}", texto.get(["dia"],""))
-        #         print("FECHA:", fecha)
-        #         if fecha:
-        #             fecha = fecha.group()
-        #             fecha = datetime.strptime(fecha, "%d-%m-%Y").strftime("%Y-%m-%d")
-        #         hora = re.search(r"\d{2}:\d{2}", texto.get(["hora"],""))
-        #         if hora:
-        #             hora = hora.group()
-    
-        #         if direccion and fecha == informacion.get("dia","") and hora == informacion.get("hora",""):
-        #             print("Cita presencial en la AEAT Asignada Correctamente.")
-        #             driver.quit()
-        #             return True
+
+        for cita in citas:
+
+            texto = cita.text
+
+            oficina = OFICINAS_AEAT.get(informacion.get("oficina", ""), "" ) 
+            oficina_ok = oficina in texto
+
+            fecha_match = re.search(r"\d{2}-\d{2}-\d{4}", texto)
+            fecha = None
+            if fecha_match:
+                fecha = datetime.strptime(fecha_match.group(), "%d-%m-%Y").strftime("%Y-%m-%d")
+
+            hora_match = re.search(r"\d{2}:\d{2}", texto)
+            hora = hora_match.group() if hora_match else None
+            
+
+            if informacion.get("modalidad","") != "telefonica" and informacion.get("dia", "")==fecha:
+                fecha_ok = True
+            else:
+                fecha_ok = False
+
+            if informacion.get("modalidad","") != "telefonica" and informacion.get("hora", "")==hora:
+                hora_ok = True
+            else:
+                hora_ok = False
+            
+            if informacion.get("modalidad","") == "telefonica":
+                fecha_ok = True
+                hora_ok = True
+
+            if oficina_ok and fecha_ok and hora_ok:
+                print("Cita asignada:", oficina)
+                print("FECHA:", fecha)
+                print("HORA:", hora)
+                driver.quit()
+                return True
         
-        # print("Error al asignar la cita de la AEAT")
-        # driver.quit()
-        # return False
-    except:
+        print("Error al asignar la cita de la AEAT")
         driver.quit()
         return False
+    except:
+        print("Error al asignar la cita de la AEAT")
+        driver.quit()
+        return False
+
+
+#TODO acabar
+def rpa_tarjeta_sanitaria(informacion):
+
+    return False

@@ -8,6 +8,7 @@ from normalizar import transcribir_numeros_letras
 from dialogflow import enviar_texto
 from google.cloud import speech
 
+#TODO colgar llamada y callarse al identificar que habla
 
 for name in logging.root.manager.loggerDict: #Silencia los logs de discord
     logging.getLogger(name).setLevel(logging.CRITICAL)
