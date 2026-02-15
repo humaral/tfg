@@ -7,10 +7,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 import pandas as pd
-import os, re
+import os, re, time
 from datetime import datetime
 
 OFICINAS_AEAT = {"Administración de Medina del Campo":"Medina Del Campo, Valladolid", "Delegación Especial de Castilla y León":"Valladolid, Valladolid", "":"Te llamamos"}
+MOTIVO_SACYL = {"perdida": "Por pérdida", "deterioro":"Por deterioro"}
 
 def rpa_certificado_empadronamiento(informacion):
 
@@ -39,6 +40,7 @@ def rpa_certificado_empadronamiento(informacion):
         return True
     
     except:
+        print("Error al solicitar el certifcado de empadronamiento.")
         driver.quit()
         return False
 
@@ -132,8 +134,52 @@ def rpa_cita_aeat(informacion):
         driver.quit()
         return False
 
-
-#TODO acabar
 def rpa_tarjeta_sanitaria(informacion):
 
-    return False
+    driver = webdriver.Chrome()
+    try:
+        driver.get("https://fota.saludcastillayleon.es/FOTA/perdida-rotura")
+        
+        if(informacion.get("motivo", "") == "deterioro"): #El motivo es 'por pérdida' ya viene marcado por defecto.
+            driver.find_element(By.XPATH, "//*[@id='motivo']/div[2]/span").click()
+
+
+        driver.find_element(By.ID, "apellido1").send_keys(informacion.get("apellido1",""))
+        driver.find_element(By.ID, "nombre").send_keys(informacion.get("nombre",""))
+        driver.find_element(By.ID, "fechaNacimiento_input").send_keys(datetime.strptime(informacion.get("nacimiento",""), "%Y-%m-%d").strftime("%d/%m/%Y"))
+
+
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "provinciaCentroSalud"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, "//ul[@id='provinciaCentroSalud_items']//li[normalize-space()='VALLADOLID']"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "provinciaCentroSalud"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, "//ul[@id='provinciaCentroSalud_items']//li[normalize-space()='VALLADOLID']"))).click()
+
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "centroSalud"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, f"//ul[@id='centroSalud_items']//li[normalize-space()='{informacion.get("centro_salud", "")}']"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "centroSalud"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, f"//ul[@id='centroSalud_items']//li[normalize-space()='{informacion.get("centro_salud", "")}']"))).click()
+
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "provincia"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, "//ul[@id='provincia_items']//li[normalize-space()='VALLADOLID']"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "provincia"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, "//ul[@id='provincia_items']//li[normalize-space()='VALLADOLID']"))).click()
+
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "localidad"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, f"//ul[@id='localidad_items']//li[normalize-space()='{informacion.get("localidad", "")}']"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.ID, "localidad"))).click()
+        WebDriverWait(driver, 10).until(expected_conditions.element_to_be_clickable((By.XPATH, f"//ul[@id='localidad_items']//li[normalize-space()='{informacion.get("localidad", "")}']"))).click()
+
+        driver.find_element(By.ID, "calle_input").send_keys(informacion.get("calle",""))
+        driver.find_element(By.ID, "numero").send_keys(informacion.get("numero",""))
+        driver.find_element(By.ID, "piso").send_keys(informacion.get("piso",""))
+        driver.find_element(By.ID, "puerta").send_keys(informacion.get("puerta",""))
+
+        print("Tarjeta sanitaria solicitada correctamente.")
+        driver.quit()
+        return True
+    
+    except Exception as e:
+        print("Error al solicitar el certifcado de empadronamiento.", e)
+        input("ENTER")
+        driver.quit()
+        return False

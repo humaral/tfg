@@ -5,7 +5,7 @@
 from flask import Blueprint, jsonify, render_template, request, session, abort, flash, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import select, func, asc, desc, or_
-from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento, rpa_cita_aeat, crear_peticion, enviar_mail
+from app.utils import permiso_requerido, temporal_password, verificar_permiso, rpa_certificado_empadronamiento, rpa_cita_aeat, rpa_tarjeta_sanitaria, crear_peticion, enviar_mail
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
@@ -113,6 +113,8 @@ def sumary_peticion(idPeticion):
                 completada = rpa_certificado_empadronamiento(peticion.informacion)
             elif peticion.idTramite == 2: #Cita AEAT
                 completada = rpa_cita_aeat(peticion.informacion)
+            elif peticion.idTramite == 3: #Tarjeta Sanitaria
+                completada = rpa_tarjeta_sanitaria(peticion.informacion)
             
             if completada:
                 peticion.idEstadoActual = 5 #Completada

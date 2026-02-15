@@ -14,7 +14,8 @@ from .dashboard_utils import(
 
 from .rpa import(
     rpa_certificado_empadronamiento,
-    rpa_cita_aeat
+    rpa_cita_aeat,
+    rpa_tarjeta_sanitaria
 )
 
 from .utils_db import(
