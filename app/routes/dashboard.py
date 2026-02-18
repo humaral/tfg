@@ -9,7 +9,6 @@ from app.utils import permiso_requerido, temporal_password, verificar_permiso, r
 from app.models import Peticion, Hito, Estado, Tramite, Empleado, Rol
 from app import db
 from math import ceil
-from unidecode import unidecode
 
 
 dashboard_bp = Blueprint('dashboard', __name__)

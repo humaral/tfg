@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 import pandas as pd
-import os, re, time
+import os, re
 from datetime import datetime
 
 OFICINAS_AEAT = {"Administración de Medina del Campo":"Medina Del Campo, Valladolid", "Delegación Especial de Castilla y León":"Valladolid, Valladolid", "":"Te llamamos"}

@@ -5,7 +5,7 @@
 import os, random
 from app import db
 from app.utils import crear_peticion
-from datetime import date, time
+from datetime import date
 
 def reiniciar_bd(app):
 

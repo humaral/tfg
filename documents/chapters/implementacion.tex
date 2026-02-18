@@ -1,0 +1,74 @@
+En este capítulo se resume el proceso de desarrollo del sistema elaborado, detallando los principales componentes que lo conforman y su funcionamiento. 
+La explicación se estructura siguiendo el orden real de la implementación del proyecto, comenzando por el desarrollo del frontend, seguido de la creación de la base de datos y la construcción del backend. 
+Finalmente, se comentan los distintos servicios integrados en la aplicación, como el envío de correos electrónicos, el bot de Discord, la conexión con la IA mediante Dialogflow y la automatización de los trámites con funciones de RPA. 
+
+\section{Implementación del frontend}
+    Para el desarrollo del frontend de la aplicación se ha utilizado el sistema de plantillas de Jinja. 
+    Se ha definido una plantilla base (layout.jinja), mostrada en la figura \ref{fig:5.1}, que funciona como estructura común para todas las vistas de la web. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\textwidth]{img/desarrollo/layout.png}
+        \caption{Fragmento de código de layout.jinja.}
+        \label{fig:5.1}
+    \end{figure}
+    Esta plantilla incluye componentes reutilizables del sistema, como la cabecera y el pie de página, permitiendo que el resto de vistas definan únicamente el contenido específico. 
+    Este enfoque reduce la duplicación de código y mejora la mantenibilidad del sistema, facilitando las modificaciones globales.
+
+    Asimismo, se importa una hoja de estilos CSS común para toda la aplicación, garantizando coherencia visual en todas las páginas mediante el uso de la misma paleta de colores, tipografía y estructura. 
+    
+    Por último, se integra la librería de iconos open source \href{https://iconify.design/}{Iconify} \cite{ref15}, lo que permite incorporar iconos de forma sencilla en las distintas vistas.
+
+    Cabe destacar que el frontend incluye múltiples vistas con sus hojas de estilos y scripts dinámicos. 
+    Sin embargo, en esta sección se comentan únicamente los elementos más representativos técnicamente, evitando detallar componentes HTML simples o repetitivos, o estilos o validaciones sin importancia. 
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\textwidth]{img/desarrollo/peticionesjs.png}
+        \caption{Fragmento de código de peticiones.js.}
+        \label{fig:5.2}
+    \end{figure}
+    Los componentes principales de la web son las tablas que muestran la información correspondiente a las peticiones, empleados o trámites. 
+    El contenido de estas tablas se carga dinámicamente en función de los los filtros, el orden o la paginación. 
+    La figura \ref{fig:5.2} muestra el fragmento de código en el que se llama a un endpoint, "/api/peticiones", para recuperar la información correspondiente de la base de datos y actualizarla en la tabla.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\textwidth]{img/desarrollo/sumaryPeticion.png}
+        \caption{Fragmento de código de sumaryPeticion.jinja.}
+        \label{fig:5.3}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/desarrollo/crearPeticionjs.png}
+        \caption{Fragmento de código de crearPeticion.js.}
+        \label{fig:5.4}
+    \end{figure}
+    De forma análoga, las plantillas que contienen la información correspondiente a cada trámite se renderizan en tiempo de ejecución, mostrando el formulario correspondiente dependiendo del trámite escogido, figuras \ref{fig:5.3} y \ref{fig:5.4}. 
+
+    El resto de componentes que abundan en la aplicación son formularios, que no presentan nada especial salvo alguna validación o evento dinámico.
+
+\section{Implementación de la base de datos}
+    La implementación de la base de datos se ha llevado a cabo mediante tablas SQL, definiendo en cada atributo su tipo de dato, restricciones de unicidad y posibilidad de valores nulos. 
+    Asimismo, se han establecido las claves primarias para cada tabla y las claves foráneas para modelar las relaciones entre entidades.
+
+    La figura \ref{fig:5.5} muestra la función encargada de inicializar la base de datos en la aplicación, ejecutando el archivo SQL correspondiente durante el arranque del sistema. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\textwidth]{img/desarrollo/utils_db.png}
+        \caption{Fragmento de código de utils\_db.py.}
+        \label{fig:5.5}
+    \end{figure}
+
+    Para gestionar la base de datos dentro de la aplicación se utiliza SQLAlchemy, lo que permite definir clases Python equivalentes a cada tabla y trabajar con los registros como objetos. 
+    La figura \ref{fig:5.6} muestra un ejemplo de consulta dinámica sobre la tabla de peticiones, en la que se aplican filtros, ordenación y paginación en función de los parámetros recibidos. 
+    El resultado se almacena en la variable "peticiones" como una lista de objetos de la clase correspondiente, permitiendo acceder a sus atributos y métodos directamente.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\textwidth]{img/desarrollo/dashboard.png}
+        \caption{Fragmento de código de dashboard.py.}
+        \label{fig:5.6}
+    \end{figure}
+
+\section{Implementación del backend}
+
+\section{Implementación e integración de servicios}
