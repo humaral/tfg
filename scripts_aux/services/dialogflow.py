@@ -1,4 +1,4 @@
-import os, tempfile, json
+import os, json
 from google.cloud import dialogflow_v2
 from dotenv import load_dotenv
 
@@ -46,4 +46,5 @@ def enviar_texto(session_id, user_text=None, bienvenida=False):
     
     texto = response.query_result.fulfillment_text
     audio = response.output_audio
-    return texto, audio
+    accion = response.query_result.action
+    return texto, audio, accion

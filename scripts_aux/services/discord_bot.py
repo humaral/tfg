@@ -1,4 +1,4 @@
-import discord, os, json, logging, pyogg, opuslib, threading, queue, time, io, uuid, re
+import discord, os, json, logging, pyogg, opuslib, threading, queue, time, io, uuid, re, asyncio
 from discord.ext import commands, voice_recv
 from dotenv import load_dotenv
 import numpy as np
@@ -19,7 +19,7 @@ DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 SILENCE_THRESHOLD = 1.2
 USE_LOCAL_STT = False
-
+END_CALL = threading.Event()
 
 if USE_LOCAL_STT:
     print("Cargando modelo Vosk...")
@@ -100,8 +100,7 @@ class STTWorkerGoogle(threading.Thread):
             encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
             sample_rate_hertz=16000,
             language_code="es-ES",
-            enable_automatic_punctuation=False,
-            # model="latest_long"
+            enable_automatic_punctuation=False
         )
 
         self.last_audio_time = time.time()
@@ -144,18 +143,28 @@ class STTWorkerGoogle(threading.Thread):
             
 
 class AgentWorker(threading.Thread):
-    def __init__(self, text_queue, audio_output_queue, session_id):
+    def __init__(self, text_queue, audio_output_queue, session_id, vc, member, bot):
         super().__init__(daemon=True)
         self.text_queue = text_queue
         self.audio_output_queue = audio_output_queue
         self.session_id = session_id
         self.welcome_done = False
 
+        self.vc = vc
+        self.member = member
+        self.bot = bot
+
     def conexion_dialogflow(self, texto=None, bienvenida=False):
-        texto_respuesta, audio_respuesta = enviar_texto(self.session_id, user_text=texto, bienvenida=bienvenida)
+        texto_respuesta, audio_respuesta, accion_respuesta = enviar_texto(self.session_id, user_text=texto, bienvenida=bienvenida)
         txt = re.sub(r'<[^>]+>', '', texto_respuesta)
         print(f"[BOT]: {txt}")
         self.audio_output_queue.put(audio_respuesta)
+        
+
+        if accion_respuesta in ["cancelar", "tramite_certificado_empadronamiento.crear_peticion", "tramite_cita_AEAT.crear_peticion", "tramite_tarjeta_SACYL.crear_peticion"]:
+            print(f"Acción '{accion_respuesta}' detectada. Finalizando llamada.")
+            self.audio_output_queue.put(None) 
+            asyncio.run_coroutine_threadsafe(finalizar_llamada(self.vc, self.member), self.bot.loop)
 
 
     def run(self):
@@ -182,6 +191,7 @@ class TTSWorker(threading.Thread):
             audio16k = self.audio_output_queue.get()
 
             if audio16k is None:
+                self.audio_output_queue.task_done()
                 break
 
             try:
@@ -202,6 +212,8 @@ class TTSWorker(threading.Thread):
 
             except Exception as e:
                 print("Error reproduciendo TTS:", e)
+            
+            self.audio_output_queue.task_done()
 
 
 class VoskSink(voice_recv.AudioSink):
@@ -258,7 +270,7 @@ async def on_voice_state_update(member, before, after):
                         transcriptor = STTWorkerVosk(audio_input_queue, text_queue)
                     else:
                         transcriptor = STTWorkerGoogle(audio_input_queue, text_queue)
-                    logica = AgentWorker(text_queue, audio_output_queue, session_id)
+                    logica = AgentWorker(text_queue, audio_output_queue, session_id, voz, member, bot)
                     reproductor = TTSWorker(audio_output_queue, voz)
 
                     transcriptor.start()
@@ -266,6 +278,7 @@ async def on_voice_state_update(member, before, after):
                     reproductor.start()
 
                     voz.audio_input_queue = audio_input_queue
+                    voz.audio_output_queue = audio_output_queue
                     voz.listen(VoskSink(audio_input_queue))
             else:
                 await member.move_to(None)
@@ -286,5 +299,23 @@ async def on_voice_state_update(member, before, after):
                 pass
             await voz.disconnect(force=True)
 
+async def finalizar_llamada(voz, member=None):
+
+    if voz is None or not voz.is_connected():
+        return
+    
+    voz.audio_output_queue.join()
+    try:
+        voz.audio_input_queue.put(None)
+    except:
+        pass
+
+    if member is not None and member.voice:
+        try:
+            await member.move_to(None)
+        except:
+            pass
+
+    await voz.disconnect(force=True)
 
 bot.run(DISCORD_TOKEN)
