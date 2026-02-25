@@ -2,7 +2,7 @@
 # Fecha: 27-10-2025
 # Descripción: Controlador de las rutas en la vista de inicio.
 
-from flask import Blueprint, redirect, url_for, abort, render_template
+from flask import Blueprint, redirect, url_for, render_template
 from flask_login import login_required
 from app.utils import permiso_requerido
 

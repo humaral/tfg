@@ -10,6 +10,7 @@
 *.fls
 *.synctex.gz
 documents/build/
+documents/%OUTDIR%/
 
 #Archivos compilados por python automáticamente
 **/__pycache__/
