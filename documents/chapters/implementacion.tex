@@ -131,5 +131,103 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             \label{fig:5.9}
         \end{figure}
 
-    \subsection{Implementación e integración del bot de Discord}
+    \subsection{Implementación e integración de los servicios de Google Cloud}
+        La configuración de los servicios de Google se lleva a cabo desde la consola de Google Cloud, donde se crea un proyecto y se habilitan las APIs correspondientes al servicio de Speech-to-Text y Dialogflow. 
+        Una vez habilitadas las APIs, se descarga el archivo de credenciales en formato JSON y se almacena en las variables de entorno de la aplicación. 
         
+        Hay dos puntos del proyecto en los que se integran estos servicios, el bot de Discord y el webhook de Dialogflow. 
+
+        En el caso del bot de Discord, se integran los servicios mediante las bibliotecas oficiales de Google Cloud para Python, lo que permite utilizar las funciones de cada servicio de forma sencilla. 
+        El servicio de Speech-to-Text se utiliza únicamente para transcribir el audio de las llamadas VoIP. 
+        Nada más recibir el audio en la cola de entrada se envía al cliente SpeechClient de Google Cloud, que lo procesa y devuelve la transcripción. 
+        El servicio de Dialogflow se integra en el bot de Discord para procesar las transcripciones de las llamadas, enviando el texto recibido en una cola através de la función de la figura \ref{fig:5.10}. 
+        Cada llamada se asocia a una sesión única de Dialogflow, de forma que se mantiene el contexto de la conversación durante toda la llamada, enviando el texto transcrito del usuario y recibiendo la respuesta en texto y audio generada por Dialogflow. 
+        También se reciben las acciones configuradas en Dialogflow, lo que permite conocer al bot el fin de cada llamada para poder colgar automáticamente. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/desarrollo/dialogflowpy.png}
+            \caption{Código de la función de envío de transcripciones a Dialogflow.}
+            \label{fig:5.10}
+        \end{figure}
+
+        En el caso del webhook de Dialogflow, se implementa un endpoint en el backend de la aplicación web para que Dialogflow pueda comunicarse con el sistema. 
+        Se utiliza para poder generar las peticiones de forma automática una vez el agente extrae los datos necesarios de la conversación y en el caso de solicitar una cita en la Agencia Tributaria, para poder consultrar si el servicio elegido por el ususario dispone de cita telefónica o no. 
+        Dialogflow envía la información de cada evento en formato JSON, que se procesa en el endpoint para extraer los datos necesarios y realizar las acciones correspondientes y enviar la respuesta de vuelta a Dialogflow. 
+        El webhook se configura en la consola de Dialogflow, figura \ref{fig:5.11}, indicando la URL del endpoint, que debe ser accesible desde Internet para que Dialogflow pueda comunicarse con él. 
+        Por ello, se utiliza la herramienta ngrok, que expone el servidor local de desarrollo a través de una URL pública, lo que permite el correcto funcionamiento del webhook sin desplegar la aplicación. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{img/desarrollo/webhook.png}
+            \caption{Configuración del webhook en la consola de Dialogflow.}
+            \label{fig:5.11}
+        \end{figure}
+
+        \subsubsection{Entrenamiento del agente de Dialogflow}
+            El entrenamiento del agente de IA se ha llevado a cabo desde la consola de Dialogflow, donde se ha definido el flujo de conversación mediante la creación de intents y entities y su unión mediante contextos y acciones.
+            Dialogflow oculta el modelo o algoritmo interno de Machine Learning que utiliza para procesar el lenguaje natural, solo permite establecer el umbral de confianza para el reconocimiento de cada intent. 
+
+            Cada intent puede activarse meddiante el lanzamiento de un evento, como el evento de bienvenida al iniciar la llamada, o mediante el reconocimiento de una frase de entrenamiento, figura \ref{fig:5.12}.
+            Por ello, el entrenamiento del agente se ha centrado principalmente en establecer frases de entrenamiento significativas para cada intent, pues cuantas más frases de entrenamiento se establezcan menor será la probabilidad de error en el reconocimiento de los intents y en la extracción de los datos.
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\textwidth]{img/desarrollo/training.png}
+                \caption{Establecimiento de frases de entrenamiento en Dialogflow.}
+                \label{fig:5.12}
+            \end{figure}
+            Dialogflow también ofrece una página de entrenamiento, figura \ref{fig:5.13}, donde se muestran las conversaciones procesadas por el agente, indicando los intents reconocidos y los datos extraídos. 
+            Permitiendo validar el correcto funcionamiento del agente y modificar los posibles errores, asociando automáticamente las frases validadas a cada intent para su reentrenamiento.
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\textwidth]{img/desarrollo/entrenamiento.png}
+                \caption{Página de entrenamiento en Dialogflow.}
+                \label{fig:5.13}
+            \end{figure}
+
+            En algunos intents también hay que definir un contexto, figura \ref{fig:5.14}, lo que permite establecer una relación entre intents, de forma que un intent con un contexto de entrada solo se podrá activar si un intent antertior ha establecido ese contexto como contexto de salida. 
+            Esto es especialmente útil para establecer un flujo de conversación, como responder solo a las preguntas relacionadas con el trámite solicitado o recuperar los datos necesarios para ese trámite concreto. 
+            Para recuperar los datos de la conversación hay que definir los parámetros en cada intent, figura \ref{fig:5.15}, indicando el tipo de dato esperado mediante entidades predefinidas o personalizadas.
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.5\textwidth]{img/desarrollo/contexto.png}
+                \caption{Contexto de un intent en Dialogflow.}
+                \label{fig:5.14}
+            \end{figure}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.8\textwidth]{img/desarrollo/parameters.png}
+                \caption{Parámetros de un intent en Dialogflow.}
+                \label{fig:5.15}
+            \end{figure}
+
+            Para definir entidades personalizadas se puede establecer una lista de sinónimos para cada valor, lo que permite mejorar el reconocimiento de los datos por el agente, o definir una expresión regular, como en la figura \ref{fig:5.16}, lo que es especialmente útil para datos como el dni o el número telefónico que siguen un formato específico. 
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.5\textwidth]{img/desarrollo/entity.png}
+                \caption{Entidad personalizada en Dialogflow.}
+                \label{fig:5.16}
+            \end{figure}
+
+    \subsection{Implementación e integración del bot de Discord}
+        La implementación del bot de Discord para la gestión de llamadas VoIP es la más compleja técnicamente de entre todos los servicios integrados en la aplicación. 
+
+        - web dev discord crear app, configurar permisos bot, crear servidor, config del server (1 canal voz limite 2 personas), invitar a servidor, obtener token
+        - codigo bot, libreria discord.py para eventos gestion canales y miembros y discordextvoicerecv para recibir audio (explicar que no es oficial es de un user ya que discord no facilita la recuperacion de voz).
+        - evento cuando user se une al canal bot se une inicializa clases colas hilos.
+        - explicar VoskSink TTSWorker AgentWorker STTWorkerGoogle (tendre que comentar integracion google cloud para STT y Dialogflow) hay que comentar pq simultaneo cada uno un hilo y comunicacion con colas.
+        - explicar codificación audio pcm opus.
+
+    \subsection{Implementación e integración de las funciones de RPA}
+        Para la automatización de los trámites se han implementado distintas funciones de RPA utilizando la biblioteca de Selenium, que permite controlar el ratón y el teclado para interactuar con la interfaz de las aplicaciones. 
+        Estas funciones se integran en el backend de la aplicación web, de forma que se podrían ejecutar automáticamente nada más crear la petición. 
+        No obstante, para el proyecto y por motivos de seguridad, se ha decidido que el empleado ejecute manualmente la petición, para que pueda revisar como se rellena automáticamente la información necesaria de cada trámite, pero sin que se llega a completar ningún trámite real. 
+        La figura \ref{fig:5.17} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el ayuntamiento de Valladolid. 
+        Se puede observar como se utiliza Selenium para abrir el navegador, acceder a la página oficial donde se completa el trámite, rellenar los campos necesarios con la información de la petición y simular su completitud sin llegar a enviar realmente el formulario. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.8\textwidth]{img/desarrollo/rpa.png}
+            \caption{Código de la función de RPA para solicitar el certificado de empadronamiento.}
+            \label{fig:5.17}
+        \end{figure}
+
+        El resto de trámites automatizados siguen una lógica similar, se localizan los elementos necesarios de cada página web mediante su ID o XPath, se rellenan o clican para ir completando los menús y formularios necesarios, y se simula la completitud del trámite sin llegar a enviar realmente nada. 
+         
