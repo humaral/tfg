@@ -210,23 +210,74 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     \subsection{Implementación e integración del bot de Discord}
         La implementación del bot de Discord para la gestión de llamadas VoIP es la más compleja técnicamente de entre todos los servicios integrados en la aplicación. 
 
-        - web dev discord crear app, configurar permisos bot, crear servidor, config del server (1 canal voz limite 2 personas), invitar a servidor, obtener token
-        - codigo bot, libreria discord.py para eventos gestion canales y miembros y discordextvoicerecv para recibir audio (explicar que no es oficial es de un user ya que discord no facilita la recuperacion de voz).
-        - evento cuando user se une al canal bot se une inicializa clases colas hilos.
-        - explicar VoskSink TTSWorker AgentWorker STTWorkerGoogle (tendre que comentar integracion google cloud para STT y Dialogflow) hay que comentar pq simultaneo cada uno un hilo y comunicacion con colas.
-        - explicar codificación audio pcm opus.
+        La configuración del bot se realiza desde la página de desarrolladores de Discord, figura \ref{fig:5.17}, desde donde se crea una nueva aplicación, se añade un bot a esta y se configuran los permisos necesarios para que el bot pueda actuar correctamente en el servidor. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.75\textwidth]{img/desarrollo/discorddev.png}
+            \caption{Página de desarrolladores de Discord.}
+            \label{fig:5.17}
+        \end{figure}
+        Del mismo modo, se crea un servidor de Discord, se invita al bot a este y se configura el servidor para que tenga un canal de voz específico para las llamadas, limitado a dos personas para que solo pueda haber una llamada a la vez, figura \ref{fig:5.18}.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.3\textwidth]{img/desarrollo/discord.png}
+            \caption{Servidor de Discord.}
+            \label{fig:5.18}
+        \end{figure}
+
+        Una vez habilitado el bot en el servidor de Discord, se extrae el token de la página de desarrolladores y se añade como variable de entorno en la aplicación.
+        Con todo configurado, se implementa la lógica para gestionar las llamadas utilizando la biblioteca oficial dircord.py, que permite gestionar los eventos de Discord relacionados con los canales de voz y los miembros. 
+        Se utiliza también la extensión discord\_ext\_voice\_recv, que permite extraer el audio de los canales de voz, aunque no es una biblioteca oficial de Discord, sino un proyecto de código abierto \cite{ref16}, ya que Discord no facilita la recuperación de audio de los canales de voz. 
+
+        La lógica de las llamadas se ejecuta de forma simultánea en distintos hilos, concurriendo la captura, procesamiento y reproducción de audio, utilizando colas para la comunicación entre ellos. 
+        
+        El hilo principal corresponde al bucle de eventos de Discord, que se encarga de gestionar los eventos asíncronos de la plataforma, así como la conexión al canal de voz y la recepción de los paquetes de audio. 
+        Cuando un usuario entra en el canal de voz, activa un evento que hace que el bot se una al canal, inicializando la conexión al cliente de voz. 
+        Tras establecer la conexión, se crean tres colas sincronizadas, una para el audio de entrada, otra para el texto transcrito y la última para el audio de salida. 
+        Estas colas siguen un patrón productor-consumidor, permitiendo que cada hilo se encargue de una tarea específica, comunicándose entre ellos sin bloquear el flujo de ejecución. 
+        Por último, se inicializan las clases encargadas de gestionar cada una de estas colas, las ejecuta en hilos independientes y comienza la escucha del canal de voz. 
+
+        El primer componente que interviene es la clase VoskSink, que se encarga de recibir los paquetes de audio del canal de voz, decodificarlos y almacenarlos en la cola de entrada de audio. 
+        La decodificación del audio se realiza mediante una clase OpusDecoder, \ref{fig:5.19}, que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
+        En este caso, Discord envía el audio codificado en formato Opus a 48kHz, se decodifica a formato PCM y se remuestrea a 16kHz con la biblioteca numpy. 
+        El audio se recupera en fragmentos de 20ms, lo que equivale a decodificarlo en fragmentos de 960 muestras ($48kHz\ast0.02s=960$), y se almacena en la cola de entrada como un array de bytes. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.75\textwidth]{img/desarrollo/decode.png}
+            \caption{Código de la clase OpusDecoder.}
+            \label{fig:5.19}
+        \end{figure}
+
+        A continuación, actúa el hilo de transcripción STTWorkerGoogle, que se encarga de consumir en bucle el audio de la cola de entrada. 
+        Según va consumiendo los framentos de audio, los va almacenando en un buffer para completar la frase completa del usuario. 
+        Cuando se detecta una silencio prolongado por parte del usuario, 1.2 segundos sin recibir audio, se considera que el usuario ha terminado de hablar y se envía el audio almacenado en el buffer al cliente de Speech-to-Text de Google Cloud. 
+        Una vez recibida la transcripción, se almacena en la cola de texto. 
+        También se ha implementado una clase de transcripción alternativa, STTWorkerVosk, que utiliza un modelo de reconocimiento de voz local, para transcribir el audio en el caso de que el servicio de google no esté disponible o que los créditos sean insuficientes. 
+        Este modelo es menos preciso que el de Google, pero permite mantener la funcionalidad, ya que funciona de forma similar. 
+
+        Posteriormente, el hilo de procesamiento AgentWorker consume el texto de la cola de transcripciones y lo envía al agente de Dialogflow como se explicó en la subsección anterior, añadiendo la respuesta de audio en la cola de salida. 
+        También detecta las acciones de fin de llamada, que llaman a una función asíncrona que espera a que se consuma el audio de la cola de salida para colgar la llamada, expulsando al usuario del canal de voz.
+
+        Finalmente, el hilo de TTSWorker se encarga de consumir el audio de la cola de salida y reproducirlo en el canal de voz. 
+        Para poder reproducir, hay que remuestrear el audio de 16kHz a 48kHz, aunque no es necesario recodificarlo a formato Opus, ya que Discord acepta reproducirlo en formato PCM. 
+        Aunque sí hay que duplicar el contenido del array de audio, ya que el audio recibido de Dialogflow es monoaural y hay que reproducirlo en estéreo. 
+        Al tener la reproducción de audio en un hilo independiente, se puede ir reproduciendo sin bloquear la escucha del canal de voz, permitiendo que no se pierda ningún fragmento de audio del usuario mientras que el bot responde. 
+
+        Por último, el bot también detecta cuando el usuario abandona el canal de voz, procediendo a vaciar las colas, parar los hilos y liberar los recursos para esperar a la siguiente llamada.
+
+
 
     \subsection{Implementación e integración de las funciones de RPA}
         Para la automatización de los trámites se han implementado distintas funciones de RPA utilizando la biblioteca de Selenium, que permite controlar el ratón y el teclado para interactuar con la interfaz de las aplicaciones. 
         Estas funciones se integran en el backend de la aplicación web, de forma que se podrían ejecutar automáticamente nada más crear la petición. 
         No obstante, para el proyecto y por motivos de seguridad, se ha decidido que el empleado ejecute manualmente la petición, para que pueda revisar como se rellena automáticamente la información necesaria de cada trámite, pero sin que se llega a completar ningún trámite real. 
-        La figura \ref{fig:5.17} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el ayuntamiento de Valladolid. 
+        La figura \ref{fig:5.20} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el ayuntamiento de Valladolid. 
         Se puede observar como se utiliza Selenium para abrir el navegador, acceder a la página oficial donde se completa el trámite, rellenar los campos necesarios con la información de la petición y simular su completitud sin llegar a enviar realmente el formulario. 
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.8\textwidth]{img/desarrollo/rpa.png}
             \caption{Código de la función de RPA para solicitar el certificado de empadronamiento.}
-            \label{fig:5.17}
+            \label{fig:5.20}
         \end{figure}
 
         El resto de trámites automatizados siguen una lógica similar, se localizan los elementos necesarios de cada página web mediante su ID o XPath, se rellenan o clican para ir completando los menús y formularios necesarios, y se simula la completitud del trámite sin llegar a enviar realmente nada. 
