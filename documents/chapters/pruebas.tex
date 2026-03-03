@@ -1,0 +1,472 @@
+Con el objetivo de validar el correcto funcionamiento del sistema implementado, se han realizado una serie de pruebas funcionales manuales sobre los distintos módulos que componen el proyecto. 
+Aunque durante el desarrollo se llevaron a cabo verificaciones parciales para comprobar el progreso y corregir errores, las pruebas descritas en este capítulo se realizaron con el desarrollo finalizado. 
+
+Las pruebas se han realizado en un entorno local de desarrollo, utilizando el navegador Google Chrome para el acceso a la aplicación web y la aplicación de escritorio de Discord como medio de comunicación por voz con el sistema. 
+Se ha empleado la versión de escritorio de Discord para garantizar una mayor estabilidad en la transmisión de audio, ya que la versión móvil presenta una conexión más inestable que puede acarrear en pérdidas puntuales de paquetes. 
+
+
+\subsection{Pruebas del sistema web}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB01} & Inicio de sesión exitoso. \\ \hline
+        \textbf{Descripción} & El empleado se identifica en la plataforma web con sus credenciales. \\ \hline
+        \textbf{Resultado esperado} & Se redirige a la página de inicio, con el empleado identificado en el sistema y con los permisos correspondientes cargados en la sesión. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB01 - Inicio de sesión exitoso}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB02} & Inicio de sesión denegado. \\ \hline
+        \textbf{Descripción} & El empleado introduce sus credenciales en la plataforma web con su cuenta desactivada. \\ \hline
+        \textbf{Resultado esperado} & El sistema deniega el inicio de sesión y avisa al empleado que su cuenta está desactivada. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB02 - Inicio de sesión denegado}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB03} & Buscar una petición. \\ \hline
+        \textbf{Descripción} & El empleado busca una petición en la tabla de peticiones mediante los filtros. \\ \hline
+        \textbf{Resultado esperado} & La tabla muestra las peticiones coincidentes con los criterios de búsqueda. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB03 - Buscar una petición}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB04} & Crear una petición manualmente. \\ \hline
+        \textbf{Descripción} &  Un secretario crea una petición rellenando un formulario manualmente desde la plataforma web. \\ \hline
+        \textbf{Resultado esperado} & Se genera una nueva petición en el sistema con los datos introducidos. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB04 - Crear una petición manualmente}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB05} & Asignarse una petición. \\ \hline
+        \textbf{Descripción} & Un secretario se asigna una petición cuyo estado es pendiente. \\ \hline
+        \textbf{Resultado esperado} & Se actualiza el estado de la petición a asignada y se muestra el menú de edición de la petición al empleado asignado. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB05 - Asignarse una petición}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB06} & Desasignarse una petición. \\ \hline
+        \textbf{Descripción} & Un secretario se desasigna un petición que tenía asignada. \\ \hline
+        \textbf{Resultado esperado} & Se actualiza el estado de la petición a pendiente y se oculta el menú de edición de la petición al empleado. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB06 - Desasignarse una petición}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB07} & Editar los datos de una petición. \\ \hline
+        \textbf{Descripción} & El secretario asignado a una petición modifica su información y la guarda. \\ \hline
+        \textbf{Resultado esperado} & Se actualiza la información de la petición en la base de datos. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB07 - Editar los datos de una petición}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB08} & Cancelar una petición. \\ \hline
+        \textbf{Descripción} & El secretario asignado a una petición la cancela. \\ \hline
+        \textbf{Resultado esperado} & Se actualiza el estado de la petición a cancelada y no se completa el trámite. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB08 - Cancelar una petición}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB09} & Completar una petición de certificado de empadronamiento. \\ \hline
+        \textbf{Descripción} & El secretario asignado a una petición de certificado de empadronamiento la completa. \\ \hline
+        \textbf{Resultado esperado} & Se abre un navegador en la página del Ayuntamiento de Valladolid donde se completa el trámite del certificado de empadronamiento, se rellena el formulario automáticamente con la información de la petición y se actualiza el estado de la petición a completada. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB09 - Completar una petición de certificado de empadronamiento}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB10} & Completar una petición de cita en la AEAT. \\ \hline
+        \textbf{Descripción} & El secretario asignado a una petición de cita en la AEAT la completa. \\ \hline
+        \textbf{Resultado esperado} & Se abre un navegador en la página de citas de la Agencia Tributaria, se completan los menús y formularios automáticamente con la información de la petición y se actualiza el estado de la petición a completada. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB10 - Completar una petición de cita en la AEAT}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB11} & Completar una petición de tarjeta de SACYL. \\ \hline
+        \textbf{Descripción} & El secretario asignado a una petición de tarjeta sanitaria la completa. \\ \hline
+        \textbf{Resultado esperado} & Se abre un navegador en la página de SACYL donde se solicita la tarjeta sanitaria, se rellena el formulario automáticamente con la información de la petición y se actualiza el estado de la petición a completada. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB11 - Completar una petición de tarjeta de SACYL}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB12} & Buscar un empleado. \\ \hline
+        \textbf{Descripción} & Un administrados busca un empleado en la tabla de empleados mediante los filtros. \\ \hline
+        \textbf{Resultado esperado} & La tabla muestra los empleados coincidentes con los criterios de búsqueda. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB12 - Buscar un empleado}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB13} & Crear un empleado. \\ \hline
+        \textbf{Descripción} & Un administrador crea una cuenta de empleado rellenando un formulario en la plataforma web. \\ \hline
+        \textbf{Resultado esperado} & Se genera una nueva cuenta de empleado en el sistema con los datos introducidos, comprobando que no exista otra cuenta con el mismo correo, y se envía un email a la cuenta creada con su usuario y su contraseña temporal. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB13 - Crear un empleado}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB14} & Modificar información de un empleado. \\ \hline
+        \textbf{Descripción} & Un administrador modifica la información de un empleado y la guarda. \\ \hline
+        \textbf{Resultado esperado} & El sistema actualiza la información de la cuenta y si se ha modificado el correo comprueba que no haya otra cuenta con el mismo. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB14 - Modificar información de un empleado}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB15} & Desactivar una cuenta de empleado. \\ \hline
+        \textbf{Descripción} & Un administrador desactiva la cuenta de un empleado. \\ \hline
+        \textbf{Resultado esperado} & Se deniega el acceso de la cuenta al sistema, se desasignan todas las peticiones asignadas por este empleado camnbiando el estado a pendiente y se notifica por correo al empleado que su cuenta ha sido desactivada. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB15 - Desactivar una cuenta de empleado}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB16} & Activar una cuenta de empleado. \\ \hline
+        \textbf{Descripción} & Un administrador activa la cuenta de un empleado. \\ \hline
+        \textbf{Resultado esperado} & Se permite el acceso de la cuenta al sistema y se notifica por correo al empleado que su cuenta ha sido reactivada. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB16 - Activar una cuenta de empleado}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB17} & Reestablecer contraseña de un empleado. \\ \hline
+        \textbf{Descripción} & Un administrador restablece la contraseña de un empleado. \\ \hline
+        \textbf{Resultado esperado} & Se modifica la contraseña del empleado a una contraseña temporal generada automáticamente y se envía la contraseña por correo al empleado.  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB17 - Reestablecer contraseña de un empleado}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB18} & Buscar un trámite. \\ \hline
+        \textbf{Descripción} & Un administrados busca un trámite en la tabla de trámites mediante los filtros. \\ \hline
+        \textbf{Resultado esperado} & La tabla muestra los trámites coincidentes con los criterios de búsqueda. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB18 - Buscar un trámite}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB19} & Crear un trámite. \\ \hline
+        \textbf{Descripción} & Un administrador genera un nuevo trámite rellenando un formulario. \\ \hline
+        \textbf{Resultado esperado} & Se genera un nuevo trámite en el sistema, comprobando que no existe otro trámite con el mismo título. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB19 - Crear un trámite}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB20} & Modificar el título de un trámite. \\ \hline
+        \textbf{Descripción} & Un administrador edita la información de un trámite. \\ \hline
+        \textbf{Resultado esperado} & Se actualiza la información del trámite en el sistema, comprobando que no existe ningún otro trámite con el mismo título en caso de que se haya modificado. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB20 - Modificar el título de un trámite}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB21} & Desactivar un trámite. \\ \hline
+        \textbf{Descripción} & Un administrador desactiva un trámite activo. \\ \hline
+        \textbf{Resultado esperado} & Se cancelan automáticamente todas las peticiones no finalizadas de ese trámite y no deja crear nuevas peticiones para esta gestión. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB21 - Desactivar un trámite}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB22} & Activar un trámite. \\ \hline
+        \textbf{Descripción} & Un administrador activa un trámite desactivado. \\ \hline
+        \textbf{Resultado esperado} & Se permite la creación de nuevas peticiones para esta gestión. \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB22 - Activar un trámite}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB23} & Cambiar la foto de perfil. \\ \hline
+        \textbf{Descripción} & Un empleado modifica la foto de perfil de su cuenta. \\ \hline
+        \textbf{Resultado esperado} & Se borra la foto de perfil antigua para almacena la nueva en su lugar, refrescando la web para mostrar la foto nueva.  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB23 - Cambiar la foto de perfil}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB24} & Cambiar la contraseña de la cuenta. \\ \hline
+        \textbf{Descripción} & Un empleado modifica la contraseña de su cuenta introduciendo la contraseña antigua y la nueva. \\ \hline
+        \textbf{Resultado esperado} & Se comprueba que la contraseña antigua es correcta y se actualiza la contraseña de la cuenta con la nueva.  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB24 - Cambiar la contraseña de la cuenta}
+    \end{table}
+
+
+\subsection{Pruebas del agente conversacional}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{AC01} & Detección del trámite \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba AC01 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{AC02} & Extracción de datos para el certificado de empadronamiento. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba AC02 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{AC03} & Extracción de datos para la cita de la AEAT. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba AC03 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{AC04} & Extracción de datos para la tarjeta de SACYL. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba AC04 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{AC05} & Modificar uno de los datos extraídos. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba AC05 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{AC06} & Responder preguntas sin perder el flujo. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba AC06 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{AC07} & Intención del usuario no reconocida. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba AC07 - }
+    \end{table}
+
+\subsection{Pruebas del bot de Discord}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{DISC01} & Conexión al canal de voz. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba DISC01 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{DISC02} & Recepción de audio del canal de voz. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba DISC02 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{DISC03} & Reproducción de audio en el canal de voz. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba DISC03 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{DISC04} & Colgar la llamada. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba DISC04 - }
+    \end{table}
+
+
+\subsection{Pruebas de integración}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{INT01} & Solicitud completa del certificado de empadronamiento. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba INT01 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{INT02} & Solicitud completa de la cita en la AEAT. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba INT02 - }
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{INT03} & Solicitud completa de la tarjeta de SACYL. \\ \hline
+        \textbf{Descripción} &  \\ \hline
+        \textbf{Resultado esperado} &  \\ \hline
+        \textbf{Resultado obtenido} &  \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba INT03 - }
+    \end{table}
