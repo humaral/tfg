@@ -10,8 +10,8 @@ from google.cloud import speech
 from davey import MediaType
 
 
-# for name in logging.root.manager.loggerDict: #Silencia los logs de discord
-#     logging.getLogger(name).setLevel(logging.CRITICAL)
+for name in logging.root.manager.loggerDict: #Silencia los logs de discord
+    logging.getLogger(name).setLevel(logging.CRITICAL)
 SetLogLevel(-1) #Silencia los logs de Vosk
 
 load_dotenv()
@@ -227,13 +227,12 @@ class VozSink(voice_recv.AudioSink):
         return True
     
     def write(self, user, data):
-        
-        user_id = user.id
-        mtype = MediaType.audio
-        encrypted_opus = bytes(data.opus)
+
+        if data.opus is None or len(data.opus)<=3:
+            return
 
         try:
-            opus = self.vc.decrypt(user_id, mtype, encrypted_opus)
+            opus = self.vc._connection.dave_session.decrypt(user.id, MediaType.audio, bytes(data.opus))
             if opus:
                 pcm = self.decoder.decode(opus)
                 if pcm is None:
@@ -243,8 +242,8 @@ class VozSink(voice_recv.AudioSink):
                 except queue.Full:
                     print("[WARNNING] La cola de audio está llena, se perdió un paquete.")
                     pass
-        except Exception as e:
-            print("Error: ", e)
+        except:
+            pass
 
     def cleanup(self):
         pass
@@ -267,7 +266,7 @@ async def on_voice_state_update(member, before, after):
                 if canal.guild.voice_client is None:
 
                     voz = await canal.connect(cls=voice_recv.VoiceRecvClient)
-                    voz.set_davey(True)
+                    voz._connection.dave_session.set_passthrough_mode(True, 10)
                     print(f"\n{bot.user} se ha conectado a {canal}.")
 
                     audio_input_queue = queue.Queue(maxsize=50)

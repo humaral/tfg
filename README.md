@@ -18,6 +18,15 @@ y añadir la carpeta con el modelo Vosk que se quiera usar (https://alphacephei.
 añadir token de ngrok:
 ngrok config add-authtoken TOKEN
 
+
+añadir manualmente en la clase VoiceRecvClient, de la libreria de discord_ext_voice_recv ubicada en discord/ext/voice_recv/voice_client.py, las siguientes funciones: (la actualizacion de E2EE Discord, rompio compatibilidad con esta libreria externa, parche temporal para fix y siga funcionando el bot, hasta que el propietario suba una nueva versión con el arreglo definitivo, con esta version de libreria es necesario 0.5.2a179) YA NO HACE FALTA
+
+    def decrypt(self, usr_id: int, mtype, data: bytes) -> bytes:
+        return self._connection.dave_session.decrypt(usr_id, mtype, data)
+
+    def set_davey(self, val: bool) -> None:
+        self._connection.dave_session.set_passthrough_mode(val, 10)
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
