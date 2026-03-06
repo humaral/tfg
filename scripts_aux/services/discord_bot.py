@@ -7,11 +7,11 @@ from scipy.signal import resample_poly
 from normalizar import transcribir_numeros_letras
 from dialogflow import enviar_texto
 from google.cloud import speech
+from davey import MediaType
 
-#TODO colgar llamada y callarse al identificar que habla
 
-for name in logging.root.manager.loggerDict: #Silencia los logs de discord
-    logging.getLogger(name).setLevel(logging.CRITICAL)
+# for name in logging.root.manager.loggerDict: #Silencia los logs de discord
+#     logging.getLogger(name).setLevel(logging.CRITICAL)
 SetLogLevel(-1) #Silencia los logs de Vosk
 
 load_dotenv()
@@ -216,27 +216,35 @@ class TTSWorker(threading.Thread):
             self.audio_output_queue.task_done()
 
 
-class VoskSink(voice_recv.AudioSink):
-    def __init__(self, audio_input_queue):
+class VozSink(voice_recv.AudioSink):
+    def __init__(self, audio_input_queue, vc):
         super().__init__()
         self.decoder = OpusDecoder()
         self.audio_input_queue = audio_input_queue
+        self.vc = vc
 
     def wants_opus(self):
         return True
     
     def write(self, user, data):
-        if data.opus is None:
-            return
+        
+        user_id = user.id
+        mtype = MediaType.audio
+        encrypted_opus = bytes(data.opus)
 
-        pcm_16k = self.decoder.decode(data.opus)
-        if pcm_16k is None:
-            return
         try:
-            self.audio_input_queue.put_nowait(pcm_16k)
-        except queue.Full:
-            print("[WARNNING] La cola de audio está llena, se perdió un paquete.")
-            pass
+            opus = self.vc.decrypt(user_id, mtype, encrypted_opus)
+            if opus:
+                pcm = self.decoder.decode(opus)
+                if pcm is None:
+                    return
+                try:
+                    self.audio_input_queue.put_nowait(pcm)
+                except queue.Full:
+                    print("[WARNNING] La cola de audio está llena, se perdió un paquete.")
+                    pass
+        except Exception as e:
+            print("Error: ", e)
 
     def cleanup(self):
         pass
@@ -259,6 +267,7 @@ async def on_voice_state_update(member, before, after):
                 if canal.guild.voice_client is None:
 
                     voz = await canal.connect(cls=voice_recv.VoiceRecvClient)
+                    voz.set_davey(True)
                     print(f"\n{bot.user} se ha conectado a {canal}.")
 
                     audio_input_queue = queue.Queue(maxsize=50)
@@ -279,7 +288,7 @@ async def on_voice_state_update(member, before, after):
 
                     voz.audio_input_queue = audio_input_queue
                     voz.audio_output_queue = audio_output_queue
-                    voz.listen(VoskSink(audio_input_queue))
+                    voz.listen(VozSink(audio_input_queue, voz))
             else:
                 await member.move_to(None)
                 print(f'{canal} ocupado. Expulsando a {member}.')

@@ -237,7 +237,7 @@
     El flujo inicia cuando el usuario entra en el canal de voz de Discord, lo que activa el bot y da comienzo a la conversación. 
     Cada conversación se gestiona con cuatro hilos independientes: 
     \begin{enumerate}
-        \item VoskSink: se encarga de capturar el audio de entrada del usuario en el canal de voz y añadirlo a una cola de entrada de audio.
+        \item VozSink: se encarga de capturar el audio de entrada del usuario en el canal de voz y añadirlo a una cola de entrada de audio.
         \item STTWorkerGoogle: este hilo procesa la cola de entrada de audio, eniando los fragmentos al servicio de Google Speech-to-Text para convertirlos en texto y añadirlos a una cola de entrada de texto.
         \item AgentWorker: procesa la cola de entrada de texto, enviando cada mensaje al agente de Dialogflow para obtener directamente el audio de respuesta, que agregará a una cola de salida de audio.
         \item TTSWorker: gestiona la cola de salida de audio, reproduciendo cada fragmento en el canal de voz para que el usuario lo escuche.

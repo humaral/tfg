@@ -237,7 +237,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         Estas colas siguen un patrón productor-consumidor, permitiendo que cada hilo se encargue de una tarea específica, comunicándose entre ellos sin bloquear el flujo de ejecución. 
         Por último, se inicializan las clases encargadas de gestionar cada una de estas colas, las ejecuta en hilos independientes y comienza la escucha del canal de voz. 
 
-        El primer componente que interviene es la clase VoskSink, que se encarga de recibir los paquetes de audio del canal de voz, decodificarlos y almacenarlos en la cola de entrada de audio. 
+        El primer componente que interviene es la clase VozSink, que se encarga de recibir los paquetes de audio del canal de voz, decodificarlos y almacenarlos en la cola de entrada de audio. 
         La decodificación del audio se realiza mediante una clase OpusDecoder, \ref{fig:5.19}, que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
         En este caso, Discord envía el audio codificado en formato Opus a 48kHz, se decodifica a formato PCM y se remuestrea a 16kHz con la biblioteca numpy. 
         El audio se recupera en fragmentos de 20ms, lo que equivale a decodificarlo en fragmentos de 960 muestras ($48kHz\ast0.02s=960$), y se almacena en la cola de entrada como un array de bytes. 
