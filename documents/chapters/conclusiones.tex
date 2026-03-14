@@ -1,17 +1,58 @@
 \section{Conclusiones}
 
-    % \subsection{Dificultades observadas}
-    %     %TODO ACABAR
-    %     1. Coste de las tecnologías: 
-    %     2. Autentificación frente el sistema: surge
-    %     una necesidad en la producción futura del sistema y es la forma de
-    %     identificar al llamante. Esto es necesario para distintos trámites, en
-    %     cuestión de protección de datos y para evitar estafas. Para la simulación
-    %     actual no es del todo necesario, ya que es un entorno controlado, pero nos
-    %     reduce mucho el número de trámites que puedo elegir, ya que la mayoría no
-    %     están pensados a hacerlos por terceros y requieren de identificación
-    %     mediante DNI electrónico o certificado digital.
+    El objetivo principal de este proyecto ha sido desarrollar un sistema accesible que contribuya a reducir las barreras que la brecha digital impone a determinados sectores de la población. 
+    En particular, se ha planteado una solución que permita realizar distintos trámites administrativos mediante una llamada telefónica, ofreciendo una alternativa a los métodos digitales actuales para aquellos usuarios con dificultades para utilizarlos. 
+
+    A lo largo del desarrollo del proyecto se ha logrado implementar un prototipo funcional capaz de atender y gestionar las solicitudes administrativas. 
+    El sistema permite recibir llamadas VoIP a través de un canal de Discord, interpretar las solicitudes del usuario mediante un agente conversacional y tramitar las peticiones a través de una plataforma de gestión para empleados. 
+    De esta manera, se ha conseguido cumplir con los objetivos y requisitos establecidos inicialmente, demostrando la viabilidad de la solución como alternativa para reducir la brecha digital. 
+
+    Los resultados obtenidos tras la finalización del proyecto muestran que es posible integrar tecnologías de inteligencia artificial en la Administración pública para facilitar la interacción con los usuarios. 
+    Este enfoque permite simplificar procesos que actualmente pueden resultar complejos para determinados sectores de la población, poniendo de manifiesto que todavía existen nuevas vías para abordar el problema de la brecha digital. 
+    En particular, el aprovechamiento de tecnologías emergentes como la inteligencia artificial abre nuevas oportunidades para mejorar la accesibilidad de los servicios digitales.
+
+    No obstante, durante el desarrollo del proyecto se han identificado algunas limitaciones y dificultades que podrían suponer una barrera en un escenario de despliegue a gran escala. 
+    Por un lado, la utilización de servicios basados en inteligencia artificial y sistemas de llamadas telefónicas implica un coste económico asociado al uso de plataformas externas, que podría aumentar exponencialmente en función del número de solicitudes tramitadas, además de los costes derivados del personal y del mantenimiento del propio sistema. 
+    En este contexto, su aplicación práctica podría requerir apoyo institucional o financiación pública para ser factible, ya que está planteado como un servicio orientado a cubrir una necesidad social más que a generar beneficios como un modelo de negocio. 
+    Por otro lado, la incorporación de nuevos trámites en el sistema requiere un proceso de configuración y adaptación que puede resultar costoso en términos de tiempo y esfuerzo.
+    Estas cuestiones evidencian la necesidad de continuar investigando y optimizando soluciones de este tipo, con el objetivo de encontrar un equilibrio entre la accesibilidad del servicio y los recursos necesarios para su mantenimiento. 
+
+    En conclusión, el trabajo realizado demuestra que es posible desarrollar alternativas que mejoren el acceso al entorno digital mediante el uso de sistemas basados en inteligencia artificial y comunicación por voz. 
+    Aunque se trata de un prototipo y todavía sería necesario evaluar su funcionamiento en un entorno real, la propuesta presentada plantea un enfoque prometedor que podría contribuir a mejorar la accesibilidad de los servicios digitales en el futuro. 
+    
 
 \section{Trabajo futuro}
-%NOTE Mejoras en la app: gestión de trámites para que administradores añadan, modifiquen, eliminen tramites.
+
+    Como líneas de trabajo futuro, se plantean diversas mejoras y ampliaciones que permitirían reforzar la funcionalidad del sistema y ampliar su alcance. 
+    Especialmente en el contexto de la posible integración de este proyecto en los sistemas actuales de las Administraciones públicas.
+
+    \begin{description}
+        \item[Ampliación de trámites] El núcleo del proyecto consiste en la realización de trámites administrativos, por lo que sería indispensable incluir el mayor número de trámites posibles en el sistema para intentar cubrir todas las necesidades de los usuarios. 
+            Habría que añadir nuevas gestiones de distintas instituciones y localidades, priorizando los más relevantes para el público objetivo. 
+            Esto implicaría crear nuevos roles en la plataforma web, para modularizar aún más los asccesos a las peticiones por trámites, instituciones o ámbito territorial.
+
+        \item[Integración de APIs oficiales] El caso idóneo para completar los trámites implicaría el uso de APIs internas para comunicarse directamente con el backend de las Administraciones correspondientes. 
+            Esto evitaría el uso de RPA en los portales web públicos para completarlos, evitando errores, posibles brechas de seguridad y mejorando el mantenimiento de la aplicación.
+
+        \item[Mejoras en seguridad y autenticación] Con las llamadas telefónicas surge una necesidad en la producción futura del sistema y es la forma de identificar al llamante. 
+            La mayoría de las gestiones son personales y exigen autenticar al emisor, ya sea por protección de datos o para evitar estafas. 
+            Para la simulación actual no era necesario, ya que se trata de un entorno controlado, con trámites que no exigen esta identificación, pero la mayoría de los casos requieren identificación mediante DNI electrónico o certificado digital. 
+            
+            Por lo tanto, habría que crear un método de identificación telefónica. 
+            Una opción podría ser una autenticación de dos factores, basada en algo conocido, una contraseña pedida por el agente al inicio de la conversación, y algo poseído, el número telefónico con el que se realiza la llamada. 
+            El punto negativo de esta medida es que sería necesario vincular el teléfono a la contraseña, lo que implicaría que los usuarios tengan que realizar una gestión previa para registrarlo y poder disfrutar de los beneficios de este sistema. 
+
+        \item[Vista de estadísticas] Sería de gran utilidad generar una vista con estadísticas y datos en la platadforma web para empleados. 
+            Se podría utilizar para realizar análisis sobre las peticiones y así conocer información de valor para las instituciones. 
+            Por ejemplo, se podría sacar información sobre la cantidad de llamadas recibidas por localidad o Administración o las veces que se realiza un trámite concreto, para saber el número de empleados necesarios para gestionarlos o si sería útil programar un trámite basado en los datos. 
+
+        \item[Mejoras en el agente conversacional] Para tener un agente más completo, se podría complementar con una IA generativa que actúe cuando el mensaje del usuario no coincida con ninguna de las intenciones entrenadas en el agente. 
+            Esto daría más libertad y naturalidad a la conversación, permitiendo contestar a cualquier duda o aportar información de forma más sencilla, rompiendo con un flujo estricto y una conversación más robotizada. 
+            
+            En la misma línea, se podría ampliar la configuración del agente para que sea capáz de realizar llamadas y no solo recibirlas. 
+            De esta forma, se podría mantener al usuario informado ante cualquier cambio en el estado de su petición, para confirmar su completitud, avisarle si se ha cancelado por si quiere volver a intentarlo o incluso llamarle en caso de error en algún dato para volver a solicitárselo. 
+        
+        \item[Portal web público] Como concepto para ampliar el alcance del proyecto y el público objetivo, se podría habilitar un formulario web público para tener otro método de solicitud de los trámites fuera de las llamadas telefónicas. 
+            Esta idea queda fuera del objetivo del proyecto, pero no sería difícil de realizar ya que ya existe un formulario privado para empleados para generar peticiones y ayudaría a un gran sector que desea unificar todos los trámites en un portal único \cite{ref4}. 
+    \end{description}
 

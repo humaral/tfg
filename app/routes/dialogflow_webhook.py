@@ -11,14 +11,23 @@ INTENTS = ["Bienvenida", "cambiar_campo", "cita_AEAT_Modalidad", "cita_AEAT_Pres
 
 @dialogflow_webhook_bp.route('/webhook', methods=['POST'])
 def webhook():
+
     req = request.get_json()
     
     intent = req["queryResult"]["intent"]["displayName"]
-    params = req["queryResult"].get("parameters", {})
+    params_intent = req["queryResult"].get("parameters", {})
+    contexts = req["queryResult"].get("outputContexts", {})
     allParams = req["queryResult"].get("allRequiredParamsPresent", False)
     action = req["queryResult"].get("action", "")
 
-    res={}
+    params = unificar_parametros(contexts)
+    for k, v in params_intent.items():
+        if v not in ("", None, []):
+            params[k] = v
+
+    res={} 
+
+
 
     if action == "tramite_certificado_empadronamiento.crear_peticion" and allParams: #Certificado de empadronamiento
         tel=random.randint(600000000, 999999999) #Genero un número telefónico aleatorio ya que al simularlo con discord no se obtiene este dato. Al subirlo a producción habría que sustituirlo por el número recuperado de la integración telefónica.
@@ -260,3 +269,18 @@ def webhook():
 
     #TODO Falta logica de datos incorrectos
     return jsonify(res)
+
+
+def unificar_parametros(contextos):
+    params = {}
+
+    for c in contextos:
+        params_contexto = c.get("parameters", {})
+
+        for key, value in params_contexto.items():
+            if key.endswith(".original") or value in ("", None, []):
+                continue
+
+            params[key] = value
+    
+    return params
