@@ -1,10 +1,117 @@
+\section{Manual de instalación y despliegue} 
 
-\section{Manual de despliegue e instalación} 
+    \subsection{Dependencias del sistema}
+        El sistema desarrollado depende de varios servicios externos que permiten el funcionamiento del agente conversacional y la comunicación entre los distintos componentes del sistema. 
+        Concretamente, el sistema requiere el uso de los siguientes servicios: 
+        \begin{itemize}
+            \item Discord, utilizado para realizar las llamadas VoIP, capturando y reproduciendo audio de un canal de voz.
+            \item Dialogflow, encargado de interpretar la intención del usuario y recopilar la información necesaria para realizar el trámite. 
+            \item Google Cloud, necesario para la comunicación entre el bot de Discord y Dialogflow y el uso del servicio de reconocimiento de voz.  
+            \item Ngrok, utilizado para exponer el servidor local de desarrollo a Internet, permitiendo la comunicación entre Dialogflow y la plataforma web.
+        \end{itemize}
+        
+        Además, para ejecutar el sistema es necesario disponer del siguiente software: 
+        \begin{itemize}
+            \item Python 3.13 o superior.
+            \item Gestor de paquetes pip.
+            \item Navegador web moderno.
+            \item Cuenta en Ngrok.
+            \item Cuenta en Google Cloud.
+            \item Cuenta en Discord.
+        \end{itemize}
 
+        Todas las dependencias necesarias para ejecutar el sistema se encuentran definidas en el archivo \textbf{requirements.txt}.
 
-\section{Manual de mantenimiento}
+    \subsection{Instalación del proyecto}
+        Para instalar el proyecto es necesario clonar el repositorio y preparar el entorno de ejecución de Python. 
 
+        En primer lugar, se debe clonar el repositorio mediante el comando \textbf{git clone \url{https://github.com/humaral/tfg.git}}.
+        
+        Una vez descargado, se accede al directorio del repositorio con \textbf{cd tfg}. 
+        
+        Posteriormente, se crea un entorno virtual de Python para aislar las dependencias del proyecto con \textbf{python -m venv venv}.
 
+        Una vez creado el entorno virtual, se activa con \textbf{venv\textbackslash{}Scripts\textbackslash{}activate} en sistemas Windows, y con \textbf{source venv/bin/activate} en Linux o MacOS. 
+
+        Finalmente, se intalan las dependencias necesarias para ejecutar el proyecto con \textbf{pip install -r requirements.txt}.
+
+        Además, es necesario crear un archivo \textbf{.env} que contenga las variables de entorno utilizadas por la aplicación. 
+        Debe incluir al menos las siguientes variables:
+        \begin{itemize}
+            \item \textbf{DIALOGFLOW\_CREDENTIALS}
+            \item \textbf{DISCORD\_TOKEN}
+            \item \textit{VOSK\_MODEL\_PATH} (\textit{opcional}).
+        \end{itemize}
+
+    \subsection{Configuración del agente de Dialogflow}
+
+        El repositorio incluye una copia exportada del agente conversacional utilizado por el sistema, ubicada en \textbf{/scripts\_aux/services/models/Operador.zip}.
+        Pasos para importar este agente en Dialogflow se deben seguir los siguientes pasos:
+        \begin{enumerate}
+            \item Acceder a la \href{https://dialogflow.cloud.google.com}{consola de Dialogflow} - \url{https://dialogflow.cloud.google.com}.
+            \item Crear un nuevo agente.
+            \item Seleccionar la opción \textbf{Import from ZIP} en la configuración.
+            \item Subir el archivo \textbf{Operador.zip}.
+        \end{enumerate}
+
+    \subsection{Configuración de Google Cloud}
+
+        Para que la aplicación pueda comunicarse con Dialogflow y para poder usar los servicios de STT es necesario disponer de credenciales de Google Cloud. 
+        La configuración de este servicio se consigue siguiendo los siguientes pasos:
+        \begin{enumerate}
+            \item Acceder a la \href{https://console.cloud.google.com/}{consola de Google Cloud} - \url{https://console.cloud.google.com/}.
+            \item Crear un proyecto de Google Cloud.
+            \item Activar el servicio de facturación.
+            \item Vincular el agente de Dialogflow al proyecto.
+            \item Activar el servicio de Speech-to-Text en el proyecto. (\textit{opcional})
+            \item Crear una \textbf{Cloud Resource Manager API} asociada a los servicios de Dialogflow y STT y descargar el archivo JSON con sus credenciales.
+            \item Añadir en el archivo \textbf{.env} la variable de entorno \textbf{DIALOGFLOW\_CREDENTIALS} con la ruta donde se almacene el archivo JSON con las credenciales.
+        \end{enumerate}
+
+    \subsection{Configuración de Vosk}
+
+        En caso de preferir usar un modelo local para realizar el Speech-to-Text en vez del servicio de Google, se puede conseguir siguiendo estos pasos:
+        \begin{enumerate}
+            \item Descargar el \href{https://alphacephei.com/vosk/models}{modelo Vosk} en \url{https://alphacephei.com/vosk/models}.
+            \item Descomprimir la carpeta y añadirla al proyecto.
+            \item Añadir en el archivo \textbf{.env} la variable de entorno \textbf{VOSK\_MODEL\_PATH} con la ruta donde se almacene la carpeta con el modelo.
+            \item Acceder al archivo \textbf{scripts\_aux\textbackslash{}services\textbackslash{}discord\_bot.py} y cambiar la variable global \textbf{USE\_LOCAL\_STT=True}.
+        \end{enumerate}
+
+    \subsection{Configuración del bot de Discord}
+
+        El código del bot se encuentra en \textbf{scripts\_aux\textbackslash{}services\textbackslash{}discord\_bot.py} y para utilizarlo hay que seguir los siguientes pasos:
+        \begin{enumerate}
+            \item Acceder a \href{https://discord.com/developers}{Discord Developer Portal} - \url{https://discord.com/developers}.
+            \item Crear una nueva aplicación.
+            \item Añadir un bot a la aplicación.
+            \item Copiar el token de autenticación del bot y añadirlo en \textbf{.env} en la variable \textbf{DISCORD\_TOKEN}.
+            \item Crear un servidor de Discord.
+            \item Generar un enlace de invitación desde el portal de desarrolladores e invitar al bot al servidor de Discord.
+            \item Crear un canal de voz en el servidor de Discord, limitado a 2 usuarios.
+        \end{enumerate}
+        Para que el bot pueda funcionar correctamente, deberá tener permisos en el servidor de Discord para conectarse a canales de voz, hablar y mover miembros.
+
+    \subsection{Configuración de Ngrok}
+
+        Antes de iniciar Ngrok por primera vez, hay que realizar los siguientes pasos: 
+        \begin{enumerate}
+            \item Acceder al \href{https://dashboard.ngrok.com/}{dashboard de Ngrok} - \url{https://dashboard.ngrok.com/}.
+            \item Copiar el Authtoken y añadirlo al entorno con el comando \textbf{ngrok config add-authtoken TU\_TOKEN\_NGROK}.
+            \item Ir a la pestaña Domains en el dashboard de Ngrok y copiar la URL pública donde se levantará la aplicación web.
+            \item En la consola de Dialogflow, acceder a la pestaña de fulfillment y añadir la URL del webhook de la aplicación web - \textbf{https://TU\_URL\_NGROK/webhook}.
+        \end{enumerate}
+
+    \subsection{Despliegue del sistema}
+        Para ejecutar el sistema es necesario iniciar los distintos componentes del sistema en orden. 
+        
+        En primer lugar, hay que iniciar el servidor de correo SMTPD utilizado para simular el envío de correos electrónicos con \textbf{py -m aiosmtpd -n -l localhost:1025}, recibiéndolos en texto plano en el terminal donde se ejecuta:
+
+        Posteriormente, se inicia el servidor Flask con \textbf{py app.py}, quedando la aplicación web disponible para acceder desde un navegador en la dirección \textbf{http://localhost:5000}.
+
+        Una vez iniciada la aplicación web, se debe exponer el servidor local a Internet con el servicio de Ngrok, ejecutando \textbf{ngrok http 5000}.
+
+        Por último, se inicializa el bot de Discord ejecutando \textbf{py .\textbackslash{}scripts\_aux\textbackslash{}services\textbackslash{}discord\_bot.py}.
+        El bot se conectará al servidor de Discord y cuando el usuario entre al canal de voz, dará comienzo la llamada.
 
 \section{Manual de usuario}
-

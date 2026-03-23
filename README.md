@@ -1,124 +1,195 @@
-# tfg
+# Sistema de automatización de trámites administrativos mediante IA telefónica
 
-Instalar dependencias:
-C:/Users/hmaof/Documents/proyecto/tfg/.venv/Scripts/Activate.ps1
+## Descripción
+
+Este proyecto consiste en un sistema local de desarrollo que permite simular la realización de trámites administrativos mediante un **agente conversacional accesible a través de una llamada VoIP**.
+
+El sistema consta de varios componentes que trabajan conjuntamente:
+
+- **Aplicación web desarrollada con Flask**, pensada para empleados de las Administraciones públicas, desde donde pueden gestionar y tramitar las peticiones recibidas en el sistema.
+- **Agente conversacional en Dialogflow**, encargado de interpretar y recuperar la información del usuario durante la llamada.
+- **Bot de Discord**, utilizado para extraer el audio de la llamada y comunicarse con Dialogflow.
+- **Servicio de correo electrónico**, encargado de enviar notificaciones a los empleados desde la plataforma web.
+- **Ngrok**, utilizado para exponer el servidor local a internet y poder comunicar la plataforma web con Dialogflow.
+
+El objetivo de este proyecto es facilitar el acceso a servicios administrativos a los sectores de la población con dificultades para utilizar las herramientas digitales actuales, simplificando el proceso mediante una llamada y reduciendo así la brecha digital.
+
+>Nota: La memoria completa del TFG se encuentra en la ruta ```/documents/memoria.pdf``` dentro del repositorio.
+---
+
+## Dependencias del sistema
+
+El sistema depende de varios servicios externos:
+
+- Discord
+- Dialogflow
+- Google Cloud
+- Ngrok
+
+### Software necesario
+
+- Python 3.13 o superior
+- pip
+- Navegador web moderno
+- Cuenta en Ngrok
+- Cuenta en Google Cloud
+- Cuenta en Discord
+
+Todas las dependencias están definidas en ```requirements.txt```.
+
+---
+
+## Instalación del proyecto
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/humaral/tfg.git
+cd tfg
+```
+
+### 2. Crear el entorno virtual
+
+```bash
+python -m venv venv
+```
+
+### 3. Activar el entorno virtual
+
+#### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+#### Linux/macOS
+
+```bash
+source venv/bin/activate
+```
+
+### 4. Instalar las dependencias
+
+```bash
 pip install -r requirements.txt
+```
 
-Ejecutar la app:
-py app.py
-ngrok http 5000
+> Crear un archivo ```.env``` con las variables de entorno del proyecto. Debe incluir al menos las siguientes variables:
 
-Ejecutar el servidor smtpd:
+- **DIALOGFLOW_CREDENTIALS**
+- **DISCORD_TOKEN**
+- *VOSK_MODEL_PATH* (*opcional*).
+
+---
+
+## Configuración del agente de Dialogflow
+
+El repositorio incluye una copia exportada del agente conversacional utilizado por el sistema, ubicada en:
+```/scripts_aux/services/models/Operador.zip```
+
+Pasos para importar el agente:
+
+1. Acceder a la [consola de Dialogflow](https://dialogflow.cloud.google.com) - <https://dialogflow.cloud.google.com>.
+2. Crear un nuevo agente.
+3. Seleccionar la opción **Import from ZIP** en la configuración.
+4. Subir el archivo **Operador.zip**.
+
+---
+
+## Configuración de Google Cloud
+
+Para que la aplicación pueda comunicarse con Dialogflow y para poder usar los servicios de STT es necesario disponer de credenciales de Google Cloud.
+
+1. Acceder a la [consola de Google Cloud](https://console.cloud.google.com/) - <https://console.cloud.google.com/>.
+2. Crear un proyecto de Google Cloud.
+3. Activar el servicio de facturación.
+4. Vincular el agente de Dialogflow al proyecto.
+5. Activar el servicio de Speech-to-Text en el proyecto. (*opcional*)
+6. Crear una **Cloud Resource Manager API** asociada a los servicios de Dialogflow y STT y descargar el archivo JSON con sus credenciales.
+7. Añadir en el archivo ```.env``` la variable de entorno **DIALOGFLOW_CREDENTIALS** con la ruta donde se almacene el archivo JSON con las credenciales.
+
+---
+
+## Configuración de Vosk
+
+En caso de preferir usar un modelo local para realizar el Speech-to-Text:
+
+1. Descargar el [modelo Vosk](https://alphacephei.com/vosk/models) en <https://alphacephei.com/vosk/models>.
+2. Descomprimir la carpeta y añadirla al proyecto.
+3. Añadir en el archivo ```.env``` la variable de entorno **VOSK_MODEL_PATH** con la ruta donde se almacene la carpeta con el modelo.
+4. Acceder al archivo ```scripts_aux\services\discord_bot.py``` y cambiar la variable global ```USE_LOCAL_STT=True```.
+
+---
+
+## Configuración del bot de Discord
+
+El código del bot se encuentra en: ```scripts_aux\services\discord_bot.py```
+
+Para utilizar este código hay que seguir los siguientes pasos:
+
+1. Acceder a [Discord Developer Portal](https://discord.com/developers) - <https://discord.com/developers>.
+2. Crear una nueva aplicación.
+3. Añadir un bot a la aplicación.
+4. Copiar el token de autenticación del bot y añadirlo en ```.env``` en la variable **DISCORD_TOKEN**.
+5. Crear un servidor de Discord.
+6. Generar un enlace de invitación desde el portal de desarrolladores e invitar al bot al servidor de Discord.
+7. Crear un canal de voz en el servidor de Discord, limitado a 2 usuarios.
+
+> Nota: El bot debe tener permisos para conectarse a canales de voz, hablar y mover miembros.
+
+---
+
+## Configuración de Ngrok
+
+Antes de iniciar Ngrok por primera vez:
+
+1. Acceder al [dashboard de Ngrok](https://dashboard.ngrok.com/) - <https://dashboard.ngrok.com/>.
+2. Copiar el Authtoken y añadirlo al entorno con el comando ```ngrok config add-authtoken TU_TOKEN_NGROK```.
+3. Ir a la pestaña Domains en el dashboard de Ngrok y copiar la URL pública donde se levantará la aplicación web.
+4. En la consola de Dialogflow, acceder a la pestaña de fulfillment y añadir la URL del webhook de la aplicación web - **https://TU_URL_NGROK/webhook**.
+
+---
+
+## Despliegue del sistema
+
+### 1. Iniciar el servidor de correo smtpd
+
+```bash
 py -m aiosmtpd -n -l localhost:1025
-
-
-crear un .env con DISCORD_TOKEN y VOSK_MODEL_PATH
-y añadir la carpeta con el modelo Vosk que se quiera usar (https://alphacephei.com/vosk/models)
-
-añadir token de ngrok:
-ngrok config add-authtoken TOKEN
-
-
-añadir manualmente en la clase VoiceRecvClient, de la libreria de discord_ext_voice_recv ubicada en discord/ext/voice_recv/voice_client.py, las siguientes funciones: (la actualizacion de E2EE Discord, rompio compatibilidad con esta libreria externa, parche temporal para fix y siga funcionando el bot, hasta que el propietario suba una nueva versión con el arreglo definitivo, con esta version de libreria es necesario 0.5.2a179) YA NO HACE FALTA
-
-    def decrypt(self, usr_id: int, mtype, data: bytes) -> bytes:
-        return self._connection.dave_session.decrypt(usr_id, mtype, data)
-
-    def set_davey(self, val: bool) -> None:
-        self._connection.dave_session.set_passthrough_mode(val, 10)
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.inf.uva.es/hugmart/tfg.git
-git branch -M main
-git push -uf origin main
 ```
 
-## Integrate with your tools
+> Los correos electrónicos se recibirán en texto plano en el terminal donde se ejecute este comando.
 
-- [ ] [Set up project integrations](https://gitlab.inf.uva.es/hugmart/tfg/-/settings/integrations)
+### 2. Iniciar el servidor Flask
 
-## Collaborate with your team
+```bash
+py app.py
+```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+> La aplicación web quedará disponible en ```http://localhost:5000```.
 
-## Test and Deploy
+### 3. Iniciar el servicio de Ngrok
 
-Use the built-in continuous integration in GitLab.
+```bash
+ngrok http 5000
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+> Ngrok generará una URL pública para conectar el servicio externo de Dialogflow con el servidor local.
 
-***
+### 4. Iniciar el bot de Discord
 
-# Editing this README
+```bash
+py .\scripts_aux\services\discord_bot.py
+```
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+> El bot se conectará al servidor de Discord y cuando el usuario entre al canal de voz, dará comienzo la llamada.
 
-## Suggestions for a good README
+---
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## Autor
 
-## Name
-Choose a self-explaining name for your project.
+Proyecto desarrollado como **Trabajo de Fin de Grado de la titulación de Grado en Ingeniería Informática, mención en Computación, de la Universidad de Valladolid**.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Autor: **Hugo Martín Alonso**
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
-
-
-
-## Activar el entorno
-## .venv\Scripts\activate
-## flask --app backend/app run
+---
