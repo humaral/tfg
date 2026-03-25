@@ -13,11 +13,11 @@
 </div>
 <div class="detalles-contenido">
     <div id="contenido-col1">
-        <label for="cita-aeat-dni">DNI:</label>
+        <label for="cita-aeat-dni">DNI*:</label>
         <input type="text" id="cita-aeat-dni" name="dni" {%if peticion%}value="{{peticion.informacion.dni}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required pattern="^\d{8}\w{1}$">
-        <label for="cita-aeat-nombre">Nombre:</label>
+        <label for="cita-aeat-nombre">Nombre*:</label>
         <input type="text" id="cita-aeat-nombre" name="nombre" {%if peticion%}value="{{peticion.informacion.nombre}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>
-        <label for="cita-aeat-servicio">Servicio:</label>
+        <label for="cita-aeat-servicio">Servicio*:</label>
         <select id="cita-aeat-servicio" name="servicio" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
             <option value="" disabled {%if not peticion%}selected{%endif%}>--Selecciona Servicio--</option>
             {%for s in servicios_aeat%}
@@ -26,13 +26,13 @@
         </select>
     </div>
     <div id="contenido-col2">
-        <label for="cita-aeat-modalidad">Modalidad:</label>
-        <button id="cita-aeat-modalidad" type="button" data-modalidad="{% if peticion and peticion.informacion.modalidad == 'telefonica' %}telefonica{% else %}presencial{% endif %}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
+        <label for="cita-aeat-modalidad">Modalidad*:</label>
+        <button id="cita-aeat-modalidad" type="button" data-modalidad="{% if peticion and peticion.informacion.modalidad == 'telefonica' %}telefonica{% else %}presencial{% endif %}" data-asignada="{{peticion.estadoActual.valor == 'Asignada'}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
             <iconify-icon {%if peticion and peticion.informacion.modalidad == 'presencial'%}icon="raphael:employee"{%else%}icon="tabler:phone"{%endif%}></iconify-icon>
             <p>{%if peticion and peticion.informacion.modalidad == 'presencial'%}Presencial{%else%}Telefónica{%endif%}</p>
             <input type="hidden" id="cita-aeat-modalidad-hidden" name="modalidad" value="{% if peticion %}{{peticion.informacion.modalidad}}{% else %}telefonica{% endif %}">
         </button>
-        <label id="cita-aeat-label-oficina" for="cita-aeat-oficina">Oficina:</label>
+        <label id="cita-aeat-label-oficina" for="cita-aeat-oficina">Oficina*:</label>
         <div id="cita-aeat-oficina">
             <iconify-icon icon="streamline-plump:building-office-remix"></iconify-icon>
             <select id="cita-aeat-campo-oficina" name="oficina" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%} required>
@@ -42,7 +42,7 @@
                 {%endfor%}
             </select>
         </div>
-        <label id="cita-aeat-label-fecha" for="cita-aeat-fecha">Fecha:</label>
+        <label id="cita-aeat-label-fecha" for="cita-aeat-fecha">Fecha*:</label>
         <div id="cita-aeat-fecha">
             <iconify-icon icon="mdi:calendar-clock-outline"></iconify-icon>
             <input type="date" id="cita-aeat-dia" name="dia" min="{{current_date[6:10]}}-{{current_date[3:5]}}-{{current_date[0:2]}}" {%if peticion%}value="{{peticion.informacion.dia}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}readonly{%endif%}{%endif%} required>

@@ -61,6 +61,9 @@
             <form method="post">
                 <div id="peticion-detalles">
                     {%include "components/tramites/" ~ peticion.idTramite ~ ".jinja" %}
+                    {%if (peticion.estadoActual.valor == "Asignada")%}
+                    <div><strong>Nota:</strong> Todos los campos con asterisco (*) deben ser completados.</div>
+                    {%endif%}
                 </div>
                 {%if (peticion.estadoActual.valor == "Asignada")%}
                 <div class="botones">

@@ -27,9 +27,9 @@
             <option value="{{tramite.id}}">{{tramite.valor}}</option>
             {%endfor%}
         </select>
-
-        <div id="crear-peticion-template"></div>
         
+        <div id="crear-peticion-template"></div>
+        <div><strong>Nota:</strong> Todos los campos con asterisco (*) deben ser completados.</div>
         <div id="crear-peticion-buttons">
             <a href="{{url_for('dashboard.peticiones')}}" id="crear-peticion-cancelar">Cancelar</a>
             <button id="crear-peticion-guardar" type="submit" disabled> Crear </button>

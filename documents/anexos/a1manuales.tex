@@ -1,4 +1,7 @@
-\section{Manual de instalación y despliegue} 
+\section{Manual de instalación y despliegue}
+
+    Este manual describe el proceso necesario para la instalación, configuración y despliegue del sistema desarrollado. 
+    Se detallan los requisitos previos, las dependencias externas y los pasos necesarios para ejecutar correctamente la aplicación en un entorno local de desarrollo. 
 
     \subsection{Dependencias del sistema}
         El sistema desarrollado depende de varios servicios externos que permiten el funcionamiento del agente conversacional y la comunicación entre los distintos componentes del sistema. 
@@ -75,7 +78,7 @@
             \item Descargar el \href{https://alphacephei.com/vosk/models}{modelo Vosk} en \url{https://alphacephei.com/vosk/models}.
             \item Descomprimir la carpeta y añadirla al proyecto.
             \item Añadir en el archivo \textbf{.env} la variable de entorno \textbf{VOSK\_MODEL\_PATH} con la ruta donde se almacene la carpeta con el modelo.
-            \item Acceder al archivo \textbf{scripts\_aux\textbackslash{}services\textbackslash{}discord\_bot.py} y cambiar la variable global \textbf{USE\_LOCAL\_STT=True}.
+            \item Acceder al archivo \textbf{scripts\_aux\textbackslash{}services\textbackslash{}discord\_bot.py} y cambiar la variable global \\\textbf{USE\_LOCAL\_STT=True}.
         \end{enumerate}
 
     \subsection{Configuración del bot de Discord}
@@ -97,7 +100,7 @@
         Antes de iniciar Ngrok por primera vez, hay que realizar los siguientes pasos: 
         \begin{enumerate}
             \item Acceder al \href{https://dashboard.ngrok.com/}{dashboard de Ngrok} - \url{https://dashboard.ngrok.com/}.
-            \item Copiar el Authtoken y añadirlo al entorno con el comando \textbf{ngrok config add-authtoken TU\_TOKEN\_NGROK}.
+            \item Copiar el Authtoken y añadirlo al entorno con el comando \\\textbf{ngrok config add-authtoken TU\_TOKEN\_NGROK}.
             \item Ir a la pestaña Domains en el dashboard de Ngrok y copiar la URL pública donde se levantará la aplicación web.
             \item En la consola de Dialogflow, acceder a la pestaña de fulfillment y añadir la URL del webhook de la aplicación web - \textbf{https://TU\_URL\_NGROK/webhook}.
         \end{enumerate}
@@ -115,3 +118,199 @@
         El bot se conectará al servidor de Discord y cuando el usuario entre al canal de voz, dará comienzo la llamada.
 
 \section{Manual de usuario}
+
+        Este manual describe el uso de la aplicación web de getión de trámites telefónicos desde el punto de vista del empleado, detallando las principales funcionalidades disponibles. 
+
+        \subsection{Login en la aplicación}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.5\textwidth]{img/manual/login.png}
+                \caption{Formulario de inicio de sesión.}
+                \label{fig:A.1}
+            \end{figure}
+            Al acceder a la aplicación, el empleado es recibido por una pantalla de login, donde se muestra un formulario de acceso, \ref{fig:A.1}. 
+            Se introduce el usuario o correo electrónico del empleado y su contraseña privada y el sistema te redirige a la página principal con la sesión iniciada. 
+
+        \subsection{Funcionalidades del administrador}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/paginapeticiones.png}
+                \caption{Página con la tabla de peticiones para el rol de administrador.}
+                \label{fig:A.2}
+            \end{figure}
+            Al acceder en el sistema con una cuenta de administrador, se muestra como pantalla de inicio la página de peticiones, figura \ref{fig:A.2}. 
+            Dicha página, muestra como módulo principal una tabla con información básica de todas las peticiones del sistema y el empleado puede interactuar con los siguientes componentes:
+            \begin{enumerate}
+                \item Barra de navegación. 
+                    En la parte superior izquierda se muestra un menú para navegar entre las páginas principales de la aplicación. 
+                    El administrador puede usar este menú para cambiar entre la tabla de peticiones, empleados o trámites. 
+                \item Filtros de búsqueda. 
+                    Se pueden usar para filtrar el contenido de la tabla de peticiones, pudiendo localizar rápidamente una petición por su ID, el teléfono del llamante, el estado o trámite de la petición o el nombre del empleado asignado. 
+                \item Filtros de ordenación. 
+                    Al clicar sobre el encabezado de una columna de la tabla, se ordenarán las peticiones según ese campo. 
+                    Si se vuelve a clicar sobre el mismo campo, se cambiará de orden de ascendente a descendente o viceversa. 
+                \item Redirección al resumen de cada petición. 
+                    Si se clica sobre el ID de una petición de la tabla, se carga la página con la información completa de una petición. 
+                    Los administradores solo pueden ver la información, no tienen permiso para la modificación o ejecución. 
+                \item Filtro de paginación. 
+                    Al clicar sobre este elemento se puede modificar el número de peticiones que aparecen en cada página de la tabla. 
+                \item Menú de paginación. 
+                    Interactuando con este menú se puede cambiar la página de peticiones que se muestra en la tabla. 
+                \item Información del empleado. 
+                    Este botón muestra el nombre, rol y foto de perfil del empleado registrado. 
+                    Al clicarlo, se redirecciona a la página con la información completa del perfil del empleado. 
+            \end{enumerate}
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/tablaempleados.png}
+                \caption{Página con la tabla de empleados.}
+                \label{fig:A.3}
+            \end{figure}
+            Al clicar sobre el botón de empleados del menú de navegación se accede a la página con la tabla de empleados, figura \ref{fig:A.3}.
+            Esta tabla muestra la información de todos los empleados registrados en el sistema, con una funcionalidad similar a la tabla de peticiones: 
+            \begin{enumerate}
+                \item Filtros de búsqueda. 
+                    Sirven para localizar rápidamente un empleado filtrando por su usuario, su nombre o apellidos, su email, su rol o si la cuenta está activada o desactivada. 
+                \item Botón de creación de empleados. 
+                    Al clicarlo, se carga la página con el formulario para añadir nuevos empleados al sistema, figura \ref{fig:A.4}. 
+                \item Filtros de ordenación. 
+                    Al igual que en la tabla de peticiones, si se clica sobre el encabezado de una columna se ordenará el contenido de la tabla según ese campo. 
+                    Se podrá cambiar entre orden ascendente y descente clicando varias veces sobre el mismo encabezado. 
+                \item Filtro de paginación. 
+                    Para cambiar el número de empleados que aparecen en cada página de la tabla. 
+                \item Menú de paginación. 
+                    Para cambiar la página de la tabla mostrada. 
+                \item Botón de edición de empleado. 
+                    Este botón tiene una doble función, muestra si la cuenta está activada o desactivada con un icono y al mismo tiempo sirve para redirigir a la página de edición de empleado, figura \ref{fig:A.5}.
+            \end{enumerate}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.4\textwidth]{img/manual/registrarempleado.png}
+                \caption{Formulario para añadir un nuevo empleado al sistema.}
+                \label{fig:A.4}
+            \end{figure}
+            El formulario de creación de empleados, figura \ref{fig:A.4}, se compone de varios campos obligatorios que hay que rellenar, salvo el segundo apellido que se puede dejar en blanco. 
+            El email es único por cada empleado y no se podrá crear la cuenta si ya está registrado en el sistema. 
+            El usuario y la contraseña temporal se generan automáticamente por el sistema y se envían al correo electrónico del nuevo empleado nada más pulsar el botón de crear. 
+            
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.4\textwidth]{img/manual/editarempleado.png}
+                \caption{Formulario para editar la información de un empleado existente.}
+                \label{fig:A.5}
+            \end{figure}
+            El formulario de edición de empleados, figura \ref{fig:A.5}, se compone de varios campos rellenados con la información actual del empleado elegido para editar.  
+            Se puede modificar cualquier campo y se actualizará el valor en el sistema al clicar sobre el botón editar. 
+            Si se modifica el email, se comprobará que no está registrado ya en el sistema, en cuyo caso no se modificaría la información del empleado. 
+            También hay un botón de restablecimiento de contraseña, al clicarlo se generará automáticamente una contraseña temporal, que se enviará al correo electrónico del empleado. 
+            Por último, no se puede eliminar una cuenta de empleado para mantener una trazabilidad en el sistema, solo se puede desactivar para anular su acceso. 
+            
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/tablatramites.png}
+                \caption{Página con la tabla de trámites.}
+                \label{fig:A.6}
+            \end{figure}
+            Al clicar sobre el botón de trámites del menú de navegación se accede a la página con la tabla de trámites, figura \ref{fig:A.6}.
+            Esta tabla muestra la información de todos los trámites registrados en el sistema. 
+            La funcionalidad y disposición de la información es igual a la tabla de empleados. 
+             
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.4\textwidth]{img/manual/registrartramite.png}
+                \caption{Formulario para añadir un nuevo trámite al sistema.}
+                \label{fig:A.7}
+            \end{figure}
+            Para registrar un trámite en el sistema únicamente hay que escribir su nombre, teniendo en cuenta que no exista otro trámite con el mismo nombre en el sistema.
+            
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.4\textwidth]{img/manual/editartramite.png}
+                \caption{Formulario para editar la información de un trámite existente.}
+                \label{fig:A.8}
+            \end{figure}
+            El formulario de edición permite modificar el nombre del trámite, teniendo en cuenta la unicidad; y al igual que el formulario de empleados, no se permite eliminar un trámite del sistema, solo se puede desactivar para evitar su uso. 
+
+        \subsection{Funcionalidades del secretario}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/tablapeticiones.png}
+                \caption{Página con la tabla de peticiones para el rol de secretario.}
+                \label{fig:A.9}
+            \end{figure}
+            Al acceder en el sistema con una cuenta de secretario, se muestra como pantalla de inicio la tabla de peticiones, figura \ref{fig:A.9}. 
+            Dicha página, muestra una tabla con la información básica de todas las peticiones del sistema, tiene la misma disposición y funcionalidad explicada ya en la sección de administradores, \ref{fig:A.2}. 
+            A mayores, incluye un botón en la parte superior derecha de la tabla que redirecciona a la página con el formulario para crear peticiones, figura \ref{fig:A.10}. 
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/crearpeticion.png}
+                \caption{Formulario para la creación de peticiones manualmente.}
+                \label{fig:A.10}
+            \end{figure}
+            El formulario de creación de peticiones se compone de un campo obligatorio para añadir el teléfono del llamante y otro para la selección del trámite a realizar. 
+            Dependiendo del trámite elegido se despliegan los formularios correspondientes para completarlos, figuras \ref{fig:A.11},\ref{fig:A.12} y \ref{fig:A.13}. 
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/crearpeticioncertemp.png}
+                \caption{Formulario para la creación de una petición del trámite de solicitud del certificado de empadronamiento.}
+                \label{fig:A.11}
+            \end{figure}
+            El formulario para solicitar el certificado de empadronamiento consta de cinco campos textuales obligatorios. 
+            Se rellenan con la información proporcionada por el usuario y se clica en crear. 
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/crearpeticionaeat.png}
+                \caption{Formulario para la creación de una petición del trámite de cita en la AEAT.}
+                \label{fig:A.12}
+            \end{figure}
+            El formulario de solicitud de una cita en la agencia tributaria consta de múltiples campos obligatorios a rellenar, pero hay que seleccionar primero el servicio que desea el usuario. 
+            Porque dependiendo del servicio elegido, puede estar disponible la modalidad de cita telefónica o no. 
+            Una vez rellenados todos los campos se clica en el botón de crear.
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/crearpeticionsacyl.png}
+                \caption{Formulario para la creación de una petición del trámite de solicitud de la tarjeta de SACYL.}
+                \label{fig:A.13}
+            \end{figure}
+            El formualario para solicitar la tarjeta sanitaria de SACYL consta también de múltiples campos obligatorios a rellenar en cualquier orden y dos campos de la dirección, el piso y la puerta, que no lo son y por tanto pueden dejarse en blanco. 
+            Al rellenarlos se clica en el botón de crear. 
+
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/peticionpendiente.png}
+                \caption{Página con la información de una petición pendiente para el rol de secretario.}
+                \label{fig:A.14}
+            \end{figure}
+            De la misma forma que los administradores, si se clica en el ID de una petición en la tabla, se redirige a la página con la información completa de dicha petición, figura \ref{fig:A.14}. 
+            Para los secretarios, cuando la petición está en estado "pendiente", se incluye un botón en la parte superior derecha para asignársela. 
+            Al clicarlo, se activa las opciones para gestionar dicha petición, figura \ref{fig:A.15}.
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=1\textwidth]{img/manual/peticionasignada.png}
+                \caption{Página con la información de una petición asignada para el rol de secretario.}
+                \label{fig:A.15}
+            \end{figure}
+            Una vez asignada una petición, los campos del formulario donde se muestra la información se vuelven editables. 
+            Se puede modificar cualquier campo y se debe clicar en el botón actualizar para guardar la información modificada. 
+            Hay también otros tres botones: 
+            \begin{itemize}
+                \item Desasignar. Se encuentra en la parte superior derecha de la página y desasigna la petición, reestableciéndola al estado "pendiente". 
+                \item Cancelar. Finaliza la petición sin realizar el trámite. 
+                \item Completar. Inicia el script de RPA, ejecutando el trámite en la página administrativa corerspondiente.
+            \end{itemize}
+        
+        \subsection{Funcionalidades comunes}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[width=0.5\textwidth]{img/manual/perfil.png}
+                \caption{Cuadro de detalles del perfil del empleado.}
+                \label{fig:A.16}
+            \end{figure}
+            Al clicar sobre el botón del perfil de arriba a la derecha, se muestra una vista con la información detallada de la cuenta registrada, figura \ref{fig:A.16}. 
+            Desde esta vista se puede cambiar la foto de perfil clicando en la foto actual. 
+            También se puede modificar la contraseña de la cuenta, necesario para cambiar la contraseña temporal por una propia. 
+            Por último, en la parte de abajo de esta página se encuentra el botón para cerrar la sesión del empleado. 
+

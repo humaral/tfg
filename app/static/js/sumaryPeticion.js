@@ -95,6 +95,14 @@ if (buttonModalidad) {
 
         const permiteLlamada = servicioSeleccionado.dataset.llamada === "True";
 
+        const estaAsignada = buttonModalidad.dataset.asignada === "True";
+
+        if(!estaAsignada){
+            buttonModalidad.disabled = true;
+            buttonModalidad.classList.add("disabled");
+            return;
+        }
+
         if(!permiteLlamada) {
             actualizarPlantilla("presencial");
             buttonModalidad.disabled = true;
