@@ -43,7 +43,7 @@
         Antes de seleccionar estas herramientas, se valoraron otras alternativas con el fin de determinar qué solución se adaptaba mejor a los objetivos y limitaciones del proyecto. 
         
         En cuanto al canal de comunicación con los usuarios, se consideró el uso de la red telefónica tradicional mediante la integración propia de Dialogflow Phone Gateway, así como otras opciones como \href{https://www.twilio.com/}{Twilio} \cite{ref12}. 
-        Esta alternativa se ajustaba mejor al plantemamiento original del proyecto al permitir una interacción más realista. 
+        Esta alternativa se ajustaba mejor al planteamiento original del proyecto al permitir una interacción más realista. 
         No obtante, fue descartada debido a los costes asociados por minuto de llamada y a la disponibilidad limitada de números telefónicos españoles en este tipo de plataformas. 
         En muchos casos, los proveedores ofrecen principalmente números internacionales, lo que incrementa significativamente el coste del desarrollo.
         
@@ -53,7 +53,7 @@
         Por ello, se descartó está solución, ya que mantener un flujo estricto y limitado, evitando desviaciones temáticas o respuestas fuera del contexto del trámite, resulta más complejo con este tipo de modelos generativos. 
 
         En cuanto a soluciones similares a Dialogflow, ofrecen prestaciones similares en la creación de agentes estructurados. 
-        No obstante, sus plan gratuitos o sistema de créditos resultan más limitados e insuficiente para la cantidad de pruebas necesarias durante el desarrollo, haciéndolas menos viables para el proyecto.
+        No obstante, sus planes gratuitos o sistemas de créditos resultan más limitados e insuficientes para la cantidad de pruebas necesarias durante el desarrollo, haciéndolas menos viables para el proyecto.
     
     \subsection{Documentación}
         Para la documentación del proyecto se utilizarán las siguientes herramientas:
@@ -76,7 +76,7 @@
         \caption{Prototipo visual de la página de login.}
         \label{fig:4.1}
     \end{figure}
-    La figura \ref{fig:4.1} muestra la pantalla de inicio de sesión del sistema. 
+    La Figura \ref{fig:4.1} muestra la pantalla de inicio de sesión del sistema. 
     Se trata de la página inicial de la aplicación y la única accesible públicamente para usuarios ajenos al sistema.
     Por ello, presenta únicamente un formulario de acceso en la parte central, que permite a los empleados identificarse fácilmente mediante sus credenciales.
         
@@ -88,11 +88,11 @@
         \caption{Prototipo visual de la página de peticiones.}
         \label{fig:4.2}
     \end{figure}
-    La figura \ref{fig:4.2} muestra un listado con todas las peticiones del sistema. 
+    La Figura \ref{fig:4.2} muestra un listado con todas las peticiones del sistema. 
     Se trata de la página principal de la aplicación, ya que es visible por todos los empleados.
         
     El componente principal es una tabla con la información básica de cada petición, incluyendo en la parte superior de la tabla una serie de filtros para localizar rápidamente la gestión deseada.
-    En cada fila de la tabla se incluye un link, situado en la columna con del ID, para navegar a una página con detalles específicos de cada petición.
+    En cada fila de la tabla se incluye un link, situado en la columna del ID, para navegar a una página con detalles específicos de cada petición.
     Además, en la parte superior izquierda, debajo del logotipo, se incluye un menú para navegar entre las distintas páginas. 
         
     Por último, todas las páginas incluyen el perfil del empleado identificado en la parte superior derecha. 
@@ -110,10 +110,10 @@
         \caption{Prototipo visual de la página de una petición revisable.}
         \label{fig:4.4}
     \end{figure}
-    Al clicar en el ID de una petición en la tabla de la imagen \ref{fig:4.2}, se muestra la página con detalles de la figura \ref{fig:4.3}.
+    Al clicar en el ID de una petición en la tabla de la Figura \ref{fig:4.2}, se muestra la página con detalles de la Figura \ref{fig:4.3}.
     En esta pantalla se podrá consultar los datos recopilados de una petición para cada trámite, junto con una línea temporal que muestra los eventos de la gestión. 
         
-    En caso de ser una petición revisable, figura \ref{fig:4.4}, los empleados que tengan permiso, verán a la derecha del título de la petición un botón para asignársela.
+    En caso de ser una petición revisable, Figura \ref{fig:4.4}, los empleados que tengan permiso, verán a la derecha del título de la petición un botón para asignársela.
     Una vez asignada, los campos con la información se volverán modificables y los trabajadores podrán editar la petición o cancelarla.
         
     \begin{figure}[H]
@@ -122,17 +122,17 @@
         \caption{Prototipo visual de la página de empleados.}
         \label{fig:4.5}
     \end{figure}
-    Desde el menú superior, los administradores pueden navegar hasta la figura \ref{fig:4.5}, que muestra un listado con todos los empleados del sistema. 
+    Desde el menú superior, los administradores pueden navegar hasta la Figura \ref{fig:4.5}, que muestra un listado con todos los empleados del sistema. 
     El componente principal es una tabla similar a la de las peticiones, que incluye la información de cada empleado y los filtros necesarios para localizarlos rápidamente.
         
     A diferencia de la otra tabla, se añade una columna que indica si la cuenta de cada empleado está activa. 
     Esta columna cumple una doble función, ya que, clicando sobre el valor correspondiente a un empleado, se navegará hasta una página donde se muestra su información, permitiendo modificarla.
         
-    La posibilidad de desactivar cuentas impide el acceso al sistema de un empleado sin necesidad de eliminar su cuenta, perservando así la trazabilidad de la información.
+    La posibilidad de desactivar cuentas impide el acceso al sistema de un empleado sin necesidad de eliminar su cuenta, preservando así la trazabilidad de la información.
         
     Por último, se incluye a la derecha de los filtros el botón para poder agregar nuevos empleados al sistema.
         
-    La página que muestra la información de los trámites será exactamente igual a esta, manteniendo los mismos componenetes, disposición y funcionalidad.
+    La página que muestra la información de los trámites será exactamente igual a esta, manteniendo los mismos componentes, disposición y funcionalidad.
 
     \begin{figure}[H]
         \centering
@@ -140,18 +140,18 @@
         \caption{Prototipo visual de la página de estadísticas.}
         \label{fig:4.6}
     \end{figure}
-    Desde el menú de navegación, también se puede acceder a una sección de estadísticas.
+    Desde el menú de navegación, también se puede acceder a una sección de estadísticas, Figura \ref{fig:4.6}.
     Esta página está diseñada para mostrar información relevante sobre las peticiones y las llamadas recibidas.
     Dado que se trata de un sistema simulado, no habrá datos suficientes para que la información sea representativa. 
     Sin embargo, la sección queda incluida en el diseño como un desarrollo previsto a futuro.
 
 \section{Arquitectura del sistema}
     La arquitectura principal del sistema se organiza como un modelo de capas relajadas, separando la funcionalidad en cuatro capas independientes. 
-    Esta arquitectura implica que cada capa no se comunica únicamente con el nivel inmediatamente inferior, si no que habrá una capa superior que se comunique con las demás. 
-    Esto se debe a que se ha adaptado la arquitectura al framework de Flask, por ello, el sistema no sigue un patrón modelo-vista-controlador estricto. 
+    Esta arquitectura implica que cada capa no se comunica únicamente con el nivel inmediatamente inferior, sino que habrá una capa superior que se comunique con las demás. 
+    Esto se debe a que se ha adaptado la arquitectura al framework de Flask; por ello, el sistema no sigue un patrón modelo-vista-controlador estricto. 
         
     La capa principal es la capa de presentación, que incluye las vistas de la aplicación web y los controladores. 
-    Flask funciona con rutas que se definen con una función, por lo que cada controlador puede incluir múltiples rutes. 
+    Flask funciona con rutas que se definen con una función, por lo que cada controlador puede incluir múltiples rutas. 
     Es decir, se usan controladores ligeros ya que cada controlador puede gestionar múltiples vistas. 
     Y al ser un sistema moderno, desde los mismos controladores se comunican con las otras tres capas, lo que implica que no puedan ser estrictas.
 
@@ -163,16 +163,18 @@
 
     Por último, hay una capa de servicios que incluye los archivos del sistema que se utilizan para comunicarse con los servicios externos a la aplicación. 
     Principalmente, se usan las prestaciones de Google Cloud y Discord, aunque también incluye el servicio de correo interno y los procesos de automatización para ejecutar los trámites en las webs oficiales. 
-        
+    
+    La comunicación y dependencias entre las distintas capas del sistema y sus componentes se representan en la Figura \ref{fig:4.7}.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{img/diagramas/decomposition&uses_style.png}
         \caption{Decomposition \& Uses style.}
+        \label{fig:4.7}
     \end{figure}
 
 \section{Diseño de la base de datos}
     En esta sección se presenta el diseño de la base de datos del sistema, estructurada para almacenar toda la información necesaria para el correcto funcionamiento de la aplicación. 
-    En la figura \ref{fig:4.8} se representa el diagrama entidad relación, siguiendo una representación fiel al modelo de dominio.
+    En la Figura \ref{fig:4.8} se representa el diagrama entidad relación, siguiendo una representación fiel al modelo de dominio.
         
     \begin{figure}[H]
         \centering
@@ -184,9 +186,9 @@
 \section{Diseño de la inteligencia artificial}
     El agente conversacional de Dialogflow funciona mediante la definición de intents y entities, implementando tecnologías de machine learning para detectar y analizar la intención que tiene el usuario. 
         
-    Las posibles intenciones de los usarios se definen en los intents. 
+    Las posibles intenciones de los usuarios se definen en los intents. 
     Se describen las frases de entrada o eventos que activan el intent, las contestaciones que debe dar el bot y las entities necesarias que se deben obtener. 
-    Cuando el usuario dice una frase de entrada, la inteligencia artificial calcula la probabilidad de que coinicida con un intent, y si el porcentaje supera el umbral, activa la intención.
+    Cuando el usuario dice una frase de entrada, la inteligencia artificial calcula la probabilidad de que coincida con un intent, y si el porcentaje supera el umbral, activa la intención.
         
     Las entities sirven para definir los tipos de datos o la forma en la que se extrae la información de las frases.
     En otras palabras, sirven para categorizar o etiquetar las palabras. 
@@ -216,7 +218,7 @@
         \item Trámite: enum con los trámites disponibles.
     \end{itemize}
 
-    Por último, se ha definido en la figura \ref{fig:4.9} un digrama de flujo para definir la secuencia prevista de una llamada al sistema.
+    Por último, se ha definido en la Figura \ref{fig:4.9} un digrama de flujo para definir la secuencia prevista de una llamada al sistema.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{img/diagramas/diagrama_flujo_ia.png}
@@ -233,7 +235,7 @@
         \caption{Diagrama de secuencia de una llamada telefónica al sistema.}
         \label{fig:4.10}
     \end{figure}
-    La figura \ref{fig:4.10} muestra el diagrama de secuencia base de una llamada VoIP entre un usuario y el sistema para realizar cualquier trámite. 
+    La Figura \ref{fig:4.10} muestra el diagrama de secuencia base de una llamada VoIP entre un usuario y el sistema para realizar cualquier trámite. 
     El flujo inicia cuando el usuario entra en el canal de voz de Discord, lo que activa el bot y da comienzo a la conversación. 
     Cada conversación se gestiona con cuatro hilos independientes: 
     \begin{enumerate}
@@ -251,7 +253,7 @@
         \caption{Diagrama de secuencia de inicio de sesión de un empleado.}
         \label{fig:4.11}
     \end{figure}
-    En la figura \ref{fig:4.11} se muestra el flujo de inicio de sesión en la aplicación web de empleados. 
+    En la Figura \ref{fig:4.11} se muestra el flujo de inicio de sesión en la aplicación web de empleados. 
     El empleado introduce sus credenciales en el formulario de login, que se enviarán al backend para su verificación.
     
     \begin{figure}[H]
@@ -260,7 +262,7 @@
         \caption{Diagrama de secuencia de consulta de los detalles de una petición.}
         \label{fig:4.12}
     \end{figure}
-    La figura \ref{fig:4.12} representa el diagrama correspondiente a la consulta de los detalles específicos de una petición.
+    La Figura \ref{fig:4.12} representa el diagrama correspondiente a la consulta de los detalles específicos de una petición.
     Una vez en la vista con el listado de peticiones, el empleado busca la gestión deseada y clica en el ID para navegar a la página con los detalles. 
     El sistema recuperará la información de la base de datos y la mostrará en pantalla.
 
@@ -270,7 +272,7 @@
         \caption{Diagrama de secuencia de asignación de una petición revisable.}
         \label{fig:4.13}
     \end{figure}
-    La figura \ref{fig:4.13} corresponde al diagrama de secuencia para la asignación de una petición por un empleado. 
+    La Figura \ref{fig:4.13} corresponde al diagrama de secuencia para la asignación de una petición por un empleado. 
     Desde la vista con los detalles de una petición revisable, el empleado puede clicar en un botón para asignársela. 
     El sistema actualizará el estado de la petición en la base de datos y permitirá al empleado editar los campos y completar o cancelar la gestión. 
     Si el empleado decide completar el trámite, se accederá al servicio de automatización para ejecutarlo en la web oficial correspondiente, para posteriormente actualizar su estado en la base de datos. 
@@ -282,7 +284,7 @@
         \caption{Diagrama de secuencia de cambio de contraseña de un empleado.}
         \label{fig:4.14}
     \end{figure}
-    En la figura \ref{fig:4.14} se muestra el digrama de secuencia correspondiente al cambio de contraseña de un empleado. 
+    En la Figura \ref{fig:4.14} se muestra el digrama de secuencia correspondiente al cambio de contraseña de un empleado. 
     Desde la vista del perfil se rellena el formulario de cambio de contraseña y se envía al backend. 
     Si la contraseña actual es correcta, se actualizará la nueva en la base de datos.
 
@@ -292,7 +294,7 @@
         \caption{Diagrama de secuencia de creación de una petición por un empleado.}
         \label{fig:4.15}
     \end{figure}
-    La figura \ref{fig:4.15} representa el flujo de creación de una nueva petición por un empleado. 
+    La Figura \ref{fig:4.15} representa el flujo de creación de una nueva petición por un empleado. 
     Desde la vista con el listado de peticiones, el empleado clica en el botón para agregar una gestión nueva. 
     Se mostrará un formulario que se rellenará con los datos necesarios, y al enviarlo, el sistema generará la petición y la almacenará en la base de datos.
 
@@ -302,7 +304,7 @@
         \caption{Diagrama de secuencia de creación de un empleado.}
         \label{fig:4.16}
     \end{figure}
-    La figura \ref{fig:4.16} se corresponde con el diagrama de secuencia para el caso de uso de añadir un nuevo empleado al sistema. 
+    La Figura \ref{fig:4.16} se corresponde con el diagrama de secuencia para el caso de uso de añadir un nuevo empleado al sistema. 
     El flujo es similar al de la creación de una petición, pero se inicia desde la vista con el listado de empleados. 
     Cuando se envía el formulario, el sistema comprueba que no existe otro empleado con el mismo email, crea la cuenta y envía un correo electrónico al nuevo empleado con su contraseña temporal.
 
@@ -312,7 +314,7 @@
         \caption{Diagrama de secuencia de edición de un empleado.}
         \label{fig:4.17}
     \end{figure}
-    La figura \ref{fig:4.17} muestra el diagrama de secuencia para la modificación de la información de un empleado. 
+    La Figura \ref{fig:4.17} muestra el diagrama de secuencia para la modificación de la información de un empleado. 
     Desde el mismo formulario de creación, se mostrará la información del empleado seleccionado, permitiendo editar los campos, resetear la contraseña o desactivar la cuenta. 
     Si se modifica el email, el sistema comprobará que no existe otro empleado con el mismo. 
     En caso de reseteo de contraseña o cambio en la activación de la cuenta, se notificará al empleado mediante un correo electrónico. 
@@ -324,7 +326,7 @@
         \caption{Diagrama de secuencia de creación de un trámite.}
         \label{fig:4.18}
     \end{figure}
-    En la figura \ref{fig:4.18} se muestra el flujo de creación de un nuevo trámite. 
+    En la Figura \ref{fig:4.18} se muestra el flujo de creación de un nuevo trámite. 
     Esta secuencia es exactamente igual a la creación de un nuevo empleado, empezando desde la vista con el listado de trámites. 
     En este caso, el sistema comprueba que no existe otro trámite con el mismo nombre antes de crearlo.
 
@@ -334,7 +336,7 @@
         \caption{Diagrama de secuencia de edición de un trámite.}
         \label{fig:4.19}
     \end{figure}
-    Por último, se muestra la figura \ref{fig:4.19}, que representa el diagrama de secuencia para la edición de un trámite. 
+    Por último, se muestra la Figura \ref{fig:4.19}, que representa el diagrama de secuencia para la edición de un trámite. 
     Similar a la edición de un empleado, se permite modificar el nombre y la activación de un trámite desde el mismo formulario de creación. 
     Si se cambia el nombre, el sistema comprueba que no existe antes de modificarlo y si se desactiva, cancela todas las peticiones en curso de ese trámite.
 
