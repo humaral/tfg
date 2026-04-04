@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" version="29.6.3" pages="16">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36" pages="16">
   <diagram name="Diagrama Casos de Uso" id="Ui2T87aOIxXclpyN8R03">
     <mxGraphModel dx="1426" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -3292,7 +3292,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="vMKSzteBpWDZmPOFhngo" name="Gantt estimación">
-    <mxGraphModel dx="1188" dy="619" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1178" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -3468,10 +3468,13 @@
           <mxGeometry height="10" width="32" x="595" y="265" as="geometry" />
         </mxCell>
         <mxCell id="SWTW8YG1sNtzYipQFBOd-1" parent="1" style="strokeColor=none;fillColor=light-dark(#F8CECC,#7C1111);strokeWidth=0;shadow=0;align=center;html=1;shape=mxgraph.mockup.graphics.rrect;rSize=0;" value="" vertex="1">
-          <mxGeometry height="126" width="63" x="628" y="160" as="geometry" />
+          <mxGeometry height="125" width="31" x="627" y="160" as="geometry" />
         </mxCell>
         <mxCell id="2nONsEJfqcHwLfGOy7LT-141" parent="1" style="strokeColor=inherit;fillColor=inherit;gradientColor=inherit;strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.graphics.rrect;rSize=0;;fontColor=#666666;" value="S4" vertex="1">
           <mxGeometry height="20" width="32" x="627" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="YObTdC6gGGWpQSAwLqUa-1" parent="1" style="strokeColor=none;fillColor=light-dark(#F8CECC,#7C1111);strokeWidth=0;shadow=0;align=center;html=1;shape=mxgraph.mockup.graphics.rrect;rSize=0;" value="" vertex="1">
+          <mxGeometry height="125" width="31" x="659.75" y="160" as="geometry" />
         </mxCell>
         <mxCell id="2nONsEJfqcHwLfGOy7LT-143" parent="1" style="strokeColor=inherit;fillColor=inherit;gradientColor=inherit;strokeWidth=1;shadow=0;dashed=0;align=center;html=1;shape=mxgraph.mockup.graphics.rrect;rSize=0;;fontColor=#666666;" value="S1" vertex="1">
           <mxGeometry height="20" width="32" x="659" y="140" as="geometry" />
