@@ -28,8 +28,8 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         \label{fig:5.2}
     \end{figure}
     Los componentes principales de la web son las tablas que muestran la información correspondiente a las peticiones, empleados o trámites. 
-    El contenido de estas tablas se carga dinámicamente en función de los los filtros, el orden o la paginación. 
-    La Figura \ref{fig:5.2} muestra el fragmento de código en el que se llama a un endpoint, "/api/peticiones", para recuperar la información correspondiente de la base de datos y actualizarla en la tabla.
+    El contenido de estas tablas se carga dinámicamente en función de los filtros, el orden o la paginación. 
+    La Figura \ref{fig:5.2} muestra el fragmento de código en el que se llama a un endpoint, ``/api/peticiones'', para recuperar la información correspondiente de la base de datos y actualizarla en la tabla.
 
     \begin{figure}[H]
         \centering
@@ -61,7 +61,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
     Para gestionar la base de datos dentro de la aplicación se utiliza SQLAlchemy, lo que permite definir clases Python equivalentes a cada tabla y trabajar con los registros como objetos. 
     La Figura \ref{fig:5.6} muestra un ejemplo de consulta dinámica sobre la tabla de peticiones, en la que se aplican filtros, ordenación y paginación en función de los parámetros recibidos. 
-    El resultado se almacena en la variable "peticiones" como una lista de objetos de la clase correspondiente, permitiendo acceder a sus atributos y métodos directamente.
+    El resultado se almacena en la variable ``peticiones''  como una lista de objetos de la clase correspondiente, permitiendo acceder a sus atributos y métodos directamente.
     \begin{figure}[H]
         \centering
         \includegraphics[width=1\textwidth]{img/desarrollo/dashboard.png}
@@ -77,7 +77,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     También incluye un endpoint que renderiza la plantilla con la información de cada trámite, llamado dinámicamente desde el formulario de crear peticiones. 
 
     El segundo blueprint es el de autenticación, que incluye las rutas para iniciar y cerrar sesión. 
-    Las sesiones se gestionan mediante la extensión Flask-Login, que incluye funciones que simplifican la gestión de usuarios identidficados, como el decorador @login\_required, que se escribe en las funciones de las rutas para bloquear el acceso a usuarios no autenticados. 
+    Las sesiones se gestionan mediante la extensión Flask-Login, que incluye funciones que simplifican la gestión de usuarios identificados, como el decorador @login\_required, que se escribe en las funciones de las rutas para bloquear el acceso a usuarios no autenticados. 
     Además, se ha implementado un sistema de permisos para cada rol, Figura \ref{fig:5.7}, que se almacenan en un archivo JSON y se cargan en la sesión de cada usuario cuando se identifican. 
     La Figura \ref{fig:5.8} muestra el código de las funciones que gestionan los permisos, incluido un decorador personalizado, @permiso\_requerido, que actua de forma análoga a @login\_required, bloqueando el acceso a las rutas a las que el usuario no tenga permiso.
     \begin{figure}[H]
@@ -95,12 +95,12 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
     El tercer blueprint es el más importante, incluye las rutas que gestionan las vistas y funcionalidades principales de la aplicación. 
     En este módulo se encuentran las funciones que gestionan las peticiones, empleados, trámites y la información del perfil de cada empleado. 
-    Estas funciones incluyen principalmente la lógica para recuperar la información necesaria de la base de datos, como en la figura \ref{fig:5.6}, renderizar las plantillas correspondientes y gestionar la información recibida de los formularios. 
+    Estas funciones incluyen principalmente la lógica para recuperar la información necesaria de la base de datos, como por ejemplo, renderizar las plantillas correspondientes y gestionar la información recibida de los formularios (Figura \ref{fig:5.6}). 
     
     Tanto las peticiones como los empleados y trámites se gestionan de forma similar en el backend, ya que comparten la forma en la que se presentan en el frontend.
     En los tres casos se ha implementado una ruta para renderizar la página con la tabla y un endpoint para recuperar la información de la tabla en formato JSON. 
     En el supuesto de las peticiones se ha añadido una ruta para mostrar el resumen de cada petición, con la funcionalidad correspondiente para asignarse la petición, completarla, cancelarla, editarla o desasignársela, y otra ruta independiente para crear nuevas peticiones.
-    Sin embargo, en el caso de los empleados y trámites se simplifica la lógica reutilizando la misma ruta y plantilla tanto para mostrar los datos individuales y editarlos como para crear nuevos registros, diferenciando ambos casos mediante la presencia o ausencia de un ID en la URL.
+    Sin embargo, en el caso de los empleados y trámites se simplifica la lógica reutilizando la misma ruta y plantilla tanto para mostrar los datos individuales y editarlos, como para crear nuevos registros, diferenciando ambos casos mediante la presencia o ausencia de un ID en la URL.
 
     El cuarto blueprint sirve para gestionar la carga y subida de archivos en la web. 
     Hasta el momento, esta funcionalidad se utiliza únicamente para recuperar la imagen de perfil de cada empleado que se muestra tanto en el perfil como en el historial de cada petición. 
@@ -108,7 +108,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
     Por último, hay un blueprint de errores, que se encarga únicamente de renderizar una plantilla personalizada en caso de error 404, es decir, cuando el empleado intenta acceder a un recurso inexistente, y de error 403, cuando el empleado intenta acceder a un recurso para el que no tiene permiso.
     
-    Adicionalmente, se ha implementado otro blueprint independiente para modularizar la lógica de las APIs 
+    Adicionalmente, se ha implementado otro blueprint independiente para modularizar la lógica de las APIs. 
     Por el momento, este incluye un único endpoint que actúa como webhook para procesar los eventos de Dialogflow, cuya integración se comentará con mayor detalle en la sección siguiente.
 
 \section{Implementación e integración de servicios}
@@ -116,13 +116,13 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     
     \subsection{Implementación e integración del servicio de correo electrónico}
         Para la gestión del envío de correos electrónicos dentro de la aplicación web se ha utilizado la extensión Flask-Mail, que permite integrar facilmente un sistema de notificaciones por correo electrónico dentro del framework Flask. 
-        Este servicio se utiliza para comunicar automáticamente a los empleado distinta información relacionada con su cuenta, como el envío de sus credenciales de acceso, el establecimiento de una nueva contraseña temporal o la activación y desactivación del acceso al sistema. 
+        Este servicio se utiliza para comunicar automáticamente a los empleados distinta información relacionada con su cuenta, como el envío de sus credenciales de acceso, el establecimiento de una nueva contraseña temporal o la activación y desactivación del acceso al sistema. 
 
         Teniendo en cuenta el alcance del proyecto, no se ha configurado un servidor de correo real. 
         En su lugar, se ha utilizado un servidor SMTP local de pruebas ejecutado en localhost mediante la herramienta aiosmtpd. 
         De esta forma, los correos generados por la aplicación se muestran por consola, lo que permite verificar su correcto funcionamiento sin necesidad de utilizar un servidor real. 
 
-        Finalmente, la configuración actual del servicio de correo electrónico se encuentra en el archivo config.py, donde se definen los parámetro necesarios para su funcionamiento, siendo fácilmente modificable para la futura integración del servidor real que se utilice en producción. 
+        Finalmente, la configuración actual del servicio de correo electrónico se encuentra en el archivo config.py, donde se definen los parámetros necesarios para su funcionamiento, siendo fácilmente modificable para la futura integración del servidor real que se utilice en producción. 
         El envío de correos se realiza de forma centralizada mediante una única función, Figura \ref{fig:5.9}, lo que permite generar distintos tipos de mensajes ajustando únicamente los parámetros de entrada. 
         \begin{figure}[H]
             \centering
@@ -151,7 +151,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         \end{figure}
 
         En el caso del webhook de Dialogflow, se implementa un endpoint en el backend de la aplicación web para que Dialogflow pueda comunicarse con el sistema. 
-        Se utiliza para poder generar las peticiones de forma automática una vez el agente extrae los datos necesarios de la conversación y en el caso de solicitar una cita en la Agencia Tributaria, para poder consultrar si el servicio elegido por el ususario dispone de cita telefónica o no. 
+        Se utiliza para poder generar las peticiones de forma automática una vez el agente extrae los datos necesarios de la conversación, y en el caso de solicitar una cita en la Agencia Tributaria, para poder consultar si el servicio elegido por el usuario dispone de cita telefónica o no. 
         Dialogflow envía la información de cada evento en formato JSON, que se procesa en el endpoint para extraer los datos necesarios y realizar las acciones correspondientes y enviar la respuesta de vuelta a Dialogflow. 
         El webhook se configura en la consola de Dialogflow, Figura \ref{fig:5.11}, indicando la URL del endpoint, que debe ser accesible desde Internet para que Dialogflow pueda comunicarse con él. 
         Por ello, se utiliza la herramienta ngrok, que expone el servidor local de desarrollo a través de una URL pública, lo que permite el correcto funcionamiento del webhook sin desplegar la aplicación. 
@@ -164,9 +164,9 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
         \subsubsection{Entrenamiento del agente de Dialogflow}
             El entrenamiento del agente de IA se ha llevado a cabo desde la consola de Dialogflow, donde se ha definido el flujo de conversación mediante la creación de intents y entities y su unión mediante contextos y acciones.
-            Dialogflow oculta el modelo o algoritmo interno de Machine Learning que utiliza para procesar el lenguaje natural, solo permite establecer el umbral de confianza para el reconocimiento de cada intent. 
+            Dialogflow oculta el modelo o algoritmo interno de Machine Learning que utiliza para procesar el lenguaje natural; solo permite establecer el umbral de confianza para el reconocimiento de cada intent. 
 
-            Cada intent puede activarse meddiante el lanzamiento de un evento, como el evento de bienvenida al iniciar la llamada, o mediante el reconocimiento de una frase de entrenamiento, Figura \ref{fig:5.12}.
+            Cada intent puede activarse mediante el lanzamiento de un evento, como el evento de bienvenida al iniciar la llamada, o mediante el reconocimiento de una frase de entrenamiento, Figura \ref{fig:5.12}.
             Por ello, el entrenamiento del agente se ha centrado principalmente en establecer frases de entrenamiento significativas para cada intent, pues cuantas más frases de entrenamiento se establezcan menor será la probabilidad de error en el reconocimiento de los intents y en la extracción de los datos.
             \begin{figure}[H]
                 \centering
@@ -174,8 +174,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
                 \caption{Establecimiento de frases de entrenamiento en Dialogflow.}
                 \label{fig:5.12}
             \end{figure}
-            Dialogflow también ofrece una página de entrenamiento, Figura \ref{fig:5.13}, donde se muestran las conversaciones procesadas por el agente, indicando los intents reconocidos y los datos extraídos. 
-            Permitiendo validar el correcto funcionamiento del agente y modificar los posibles errores, asociando automáticamente las frases validadas a cada intent para su reentrenamiento.
+            Dialogflow también ofrece una página de entrenamiento, Figura \ref{fig:5.13}, donde se muestran las conversaciones procesadas por el agente, indicando los intents reconocidos y los datos extraídos, permitiendo validar el correcto funcionamiento del agente y modificar los posibles errores, y asociando automáticamente las frases validadas a cada intent para su reentrenamiento.
             \begin{figure}[H]
                 \centering
                 \includegraphics[width=0.8\textwidth]{img/desarrollo/entrenamiento.png}
@@ -183,7 +182,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
                 \label{fig:5.13}
             \end{figure}
 
-            En algunos intents también hay que definir un contexto, Figura \ref{fig:5.14}, lo que permite establecer una relación entre intents, de forma que un intent con un contexto de entrada solo se podrá activar si un intent antertior ha establecido ese contexto como contexto de salida. 
+            En algunos intents también hay que definir un contexto, Figura \ref{fig:5.14}, lo que permite establecer una relación entre intents, de forma que un intent con un contexto de entrada solo se podrá activar si un intent anterior ha establecido ese contexto como contexto de salida. 
             Esto es especialmente útil para establecer un flujo de conversación, como responder solo a las preguntas relacionadas con el trámite solicitado o recuperar los datos necesarios para ese trámite concreto. 
             Para recuperar los datos de la conversación hay que definir los parámetros en cada intent, Figura \ref{fig:5.15}, indicando el tipo de dato esperado mediante entidades predefinidas o personalizadas.
             \begin{figure}[H]
@@ -238,7 +237,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         Por último, se inicializan las clases encargadas de gestionar cada una de estas colas, las ejecuta en hilos independientes y comienza la escucha del canal de voz. 
 
         El primer componente que interviene es la clase VozSink, que se encarga de recibir los paquetes de audio del canal de voz, decodificarlos y almacenarlos en la cola de entrada de audio. 
-        La decodificación del audio se realiza mediante una clase OpusDecoder, Figura \ref{fig:5.19}, que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
+        La decodificación del audio se realiza mediante una clase OpusDecoder (Figura \ref{fig:5.19}), que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
         En este caso, Discord envía el audio codificado en formato Opus a 48kHz, se decodifica a formato PCM y se remuestrea a 16kHz con la biblioteca numpy. 
         El audio se recupera en fragmentos de 20ms, lo que equivale a decodificarlo en fragmentos de 960 muestras ($48kHz\ast0.02s=960$), y se almacena en la cola de entrada como un array de bytes. 
         \begin{figure}[H]
@@ -260,7 +259,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
         Finalmente, el hilo de TTSWorker se encarga de consumir el audio de la cola de salida y reproducirlo en el canal de voz. 
         Para poder reproducir, hay que remuestrear el audio de 16kHz a 48kHz, aunque no es necesario recodificarlo a formato Opus, ya que Discord acepta reproducirlo en formato PCM. 
-        Aunque sí hay que duplicar el contenido del array de audio, ya que el audio recibido de Dialogflow es monoaural y hay que reproducirlo en estéreo. 
+        Además, se debe duplicar el contenido del array de audio, ya que el audio recibido de Dialogflow es monoaural y hay que reproducirlo en estéreo. 
         Al tener la reproducción de audio en un hilo independiente, se puede ir reproduciendo sin bloquear la escucha del canal de voz, permitiendo que no se pierda ningún fragmento de audio del usuario mientras que el bot responde. 
 
         Por último, el bot también detecta cuando el usuario abandona el canal de voz, procediendo a vaciar las colas, parar los hilos y liberar los recursos para esperar a la siguiente llamada.
@@ -270,9 +269,9 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     \subsection{Implementación e integración de las funciones de RPA}
         Para la automatización de los trámites se han implementado distintas funciones de RPA utilizando la biblioteca de Selenium, que permite controlar el ratón y el teclado para interactuar con la interfaz de las aplicaciones. 
         Estas funciones se integran en el backend de la aplicación web, de forma que se podrían ejecutar automáticamente nada más crear la petición. 
-        No obstante, para el proyecto y por motivos de seguridad, se ha decidido que el empleado ejecute manualmente la petición, para que pueda revisar como se rellena automáticamente la información necesaria de cada trámite, pero sin que se llega a completar ningún trámite real. 
-        La Figura \ref{fig:5.20} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el ayuntamiento de Valladolid. 
-        Se puede observar como se utiliza Selenium para abrir el navegador, acceder a la página oficial donde se completa el trámite, rellenar los campos necesarios con la información de la petición y simular su completitud sin llegar a enviar realmente el formulario. 
+        No obstante, para el proyecto y por motivos de seguridad, se ha decidido que el empleado ejecute manualmente la petición, para que pueda revisar cómo se rellena automáticamente la información necesaria de cada trámite, pero sin que se llegue a completar ningún trámite real. 
+        La Figura \ref{fig:5.20} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el Ayuntamiento de Valladolid. 
+        Se puede observar que se utiliza Selenium para abrir el navegador, acceder a la página oficial donde se completa el trámite, rellenar los campos necesarios con la información de la petición y simular su completitud sin llegar a enviar realmente el formulario. 
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.8\textwidth]{img/desarrollo/rpa.png}
@@ -280,5 +279,5 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             \label{fig:5.20}
         \end{figure}
 
-        El resto de trámites automatizados siguen una lógica similar, se localizan los elementos necesarios de cada página web mediante su ID o XPath, se rellenan o clican para ir completando los menús y formularios necesarios, y se simula la completitud del trámite sin llegar a enviar realmente nada. 
+        El resto de trámites automatizados siguen una lógica similar; se localizan los elementos necesarios de cada página web mediante su ID o XPath, se rellenan o clican para ir completando los menús y formularios necesarios, y se simula la completitud del trámite sin llegar a enviar realmente nada. 
          

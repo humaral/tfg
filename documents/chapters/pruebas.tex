@@ -2,7 +2,7 @@ Con el objetivo de validar el correcto funcionamiento del sistema implementado, 
 Aunque durante el desarrollo se llevaron a cabo verificaciones parciales para comprobar el progreso y corregir errores, las pruebas descritas en este capítulo se realizaron con el desarrollo finalizado. 
 
 Las pruebas se han realizado en un entorno local de desarrollo, utilizando el navegador Google Chrome para el acceso a la aplicación web y la aplicación de escritorio de Discord como medio de comunicación por voz con el sistema. 
-Se ha empleado la versión de escritorio de Discord para garantizar una mayor estabilidad en la transmisión de audio, ya que la versión móvil presenta una conexión más inestable que puede acarrear en pérdidas puntuales de paquetes. 
+Se ha empleado la versión de escritorio de Discord para garantizar una mayor estabilidad en la transmisión de audio, ya que la versión móvil presenta una conexión más inestable que puede acarrear pérdidas puntuales de paquetes. 
 
 
 \subsection{Pruebas del sistema web}
@@ -24,8 +24,8 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \begin{tabular}{|l|p{12cm}|}
         \hline
         \textbf{WEB02} & Inicio de sesión denegado. \\ \hline
-        \textbf{Descripción} & El empleado introduce sus credenciales en la plataforma web con su cuenta desactivada. \\ \hline
-        \textbf{Resultado esperado} & El sistema deniega el inicio de sesión y avisa al empleado que su cuenta está desactivada. \\ \hline
+        \textbf{Descripción} & El empleado introduce unas credenciales erróneas en la plataforma web o las de una cuenta desactivada. \\ \hline
+        \textbf{Resultado esperado} & El sistema deniega el inicio de sesión y avisa al empleado que las credenciales son incorrectas o la cuenta está desactivada. \\ \hline
         \textbf{Resultado obtenido} &  \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB02 - Inicio de sesión denegado}
@@ -144,7 +144,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \begin{tabular}{|l|p{12cm}|}
         \hline
         \textbf{WEB12} & Buscar un empleado. \\ \hline
-        \textbf{Descripción} & Un administrados busca un empleado en la tabla de empleados mediante los filtros. \\ \hline
+        \textbf{Descripción} & Un administrador busca un empleado en la tabla de empleados mediante los filtros. \\ \hline
         \textbf{Resultado esperado} & La tabla muestra los empleados coincidentes con los criterios de búsqueda. \\ \hline
         \textbf{Resultado obtenido} &  \\ \hline
         \end{tabular}
@@ -181,7 +181,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \hline
         \textbf{WEB15} & Desactivar una cuenta de empleado. \\ \hline
         \textbf{Descripción} & Un administrador desactiva la cuenta de un empleado. \\ \hline
-        \textbf{Resultado esperado} & Se deniega el acceso de la cuenta al sistema, se desasignan todas las peticiones asignadas por este empleado camnbiando el estado a pendiente y se notifica por correo al empleado que su cuenta ha sido desactivada. \\ \hline
+        \textbf{Resultado esperado} & Se deniega el acceso de la cuenta al sistema, se desasignan todas las peticiones asignadas por este empleado cambiando el estado a pendiente y se notifica por correo al empleado que su cuenta ha sido desactivada. \\ \hline
         \textbf{Resultado obtenido} &  \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB15 - Desactivar una cuenta de empleado}
@@ -216,7 +216,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \begin{tabular}{|l|p{12cm}|}
         \hline
         \textbf{WEB18} & Buscar un trámite. \\ \hline
-        \textbf{Descripción} & Un administrados busca un trámite en la tabla de trámites mediante los filtros. \\ \hline
+        \textbf{Descripción} & Un administrador busca un trámite en la tabla de trámites mediante los filtros. \\ \hline
         \textbf{Resultado esperado} & La tabla muestra los trámites coincidentes con los criterios de búsqueda. \\ \hline
         \textbf{Resultado obtenido} &  \\ \hline
         \end{tabular}
@@ -277,7 +277,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \hline
         \textbf{WEB23} & Cambiar la foto de perfil. \\ \hline
         \textbf{Descripción} & Un empleado modifica la foto de perfil de su cuenta. \\ \hline
-        \textbf{Resultado esperado} & Se borra la foto de perfil antigua para almacena la nueva en su lugar, refrescando la web para mostrar la foto nueva.  \\ \hline
+        \textbf{Resultado esperado} & Se borra la foto de perfil antigua para almacenar la nueva en su lugar, refrescando la web para mostrar la foto nueva.  \\ \hline
         \textbf{Resultado obtenido} &  \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB23 - Cambiar la foto de perfil}
@@ -425,8 +425,8 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \begin{tabular}{|l|p{12cm}|}
         \hline
         \textbf{DISC04} & Colgar la llamada. \\ \hline
-        \textbf{Descripción} & El usuario finaliza un trámite o cancela o cuelga la llamada. \\ \hline
-        \textbf{Resultado esperado} & El bot detecta la acción del usuario, libera los recursos y finaliza la llamada. \\ \hline
+        \textbf{Descripción} & El usuario abandona la llamada o la finaliza tras completar o cancelar un trámite. \\ \hline
+        \textbf{Resultado esperado} & El bot detecta la acción del usuario, libera los recursos y abandona el canal de Discord. \\ \hline
         \textbf{Resultado obtenido} &  \\ \hline
         \end{tabular}
         \caption{Caso de prueba DISC04 - Colgar la llamada}

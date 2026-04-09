@@ -1,66 +1,86 @@
 \section{Decisiones técnicas}
-    En esta sección se plantean las herramientas y tecnologías que se van a utilizar para llevar a cabo el desarrollo del proyecto, justificando cada una de ellas.
+    En esta sección se plantean las herramientas y tecnologías seleccionadas para llevar a cabo el desarrollo del proyecto, justificando su elección en función de las necesidades y limitaciones del sistema. 
     
     \subsection{Frontend} 
-        Para programar el frontend de la aplicación web para empleados se utilizará HTML, CSS y JavaScript. 
-        Se usará también Jinja2 \cite{ref6}, un motor de plantillas integrado con Flask que permite generar HTML de manera dinámica.
+        Para programar el frontend de la aplicación web orientada a empleados se utilizan HTML, CSS y JavaScript. 
+        
+        Adicionalmente, se utiliza Jinja2 \cite{ref6}, un motor de plantillas integrado con Flask que permite generar contenido HTML de manera dinámica, facilitando la interacción con el backend. 
     
     \subsection{Backend}
-        Para programar la lógica del backend de la aplicación se utilizará Python. 
-        Servirá de conexión entre Dialogflow, la base de datos y la aplicación web. 
+        Para la implementación de la lógica del sistema se utiliza Python, que actúa como conexión entre el agente conversacional, la base de datos y la aplicación web. 
             
-        Se utilizará este lenguaje por su flexibilidad y facilidad para integrar todos los servicios. Algunas de las librerías que se emplearán son:
+        Este lenguaje se selecciona por su facilidad y versatilidad para integrar todos los servicios.
+        Algunas de las librerías elegidas para llevar a cabo el desarrollo son:
         \begin{itemize}
-            \item Flask \cite{ref7}: framework web para crear aplicaciones web. Se utilizará para desarrollar el backend de la aplicación.
-            \item SQLAlchemy \cite{ref8}: sirve para interactuar con la base de datos SQLite de manera sencilla y eficiente.
-            \item Discord.py: librería para interactuar con Discord y programar el bot que atenderá las llamadas VoIP.
-            \item Google-Cloud-Dialogflow y Google-Cloud-Speech: para interactuar con los servicios de IA de Google Cloud.
-            \item Selenium \cite{ref9}: para automatizar la simulación de los trámites en las webs oficiales.
+            \item Flask \cite{ref7}: es un framework web de Python, se emplea para desarrollar el backend de la aplicación.
+            \item SQLAlchemy \cite{ref8}: herramienta para interactuar con la base de datos de manera sencilla y eficiente, permitiendo una gestión efectiva de los datos mediante un modelo orientado a objetos.
+            \item Discord.py: librería empleada para interactuar con la plataforma de Discord y desarrollar el bot encargado de atender las llamadas VoIP.
+            \item Google-Cloud-Dialogflow y Google-Cloud-Speech: librerías utilizadas para la integración con los servicios de inteligencia artificial de Google Cloud.
+            \item Selenium \cite{ref9}: herramienta utilizada para automatizar la interacción con páginas web externas, permitiendo la simulación de los trámites en las webs oficiales.
         \end{itemize}
 
     \subsection{Base de datos}
-        SQLite es el lenguaje elegido para programar la base de datos ya que está integrado con Python y es suficiente para almacenar la información de nuestro sistema simulado. 
+        Para la gestión de la información del sistema se utiliza SQLite como sistema de base de datos. 
+
+        Esta elección se debe a su simplicidad de uso y a su integración directa con Python, por lo que no requiere un servidor independiente. 
+        Además, resulta suficiente para almacenar la información necesaria en el contexto de un sistema simulado y en fase de desarrollo. 
 
     \subsection{Servicios}
-        Algunas de las herramientas y servicios externos que se van a utilizar son:
-        \begin{itemize}
-            \item Google Cloud: se va a utilizar esta plataforma en la nube para alojar los diferentes servicios de inteligencia artificial del proyecto.
-                Se prefiere esta opción frente a otras alternativas ya que integra un servicio propio de agentes conversacionales, ofreciendo un plan gratuito suficiente para el desarrollo.
-                \begin{itemize}
-                    \item Dialogflow ES \cite{ref10}: es la herramienta de Google Cloud para crear agentes conversacionales capaces de interpretar el lenguaje natural y las intenciones del usuario mediante algoritmos de machine learning. 
-                        Se utilizará para definir las intenciones y los flujos de conversación que podrán tener los usuarios con el agente, recopilar la información requerida para los trámites y devolver el audio a reproducir en la llamada.
-                        Esta opción es la más adecuada para proyectos pequeños con pocos trámites.
-                    \item Goolge Speech-to-Text: servicio de reconocimiento de voz que convierte el audio de las llamadas VoIP en texto para que pueda ser procesado por Dialogflow. 
-                        También se implementará un servicio speech-to-text local con Vosk para poder hacer consultas en desarrollo sin gastos de créditos de Google Cloud.
-                \end{itemize}
-            \item Discord: es una plataforma de comunicación que permite llamadas VoIP, se usará por la facilidad para crear aplicaciones y bots fácilmente programable en python.
-                El usuario iniciará una llamada uniéndose a un canal de Discord y el bot comenzará una conversación conectándose con las IA de Google Cloud.
-            \item Github: se usará un control de versiones para mantener actualizados todos los cambios en el código y la documentación del proyecto, y poder recuperar cualquier versión ante un imprevisto. 
-            \item Ngrok \cite{ref11}: crea un túnel desde el despliegue local para tener un endpoint público en desarrollo, necesario para comunicar el backend con Dialogflow. 
-                Es una herramienta segura que evita los costes de mantener un servidor propio para la implementación del proyecto, manteniéndonos dentro del alcance definido.
-        \end{itemize}
+        Para complementar el sistema, se integran diversos servicios externos que proporcionan funcionalidades clave como la comunicación con el usuario, el procesamiento del lenguaje natural y la gestión del audio. 
+        La selección de estas tecnologías se basa en un estudio previo de las alternativas disponibles, considerando las limitaciones del proyecto, especialmente en términos de coste, dificultad de integración y adecuación a los objetivos y requisitos planteados. 
 
-        Antes de seleccionar estas herramientas, se valoraron otras alternativas con el fin de determinar qué solución se adaptaba mejor a los objetivos y limitaciones del proyecto. 
-        
-        En cuanto al canal de comunicación con los usuarios, se consideró el uso de la red telefónica tradicional mediante la integración propia de Dialogflow Phone Gateway, así como otras opciones como \href{https://www.twilio.com/}{Twilio} \cite{ref12}. 
-        Esta alternativa se ajustaba mejor al planteamiento original del proyecto al permitir una interacción más realista. 
-        No obtante, fue descartada debido a los costes asociados por minuto de llamada y a la disponibilidad limitada de números telefónicos españoles en este tipo de plataformas. 
-        En muchos casos, los proveedores ofrecen principalmente números internacionales, lo que incrementa significativamente el coste del desarrollo.
-        
-        Respecto al agente conversacional, se analizaron otras alternativas como \href{https://synthflow.ai/}{Synthflow} \cite{ref13} y soluciones basadas en modelos LLM, como \href{https://dashboard.vapi.ai/}{Vapi} \cite{ref14}. 
-        Las soluciones basadas en modelos LLM ofrecen mayor naturalidad y libertad en la conversación, permitiendo interacciones más abiertas y menos estructuradas. 
-        Sin embargo, el objetivo del proyecto exige conversaciones guiadas orientadas a la recopilación precisa de la información necesaria para cada trámite. 
-        Por ello, se descartó está solución, ya que mantener un flujo estricto y limitado, evitando desviaciones temáticas o respuestas fuera del contexto del trámite, resulta más complejo con este tipo de modelos generativos. 
+        \subsubsection{Agente conversacional}
+            Para la gestión de la conversación, se analizan diferentes enfoques para la implementación del agente. 
 
-        En cuanto a soluciones similares a Dialogflow, ofrecen prestaciones similares en la creación de agentes estructurados. 
-        No obstante, sus planes gratuitos o sistemas de créditos resultan más limitados e insuficientes para la cantidad de pruebas necesarias durante el desarrollo, haciéndolas menos viables para el proyecto.
+            Por un lado, existen soluciones basadas en modelos de lenguaje de gran tamaño (LLM), como \href{https://dashboard.vapi.ai/}{Vapi} \cite{ref14}, que ofrecen interacciones más naturales y flexibles. 
+            Sin embargo, el objetivo del proyecto exige conversaciones guiadas orientadas a la recopilación precisa de la información necesaria para cada trámite. 
+            Por ello, se descartó está solución, ya que mantener un flujo estricto y limitado, evitando desviaciones temáticas o respuestas fuera del contexto del trámite, resulta más complejo con este tipo de modelos generativos. 
+
+            Por este motivo, se opta por el otro enfoque, basado en la definición de intenciones, entidades y flujos de conversación estructurados, utilizando Dialogflow ES \cite{ref10} de Google Cloud. 
+            Esta solución se adapta mejor a los objetivos del proyecto, facilitando el control del diálogo y la recopilación de información con un formato específico, resultando especialmente adecuada para un número limitado de trámites bien definidos. 
+            Asimismo, se valoran opciones similares a Dialogflow, como \href{https://synthflow.ai/}{Synthflow} \cite{ref13}, pero sus planes gratuitos o sistemas de créditos resultan más restrictivos e insuficientes para la cantidad de pruebas necesarias durante el desarrollo, haciéndolas menos viables para el proyecto. 
+
+        \subsubsection{Canal de comunicación con el usuario}
+            Uno de los aspectos más relevantes del sistema es el medio a través del cual los usuarios interactuarán con el agente conversacional para realizar sus trámites. 
+            
+            Inicialmente, se plantea la posibilidad de utilizar la red telefónica tradicional mediante la integración con Dialogflow Phone Gateway, así como con otras opciones como \href{https://www.twilio.com/}{Twilio} \cite{ref12}. 
+            Esta alternativa se ajusta mejor al planteamiento original del proyecto, permitiendo una interacción más realista del usuario con el sistema. 
+            No obstante, esta opción se descarta debido a la indisponibilidad de números telefónicos españoles en este tipo de plataformas, lo que implica llamadas internacionales con costes por minuto significativamente elevados, incrementando considerablemente el coste del desarrollo. 
+
+            Como alternativa, se opta por el uso de Discord como plataforma de comunicación. 
+            Esta solución permite simular llamadas online (VoIP) de manera gratuita, ofreciendo una experiencia de usuario similar a la de una llamada telefónica. 
+            Además, Discord facilita la creación de aplicaciones y bots programables en Python, lo que simplifica y viabiliza la integración con los servicios de inteligencia artificial de Google Cloud. 
+
+        \subsubsection{Procesamiento de voz}
+            El sistema requiere la conversión del audio extraído de las llamadas VoIP en texto para que pueda ser procesado por el agente conversacional. 
+            Para ello, se utiliza el servicio de Google Speech-to-Text, que permite convertir el audio en texto de manera precisa e inmediata. 
+            Además, esta solución está integrada con el ecosistema de Google Cloud, facilitando su uso y compartiendo el sistema de créditos con Dialogflow. 
+
+            Adicionalmente, se contempla la implementación de un servicio de reconocimiento de voz local utilizando Vosk, que es menos preciso que el servicio de Google, pero permite realizar consultas durante el desarrollo sin incurrir en el consumo de créditos. 
+
+        \subsubsection{Servicios y herramientas utilizadas}
+            En base a las decisiones anteriores, se seleccionan los siguiente servicios externos para la implementación del sistema:
+            \begin{itemize}
+                \item Google Cloud: plataforma en la nube que centraliza los servicios de inteligencia artificial que se utilizan en el proyecto, incluyendo Dialogflow ES y Google Speech-to-Text.
+                \item Dialogflow ES: es la herramienta de Google Cloud para crear agentes conversacionales capaces de interpretar el lenguaje natural y las intenciones de los usuarios mediante algoritmos de machine learning. 
+                    Se utiliza para definir las intenciones y los flujos de conversación que podrán tener los usuarios con el agente, recopilar la información requerida para los trámites y devolver el audio a reproducir en la llamada. 
+                \item Google Speech-to-Text: servicio de reconocimiento de voz de Google Cloud que permite convertir el audio de las llamadas VoIP en texto para que pueda ser procesado por Dialogflow. 
+                \item Discord: plataforma de comunicación que se emplea para simular llamadas VoIP entre el usuario y el agente. 
+                    El usuario inicia una llamada uniéndose a un canal de Discord y el bot comenzará una conversación recopilando el audio de la llamada y reproduciendo la respuesta del agente. 
+                \item Ngrok \cite{ref11}: herramienta que permite exponer el servidor local a Internet para tener un endpoint público en desarrollo. 
+                    Esta acción es necesaria para poder comunicar el backend de la aplicación web con el agente conversacional de Dialogflow y así permitir que el agente pueda realizar acciones en el sistema, como crear las peticiones. 
+                    Es una herramienta segura que evita los costes de mantener un servidor propio para la implementación del proyecto, manteniéndonos dentro del alcance definido.
+            \end{itemize}
     
-    \subsection{Documentación}
-        Para la documentación del proyecto se utilizarán las siguientes herramientas:
+    \subsection{Herramientas de desarrollo y documentación}
+        Para el desarrollo del proyecto y la elaboración de la memoria se utilizan diversas herramientas que facilitan la implementación y organización del trabajo:
         \begin{itemize}
-            \item Figma: herramienta de diseño para crear los mockups de la interfaz de usuario.
-            \item Draw.io: es una herramienta de diseño para crear los diagramas fácilmente para la memoria.
-            \item Latex: como sistema de composición de textos para escribir la memoria.
+            \item Visual Studio Code: es un editor de código que se emplea tanto para el desarrollo del sistema como para la redacción de la memoria en LaTeX. 
+                Se selecciona por su integración con múltiples lenguajes de programación y su capacidad para manejar y organizar proyectos complejos. 
+            \item LaTeX: es un sistema de composición de textos que se utiliza para la redacción de la memoria, permitiendo generar documentos estructurados. 
+            \item GitHub: es una plataforma de control de versiones que se emplea para gestionar los cambios en el código y la documentación del proyecto, facilitando el seguimiento de cambios y la recuperación de versiones anteriores. 
+            \item Draw.io: es una herramienta de diseño que se utiliza para la creación de diagramas y esquemas explicativos del proyecto.
+            \item Figma: es una herramienta de diseño que se emplea para la creación de prototipos visuales y mockups interactivos de la interfaz de usuario. 
         \end{itemize}
 
 \section{Diseño de la interfaz de usuario}
@@ -168,7 +188,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{img/diagramas/decomposition&uses_style.png}
-        \caption{Decomposition \& Uses style.}
+        \caption{Diagrama de descomposición y uso.}
         \label{fig:4.7}
     \end{figure}
 
@@ -192,13 +212,13 @@
         
     Las entities sirven para definir los tipos de datos o la forma en la que se extrae la información de las frases.
     En otras palabras, sirven para categorizar o etiquetar las palabras. 
-    Por ejemplo, "Quiero agendar una cita en la AEAT para mañana a las 10", podríamos extraer agendar una cita en la AEAT como una entidad de tipo trámite, mañana como fecha y las 10 como hora. 
-    De esta forma también podemos saber que tipos de datos necesitamos al recopilar información, si un número, un texto, una dirección\dots
+    Por ejemplo, en la siguiente solicitud: ``Quiero agendar una cita en la AEAT para mañana a las 10'', podríamos extraer agendar una cita en la AEAT como una entidad de tipo trámite, mañana como fecha y las 10 como hora. 
+    De esta forma también podemos saber qué tipos de datos necesitamos al recopilar información, si un número, un texto, una dirección, etc.
         
     Para la resolución de los trámites escogidos se han definido los siguientes intents: 
     \begin{itemize}
-        \item Bienvenida: se activará automáticamente cuando el usuario inicia la llamada y activará un evento de espera de trámties.
-        \item Tramite certificado empadronamiento, tramite cita AEAT y tramite tarjeta SACYL: se activarán cuando el usuario los solicite y el evento de espera de trámite esté activo y solicitarán los datos necesarios para cada trámite.
+        \item Bienvenida: se activará automáticamente cuando el usuario inicia la llamada y activará un evento de espera de trámites.
+        \item Tramite certificado empadronamiento, tramite cita AEAT y tramite tarjeta SACYL: se activarán cuando el usuario los solicite y el evento de espera de trámite esté activo, y solicitarán los datos necesarios para cada trámite.
         \item Cita AEAT Modalidad: una vez recuperada la información inicial del tramite cita AEAT, se activa este intent desde el backend solo si el servicio escogido ofrece también cita telefónica.
         \item Cita AEAT Presencial: si el usuario solicita una cita presencial, el bot recupera la información correspondiente sobre la oficina y la fecha.
         \item Confirmar datos: una vez recuperada la información necesaria, se activará este intent para solicitar al usuario la veracidad de los datos y finalizar la llamada.
@@ -218,7 +238,7 @@
         \item Trámite: enum con los trámites disponibles.
     \end{itemize}
 
-    Por último, se ha definido en la Figura \ref{fig:4.9} un digrama de flujo para definir la secuencia prevista de una llamada al sistema.
+    Por último, se muestra en la Figura \ref{fig:4.9} un diagrama de flujo que define la secuencia prevista de una llamada al sistema.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{img/diagramas/diagrama_flujo_ia.png}
@@ -240,7 +260,7 @@
     Cada conversación se gestiona con cuatro hilos independientes: 
     \begin{enumerate}
         \item VozSink: se encarga de capturar el audio de entrada del usuario en el canal de voz y añadirlo a una cola de entrada de audio.
-        \item STTWorkerGoogle: este hilo procesa la cola de entrada de audio, eniando los fragmentos al servicio de Google Speech-to-Text para convertirlos en texto y añadirlos a una cola de entrada de texto.
+        \item STTWorkerGoogle: este hilo procesa la cola de entrada de audio, enviando los fragmentos al servicio de Google Speech-to-Text para convertirlos en texto y añadirlos a una cola de entrada de texto.
         \item AgentWorker: procesa la cola de entrada de texto, enviando cada mensaje al agente de Dialogflow para obtener directamente el audio de respuesta, que agregará a una cola de salida de audio.
         \item TTSWorker: gestiona la cola de salida de audio, reproduciendo cada fragmento en el canal de voz para que el usuario lo escuche.
     \end{enumerate}
@@ -276,7 +296,7 @@
     Desde la vista con los detalles de una petición revisable, el empleado puede clicar en un botón para asignársela. 
     El sistema actualizará el estado de la petición en la base de datos y permitirá al empleado editar los campos y completar o cancelar la gestión. 
     Si el empleado decide completar el trámite, se accederá al servicio de automatización para ejecutarlo en la web oficial correspondiente, para posteriormente actualizar su estado en la base de datos. 
-    Si la cancela también se actualizará el estado. 
+    Si la cancela, también se actualizará el estado. 
 
     \begin{figure}[H]
         \centering
@@ -284,7 +304,7 @@
         \caption{Diagrama de secuencia de cambio de contraseña de un empleado.}
         \label{fig:4.14}
     \end{figure}
-    En la Figura \ref{fig:4.14} se muestra el digrama de secuencia correspondiente al cambio de contraseña de un empleado. 
+    En la Figura \ref{fig:4.14} se muestra el diagrama de secuencia correspondiente al cambio de contraseña de un empleado. 
     Desde la vista del perfil se rellena el formulario de cambio de contraseña y se envía al backend. 
     Si la contraseña actual es correcta, se actualizará la nueva en la base de datos.
 
@@ -338,7 +358,7 @@
     \end{figure}
     Por último, se muestra la Figura \ref{fig:4.19}, que representa el diagrama de secuencia para la edición de un trámite. 
     Similar a la edición de un empleado, se permite modificar el nombre y la activación de un trámite desde el mismo formulario de creación. 
-    Si se cambia el nombre, el sistema comprueba que no existe antes de modificarlo y si se desactiva, cancela todas las peticiones en curso de ese trámite.
+    Si se cambia el nombre, el sistema comprueba que no existe antes de modificarlo, y si se desactiva, cancela todas las peticiones en curso de ese trámite.
 
 \section{Seguridad}
     El diseño de la seguridad constituye un aspecto fundamental del sistema, dado que se maneja información sensible de los usuarios necesaria para completar las gestiones administrativas. 
@@ -352,18 +372,16 @@
     Para el prototipo solamente hace falta definir dos roles: 
     \begin{itemize}
         \item Secretario: podrá visualizar todas las peticiones, crear nuevas y asignárselas.
-        \item Administrador: podrá gestionar empleados y trámites a parte de visualizar las peticiones.
+        \item Administrador: podrá gestionar empleados y trámites aparte de visualizar las peticiones.
     \end{itemize}
-    Esta separación de roles garantiza la confidencialidad, integridad y autenticidad de la información, y deja un modelo adaptable a futuro para la fácil inclusión de nuevos roles y permisos. 
-    Pudiendo limitar los accesos a acciones, registros de la base de datos y vistas de la aplicación, dependiendo de la administración correspondiente, la ciudad o el tipo de trámite.
+    Esta separación de roles garantiza la confidencialidad, integridad y autenticidad de la información, y deja un modelo adaptable a futuro para la fácil inclusión de nuevos roles y permisos, pudiendo limitar los accesos a acciones, registros de la base de datos y vistas de la aplicación, dependiendo de la administración correspondiente, la ciudad o el tipo de trámite.
 
     En segundo lugar, se mantendrá una trazabilidad completa sobre las peticiones en el sistema. 
     Cada gestión dispondrá de un historial de eventos que registrará todos los cambios realizados, incluyendo la fecha y el empleado responsable. 
     Además, no se podrán eliminar trámites ni empleados, sino que se podrán desactivar para mantener la información íntegra.
 
-    En cuanto a la disponibilidad, la página web se manteniene independiente del sistema de llamadas, de forma que si los servicios fallan, los empleados podrán seguir utilizándola.
+    En cuanto a la disponibilidad, la página web se mantiene independiente del sistema de llamadas, de forma que si los servicios fallan, los empleados podrán seguir utilizándola.
 
     Por último, en relación con la información sensible, la inteligencia artificial emplea los registros de las llamadas únicamente para mejorar la interpretación del agente conversacional, sin almacenar datos personales de manera permanente ni utilizarlos para entrenar modelos de uso general. 
     Google asegura que su herramienta no almacena información personal de forma indefinida. 
-    No obstante, al tratarse de un prototipo basado en el uso de información ficticia, no se han implementado aspectos más avanzados de seguridad como el uso de protocolos de comunicación seguros o el cifrado de la información almacenada en la base de datos. 
-    Quedando estos puntos identificados como posibles mejoras para futuras versiones orientadas a un entonrno de producción real.
+    No obstante, al tratarse de un prototipo basado en el uso de información ficticia, no se han implementado aspectos más avanzados de seguridad como el uso de protocolos de comunicación seguros o el cifrado de la información almacenada en la base de datos, quedando estos puntos identificados como posibles mejoras para futuras versiones orientadas a un entorno de producción real.
