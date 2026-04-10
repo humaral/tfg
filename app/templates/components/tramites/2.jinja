@@ -27,7 +27,7 @@
     </div>
     <div id="contenido-col2">
         <label for="cita-aeat-modalidad">Modalidad*:</label>
-        <button id="cita-aeat-modalidad" type="button" data-modalidad="{% if peticion and peticion.informacion.modalidad == 'telefonica' %}telefonica{% else %}presencial{% endif %}" data-asignada="{{peticion.estadoActual.valor == 'Asignada'}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
+        <button id="cita-aeat-modalidad" type="button" data-modalidad="{% if peticion and peticion.informacion.modalidad == 'telefonica' %}telefonica{% else %}presencial{% endif %}" data-asignada="{{peticion and peticion.estadoActual.valor == 'Asignada'}}" {%if peticion and (peticion.estadoActual.valor != "Asignada")%}disabled{%endif%}>
             <iconify-icon {%if peticion and peticion.informacion.modalidad == 'presencial'%}icon="raphael:employee"{%else%}icon="tabler:phone"{%endif%}></iconify-icon>
             <p>{%if peticion and peticion.informacion.modalidad == 'presencial'%}Presencial{%else%}Telefónica{%endif%}</p>
             <input type="hidden" id="cita-aeat-modalidad-hidden" name="modalidad" value="{% if peticion %}{{peticion.informacion.modalidad}}{% else %}telefonica{% endif %}">

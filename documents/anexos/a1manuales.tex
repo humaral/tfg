@@ -106,16 +106,18 @@
         \end{enumerate}
 
     \subsection{Despliegue del sistema}
-        Para ejecutar el sistema es necesario iniciar los distintos componentes del sistema en orden. 
+        Para ejecutar el sistema es necesario iniciar los distintos componentes del sistema en un orden determinado. 
         
-        En primer lugar, hay que iniciar el servidor de correo SMTPD utilizado para simular el envío de correos electrónicos con \textbf{py -m aiosmtpd -n -l localhost:1025}, recibiéndolos en texto plano en el terminal donde se ejecuta:
+        En primer lugar, se debe iniciar el servidor de correo SMTPD utilizado para simular el envío de correos electrónicos mediante el comando \textbf{py -m aiosmtpd -n -l localhost:1025}, recibiéndolos los correos en texto plano en el propio terminal de ejecución.
 
-        Posteriormente, se inicia el servidor Flask con \textbf{py app.py}, quedando la aplicación web disponible para acceder desde un navegador en la dirección \textbf{http://localhost:5000}.
+        Posteriormente, se inicia el servidor Flask con \textbf{py app.py}, quedando la aplicación web disponible desde un navegador en la dirección \textbf{http://localhost:5000}. 
+        El acceso inicial a la aplicación se realiza mediante una cuenta de administrador por defecto (usuario: \textbf{admin.admin}, contraseña: \textbf{admin}), desde la cual es posible crear nuevas cuentas de usuario.
+        Por motivos de seguridad, se recomienda modificar la contraseña tras el primer acceso o desactivar dicha cuenta una vez creada una propia.
 
-        Una vez iniciada la aplicación web, se debe exponer el servidor local a Internet con el servicio de Ngrok, ejecutando \textbf{ngrok http 5000}.
+        Una vez iniciada la aplicación web, se debe exponer el servidor local a Internet mediante el servicio de Ngrok, ejecutando \textbf{ngrok http 5000}.
 
         Por último, se inicializa el bot de Discord ejecutando \textbf{py .\textbackslash{}scripts\_aux\textbackslash{}services\textbackslash{}discord\_bot.py}.
-        El bot se conectará al servidor de Discord y cuando el usuario entre al canal de voz, dará comienzo la llamada.
+        El bot se conectará al servidor de Discord y, cuando el usuario acceda al canal de voz, dará comienzo la llamada.
 
 \section{Manual de usuario}
 

@@ -14,6 +14,8 @@ El sistema consta de varios componentes que trabajan conjuntamente:
 
 El objetivo de este proyecto es facilitar el acceso a servicios administrativos a los sectores de la población con dificultades para utilizar las herramientas digitales actuales, simplificando el proceso mediante una llamada y reduciendo así la brecha digital.
 
+Todos los datos recogidos en este proyecto son ficticios.
+
 >Nota: La memoria completa del TFG se encuentra en la ruta ```/documents/memoria.pdf``` dentro del repositorio.
 ---
 
@@ -166,7 +168,8 @@ py -m aiosmtpd -n -l localhost:1025
 py app.py
 ```
 
-> La aplicación web quedará disponible en ```http://localhost:5000```.
+> La aplicación web quedará disponible en ```http://localhost:5000```. \
+> Se puede acceder mediante una cuenta de administrador por defecto (usuario: **admin.admin**, contraseña: **admin**), desde la cual es posible crear nuevas cuentas de usuario (*se recomienda modificar la contraseña tras el primer acceso o desactivar esta cuenta una vez creada una propia*).
 
 ### 3. Iniciar el servicio de Ngrok
 

@@ -41,15 +41,21 @@
             Asimismo, se valoran opciones similares a Dialogflow, como \href{https://synthflow.ai/}{Synthflow} \cite{ref13}, pero sus planes gratuitos o sistemas de créditos resultan más restrictivos e insuficientes para la cantidad de pruebas necesarias durante el desarrollo, haciéndolas menos viables para el proyecto. 
 
         \subsubsection{Canal de comunicación con el usuario}
-            Uno de los aspectos más relevantes del sistema es el medio a través del cual los usuarios interactuarán con el agente conversacional para realizar sus trámites. 
+            Uno de los aspectos más relevantes del sistema es el medio a través del cual los usuarios interactúan con el agente conversacional para realizar sus trámites. 
+            En este sentido, se plantean dos enfoques principales, el uso de la red telefónica tradicional frente a la comunicación mediante llamadas VoIP.
             
-            Inicialmente, se plantea la posibilidad de utilizar la red telefónica tradicional mediante la integración con Dialogflow Phone Gateway, así como con otras opciones como \href{https://www.twilio.com/}{Twilio} \cite{ref12}. 
-            Esta alternativa se ajusta mejor al planteamiento original del proyecto, permitiendo una interacción más realista del usuario con el sistema. 
-            No obstante, esta opción se descarta debido a la indisponibilidad de números telefónicos españoles en este tipo de plataformas, lo que implica llamadas internacionales con costes por minuto significativamente elevados, incrementando considerablemente el coste del desarrollo. 
+            Inicialmente, se considera la posibilidad de utilizar la red telefónica tradicional mediante la integración con Dialogflow Phone Gateway, así como con otras opciones como \href{https://www.twilio.com/}{Twilio} \cite{ref12}. 
+            Estas plataformas permiten alquilar una línea telefónica y gestionar la conexión entre la llamada y el agente. 
+            Esta alternativa se ajusta mejor al planteamiento original del proyecto, permitiendo realizar llamadas reales a un número de teléfono, lo que ofrece una experiencia más realista e intuitiva para el usuario. 
+            No obstante, esta opción se descarta ya que presenta limitaciones importantes en el contexto del proyecto. 
+            En particular, la disponibilidad de números telefónicos españoles en este tipo de plataformas es reducida, lo que implica el uso de números internacionales. 
+            Esto conlleva costes por minuto de llamada significativamente elevados, lo que incrementa considerablemente el coste del desarrollo. 
 
-            Como alternativa, se opta por el uso de Discord como plataforma de comunicación. 
-            Esta solución permite simular llamadas online (VoIP) de manera gratuita, ofreciendo una experiencia de usuario similar a la de una llamada telefónica. 
-            Además, Discord facilita la creación de aplicaciones y bots programables en Python, lo que simplifica y viabiliza la integración con los servicios de inteligencia artificial de Google Cloud. 
+            Como alternativa, se considera el uso de tecnologías VoIP, que permiten realizar llamadas a través de Internet sin necesidad de una línea telefónica tradicional. 
+            Dentro de este enfoque, se opta por el uso de Discord como plataforma de comunicación. 
+            Esta solución permite simular llamadas de voz de manera gratuita, manteniendo una experiencia de usuario similar a la de una llamada telefónica, pero sin los costes asociados. 
+            Además, Discord facilita la creación de aplicaciones y bots programables en Python, lo que simplifica su integración con el resto de servicios del sistema y con los servicios de inteligencia artificial utilizados. 
+            De este modo, se consigue una solución funcional, económica y adecuada a los requisitos del proyecto. 
 
         \subsubsection{Procesamiento de voz}
             El sistema requiere la conversión del audio extraído de las llamadas VoIP en texto para que pueda ser procesado por el agente conversacional. 

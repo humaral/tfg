@@ -91,5 +91,5 @@ insert into ESTADO values
 insert into ROL values (1,'Administrador'), (2,'Secretario');
 
 insert into EMPLEADO (username, password, nombre, apellido1, apellido2, email, idRol, fotoPerfil, activo) values 
-    ('hugo.martin', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'hugo.martin@tramitestelefonicos.es', 1, "hugo.martin.jpeg",1), --Cuenta ADMIN, password = 'hugo'
-    ('juan.sanz', 'scrypt:32768:8:1$yPFFaKxuHiLwb1Ws$44f7d1759109b6b0fd3e01a33a3512e4abf9565d5075c4428d94917fe4956b98c9a17310270e9f99fd4c89c64c2112137e7dcafd25460810394a8ffa6ea8903b', 'Juan', 'Sanz', 'Sanz', 'juan.sanz@tramitestelefonicos.es', 2, "juan.sanz.jpeg", 1); --Cuenta Secretario, password = 'juan'
+    ('admin.admin', 'scrypt:32768:8:1$eZ0K7o9rPzItpk98$7fa1f1cef60c98cb6b7cb6c29615f7e93f3a3c0cdccee41fc034b02eb02134312a57dc861d080e26bb24fd8d00b2c3c600fa19f32ded252d881db6198c621216', 'Admin', 'Admin', '', 'admin.admin@tramitestelefonicos.es', 1, "admin.admin.jpeg",1), --Cuenta ADMIN, password = 'admin'
+    ('hugo.martin', 'scrypt:32768:8:1$Xr5bpc4tVASnGIWN$5b097b1d7e8afe9b836425049911b41419674c9d136afd612f5569214d0b7eeddfb9804f8360be826d9d5b26488c5cd5da5e1f7fc2943a9692f9ac7b90ca9963', 'Hugo', 'Martín', 'Alonso', 'hugo.martin@tramitestelefonicos.es', 2, "hugo.martin.jpeg", 1); --Cuenta Secretario, password = 'hugo'
