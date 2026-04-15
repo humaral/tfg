@@ -119,7 +119,11 @@
         
     El componente principal es una tabla con la información básica de cada petición, incluyendo en la parte superior de la tabla una serie de filtros para localizar rápidamente la gestión deseada.
     En cada fila de la tabla se incluye un link, situado en la columna del ID, para navegar a una página con detalles específicos de cada petición.
-    Además, en la parte superior izquierda, debajo del logotipo, se incluye un menú para navegar entre las distintas páginas. 
+   
+    Además, en la parte superior izquierda, debajo del logotipo, se incluye un menú para navegar entre las distintas páginas de la aplicación. 
+    Dependiendo del rol del empleado, el menú mostrará unas opciones u otras, restringiendo el acceso a ciertas páginas. 
+    Por ejemplo, los secretarios no tienen permiso para acceder a la sección de empleados, por lo que no se muestra en su menú, mientras que los administradores sí pueden acceder a ella. 
+
         
     Por último, todas las páginas incluyen el perfil del empleado identificado en la parte superior derecha. 
     Clicando sobre el perfil se puede navegar hasta la página con detalles del empleado.
@@ -136,11 +140,11 @@
         \caption{Prototipo visual de la página de una petición revisable.}
         \label{fig:4.4}
     \end{figure}
-    Al clicar en el ID de una petición en la tabla de la Figura \ref{fig:4.2}, se muestra la página con detalles de la Figura \ref{fig:4.3}.
-    En esta pantalla se podrá consultar los datos recopilados de una petición para cada trámite, junto con una línea temporal que muestra los eventos de la gestión. 
+    Al clicar en el ID de una petición en la tabla de la Figura \ref{fig:4.2}, se muestra la página con los detalles, Figura \ref{fig:4.3}.
+    Esta pantalla expone la información más relevante de cada petición, incluyendo una línea temporal con los estados de la gestión, para que los empleados puedan consultar su evolución, y un formulario con los datos recogidos por el agente conversacional, necesarios para completar el trámite.  
         
-    En caso de ser una petición revisable, Figura \ref{fig:4.4}, los empleados que tengan permiso, verán a la derecha del título de la petición un botón para asignársela.
-    Una vez asignada, los campos con la información se volverán modificables y los trabajadores podrán editar la petición o cancelarla.
+    En caso de ser una petición revisable, Figura \ref{fig:4.4}, todos los secretarios verán en la parte superior derecha un botón, el secretario que lo pulse se asignará dicha petición.
+    Una vez asignada, los campos del formulario se volverán modificables, permitiendo al secretario editar la información o cancelar la petición.
         
     \begin{figure}[H]
         \centering
@@ -148,15 +152,15 @@
         \caption{Prototipo visual de la página de empleados.}
         \label{fig:4.5}
     \end{figure}
-    Desde el menú superior, los administradores pueden navegar hasta la Figura \ref{fig:4.5}, que muestra un listado con todos los empleados del sistema. 
-    El componente principal es una tabla similar a la de las peticiones, que incluye la información de cada empleado y los filtros necesarios para localizarlos rápidamente.
+    Desde el menú superior, los administradores pueden navegar hasta la sección de empleados, Figura \ref{fig:4.5}.
+    El componente principal es una tabla similar a la de las peticiones, que incluye la información de todos los empleados registrados en el sistema y los filtros necesarios para localizarlos rápidamente.
         
-    A diferencia de la otra tabla, se añade una columna que indica si la cuenta de cada empleado está activa. 
+    A diferencia de la otra tabla, se añade una columna que indica si la cuenta de cada trabajador está activa. 
     Esta columna cumple una doble función, ya que, clicando sobre el valor correspondiente a un empleado, se navegará hasta una página donde se muestra su información, permitiendo modificarla.
         
     La posibilidad de desactivar cuentas impide el acceso al sistema de un empleado sin necesidad de eliminar su cuenta, preservando así la trazabilidad de la información.
         
-    Por último, se incluye a la derecha de los filtros el botón para poder agregar nuevos empleados al sistema.
+    Por último, se incluye a la derecha de los filtros un botón para poder agregar nuevos empleados al sistema, cualquier administrador podrá utilizarlo, pudiendo añadir nuevas cuetas de administradores y secretarios.
         
     La página que muestra la información de los trámites será exactamente igual a esta, manteniendo los mismos componentes, disposición y funcionalidad.
 
@@ -219,29 +223,33 @@
     Las entities sirven para definir los tipos de datos o la forma en la que se extrae la información de las frases.
     En otras palabras, sirven para categorizar o etiquetar las palabras. 
     Por ejemplo, en la siguiente solicitud: ``Quiero agendar una cita en la AEAT para mañana a las 10'', podríamos extraer agendar una cita en la AEAT como una entidad de tipo trámite, mañana como fecha y las 10 como hora. 
-    De esta forma también podemos saber qué tipos de datos necesitamos al recopilar información, si un número, un texto, una dirección, etc.
+    De esta forma, podemos determinar qué tipos de datos necesitamos al recopilar información, si un número, un texto, una dirección, etc. 
+    Además, las entidades pueden definirse como listas de valores con sinónimos asociados, para reconocer diferentes formas de referirse a un mismo concepto.
+    Asimismo, es posible utilizar expresiones regulares para identificar patrones concretos, así como técnicas de coincidencia aproximada basadas en machine learning para identificar valores similares. 
         
     Para la resolución de los trámites escogidos se han definido los siguientes intents: 
     \begin{itemize}
         \item Bienvenida: se activará automáticamente cuando el usuario inicia la llamada y activará un evento de espera de trámites.
-        \item Tramite certificado empadronamiento, tramite cita AEAT y tramite tarjeta SACYL: se activarán cuando el usuario los solicite y el evento de espera de trámite esté activo, y solicitarán los datos necesarios para cada trámite.
+        \item Tramite certificado empadronamiento, tramite cita AEAT y tramite tarjeta SACYL: se activarán cuando el usuario los solicite y el evento de espera de trámite esté activo, y activarán un intent para solicitar los datos necesarios para cada trámite. 
+        \item Obtener datos: cada uno de los intents de detección de trámites activarán un intent específico para solicitar los datos necesarios para cada gestión. 
+            Estos intents se encargan de recopilar los datos que faltan y, en caso de que haya algún dato erróneo, permite su modificación.
         \item Cita AEAT Modalidad: una vez recuperada la información inicial del tramite cita AEAT, se activa este intent desde el backend solo si el servicio escogido ofrece también cita telefónica.
         \item Cita AEAT Presencial: si el usuario solicita una cita presencial, el bot recupera la información correspondiente sobre la oficina y la fecha.
-        \item Confirmar datos: una vez recuperada la información necesaria, se activará este intent para solicitar al usuario la veracidad de los datos y finalizar la llamada.
-        \item Cambiar campo: en caso de que haya algún dato erróneo, se activará este intent para que el usuario pueda modificarlo.
+        \item Confirmar datos: una vez recuperada la información necesaria, se activará este intent para solicitar al usuario la veracidad de los datos, finalizando la llamada generando una solicitud.
+        \item Cancelar: se activará si el usuario solicita cancelar la gestión, finalizando la llamada sin generar una solicitud.
     \end{itemize}
 
     También será necesario estipular los siguientes entities para facilitar la captura de la información: 
     \begin{itemize}
-        \item Centros de salud de Valladolid: un enum con los centros de salud de Valladolid.
-        \item DNI o pasaporte: una entidad regexp para limitar la variable al formato del DNI o pasaporte.
-        \item Motivo tarjeta SACYL: enum con los posibles motivos para solicitar la tarjeta.
-        \item Municipios Valladolid: enum con todos los municipios de Valladolid.
-        \item Oficina AEAT Valladolid: enum con las oficinas disponibles de la agencia tributaria en Valladolid.
-        \item Servicios AEAT: un enum con la lista de servicios de la agencia tributaria.
-        \item Teléfono: un variable regexp con el formato de los números telefónicos españoles.
-        \item Tipo de cita: enum con los posibles tipos de cita en la AEAT.
-        \item Trámite: enum con los trámites disponibles.
+        \item Centros de salud de Valladolid: una lista con todos los centros de salud de Valladolid.
+        \item DNI o pasaporte: una expresión regular para restringir la entrada al formato del DNI o pasaporte.
+        \item Motivo tarjeta SACYL: una variable para identificar el motivo por el que se solicita la tarjeta sanitaria, con opciones de pérdida o deterioro.
+        \item Municipios Valladolid: una lista con todos los municipios de Valladolid.
+        \item Oficina AEAT Valladolid: una lista con las oficinas disponibles de la agencia tributaria en Valladolid.
+        \item Servicios AEAT: una lista de los servicios de la agencia tributaria para agendar citas.
+        \item Teléfono: un expresión regular con el formato de los números telefónicos españoles.
+        \item Tipo de cita: una variable para identificar si la cita en la AEAT es telefónica o presencial.
+        \item Trámite: una lista con los trámites disponibles.
     \end{itemize}
 
     Por último, se muestra en la Figura \ref{fig:4.9} un diagrama de flujo que define la secuencia prevista de una llamada al sistema.
