@@ -29,7 +29,8 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     \end{figure}
     Los componentes principales de la web son las tablas que muestran la información correspondiente a las peticiones, empleados o trámites. 
     El contenido de estas tablas se carga dinámicamente en función de los filtros, el orden o la paginación. 
-    La Figura \ref{fig:5.2} muestra el fragmento de código en el que se llama a un endpoint, ``/api/peticiones'', para recuperar la información correspondiente de la base de datos y actualizarla en la tabla.
+    La Figura \ref{fig:5.2} muestra el fragmento de código en el que se realiza una petición al backend, concretamente al endpoint ``/api/peticiones''. 
+    En este contexto, un endpoint hace referencia a una ruta que recibe una solicitud y devuelve un recurso, en este caso, recupera la información correspondiente a las peticiones de la base de datos para actualizarla en la tabla.
 
     \begin{figure}[H]
         \centering
@@ -71,10 +72,10 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
 \section{Implementación del backend}
     En esta sección se va a tratar el desarrollo del backend de la aplicación web, centrándolo en las rutas que ejercen como controladores de las vistas. 
-    Por modularidad, se han definido distintos blueprints para cada parte de la aplicación, permitiendo organizar el código de forma más clara dividiendo las rutas y su lógica en distintos archivos Python. 
+    Por modularidad, se han definido distintos blueprints (módulos de Flask que permiten agrupar rutas relacionadas) para cada parte de la aplicación, lo que facilita una organización más clara del código al separar su funcionalidad en distintos archivos Python, así como un mejor mantenimiento. 
     
-    El primer blueprint es el de inicio, que se encarga de redireccionar al inicio de sesión. 
-    También incluye un endpoint que renderiza la plantilla con la información de cada trámite, llamado dinámicamente desde el formulario de crear peticiones. 
+    El primer blueprint es el de inicio, que se encarga de redireccionar a los empleados no identificados en el sistema al inicio de sesión. 
+    También incluye un endpoint encargado de renderizar dinámicamente la plantilla con el formulario específico de cada trámite, ya que, en función del trámite seleccionado por el empleado al crear una petición, se deberá mostrar el formulario correspondiente. 
 
     El segundo blueprint es el de autenticación, que incluye las rutas para iniciar y cerrar sesión. 
     Las sesiones se gestionan mediante la extensión Flask-Login, que incluye funciones que simplifican la gestión de usuarios identificados, como el decorador @login\_required, que se escribe en las funciones de las rutas para bloquear el acceso a usuarios no autenticados. 
@@ -109,7 +110,8 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     Por último, hay un blueprint de errores, que se encarga únicamente de renderizar una plantilla personalizada en caso de error 404, es decir, cuando el empleado intenta acceder a un recurso inexistente, y de error 403, cuando el empleado intenta acceder a un recurso para el que no tiene permiso.
     
     Adicionalmente, se ha implementado otro blueprint independiente para modularizar la lógica de las APIs. 
-    Por el momento, este incluye un único endpoint que actúa como webhook para procesar los eventos de Dialogflow, cuya integración se comentará con mayor detalle en la sección siguiente.
+    Por el momento, este incluye un único endpoint que actúa como webhook para procesar los eventos de Dialogflow, cuya integración se comentará con mayor detalle en la sección siguiente. 
+    En este contexto, un webhook consiste en un mecanismo de comunicación basado en eventos que permite a una aplicación enviar información a otra en tiempo real mediante peticiones HTTP. 
 
 \section{Implementación e integración de servicios}
     Esta sección se centra en explicar la implementación de los cuatro servicios integrados en la aplicación, poniendo especial atención en aquellos relacionados con la gestión de las llamadas, ya que constituyen el eje central del proyecto. 
@@ -238,8 +240,11 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
         El primer componente que interviene es la clase VozSink, que se encarga de recibir los paquetes de audio del canal de voz, decodificarlos y almacenarlos en la cola de entrada de audio. 
         La decodificación del audio se realiza mediante una clase OpusDecoder (Figura \ref{fig:5.19}), que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
-        En este caso, Discord envía el audio codificado en formato Opus a 48kHz, se decodifica a formato PCM y se remuestrea a 16kHz con la biblioteca numpy. 
-        El audio se recupera en fragmentos de 20ms, lo que equivale a decodificarlo en fragmentos de 960 muestras ($48kHz\ast0.02s=960$), y se almacena en la cola de entrada como un array de bytes. 
+        En este caso, Discord transmite el audio utilizando el códec Opus con una frecuencia de muestreo de 48kHz, que es el estándar utilizado por la plataforma para las comunicaciones de voz en tiempo real. 
+        Este audio se decodifica a formato PCM (Pulse Code Modulation), el estándar global para la representación de audio digital sin compresión, y posteriormente se remuestrea a 16kHz con la biblioteca numpy, ya que es requerido por los servicios de transcripción para poder ser procesado correctamente. 
+        El audio se recibe en fragmentos de 20ms, correspondientes al tamaño de frame habitual de Opus. 
+        Dado que la frecuencia original es de 48kHz, cada fragmento contiene 960 muestras ($48kHz\ast0.02s=960$), lo cual define el tamaño de los bloques que deben procesarse en cada iteración de decodificación. 
+        Finalmente, se almacenan estos fragmentos en la cola de entrada de audio como un array de bytes. 
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.75\textwidth]{img/desarrollo/decode.png}
@@ -264,19 +269,25 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
         Por último, el bot también detecta cuando el usuario abandona el canal de voz, procediendo a vaciar las colas, parar los hilos y liberar los recursos para esperar a la siguiente llamada.
 
-
+        Toda esta lógica se recoge en el esquema de la Figura \ref{fig:5.20} a modo de resumen, mostrando el flujo de ejecución de cada hilo y la comunicación entre ellos mediante las colas. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{img/diagramas/discord.png}
+            \caption{Resumen de la lógica del bot de Discord.}
+            \label{fig:5.20}
+        \end{figure}
 
     \subsection{Implementación e integración de las funciones de RPA}
         Para la automatización de los trámites se han implementado distintas funciones de RPA utilizando la biblioteca de Selenium, que permite controlar el ratón y el teclado para interactuar con la interfaz de las aplicaciones. 
         Estas funciones se integran en el backend de la aplicación web, de forma que se podrían ejecutar automáticamente nada más crear la petición. 
         No obstante, para el proyecto y por motivos de seguridad, se ha decidido que el empleado ejecute manualmente la petición, para que pueda revisar cómo se rellena automáticamente la información necesaria de cada trámite, pero sin que se llegue a completar ningún trámite real. 
-        La Figura \ref{fig:5.20} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el Ayuntamiento de Valladolid. 
+        La Figura \ref{fig:5.21} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el Ayuntamiento de Valladolid. 
         Se puede observar que se utiliza Selenium para abrir el navegador, acceder a la página oficial donde se completa el trámite, rellenar los campos necesarios con la información de la petición y simular su completitud sin llegar a enviar realmente el formulario. 
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.8\textwidth]{img/desarrollo/rpa.png}
             \caption{Código de la función de RPA para solicitar el certificado de empadronamiento.}
-            \label{fig:5.20}
+            \label{fig:5.21}
         \end{figure}
 
         El resto de trámites automatizados siguen una lógica similar; se localizan los elementos necesarios de cada página web mediante su ID o XPath, se rellenan o clican para ir completando los menús y formularios necesarios, y se simula la completitud del trámite sin llegar a enviar realmente nada. 

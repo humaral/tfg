@@ -3,12 +3,8 @@ Aplazamientos;True
 Apoderamietno para personas físicas;False
 Autorizaciones aduaneras (OEA establecimientos y regímenes);False
 Censos y garantías;False
-Censos, IAE, NIF y domicilio fiscal;True
 Certificado electrónico FNMT para personas físicas;False
-Certificados tributarios;True
 Declaraciones informativas (modelo 180 184 190 720...);True
-Deducción por maternidad;True
-Deducciones familiares (familia numerosa y discapacidad);True
 Embargos;True
 Entrega/recogida de documentos (firma de certificados de origen CITES etc.);False
 Garantías y facilidades de pago;False
@@ -21,18 +17,15 @@ Información comercio exterior (aduanas);True
 Información general de Impuestos Especiales (hidrocarburos alcohol tabaco etc...);True
 Información medioambientales (plástico fluorados valor producción etc...);True
 INTRASTAT;True
+IRPF - (No se confeccionan declaraciones de Renta);True
 IVA;True
 Marcas fiscales;False
-Matriculación de vehículos (I.E.D.M.T.);True
+Matriculación de vehículos;True
 Módulos;True
-Mutualistas: Formulario de solicitud de devolución;False
 Obtención Número de Referencia;False
 Otros trámites de Recaudación;True
 Pagar y consultar deudas;True
 Presentación de documentos en registro;False
 Recogida de notificaciones;False
-Recursos de Gestión Tributaria;True
 Recursos Recaudación;True
 Registro en Cl@ve;False
-Renta;True
-Tasa judicial. Canon de superficie de minas o de hidrocarburos;True

@@ -14,7 +14,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB01} & Inicio de sesión exitoso. \\ \hline
         \textbf{Descripción} & El empleado se identifica en la plataforma web con sus credenciales. \\ \hline
         \textbf{Resultado esperado} & Se redirige a la página de inicio, con el empleado identificado en el sistema y con los permisos correspondientes cargados en la sesión. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB01 - Inicio de sesión exitoso}
     \end{table}
@@ -26,7 +26,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB02} & Inicio de sesión denegado. \\ \hline
         \textbf{Descripción} & El empleado introduce unas credenciales erróneas en la plataforma web o las de una cuenta desactivada. \\ \hline
         \textbf{Resultado esperado} & El sistema deniega el inicio de sesión y avisa al empleado que las credenciales son incorrectas o la cuenta está desactivada. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB02 - Inicio de sesión denegado}
     \end{table}
@@ -38,7 +38,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB03} & Buscar una petición. \\ \hline
         \textbf{Descripción} & El empleado busca una petición en la tabla de peticiones mediante los filtros. \\ \hline
         \textbf{Resultado esperado} & La tabla muestra las peticiones coincidentes con los criterios de búsqueda. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB03 - Buscar una petición}
     \end{table}
@@ -50,7 +50,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB04} & Crear una petición manualmente. \\ \hline
         \textbf{Descripción} &  Un secretario crea una petición rellenando un formulario manualmente desde la plataforma web. \\ \hline
         \textbf{Resultado esperado} & Se genera una nueva petición en el sistema con los datos introducidos. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB04 - Crear una petición manualmente}
     \end{table}
@@ -62,7 +62,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB05} & Asignarse una petición. \\ \hline
         \textbf{Descripción} & Un secretario se asigna una petición cuyo estado es pendiente. \\ \hline
         \textbf{Resultado esperado} & Se actualiza el estado de la petición a asignada y se muestra el menú de edición de la petición al empleado asignado. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB05 - Asignarse una petición}
     \end{table}
@@ -74,7 +74,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB06} & Desasignarse una petición. \\ \hline
         \textbf{Descripción} & Un secretario se desasigna un petición que tenía asignada. \\ \hline
         \textbf{Resultado esperado} & Se actualiza el estado de la petición a pendiente y se oculta el menú de edición de la petición al empleado. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB06 - Desasignarse una petición}
     \end{table}
@@ -86,7 +86,8 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB07} & Editar los datos de una petición. \\ \hline
         \textbf{Descripción} & El secretario asignado a una petición modifica su información y la guarda. \\ \hline
         \textbf{Resultado esperado} & Se actualiza la información de la petición en la base de datos. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & La modificación de los datos se realiza correctamente conforme al resultado esperado en las peticiones de certificado de empadronamiento y tarjeta sanitaria. 
+            En el caso de las peticiones de cita en la AEAT, se detectó una incidencia al modificar el tipo de cita de presencial a telefónica, debido a que dicha opción no estaba restringida correctamente en función del servicio seleccionado. Tras aplicar la corrección, se repitió la prueba, obteniendo un resultado conforme a lo esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB07 - Editar los datos de una petición}
     \end{table}
@@ -98,7 +99,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB08} & Cancelar una petición. \\ \hline
         \textbf{Descripción} & El secretario asignado a una petición la cancela. \\ \hline
         \textbf{Resultado esperado} & Se actualiza el estado de la petición a cancelada y no se completa el trámite. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB08 - Cancelar una petición}
     \end{table}
@@ -122,7 +123,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB10} & Completar una petición de cita en la AEAT. \\ \hline
         \textbf{Descripción} & El secretario asignado a una petición de cita en la AEAT la completa. \\ \hline
         \textbf{Resultado esperado} & Se abre un navegador en la página de citas de la Agencia Tributaria, se completan los menús y formularios automáticamente con la información de la petición y se actualiza el estado de la petición a completada. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB10 - Completar una petición de cita en la AEAT}
     \end{table}

@@ -26,17 +26,8 @@ def rpa_certificado_empadronamiento(informacion):
         driver.find_element(By.ID, "principal.gr_datos.email").send_keys(informacion.get("email",""))
         driver.find_element(By.ID, "principal.gr_datos.motivo").send_keys(informacion.get("motivo",""))
 
-        old_url = driver.current_url
-
-        try:
-            WebDriverWait(driver, 60).until(
-                expected_conditions.url_changes(old_url)
-            )
-        except:
-            pass
-        finally:
-            print("Certifcado de empadronamiento solicitado correctamente.")
-            driver.quit()
+        print("Certifcado de empadronamiento solicitado correctamente.")
+        driver.quit()
         return True
     
     except:
@@ -88,7 +79,7 @@ def rpa_cita_aeat(informacion):
         citas = WebDriverWait(driver, 10).until(
             expected_conditions.presence_of_all_elements_located((By.CSS_SELECTOR, "div.p-3 > div.row"))
         )
-
+        
         for cita in citas:
 
             texto = cita.text
@@ -125,8 +116,12 @@ def rpa_cita_aeat(informacion):
                 print("HORA:", hora)
                 driver.quit()
                 return True
+            
+            if oficina and fecha and hora:
+                print("Posible cita:", oficina, "-", fecha, "-", hora)
         
-        print("Error al asignar la cita de la AEAT")
+        print("Error al asignar la cita de la AEAT, prueba con otra oficina, fecha u hora.")
+
         driver.quit()
         return False
     except:
