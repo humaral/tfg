@@ -197,7 +197,7 @@
     La comunicación y dependencias entre las distintas capas del sistema y sus componentes se representan en la Figura \ref{fig:4.7}.
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{img/diagramas/decomposition&uses_style.png}
+        \includegraphics[width=0.85\textwidth]{img/diagramas/decomposition&uses_style.png}
         \caption{Diagrama de descomposición y uso.}
         \label{fig:4.7}
     \end{figure}
@@ -208,7 +208,7 @@
         
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.75\textwidth]{img/diagramas/modelo_datos.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/modelo_datos.png}
         \caption{Diagrama Entidad-Relación.}
         \label{fig:4.8}
     \end{figure}
@@ -262,13 +262,14 @@
 
 \section{Diagramas de secuencia}
     A continuación se van a mostrar los diagramas de secuencia de los casos de uso más relevantes del sistema.
-
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_llamada_telefonica.png}
-        \caption{Diagrama de secuencia de una llamada telefónica al sistema.}
-        \label{fig:4.10}
-    \end{figure}
+    \begin{landscape}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[height=0.64\textwidth]{img/diagramas/secuencia_llamada_telefonica.png}
+            \caption{Diagrama de secuencia de una llamada telefónica al sistema.}
+            \label{fig:4.10}
+        \end{figure}
+    \end{landscape}
     La Figura \ref{fig:4.10} muestra el diagrama de secuencia base de una llamada VoIP entre un usuario y el sistema para realizar cualquier trámite. 
     El flujo inicia cuando el usuario entra en el canal de voz de Discord, lo que activa el bot y da comienzo a la conversación. 
     Cada conversación se gestiona con cuatro hilos independientes: 
@@ -283,7 +284,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_login.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_login.png}
         \caption{Diagrama de secuencia de inicio de sesión de un empleado.}
         \label{fig:4.11}
     \end{figure}
@@ -292,7 +293,7 @@
     
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.4\textwidth]{img/diagramas/secuencia_detalles_peticion.png}
+        \includegraphics[width=0.9\textwidth]{img/diagramas/secuencia_detalles_peticion.png}
         \caption{Diagrama de secuencia de consulta de los detalles de una petición.}
         \label{fig:4.12}
     \end{figure}
@@ -302,7 +303,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{img/diagramas/secuencia_peticion_revisable.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_peticion_revisable.png}
         \caption{Diagrama de secuencia de asignación de una petición revisable.}
         \label{fig:4.13}
     \end{figure}
@@ -314,7 +315,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_cambiar_pass.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_cambiar_pass.png}
         \caption{Diagrama de secuencia de cambio de contraseña de un empleado.}
         \label{fig:4.14}
     \end{figure}
@@ -324,7 +325,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{img/diagramas/secuencia_crear_peticion.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_crear_peticion.png}
         \caption{Diagrama de secuencia de creación de una petición por un empleado.}
         \label{fig:4.15}
     \end{figure}
@@ -334,20 +335,21 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_crear_empleado.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_crear_empleado.png}
         \caption{Diagrama de secuencia de creación de un empleado.}
         \label{fig:4.16}
     \end{figure}
     La Figura \ref{fig:4.16} se corresponde con el diagrama de secuencia para el caso de uso de añadir un nuevo empleado al sistema. 
     El flujo es similar al de la creación de una petición, pero se inicia desde la vista con el listado de empleados. 
     Cuando se envía el formulario, el sistema comprueba que no existe otro empleado con el mismo email, crea la cuenta y envía un correo electrónico al nuevo empleado con su contraseña temporal.
-
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_editar_empleado.png}
-        \caption{Diagrama de secuencia de edición de un empleado.}
-        \label{fig:4.17}
-    \end{figure}
+    \begin{landscape}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[height=0.95\textwidth]{img/diagramas/secuencia_editar_empleado.png}
+            \caption{Diagrama de secuencia de edición de un empleado.}
+            \label{fig:4.17}
+        \end{figure}
+    \end{landscape}
     La Figura \ref{fig:4.17} muestra el diagrama de secuencia para la modificación de la información de un empleado. 
     Desde el mismo formulario de creación, se mostrará la información del empleado seleccionado, permitiendo editar los campos, resetear la contraseña o desactivar la cuenta. 
     Si se modifica el email, el sistema comprobará que no existe otro empleado con el mismo. 
@@ -356,7 +358,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_crear_tramite.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_crear_tramite.png}
         \caption{Diagrama de secuencia de creación de un trámite.}
         \label{fig:4.18}
     \end{figure}
@@ -366,7 +368,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/diagramas/secuencia_editar_tramite.png}
+        \includegraphics[width=1\textwidth]{img/diagramas/secuencia_editar_tramite.png}
         \caption{Diagrama de secuencia de edición de un trámite.}
         \label{fig:4.19}
     \end{figure}

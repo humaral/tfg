@@ -1,13 +1,13 @@
 En este capítulo se resume el proceso de desarrollo del sistema elaborado, detallando los principales componentes que lo conforman y su funcionamiento. 
 La explicación se estructura siguiendo el orden real de la implementación del proyecto, comenzando por el desarrollo del frontend, seguido de la creación de la base de datos y la construcción del backend. 
-Finalmente, se comentan los distintos servicios integrados en la aplicación, como el envío de correos electrónicos, el bot de Discord, la conexión con la IA mediante Dialogflow y la automatización de los trámites con funciones de RPA. 
+Finalmente, se comentan los distintos servicios integrados en la aplicación, como el envío de correos electrónicos, el bot de Discord, la conexión con la IA mediante Dialogflow y la automatización de los trámites con funciones de Robotic Process Automation (RPA). 
 
 \section{Implementación del frontend}
     Para el desarrollo del frontend de la aplicación se ha utilizado el sistema de plantillas de Jinja. 
     Se ha definido una plantilla base (layout.jinja), mostrada en la Figura \ref{fig:5.1}, que funciona como estructura común para todas las vistas de la web. 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.75\textwidth]{img/desarrollo/layout.png}
+        \includegraphics[width=1\textwidth]{img/desarrollo/layout.png}
         \caption{Código de la plantilla base layout.jinja.}
         \label{fig:5.1}
     \end{figure}
@@ -23,7 +23,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.75\textwidth]{img/desarrollo/peticionesjs.png}
+        \includegraphics[width=1\textwidth]{img/desarrollo/peticionesjs.png}
         \caption{Fragmento de código de la construcción dinámica de la tabla de peticiones.}
         \label{fig:5.2}
     \end{figure}
@@ -34,13 +34,13 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.75\textwidth]{img/desarrollo/sumaryPeticion.png}
+        \includegraphics[width=1\textwidth]{img/desarrollo/sumaryPeticion.png}
         \caption{Fragmento de código de la plantilla resumen de una petición.}
         \label{fig:5.3}
     \end{figure}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/desarrollo/crearPeticionjs.png}
+        \includegraphics[width=1\textwidth]{img/desarrollo/crearPeticionjs.png}
         \caption{Fragmento de código de carga dinámica de las plantillas de cada trámite.}
         \label{fig:5.4}
     \end{figure}
@@ -55,7 +55,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     La Figura \ref{fig:5.5} muestra la función encargada de inicializar la base de datos en la aplicación, ejecutando el archivo SQL correspondiente durante el arranque del sistema. 
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.6\textwidth]{img/desarrollo/utils_db.png}
+        \includegraphics[width=0.8\textwidth]{img/desarrollo/utils_db.png}
         \caption{Código de la función de inicialización de la base de datos.}
         \label{fig:5.5}
     \end{figure}
@@ -83,13 +83,13 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     La Figura \ref{fig:5.8} muestra el código de las funciones que gestionan los permisos, incluido un decorador personalizado, @permiso\_requerido, que actua de forma análoga a @login\_required, bloqueando el acceso a las rutas a las que el usuario no tenga permiso.
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.2\textwidth]{img/desarrollo/permisosjson.png}
+        \includegraphics[width=0.3\textwidth]{img/desarrollo/permisosjson.png}
         \caption{JSON con los permisos de cada rol.}
         \label{fig:5.7}
     \end{figure}
     \begin{figure}[H]
         \centering
-        \includegraphics[width=0.7\textwidth]{img/desarrollo/permisospy.png}
+        \includegraphics[width=1\textwidth]{img/desarrollo/permisospy.png}
         \caption{Código de las funciones para la gestión de permisos en la aplicación.}
         \label{fig:5.8}
     \end{figure}
@@ -128,7 +128,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         El envío de correos se realiza de forma centralizada mediante una única función, Figura \ref{fig:5.9}, lo que permite generar distintos tipos de mensajes ajustando únicamente los parámetros de entrada. 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.5\textwidth]{img/desarrollo/mailpy.png}
+            \includegraphics[width=1\textwidth]{img/desarrollo/mailpy.png}
             \caption{Código de la función de envío de correos electrónicos.}
             \label{fig:5.9}
         \end{figure}
@@ -147,7 +147,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         También se reciben las acciones configuradas en Dialogflow, lo que permite conocer al bot el fin de cada llamada para poder colgar automáticamente. 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.5\textwidth]{img/desarrollo/dialogflowpy.png}
+            \includegraphics[width=1\textwidth]{img/desarrollo/dialogflowpy.png}
             \caption{Código de la función de envío de transcripciones a Dialogflow.}
             \label{fig:5.10}
         \end{figure}
@@ -164,7 +164,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             \label{fig:5.11}
         \end{figure}
 
-        \subsubsection{Entrenamiento del agente de Dialogflow}
+        \subsection{Entrenamiento del agente de Dialogflow}
             El entrenamiento del agente de IA se ha llevado a cabo desde la consola de Dialogflow, donde se ha definido el flujo de conversación mediante la creación de intents y entities y su unión mediante contextos y acciones.
             Dialogflow oculta el modelo o algoritmo interno de Machine Learning que utiliza para procesar el lenguaje natural; solo permite establecer el umbral de confianza para el reconocimiento de cada intent. 
 
@@ -172,14 +172,14 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             Por ello, el entrenamiento del agente se ha centrado principalmente en establecer frases de entrenamiento significativas para cada intent, pues cuantas más frases de entrenamiento se establezcan menor será la probabilidad de error en el reconocimiento de los intents y en la extracción de los datos.
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.8\textwidth]{img/desarrollo/training.png}
+                \includegraphics[width=0.5\textwidth]{img/desarrollo/training.png}
                 \caption{Establecimiento de frases de entrenamiento en Dialogflow.}
                 \label{fig:5.12}
             \end{figure}
             Dialogflow también ofrece una página de entrenamiento, Figura \ref{fig:5.13}, donde se muestran las conversaciones procesadas por el agente, indicando los intents reconocidos y los datos extraídos, permitiendo validar el correcto funcionamiento del agente y modificar los posibles errores, y asociando automáticamente las frases validadas a cada intent para su reentrenamiento.
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.8\textwidth]{img/desarrollo/entrenamiento.png}
+                \includegraphics[width=1\textwidth]{img/desarrollo/entrenamiento.png}
                 \caption{Página de entrenamiento en Dialogflow.}
                 \label{fig:5.13}
             \end{figure}
@@ -189,13 +189,13 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             Para recuperar los datos de la conversación hay que definir los parámetros en cada intent, Figura \ref{fig:5.15}, indicando el tipo de dato esperado mediante entidades predefinidas o personalizadas.
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/desarrollo/contexto.png}
+                \includegraphics[width=1\textwidth]{img/desarrollo/contexto.png}
                 \caption{Contexto de un intent en Dialogflow.}
                 \label{fig:5.14}
             \end{figure}
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.8\textwidth]{img/desarrollo/parameters.png}
+                \includegraphics[width=1\textwidth]{img/desarrollo/parameters.png}
                 \caption{Parámetros de un intent en Dialogflow.}
                 \label{fig:5.15}
             \end{figure}
@@ -203,7 +203,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             Para definir entidades personalizadas se puede establecer una lista de sinónimos para cada valor, lo que permite mejorar el reconocimiento de los datos por el agente, o definir una expresión regular, como en la Figura \ref{fig:5.16}, lo que es especialmente útil para datos como el dni o el número telefónico que siguen un formato específico. 
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/desarrollo/entity.png}
+                \includegraphics[width=1\textwidth]{img/desarrollo/entity.png}
                 \caption{Entidad personalizada en Dialogflow.}
                 \label{fig:5.16}
             \end{figure}
@@ -214,14 +214,14 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         La configuración del bot se realiza desde la página de desarrolladores de Discord, Figura \ref{fig:5.17}, desde donde se crea una nueva aplicación, se añade un bot a esta y se configuran los permisos necesarios para que el bot pueda actuar correctamente en el servidor. 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.75\textwidth]{img/desarrollo/discorddev.png}
+            \includegraphics[width=1\textwidth]{img/desarrollo/discorddev.png}
             \caption{Página de desarrolladores de Discord.}
             \label{fig:5.17}
         \end{figure}
         Del mismo modo, se crea un servidor de Discord, se invita al bot a este y se configura el servidor para que tenga un canal de voz específico para las llamadas, limitado a dos personas para que solo pueda haber una llamada a la vez, Figura \ref{fig:5.18}.
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.3\textwidth]{img/desarrollo/discord.png}
+            \includegraphics[width=0.4\textwidth]{img/desarrollo/discord.png}
             \caption{Servidor de Discord.}
             \label{fig:5.18}
         \end{figure}
@@ -241,13 +241,13 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         El primer componente que interviene es la clase VozSink, que se encarga de recibir los paquetes de audio del canal de voz, decodificarlos y almacenarlos en la cola de entrada de audio. 
         La decodificación del audio se realiza mediante una clase OpusDecoder (Figura \ref{fig:5.19}), que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
         En este caso, Discord transmite el audio utilizando el códec Opus con una frecuencia de muestreo de 48kHz, que es el estándar utilizado por la plataforma para las comunicaciones de voz en tiempo real. 
-        Este audio se decodifica a formato PCM (Pulse Code Modulation), el estándar global para la representación de audio digital sin compresión, y posteriormente se remuestrea a 16kHz con la biblioteca numpy, ya que es requerido por los servicios de transcripción para poder ser procesado correctamente. 
+        Este audio se decodifica a formato Pulse Code Modulation (PCM), el estándar global para la representación de audio digital sin compresión, y posteriormente se remuestrea a 16kHz con la biblioteca numpy, ya que es requerido por los servicios de transcripción para poder ser procesado correctamente. 
         El audio se recibe en fragmentos de 20ms, correspondientes al tamaño de frame habitual de Opus. 
         Dado que la frecuencia original es de 48kHz, cada fragmento contiene 960 muestras ($48kHz\ast0.02s=960$), lo cual define el tamaño de los bloques que deben procesarse en cada iteración de decodificación. 
         Finalmente, se almacenan estos fragmentos en la cola de entrada de audio como un array de bytes. 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.75\textwidth]{img/desarrollo/decode.png}
+            \includegraphics[width=1\textwidth]{img/desarrollo/decode.png}
             \caption{Código de la clase OpusDecoder.}
             \label{fig:5.19}
         \end{figure}
@@ -270,12 +270,14 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         Por último, el bot también detecta cuando el usuario abandona el canal de voz, procediendo a vaciar las colas, parar los hilos y liberar los recursos para esperar a la siguiente llamada.
 
         Toda esta lógica se recoge en el esquema de la Figura \ref{fig:5.20} a modo de resumen, mostrando el flujo de ejecución de cada hilo y la comunicación entre ellos mediante las colas. 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=1\textwidth]{img/diagramas/discord.png}
-            \caption{Resumen de la lógica del bot de Discord.}
-            \label{fig:5.20}
-        \end{figure}
+        \begin{landscape}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[height=0.75\textwidth]{img/diagramas/discord.png}
+                \caption{Resumen de la lógica del bot de Discord.}
+                \label{fig:5.20}
+            \end{figure}
+        \end{landscape}
 
     \subsection{Implementación e integración de las funciones de RPA}
         Para la automatización de los trámites se han implementado distintas funciones de RPA utilizando la biblioteca de Selenium, que permite controlar el ratón y el teclado para interactuar con la interfaz de las aplicaciones. 
@@ -285,7 +287,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         Se puede observar que se utiliza Selenium para abrir el navegador, acceder a la página oficial donde se completa el trámite, rellenar los campos necesarios con la información de la petición y simular su completitud sin llegar a enviar realmente el formulario. 
         \begin{figure}[H]
             \centering
-            \includegraphics[width=0.8\textwidth]{img/desarrollo/rpa.png}
+            \includegraphics[width=1\textwidth]{img/desarrollo/rpa.png}
             \caption{Código de la función de RPA para solicitar el certificado de empadronamiento.}
             \label{fig:5.21}
         \end{figure}
