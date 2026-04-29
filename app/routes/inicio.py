@@ -2,7 +2,8 @@
 # Fecha: 27-10-2025
 # Descripción: Controlador de las rutas en la vista de inicio.
 
-from flask import Blueprint, redirect, url_for, render_template
+from flask import Blueprint, redirect, url_for, render_template, abort
+from jinja2 import TemplateNotFound
 from flask_login import login_required
 from app.utils import permiso_requerido
 
@@ -17,4 +18,8 @@ def start():
 @login_required
 @permiso_requerido("crear_peticion")
 def get_plantilla(nombre):
-    return render_template(f"components/tramites/{nombre}.jinja", peticion=None)
+    ruta = f"components/tramites/{nombre}.jinja"
+    try:
+        return render_template(ruta, peticion=None)
+    except TemplateNotFound:
+        abort(501)

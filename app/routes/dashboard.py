@@ -378,7 +378,7 @@ def tramites():
 @login_required
 @permiso_requerido("ver_tramites")
 def api_tramites():
-    id = request.args.get('username', '')
+    id = request.args.get('id', '')
     valor = request.args.get('valor', '')
     activo = request.args.get('activo', '') in ['true', 'on', '1']
 

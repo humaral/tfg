@@ -1,0 +1,27 @@
+<!--
+- Autor: Hugo Martín Alonso
+- Fecha: 29-04-2026
+- Descripción: página de error 501 personalizado para cuando el formulario de un trámite no está disponible aún. 
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" type="image/png" href="{{url_for('static', filename='img/logo.png')}}">
+        <title>Recurso no implementado</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/error.css')}}">
+        <script src="https://code.iconify.design/iconify-icon/3.0.1/iconify-icon.min.js"></script>
+    </head>
+    <body>
+        <main class="error-page">
+            <div class="error-cabecera">
+                <h1 id="error_501">5</h1>
+                <iconify-icon icon="mdi:progress-wrench"></iconify-icon>
+                <h1>1</h1>
+            </div>
+            <h2>RECURSO NO IMPLEMENTADO</h2>
+            <p>El recurso solicitado todavía no ha sido implementado en el sistema. Esta funcionalidad estará disponible en futuras versiones.</p>
+        </main>
+    </body>
+</html>

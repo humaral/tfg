@@ -24,7 +24,8 @@
 }
 
 .error-cabecera h1{
-    font-size: 15rem;
+    font-size: 15rem !important;
+    color: var(--color-error) !important;
     margin: 0;
 }
 

@@ -87,7 +87,8 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{Descripción} & El secretario asignado a una petición modifica su información y la guarda. \\ \hline
         \textbf{Resultado esperado} & Se actualiza la información de la petición en la base de datos. \\ \hline
         \textbf{Resultado obtenido} & La modificación de los datos se realiza correctamente conforme al resultado esperado en las peticiones de certificado de empadronamiento y tarjeta sanitaria. 
-            En el caso de las peticiones de cita en la AEAT, se detectó una incidencia al modificar el tipo de cita de presencial a telefónica, debido a que dicha opción no estaba restringida correctamente en función del servicio seleccionado. Tras aplicar la corrección, se repitió la prueba, obteniendo un resultado conforme a lo esperado. \\ \hline
+            En el caso de las peticiones de cita en la AEAT, se detectó una incidencia al modificar el tipo de cita de presencial a telefónica, debido a que dicha opción no estaba restringida correctamente en función del servicio seleccionado. 
+            Tras aplicar la corrección, se repitió la prueba, obteniendo un resultado conforme a lo esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB07 - Editar los datos de una petición}
     \end{table}
@@ -111,9 +112,10 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB09} & Completar una petición de certificado de empadronamiento. \\ \hline
         \textbf{Descripción} & El secretario asignado a una petición de certificado de empadronamiento la completa. \\ \hline
         \textbf{Resultado esperado} & Se abre un navegador en la página del Ayuntamiento de Valladolid donde se completa el trámite del certificado de empadronamiento, se rellena el formulario automáticamente con la información de la petición y se actualiza el estado de la petición a completada. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB09 - Completar una petición de certificado de empadronamiento}
+        \label{tab:6.9}
     \end{table}
 
     \begin{table}[H]
@@ -122,10 +124,15 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \hline
         \textbf{WEB10} & Completar una petición de cita en la AEAT. \\ \hline
         \textbf{Descripción} & El secretario asignado a una petición de cita en la AEAT la completa. \\ \hline
-        \textbf{Resultado esperado} & Se abre un navegador en la página de citas de la Agencia Tributaria, se completan los menús y formularios automáticamente con la información de la petición y se actualiza el estado de la petición a completada. \\ \hline
+        \textbf{Resultado esperado} & Se abre un navegador en la página de citas de la Agencia Tributaria, se completan automáticamente los menús y formularios con la información de la petición y el sistema comprueba la disponibilidad de citas. 
+            Si existe disponibilidad, se actualiza el estado de la petición a completada. 
+            En caso contrario, se informa por consola de la siguientes fechas disponibles. \\ \hline
         \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
+        \textbf{Observaciones} & Durante la prueba se comprobó que el sistema detecta correctamente la ausencia de citas para la fecha solicitada, mostrando por consola la siguiente fecha ofrecida por el portal. 
+            Actualmente, esta notificación se utiliza únicamente con fines de depuración y validación del flujo automatizado, quedando como trabajo futuro su integración en mecanismos más adecuados para el usuario. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB10 - Completar una petición de cita en la AEAT}
+        \label{tab:6.10}
     \end{table}
 
     \begin{table}[H]
@@ -135,10 +142,21 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB11} & Completar una petición de tarjeta de SACYL. \\ \hline
         \textbf{Descripción} & El secretario asignado a una petición de tarjeta sanitaria la completa. \\ \hline
         \textbf{Resultado esperado} & Se abre un navegador en la página de SACYL donde se solicita la tarjeta sanitaria, se rellena el formulario automáticamente con la información de la petición y se actualiza el estado de la petición a completada. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Se abre un navegador en la página de SACYL donde se solicita la tarjeta sanitaria y el sistema rellena automáticamente el formulario con la información de la petición. 
+            El flujo finaliza correctamente y la petición se actualiza como completada, funcionando conforme al resultado esperado. 
+            No obstante, en un número elevado de ejecuciones el proceso se detiene en un campo de tipo select, siendo necesario interactuar manualmente con dicho elemento para que la automatización continúe. 
+            Este comportamiento depende de la carga dinámica de la página web de Sanidad de Castilla y León. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB11 - Completar una petición de tarjeta de SACYL}
+        \label{tab:6.11}
     \end{table}
+
+    Las Tablas \ref{tab:6.9}, \ref{tab:6.10} y \ref{tab:6.11} recogen los resultados obtenidos en las distintas pruebas sobre los flujos automatizados mediante RPA, donde se observa un comportamiento correcto en la ejecución de los trámites. 
+    
+    Cabe destacar que este enfoque basado en técnicas de RPA implica una dependencia directa de la estructura y disposición de las interfaces web de los portales correspondientes. 
+    Por ello, aunque los resultados obtenidos validan el correcto funcionamiento del sistema en el momento de realización de las pruebas, no se garantiza su validez futura sin un mantenimiento continuo. 
+    
+    Además, para el caso concreto de la Agencia Tributaria, es habitual la realización de modificaciones en los servicios ofrecidos sobre las citas, lo que incrementa la probabilidad de que este flujo automatizado requiera ajustes en el futuro. 
 
     \begin{table}[H]
         \centering
@@ -147,7 +165,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB12} & Buscar un empleado. \\ \hline
         \textbf{Descripción} & Un administrador busca un empleado en la tabla de empleados mediante los filtros. \\ \hline
         \textbf{Resultado esperado} & La tabla muestra los empleados coincidentes con los criterios de búsqueda. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB12 - Buscar un empleado}
     \end{table}
@@ -159,7 +177,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB13} & Crear un empleado. \\ \hline
         \textbf{Descripción} & Un administrador crea una cuenta de empleado rellenando un formulario en la plataforma web. \\ \hline
         \textbf{Resultado esperado} & Se genera una nueva cuenta de empleado en el sistema con los datos introducidos, comprobando que no exista otra cuenta con el mismo correo, y se envía un email a la cuenta creada con su usuario y su contraseña temporal. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB13 - Crear un empleado}
     \end{table}
@@ -171,7 +189,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB14} & Modificar información de un empleado. \\ \hline
         \textbf{Descripción} & Un administrador modifica la información de un empleado y la guarda. \\ \hline
         \textbf{Resultado esperado} & El sistema actualiza la información de la cuenta y si se ha modificado el correo comprueba que no haya otra cuenta con el mismo. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB14 - Modificar información de un empleado}
     \end{table}
@@ -183,7 +201,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB15} & Desactivar una cuenta de empleado. \\ \hline
         \textbf{Descripción} & Un administrador desactiva la cuenta de un empleado. \\ \hline
         \textbf{Resultado esperado} & Se deniega el acceso de la cuenta al sistema, se desasignan todas las peticiones asignadas por este empleado cambiando el estado a pendiente y se notifica por correo al empleado que su cuenta ha sido desactivada. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB15 - Desactivar una cuenta de empleado}
     \end{table}
@@ -195,7 +213,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB16} & Activar una cuenta de empleado. \\ \hline
         \textbf{Descripción} & Un administrador activa la cuenta de un empleado. \\ \hline
         \textbf{Resultado esperado} & Se permite el acceso de la cuenta al sistema y se notifica por correo al empleado que su cuenta ha sido reactivada. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB16 - Activar una cuenta de empleado}
     \end{table}
@@ -207,7 +225,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB17} & Reestablecer contraseña de un empleado. \\ \hline
         \textbf{Descripción} & Un administrador restablece la contraseña de un empleado. \\ \hline
         \textbf{Resultado esperado} & Se modifica la contraseña del empleado a una contraseña temporal generada automáticamente y se envía la contraseña por correo al empleado.  \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB17 - Reestablecer contraseña de un empleado}
     \end{table}
@@ -219,7 +237,8 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB18} & Buscar un trámite. \\ \hline
         \textbf{Descripción} & Un administrador busca un trámite en la tabla de trámites mediante los filtros. \\ \hline
         \textbf{Resultado esperado} & La tabla muestra los trámites coincidentes con los criterios de búsqueda. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Se detectó una incidencia al filtrar los trámites por el campo del id. 
+            Tras aplicar la corrección, se repitió la prueba, obteniendo un resultado conforme a lo esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB18 - Buscar un trámite}
     \end{table}
@@ -231,7 +250,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB19} & Crear un trámite. \\ \hline
         \textbf{Descripción} & Un administrador genera un nuevo trámite rellenando un formulario. \\ \hline
         \textbf{Resultado esperado} & Se genera un nuevo trámite en el sistema, comprobando que no existe otro trámite con el mismo título. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB19 - Crear un trámite}
     \end{table}
@@ -242,8 +261,8 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \hline
         \textbf{WEB20} & Modificar el título de un trámite. \\ \hline
         \textbf{Descripción} & Un administrador edita la información de un trámite. \\ \hline
-        \textbf{Resultado esperado} & Se actualiza la información del trámite en el sistema, comprobando que no existe ningún otro trámite con el mismo título en caso de que se haya modificado. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado esperado} & Se actualiza la información correspondiente al título del trámite en el sistema, comprobando que no existe ningún otro trámite con el mismo título. \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB20 - Modificar el título de un trámite}
     \end{table}
@@ -255,7 +274,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB21} & Desactivar un trámite. \\ \hline
         \textbf{Descripción} & Un administrador desactiva un trámite activo. \\ \hline
         \textbf{Resultado esperado} & Se cancelan automáticamente todas las peticiones no finalizadas de ese trámite y no deja crear nuevas peticiones para esta gestión. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB21 - Desactivar un trámite}
     \end{table}
@@ -267,7 +286,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB22} & Activar un trámite. \\ \hline
         \textbf{Descripción} & Un administrador activa un trámite desactivado. \\ \hline
         \textbf{Resultado esperado} & Se permite la creación de nuevas peticiones para esta gestión. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB22 - Activar un trámite}
     \end{table}
@@ -294,6 +313,18 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{Resultado obtenido} &  \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB24 - Cambiar la contraseña de la cuenta}
+    \end{table}
+
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|l|p{12cm}|}
+        \hline
+        \textbf{WEB25} & Cerrar sesión. \\ \hline
+        \textbf{Descripción} & Un empleado cierra la sesión de su cuenta. \\ \hline
+        \textbf{Resultado esperado} & Se cierra la sesión del empleado y se redirige a la página de inicio de sesión. \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
+        \end{tabular}
+        \caption{Caso de prueba WEB25 - Cerrar sesión}
     \end{table}
 
 
@@ -436,4 +467,3 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
     \subsection*{}
         A partir de las pruebas realizadas, se concluye que el sistema cumple satisfactoriamente con los requisitos funcionales establecidos, permitiendo a los usuarios solicitar los trámites de forma telefónica y a los empleados gestionar las solicitudes de manera eficaz.
         Respecto a los requisitos no funcionales, los resultados obtenidos muestran un comportamiento adecuado en términos de rendimiento y usabilidad, aunque algunos aspectos requieren una validación más exhaustiva en un entorno real futuro para poder afirmarlo de forma concluyente.
-        
