@@ -298,7 +298,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB23} & Cambiar la foto de perfil. \\ \hline
         \textbf{Descripción} & Un empleado modifica la foto de perfil de su cuenta. \\ \hline
         \textbf{Resultado esperado} & Se borra la foto de perfil antigua para almacenar la nueva en su lugar, refrescando la web para mostrar la foto nueva.  \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB23 - Cambiar la foto de perfil}
     \end{table}
@@ -310,7 +310,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{WEB24} & Cambiar la contraseña de la cuenta. \\ \hline
         \textbf{Descripción} & Un empleado modifica la contraseña de su cuenta introduciendo la contraseña antigua y la nueva. \\ \hline
         \textbf{Resultado esperado} & Se comprueba que la contraseña antigua es correcta y se actualiza la contraseña de la cuenta con la nueva.  \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba WEB24 - Cambiar la contraseña de la cuenta}
     \end{table}
@@ -337,7 +337,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{AC01} & Detección del trámite. \\ \hline
         \textbf{Descripción} & Un usuario indica mediante voz el trámite que desea ejecutar en la llamada.  \\ \hline
         \textbf{Resultado esperado} & El agente conversacional identifica correctamente el trámite deseado por el usuario. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba AC01 - Detección del trámite}
     \end{table}
@@ -349,9 +349,10 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{AC02} & Extracción de datos para el certificado de empadronamiento. \\ \hline
         \textbf{Descripción} & El usuario responde a las preguntas del agente.  \\ \hline
         \textbf{Resultado esperado} & El agente extrae de la conversación con el usuario la información necesaria para llevar a cabo el trámite del certificado de empadronamiento. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba AC02 - Extracción de datos para el certificado de empadronamiento}
+        \label{tab:6.27}
     \end{table}
 
     \begin{table}[H]
@@ -361,9 +362,10 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{AC03} & Extracción de datos para la cita de la AEAT. \\ \hline
         \textbf{Descripción} & El usuario responde a las preguntas del agente. \\ \hline
         \textbf{Resultado esperado} & El agente extrae de la conversación con el usuario la información necesaria para llevar a cabo el trámite de la cita en la AEAT. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba AC03 - Extracción de datos para la cita de la AEAT}
+        \label{tab:6.28}
     \end{table}
 
     \begin{table}[H]
@@ -373,10 +375,16 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{AC04} & Extracción de datos para la tarjeta de SACYL. \\ \hline
         \textbf{Descripción} & El usuario responde a las preguntas del agente. \\ \hline
         \textbf{Resultado esperado} & El agente extrae de la conversación con el usuario la información necesaria para llevar a cabo el trámite de la tarjeta de SACYL. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba AC04 - Extracción de datos para la tarjeta de SACYL}
+        \label{tab:6.29}
     \end{table}
+
+    Las Tablas \ref{tab:6.27}, \ref{tab:6.28} y \ref{tab:6.29} recogen los resultados obtenidos en las distintas pruebas sobre la extracción de datos por parte del agente conversacional para los diferentes trámites, mostrando en líneas generales un comportamiento acorde al esperado. 
+    No obstante, se ha observado que pueden producirse errores puntuales de interpretación en el reconocimiento de algunos datos proporcionados por el usuario. 
+    Estas incidencias se consideran razonables dentro del margen de error inherente a las tecnologías basadas en inteligencia artificial. 
+    Asimismo, este tipo de imprecisiones pueden reducirse mediante un proceso continuo de entrenamiento. 
 
     \begin{table}[H]
         \centering
@@ -385,7 +393,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{AC05} & Confirmar los datos extraídos. \\ \hline
         \textbf{Descripción} & El usuario confirma los datos extraídos por el agente. \\ \hline
         \textbf{Resultado esperado} & El agente finaliza la llamada y se genera la petición en la base de datos. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba AC05 - Confirmar los datos extraídos}
     \end{table}
@@ -397,7 +405,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{AC06} & Modificar uno de los datos extraídos. \\ \hline
         \textbf{Descripción} & El usuario corrige en la llamada uno de los datos extraídos por el agente. \\ \hline
         \textbf{Resultado esperado} & El agente modifica el valor del dato correctamente. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & La funcionalidad se ha validado satisfactoriamente en el trámite de certificado de empadronamiento, permitiendo la corrección de cualquier dato sin interrumpir el flujo. \\ \hline
         \end{tabular}
         \caption{Caso de prueba AC06 - Modificar uno de los datos extraídos}
     \end{table}
@@ -407,9 +415,9 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \begin{tabular}{|l|p{12cm}|}
         \hline
         \textbf{AC07} & Responder preguntas sin perder el flujo. \\ \hline
-        \textbf{Descripción} & El usuario interrumpe el flujo de la llamada para hacer una pregunta relacionada. \\ \hline
+        \textbf{Descripción} & El usuario interrumpe el flujo de la llamada para hacer una de las preguntas relacionadas programadas. \\ \hline
         \textbf{Resultado esperado} & El agente responde a la pregunta y reanuda el flujo. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & La funcionalidad se ha validado satisfactoriamente sobre el flujo del trámite de certificado de empadronamiento, donde el agente responde a las preguntas predefinidas, retomando posteriormente la conversación. \\ \hline
         \end{tabular}
         \caption{Caso de prueba AC07 - Responder preguntas sin perder el flujo}
     \end{table}
@@ -423,7 +431,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{DISC01} & Conexión al canal de voz. \\ \hline
         \textbf{Descripción} & El usuario se une al canal de llamada de Discord. \\ \hline
         \textbf{Resultado esperado} & El bot de Discord se une al canal, establece la conexión de voz con el usuario e inicia el flujo del agente. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba DISC01 - Conexión al canal de voz}
     \end{table}
@@ -435,7 +443,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{DISC02} & Recepción de audio del canal de voz. \\ \hline
         \textbf{Descripción} & Se comprueba la recuperación de paquetes de audio de la llamada y su conversión para ser interpretables por el transcriptor. \\ \hline
         \textbf{Resultado esperado} & Se extraen y decodifican los paquetes de audio correctamente, recuperando las respuestas del usuario. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba DISC02 - Recepción de audio del canal de voz}
     \end{table}
@@ -447,7 +455,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{DISC03} & Reproducción de audio en el canal de voz. \\ \hline
         \textbf{Descripción} & Se comprueba la reproducción del audio recibido del agente en el canal de Discord. \\ \hline
         \textbf{Resultado esperado} & La reproducción es correcta y el audio se escucha con claridad. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba DISC03 - Reproducción de audio en el canal de voz}
     \end{table}
@@ -459,7 +467,7 @@ Se ha empleado la versión de escritorio de Discord para garantizar una mayor es
         \textbf{DISC04} & Colgar la llamada. \\ \hline
         \textbf{Descripción} & El usuario abandona la llamada o la finaliza tras completar o cancelar un trámite. \\ \hline
         \textbf{Resultado esperado} & El bot detecta la acción del usuario, libera los recursos y abandona el canal de Discord. \\ \hline
-        \textbf{Resultado obtenido} &  \\ \hline
+        \textbf{Resultado obtenido} & Funcionamiento conforme al resultado esperado. \\ \hline
         \end{tabular}
         \caption{Caso de prueba DISC04 - Colgar la llamada}
     \end{table}

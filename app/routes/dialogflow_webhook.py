@@ -24,10 +24,10 @@ def webhook():
         tel=random.randint(600000000, 999999999) #Genero un número telefónico aleatorio ya que al simularlo con discord no se obtiene este dato. Al subirlo a producción habría que sustituirlo por el número recuperado de la integración telefónica.
        
         params = recuperar_parametros(contexts, "certificado_empadronamiento")
-        
+
         informacion = {
             "nombre" : params.get("nombre",""),
-            "apellidos" : params.get("apellidos",{}),
+            "apellidos" : params.get("apellidos",""),
             "dni" : params.get("dni_pasaporte",""),
             "telefono" : params.get("telefono",""),
             "motivo" : params.get("motivo","")
@@ -38,7 +38,7 @@ def webhook():
         tel=random.randint(600000000, 999999999)
 
         params = recuperar_parametros(contexts, "cita_aeat")
-
+        
         informacion = {
             "dni" : params.get("dni",""),
             "nombre" : params.get("nombre",{}).get("name",""),
@@ -128,14 +128,14 @@ def webhook():
                     "parameters": params
                 }
             }
-        elif cita == "telefónica":
+        elif cita == "telefonica":
             res = {
                 "fulfillmentMessages":[
                     {
                         "text": {
                             "text": [
                                 f"""<speak>Por favor, confírmeme los datos. <break time="450ms"/> 
-                                Nombre: {params.get("nombre","")}. <break time="250ms"/>
+                                Nombre: {params.get("nombre","").get("name", "")}. <break time="250ms"/>
                                 Número de identificación: {params.get("dni","")}. <break time="300ms"/>
                                 Vas a realizar el servicio de {params.get("servicio", "")} de forma telefónica. <break time="200ms"/>
                                 <emphasis level="moderate">¿Son correctos?</emphasis></speak>"""
@@ -173,5 +173,4 @@ def recuperar_parametros(contextos, contexto_objetivo):
     for c in contextos:
         if c.get("name","").endswith(contexto_objetivo):
             params = c.get("parameters", {})
-    
     return params

@@ -108,7 +108,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     También permite modificar la imagen de perfil, almacenando la imagen nueva y borrando la antigua. 
 
     Por último, hay un blueprint de errores, que se encarga únicamente de renderizar una plantilla personalizada en caso de error 404, es decir, cuando el empleado intenta acceder a un recurso inexistente, y de error 403, cuando el empleado intenta acceder a un recurso para el que no tiene permiso. 
-    También incluye un error 501, no implementado, para el caso concreto de que un administrador añada un nuevo trámite al sistema sin haber implementado aún el formulario correspondiente, lo que se detecta al intentar renderizar la plantilla al crear una petición para ese trámite nuevo.
+    También incluye un error 501, recurso no implementado, para el caso concreto en el que se intente crear una petición para un trámite del que aún no se ha implementado la plantilla con su formulario correspondiente. 
     
     Adicionalmente, se ha implementado otro blueprint independiente para modularizar la lógica de las APIs. 
     Por el momento, este incluye un único endpoint que actúa como webhook para procesar los eventos de Dialogflow, cuya integración se comentará con mayor detalle en la sección siguiente. 
