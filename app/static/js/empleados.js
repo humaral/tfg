@@ -1,7 +1,7 @@
 /**
  * Autor: Hugo Martín Alonso
  * Fecha: 04-11-2025
- * Descripción: estilos dinámicos específicos de la página de empleados.
+ * Descripción: Estilos dinámicos específicos de la página de empleados.
  */
 
 const menuEmpleados = document.getElementById("menu-empleados")

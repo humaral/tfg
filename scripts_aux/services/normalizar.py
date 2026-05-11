@@ -1,6 +1,6 @@
 # Autor: Hugo Martín Alonso
 # Fecha: 05/12/2025
-# Descripción: funciones para normalizar textos y que el stt de vosk reconozca bien números y letras.
+# Descripción: Funciones para normalizar textos y que el stt de vosk reconozca bien números y letras.
 
 
 NUMEROS = {

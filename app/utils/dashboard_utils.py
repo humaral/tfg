@@ -6,12 +6,12 @@ import string, secrets
 from app.models import Peticion, Hito, Tramite
 from app import db
 
-def temporal_password():
+def temporal_password(): #Genera una contraseña temporal de 12 caracteres alfanuméricos.
     chars = string.ascii_letters + string.digits
     return ''.join(secrets.choice(chars) for _ in range(12))
 
 
-def crear_peticion(telefono, idTramite, informacion, idCreador=None):
+def crear_peticion(telefono, idTramite, informacion, idCreador=None): #Crea una nueva petición en el sistema
     
     tramite = db.session.scalar(db.select(Tramite).where(Tramite.id == idTramite))
     

@@ -1,3 +1,7 @@
+# Autor: Hugo Martín Alonso
+# Fecha: 1-11-2025
+# Descripción: Script para realizar una consulta en la base de datos, útil para depuración y desarrollo.
+
 import sqlite3
 
 conexion = sqlite3.connect("./app/data/data.db")

@@ -1,5 +1,6 @@
 # Autor: Hugo Martín Alonso
-# Descripción: programa de inicialización de la aplicación.
+# Fecha: 27-10-2025
+# Descripción: Programa de inicialización de la aplicación.
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy

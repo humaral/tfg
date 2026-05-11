@@ -1,6 +1,6 @@
 # Autor: Hugo Martín Alonso
 # Fecha: 25-09-2025
-# Descripción: programa de inicialización de la aplicación.
+# Descripción: Programa de inicialización de la aplicación.
 
 from app import create_app
 import locale

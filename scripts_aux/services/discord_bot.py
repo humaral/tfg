@@ -1,3 +1,8 @@
+# Autor: Hugo Martín Alonso
+# Fecha: 14/12/2025
+# Descripción: Lógica del bot de Discord.
+
+
 import discord, os, json, logging, pyogg, opuslib, threading, queue, time, io, uuid, re, asyncio
 from discord.ext import commands, voice_recv
 from dotenv import load_dotenv
@@ -15,13 +20,13 @@ for name in logging.root.manager.loggerDict: #Silencia los logs de discord
 SetLogLevel(-1) #Silencia los logs de Vosk
 
 load_dotenv()
-DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN') #Se cargan las credenciales del bot de Discord
 
-SILENCE_THRESHOLD = 1.2
-USE_LOCAL_STT = False
-END_CALL = threading.Event()
+SILENCE_THRESHOLD = 1.2         #Tiempo en segundos de silencio para considerar que el usuario ha dejado de hablar y procesar la frase
+USE_LOCAL_STT = False           #False = Google Cloud Speech-to-Text, True = Vosk
+END_CALL = threading.Event()    #Evento de finalización de llamada
 
-if USE_LOCAL_STT:
+if USE_LOCAL_STT: 
     print("Cargando modelo Vosk...")
     try:
         model = Model(os.getenv("VOSK_MODEL_PATH"))
@@ -42,7 +47,7 @@ intents.members = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 
-class OpusDecoder:
+class OpusDecoder: #Decodificador de Opus a PCM16k
     def __init__(self, rate=48000, channels=1):
         self.decoder = opuslib.Decoder(rate, channels)
     
@@ -57,7 +62,7 @@ class OpusDecoder:
             return None
 
 
-class STTWorkerVosk(threading.Thread):
+class STTWorkerVosk(threading.Thread): #Transcriptor de voz a texto usando Vosk
     def __init__(self, audio_input_queue, text_queue):
         super().__init__(daemon=True)
         self.audio_input_queue = audio_input_queue
@@ -90,7 +95,8 @@ class STTWorkerVosk(threading.Thread):
             self.last_audio_time = time.time()
             self.recognizer.AcceptWaveform(pcm16k)
 
-class STTWorkerGoogle(threading.Thread):
+
+class STTWorkerGoogle(threading.Thread): #Transcriptor de voz a texto usando Google Cloud Speech-to-Text
     def __init__(self, audio_input_queue, text_queue):
         super().__init__(daemon=True)
         self.audio_input_queue = audio_input_queue
@@ -142,7 +148,7 @@ class STTWorkerGoogle(threading.Thread):
             self.buffer.extend(pcm16k)
             
 
-class AgentWorker(threading.Thread):
+class AgentWorker(threading.Thread): #Lógica de conexión con el agente de Dialogflow
     def __init__(self, text_queue, audio_output_queue, session_id, vc, member, bot):
         super().__init__(daemon=True)
         self.text_queue = text_queue
@@ -179,8 +185,9 @@ class AgentWorker(threading.Thread):
                 break
 
             self.conexion_dialogflow(texto=user_text)
-            
-class TTSWorker(threading.Thread):
+
+
+class TTSWorker(threading.Thread): #Reproductor de audio de respuesta del agente en Discord
     def __init__(self, audio_output_queue, vc):
         super().__init__(daemon=True)
         self.vc = vc
@@ -216,7 +223,7 @@ class TTSWorker(threading.Thread):
             self.audio_output_queue.task_done()
 
 
-class VozSink(voice_recv.AudioSink):
+class VozSink(voice_recv.AudioSink): #Clase personalizada para recibir los paquetes de audio del canal de voz de Discord
     def __init__(self, audio_input_queue, vc):
         super().__init__()
         self.decoder = OpusDecoder()
@@ -254,7 +261,7 @@ async def on_ready():
     print(f'\nEl bot {bot.user} se ha conectado correctamente a Discord')
 
 
-@bot.event
+@bot.event #Evento de conexión/desconexión en canales de voz
 async def on_voice_state_update(member, before, after):
     if after.channel is not None and before.channel != after.channel:
         if not member.bot and member.voice is not None:
@@ -307,7 +314,8 @@ async def on_voice_state_update(member, before, after):
                 pass
             await voz.disconnect(force=True)
 
-async def finalizar_llamada(voz, member=None):
+
+async def finalizar_llamada(voz, member=None): #Función para finalizar la llamada
 
     if voz is None or not voz.is_connected():
         return

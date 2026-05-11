@@ -1,7 +1,7 @@
 /**
  * Autor: Hugo Martín Alonso
  * Fecha: 06/11/2025
- * Descripción: estilos dinámicos de la vista del perfil de empleado.
+ * Descripción: Estilos dinámicos de la vista del perfil de empleado.
  */
 
 const buttonCambiarPass = document.getElementById("button-cambiar-pass");

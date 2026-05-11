@@ -1,6 +1,6 @@
 # Autor: Hugo Martín Alonso
 # Fecha: 25-09-2025
-# Descripción: script para crear la base de datos desde el .sql, borrando las tablas antiguas.
+# Descripción: Script para crear la base de datos desde el .sql, borrando las tablas antiguas.
 
 import os, random
 from app import db

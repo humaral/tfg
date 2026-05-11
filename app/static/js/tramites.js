@@ -1,7 +1,7 @@
 /**
  * Autor: Hugo Martín Alonso
  * Fecha: 07-11-2025
- * Descripción: estilos dinámicos específicos de la página de tramites.
+ * Descripción: Estilos dinámicos específicos de la página de tramites.
  */
 
 

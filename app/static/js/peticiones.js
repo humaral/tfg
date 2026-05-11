@@ -1,7 +1,7 @@
 /**
  * Autor: Hugo Martín Alonso
  * Fecha: 31-10-2025
- * Descripción: estilos dinámicos específicos de la página de peticiones.
+ * Descripción: Estilos dinámicos específicos de la página de peticiones.
  */
 
 const menuPeticiones = document.getElementById("menu-peticiones")

@@ -11,9 +11,9 @@ from app import db
 
 auth_bp = Blueprint('auth', __name__)
 
-#Funcionalidad para mostrar el login, iniciar sesión y redirigir a peticiones
+
 @auth_bp.route("/login", methods=["GET", "POST"])
-def login():
+def login(): #Gestiona el inicio de sesión de los empleados
     if current_user.is_authenticated:
         return redirect(url_for("dashboard.peticiones"))
     else:
@@ -36,10 +36,10 @@ def login():
 
         return render_template("login.jinja")
 
-#Funcionalidad para cerrar sesión
+
 @auth_bp.route("/logout")
 @login_required
-def logout():
+def logout(): #Geestiona el cierre de sesión de los empleados
     logout_user()
     session.clear()
     return redirect(url_for("auth.login"))

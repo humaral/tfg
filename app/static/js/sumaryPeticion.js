@@ -1,7 +1,7 @@
 /**
  * Autor: Hugo Martín Alonso
  * Fecha: 20-11-2025
- * Descripción: estilos dinámicos específicos de la página resumen de una petición.
+ * Descripción: Estilos dinámicos específicos de la página resumen de una petición.
  */
 
 

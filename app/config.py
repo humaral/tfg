@@ -1,5 +1,6 @@
 # Autor: Hugo Martín Alonso
-# Descripción: archivo con las configuraciones de la aplicación.
+# Fecha: 23-11-2025
+# Descripción: Archivo con las configuraciones de la aplicación.
 
 import os
 

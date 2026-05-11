@@ -11,13 +11,13 @@ from app.utils import permiso_requerido
 inicio_bp = Blueprint('inicio', __name__)
 
 @inicio_bp.route("/")
-def start():
+def start(): #Redirige a la página de login
     return redirect(url_for("auth.login"))
 
 @inicio_bp.route("/cargar_plantilla/<string:nombre>")
 @login_required
 @permiso_requerido("crear_peticion")
-def get_plantilla(nombre):
+def get_plantilla(nombre): #Carga la plantilla con el formulario del trámite seleccionado para crear una nueva petición
     ruta = f"components/tramites/{nombre}.jinja"
     try:
         return render_template(ruta, peticion=None)

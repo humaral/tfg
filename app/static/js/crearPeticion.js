@@ -1,7 +1,7 @@
 /**
  * Autor: Hugo Martín Alonso
  * Fecha: 09/11/2025
- * Descripción: código de la vista de crear peticiones
+ * Descripción: Código de la vista de crear peticiones
  */
 
 const inputTramite = document.getElementById("crear-peticion-tramite");

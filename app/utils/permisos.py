@@ -1,13 +1,13 @@
 # Autor: Hugo Martín Alonso
 # Fecha: 30/10/2025
-# Descripción: Craga la información de los permisos por roles.
+# Descripción: Carga la información de los permisos por roles.
 
 import os, json
 from flask import session, abort
 from functools import wraps
 from flask_login import current_user
 
-#Devuelve la lista de permisos del usuario. Rol = current_user.rol.valor
+#Devuelve la lista de permisos del usuario
 def cargar_permisos(rol):
 
     ruta = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"data\\permisos.json")

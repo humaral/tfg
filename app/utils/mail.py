@@ -1,6 +1,6 @@
 # Autor: Hugo Martín Alonso
 # Fecha: 22/11/2025
-# Descripción: utilidades para el envío de correos electrónicos.
+# Descripción: Utilidades para el envío de correos electrónicos.
 
 from flask_mail import Message
 from flask import current_app

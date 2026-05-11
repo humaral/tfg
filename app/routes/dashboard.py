@@ -17,7 +17,7 @@ dashboard_bp = Blueprint('dashboard', __name__)
 @dashboard_bp.route("/peticiones")
 @login_required
 @permiso_requerido("ver_peticiones")
-def peticiones():
+def peticiones(): #Carga la página de peticiones
 
     estados_posibles = db.session.scalars(select(Estado))
     tramites_posibles = db.session.scalars(select(Tramite))
@@ -27,7 +27,7 @@ def peticiones():
 @dashboard_bp.route("/api/peticiones")
 @login_required
 @permiso_requerido("ver_peticiones")
-def api_peticiones():
+def api_peticiones(): #Devuelve un JSON con las peticiones filtradas, ordenadas y paginadas según los parámetros de la URL
     id = request.args.get('id', type=int)
     telefono = request.args.get('telefono', type=int)
     idEstado = request.args.get('estado', type=int)
@@ -97,7 +97,7 @@ def api_peticiones():
 @dashboard_bp.route("/peticiones/<int:idPeticion>", methods=["GET", "POST"])
 @login_required
 @permiso_requerido("ver_peticiones")
-def sumary_peticion(idPeticion):
+def sumary_peticion(idPeticion): #Carga la página de resumen de una petición y gestiona las acciones que se pueden realizar sobre ella
 
     stmt = select(Peticion).where(Peticion.id==idPeticion)
     peticion = db.session.scalar(stmt)
@@ -176,7 +176,7 @@ def sumary_peticion(idPeticion):
 @dashboard_bp.route("/new/peticion", methods=["GET", "POST"])
 @login_required
 @permiso_requerido("crear_peticion")
-def new_peticion():
+def new_peticion(): #Carga y gestiona la creación de peticiones
     
     tramites = db.session.scalars(select(Tramite).where(Tramite.activo==True))
     
@@ -205,7 +205,7 @@ def new_peticion():
 @dashboard_bp.route("/empleados")
 @login_required
 @permiso_requerido("ver_empleados")
-def empleados():
+def empleados(): #Carga la página de emppleados
     roles_posibles = db.session.scalars(select(Rol))
 
     return render_template("empleados.jinja", filtro_roles = roles_posibles)
@@ -213,7 +213,7 @@ def empleados():
 @dashboard_bp.route("/api/empleados")
 @login_required
 @permiso_requerido("ver_empleados")
-def api_empleados():
+def api_empleados(): #Devuelve un JSON con los empleados filtrados, ordenados y paginados según los parámetros de la URL
     username = request.args.get('username', '')
     nombre = request.args.get('nombre', '')
     email = request.args.get('email', '')
@@ -269,7 +269,7 @@ def api_empleados():
 
 @dashboard_bp.route("/empleado", methods=["GET", "POST"])
 @login_required
-def edit_empleado():
+def edit_empleado(): #Carga y gestiona la creación y edición de empleados
 
     idEmpleadoEditar = request.args.get('id', type=int)
     empleadoEditar = db.session.scalar(select(Empleado).where(Empleado.id == idEmpleadoEditar))
@@ -370,14 +370,14 @@ def edit_empleado():
 @dashboard_bp.route("/tramites")
 @login_required
 @permiso_requerido("ver_tramites")
-def tramites():
+def tramites(): #Carga la página de trámites
 
     return render_template("tramites.jinja")
 
 @dashboard_bp.route("/api/tramites")
 @login_required
 @permiso_requerido("ver_tramites")
-def api_tramites():
+def api_tramites(): #Devuelve un JSON con los trámites filtrados, ordenados y paginados según los parámetros de la URL
     id = request.args.get('id', '')
     valor = request.args.get('valor', '')
     activo = request.args.get('activo', '') in ['true', 'on', '1']
@@ -422,7 +422,7 @@ def api_tramites():
 
 @dashboard_bp.route("/edit/tramite", methods=["GET", "POST"])
 @login_required
-def edit_tramite():
+def edit_tramite(): #Carga y gestiona la creación y edición de trámites
 
     idTramiteEditar = request.args.get("id", type=int)
     tramiteEditar = db.session.scalar(select(Tramite).where(Tramite.id==idTramiteEditar))
@@ -473,13 +473,13 @@ def edit_tramite():
 @dashboard_bp.route("/estadisticas")
 @login_required
 @permiso_requerido("ver_estadisticas")
-def estadisticas():
+def estadisticas(): #Carga la página de estadísticas
     return render_template("estadisticas.jinja")
 
 
 @dashboard_bp.route("/perfil/<username>", methods=["GET", "POST"])
 @login_required
-def perfil(username):
+def perfil(username): #Carga la página de perfil del empleado y gestiona el cambio de contraseña
     ocultar_pass_menu = True
     
 

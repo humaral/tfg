@@ -1,7 +1,7 @@
 /**
  * Autor: Hugo Martín Alonso
  * Fecha: 25-09-2025
- * Descripción: script para dinamizar la página de login.
+ * Descripción: Script para dinamizar la página de login.
  */
 
 

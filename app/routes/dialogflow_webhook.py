@@ -1,3 +1,7 @@
+# Autor: Hugo Martín Alonso
+# Fecha: 12-12-2025
+# Descripción: Controlador de la ruta del webhook de Dialogflow.
+
 from flask import Blueprint, request, jsonify
 from app.utils import crear_peticion
 import random, os, pandas as pd
@@ -10,7 +14,7 @@ INTENTS = ["Bienvenida", "cambiar_campo", "cita_AEAT_Modalidad", "cita_AEAT_Pres
 
 
 @dialogflow_webhook_bp.route('/webhook', methods=['POST'])
-def webhook():
+def webhook(): #Procesa la información recibida desde Dialogflow
 
     req = request.get_json()
 

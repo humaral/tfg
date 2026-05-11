@@ -1,3 +1,7 @@
+# Autor: Hugo Martín Alonso
+# Fecha: 02/12/2025
+# Descripción: Función de conexión con el servicio de Dialogflow, enviando el texto del usuario y recibiendo la respuesta del agente.
+
 import os, json
 from google.cloud import dialogflow_v2
 from dotenv import load_dotenv

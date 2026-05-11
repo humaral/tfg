@@ -13,7 +13,7 @@ uploads_bp = Blueprint('uploads', __name__)
 
 @uploads_bp.route('/uploads/perfil/<filename>')
 @login_required
-def fotoPerfil(filename):
+def fotoPerfil(filename): #Recupera la foto de perfil de un usuario a partir de su nombre de archivo
 
     ruta = os.path.join(current_app.root_path, 'uploads', 'perfil')
     
@@ -31,7 +31,7 @@ def borrarFotoPerfil(filename):
 
 @uploads_bp.route('/uploads/perfil', methods=["POST"])
 @login_required
-def subirFotoPerfil():
+def subirFotoPerfil(): #Sube una nueva foto de perfil para el usuario registrado, borrando la anterior si existía
 
     foto = request.files['foto_perfil']
     extension = foto.mimetype.rsplit('/',1)[1]
