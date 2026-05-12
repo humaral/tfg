@@ -1,18 +1,14 @@
 servicio;llamada
 Aplazamientos;True
 Apoderamietno para personas físicas;False
-Autorizaciones aduaneras (OEA establecimientos y regímenes);False
 Censos y garantías;False
 Certificado electrónico FNMT para personas físicas;False
 Declaraciones informativas (modelo 180 184 190 720...);True
 Embargos;True
-Entrega/recogida de documentos (firma de certificados de origen CITES etc.);False
 Garantías y facilidades de pago;False
 Impuesto de la Electricidad (modelo 560);True
-Impuesto Hidrocarburos (Gasóleo Agrícola y Profesional);True
 Impuesto sobre la Renta de No Residentes;True
 Impuesto sobre Sociedades;True
-Impuestos sobre Alcoholes y destilador artesanal. Impuesto tabaco;False
 Información comercio exterior (aduanas);True
 Información general de Impuestos Especiales (hidrocarburos alcohol tabaco etc...);True
 Información medioambientales (plástico fluorados valor producción etc...);True
@@ -23,7 +19,6 @@ Marcas fiscales;False
 Matriculación de vehículos;True
 Módulos;True
 Obtención Número de Referencia;False
-Otros trámites de Recaudación;True
 Pagar y consultar deudas;True
 Presentación de documentos en registro;False
 Recogida de notificaciones;False

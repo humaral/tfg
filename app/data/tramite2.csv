@@ -7,7 +7,6 @@ Pagar, aplazar y consultar deudas;Pagar y consultar deudas;True;Información de 
 Pagar, aplazar y consultar deudas;Embargos;True;Información y tramitación de embargos obtención de cartas de pago ingresos levantamiento y asistencia en el cumplimiento.
 Pagar, aplazar y consultar deudas;Aplazamientos;True;Información y tramitación de aplazamientos y fraccionamientos. Solicitud y obtención de documentos de ingreso y pagos.
 Pagar, aplazar y consultar deudas;Recursos Recaudación;False;Información sobre la presentación y el estado de la tramitación de cualquier recurso de Recaudación.
-Pagar, aplazar y consultar deudas;Otros trámites de Recaudación;True;Información y gestión sobre cualquier otro trámite recaudatorio (compensaciones certificados de estar al corriente de deudas derivaciones de responsabilidad y sucesores medidas cautelares...)
 Registro y notificaciones;Presentación de documentos en registro;False;Presentación de documentación realización de alegaciones y contestación a los requerimientos si has recibido una comunicación de la Agencia Tributaria.
 Registro y notificaciones;Recogida de notificaciones;False;Acceso a notificaciones de la Agencia Tributaria
 Impuestos y Tasas;Matriculación de vehículos;True;Información del Impuesto Especial sobre Determinados Medios de Transporte (modelo 576) para matricular vehículos.
@@ -17,14 +16,10 @@ Impuestos y Tasas;Módulos;True;Información sobre las obligaciones tributarias 
 Impuestos y Tasas;Impuesto sobre Sociedades;True;Información del Impuesto declaraciones presentadas estado de la devolución retenciones pagos fraccionados y otras obligaciones y gestiones relacionadas con el impuesto.
 Impuestos y Tasas;Declaraciones informativas (modelo 180 184 190 720...);True;Información sobre las declaraciones informativas (modelo 180 184 190 720...) formas y plazos de presentación y su modificación
 Aduanas;Información comercio exterior (aduanas);True;Información sobre cómo importar o exportar mercancías y demás cuestiones aduaneras.
-Aduanas;Entrega/recogida de documentos (firma de certificados de origen CITES etc.);False;Firma y diligenciado de documentos necesarios para el tráfico aduanero.
 Aduanas;Garantías y facilidades de pago;False;Derechos arancelarios por importar o exportar mercancías y constitución de garantías.
-Aduanas;Autorizaciones aduaneras (OEA establecimientos y regímenes);False;Autorizaciones de operadores económicos autorizados establecimientos aduaneros y regímenes especiales.
 Aduanas;INTRASTAT;True;Ayuda sobre la declaración mensual Intrastat: obligación plazos de presentación etc.
 Impuestos especiales y medioambientales;Información general de Impuestos Especiales (hidrocarburos alcohol tabaco etc...);True;Impuestos sobre el alcohol hidrocarburos tabaco electricidad y carbón.
 Impuestos especiales y medioambientales;Información medioambientales (plástico fluorados valor producción etc...);True;Envases de plástico no reutilizable gases fluorados residuos valor producción energ­a eléctrica extracción de gas y combustible nuclear.
-Impuestos especiales y medioambientales;Impuesto Hidrocarburos (Gasóleo Agrícola y Profesional);True;Devolución parcial del impuesto por gasóleo de uso profesional y agrícola y otros temas relacionados con este impuesto.
-Impuestos especiales y medioambientales;Impuestos sobre Alcoholes y destilador artesanal. Impuesto tabaco;False;Impuestos sobre cerveza vino productos intermedios alcohol y bebidas derivadas así­ como Impuesto sobre labores de tabaco.
 Impuestos especiales y medioambientales;Marcas fiscales;False;Precintas adheridas a envases de bebidas derivadas cigarrillos y picadura para liar.
 Impuestos especiales y medioambientales;Censos y garantías;False;Inscripción en los Registros Territoriales y previa constitución de garantías.
 Impuestos especiales y medioambientales;Impuesto de la Electricidad (modelo 560);True;Información sobre autoliquidación exenciones reducciones informativas... del impuesto de la electricidad.

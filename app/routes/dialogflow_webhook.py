@@ -5,6 +5,7 @@
 from flask import Blueprint, request, jsonify
 from app.utils import crear_peticion
 import random, os, pandas as pd
+from datetime import datetime
 
 
 dialogflow_webhook_bp = Blueprint('dialogflow_webhook', __name__)
@@ -49,8 +50,8 @@ def webhook(): #Procesa la información recibida desde Dialogflow
             "servicio" : params.get("servicio",""),
             "modalidad" : params.get("tipo",""),
             "oficina" : params.get("oficina",""),
-            "dia" : params.get("dia",""),
-            "hora" : params.get("hora",""),
+            "dia" : datetime.fromisoformat(params.get("dia","")).strftime("%Y-%m-%d") if params.get("dia","") else "",
+            "hora": formato_hora(params.get("hora","")),
             "email" : params.get("email","")
         }
         crear_peticion(telefono=tel, idTramite=2, informacion=informacion)
@@ -178,3 +179,19 @@ def recuperar_parametros(contextos, contexto_objetivo):
         if c.get("name","").endswith(contexto_objetivo):
             params = c.get("parameters", {})
     return params
+
+
+#Dado que la AEAT solo permite agendar citas entre las 9:00 y las 14:00, se ajustan las horas recibidas por Dialogflow para que se correspondan con este rango, evitando tener que indicar AM o PM.
+def formato_hora(hora):
+    if not hora:
+        return ""
+    
+    dt = datetime.fromisoformat(hora)
+    h = dt.hour
+    m = dt.minute
+
+    if h>14:
+        h = h-12
+    elif h<9:
+        h = h+12
+    return f"{h:02d}:{m:02d}"
