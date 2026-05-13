@@ -60,15 +60,15 @@ def webhook(): #Procesa la información recibida desde Dialogflow
         tel=random.randint(600000000, 999999999)
 
         params = recuperar_parametros(contexts, "tarjeta_sacyl")
-
+        print(params)
         informacion = {
             "nombre" : params.get("nombre",""),
             "apellido1" : params.get("primer_apellido",""),
-            "nacimiento" : params.get("nacimiento",""),
+            "nacimiento" : datetime.fromisoformat(params.get("nacimiento","")).strftime("%Y-%m-%d") if params.get("nacimiento","") else "",
             "motivo" : params.get("motivo",""),
-            "centro_salud" : params.get("contro_salud",""),
+            "centro_salud" : params.get("centro_salud",""),
             "localidad" : params.get("localidad",""),
-            "calle" : params.get("calle",""),
+            "calle" : params.get("calle",{}).get("street-address",""),
             "numero" : params.get("numero",""),
             "piso" : params.get("piso",""),
             "puerta" : params.get("puerta","")

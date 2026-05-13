@@ -9,11 +9,11 @@ NUMEROS = {
 }
 
 LETRAS = {
-    "a":"A", "be":"B", "ce":"C", "e":"E", "efe":"F", "ge":"G", "hache":"H", "i":"I", "jota":"J",
+    "a":"A", "be":"B", "ce":"C", "e":"E", "efe":"F", "ge":"G", "hache":"H", "i latina":"I", "jota":"J",
     "ca":"K", "ka":"K", "ele":"L", "eme":"M", "ene":"N", "eñe":"Ñ", "o":"O", "pe":"P", "cu":"Q", "erre":"R", "ese":"S",
     "te":"T", "u":"U", "uve":"V", "uve doble":"W", "equis":"X", "i griega":"Y", "ceta":"Z", 
     "b":"B", "c":"C", "f":"F", "g":"G", "h":"H", "j":"J", "k":"K", "l":"L", "m":"M", "n":"N",
-    "ñ":"Ñ", "p":"P", "q":"Q", "r":"R", "s":"S", "t":"T", "v":"V", "w":"W", "x":"X", "y":"Y", "z":"Z"
+    "ñ":"Ñ", "p":"P", "q":"Q", "r":"R", "s":"S", "t":"T", "v":"V", "w":"W", "x":"X", "z":"Z"
 }
 
 def transcribir_numeros_letras(texto):
