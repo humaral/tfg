@@ -947,7 +947,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="BHa70irveORXN4WQOdTe" name="Diagrama flujo IA">
-    <mxGraphModel dx="1678" dy="928" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2020" dy="1061" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1181,12 +1181,12 @@
             <mxPoint x="-25" y="-18" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="rKeSoTiw60RE3mfPfkq6-79" edge="1" parent="1" source="rKeSoTiw60RE3mfPfkq6-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="rKeSoTiw60RE3mfPfkq6-78">
+        <mxCell id="tRwvPeR49y3vhqa5xa0T-1" edge="1" parent="1" source="rKeSoTiw60RE3mfPfkq6-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="rKeSoTiw60RE3mfPfkq6-82">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="rKeSoTiw60RE3mfPfkq6-85" connectable="0" parent="rKeSoTiw60RE3mfPfkq6-79" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="No" vertex="1">
-          <mxGeometry relative="1" x="0.1455" y="3" as="geometry">
-            <mxPoint x="23" y="-12" as="offset" />
+        <mxCell id="tRwvPeR49y3vhqa5xa0T-2" connectable="0" parent="tRwvPeR49y3vhqa5xa0T-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="No" vertex="1">
+          <mxGeometry relative="1" x="-0.2863" y="2" as="geometry">
+            <mxPoint y="-13" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="rKeSoTiw60RE3mfPfkq6-73" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="" vertex="1">
@@ -1197,12 +1197,6 @@
         </mxCell>
         <mxCell id="rKeSoTiw60RE3mfPfkq6-76" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Confirmar sí" vertex="1">
           <mxGeometry height="50" width="100" x="279" y="940" as="geometry" />
-        </mxCell>
-        <mxCell id="rKeSoTiw60RE3mfPfkq6-83" edge="1" parent="1" source="rKeSoTiw60RE3mfPfkq6-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="rKeSoTiw60RE3mfPfkq6-82">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="rKeSoTiw60RE3mfPfkq6-78" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Confirmar no" vertex="1">
-          <mxGeometry height="50" width="100" x="459" y="940" as="geometry" />
         </mxCell>
         <mxCell id="rKeSoTiw60RE3mfPfkq6-80" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" value="Fin" vertex="1">
           <mxGeometry height="40" width="40" x="309" y="1010" as="geometry" />
