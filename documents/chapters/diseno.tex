@@ -229,13 +229,14 @@
         
     Para la resolución de los trámites escogidos se han definido los siguientes intents: 
     \begin{itemize}
-        \item Bienvenida: se activará automáticamente cuando el usuario inicia la llamada y activará un evento de espera de trámites.
-        \item Tramite certificado empadronamiento, tramite cita AEAT y tramite tarjeta SACYL: se activarán cuando el usuario los solicite y el evento de espera de trámite esté activo, y activarán un intent para solicitar los datos necesarios para cada trámite. 
+        \item Bienvenida: se activará automáticamente cuando el usuario inicia la llamada y activará un contexto de espera de trámites.
+        \item Trámite certificado empadronamiento, trámite cita AEAT y trámite tarjeta SACYL: se activarán cuando el usuario los solicite y el contexto de espera de trámite esté activo, y activarán un intent para solicitar los datos necesarios para cada trámite. 
         \item Obtener datos: cada uno de los intents de detección de trámites activarán un intent específico para solicitar los datos necesarios para cada gestión. 
-            Estos intents se encargan de recopilar los datos que faltan y, en caso de que haya algún dato erróneo, permite su modificación.
-        \item Cita AEAT Modalidad: una vez recuperada la información inicial del tramite cita AEAT, se activa este intent desde el backend solo si el servicio escogido ofrece también cita telefónica.
-        \item Cita AEAT Presencial: si el usuario solicita una cita presencial, el bot recupera la información correspondiente sobre la oficina y la fecha.
-        \item Confirmar datos: una vez recuperada la información necesaria, se activará este intent para solicitar al usuario la veracidad de los datos, finalizando la llamada generando una solicitud.
+            Estos intents se encargan de recopilar los datos que faltan y, en caso de que haya algún dato erróneo, permiten su modificación.
+        \item Cita AEAT modalidad: una vez recuperada la información inicial del trámite cita AEAT, se activa este intent desde el backend solo si el servicio escogido ofrece también cita telefónica. 
+            Su finalidad es determinar si el usuario prefiere una cita telefónica o presencial, para activar el intent correspondiente.
+        \item Cita AEAT presencial: si el usuario solicita una cita presencial, el agente recupera la información correspondiente sobre la oficina y la fecha.
+        \item Confirmar datos: una vez recuperada la información necesaria de cualquiera de los trámites, se activará este intent para solicitar al usuario la confirmación de los datos, finalizando la llamada generando una nueva solicitud en el sistema.
         \item Cancelar: se activará si el usuario solicita cancelar la gestión, finalizando la llamada sin generar una solicitud.
     \end{itemize}
 
