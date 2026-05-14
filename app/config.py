@@ -22,7 +22,7 @@ class Config:
     MAIL_USERNAME = None
     MAIL_PASSWORD = None
     MAIL_DEFAULT_SENDER = ("Trámites Telefónicos", "noreply@tramitestelefonicos.es")
-    MAIL_SUPPRESS_SEND = False
+    MAIL_SUPPRESS_SEND = False #Cambiar a True para no enviar correos durante el desarrollo
 
     APP_VERSION = "0.1 \u03B2"
 

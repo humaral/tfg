@@ -49,7 +49,7 @@
     \subsection{Configuración del agente de Dialogflow}
 
         El repositorio incluye una copia exportada del agente conversacional utilizado por el sistema, ubicada en \textbf{/scripts\_aux/services/models/Operador.zip}.
-        Pasos para importar este agente en Dialogflow se deben seguir los siguientes pasos:
+        Para importar este agente en Dialogflow se deben seguir los siguientes pasos:
         \begin{enumerate}
             \item Acceder a la \href{https://dialogflow.cloud.google.com}{consola de Dialogflow} - \url{https://dialogflow.cloud.google.com}.
             \item Crear un nuevo agente.
@@ -108,7 +108,8 @@
     \subsection{Despliegue del sistema}
         Para ejecutar el sistema es necesario iniciar los distintos componentes del sistema en un orden determinado. 
         
-        En primer lugar, se debe iniciar el servidor de correo SMTPD utilizado para simular el envío de correos electrónicos mediante el comando \textbf{py -m aiosmtpd -n -l localhost:1025}, recibiéndolos los correos en texto plano en el propio terminal de ejecución.
+        En primer lugar, se debe iniciar el servidor de correo SMTPD utilizado para simular el envío de correos electrónicos mediante el comando \textbf{py -m aiosmtpd -n -l localhost:1025}.
+        Se recibirán los correos en texto plano en el propio terminal de ejecución.
 
         Posteriormente, se inicia el servidor Flask con \textbf{py app.py}, quedando la aplicación web disponible desde un navegador en la dirección \textbf{http://localhost:5000}. 
         El acceso inicial a la aplicación se realiza mediante una cuenta de administrador por defecto (usuario: \textbf{admin.admin}, contraseña: \textbf{admin}), desde la cual es posible crear nuevas cuentas de usuario.
@@ -121,7 +122,7 @@
 
 \section{Manual de usuario}
 
-        Este manual describe el uso de la aplicación web de getión de trámites telefónicos desde el punto de vista del empleado, detallando las principales funcionalidades disponibles. 
+        Este manual describe el uso de la aplicación web de gestión de trámites telefónicos desde el punto de vista del empleado, detallando las principales funcionalidades disponibles. 
 
         \subsection{Login en la aplicación}
             \begin{figure}[H]
@@ -141,7 +142,7 @@
                 \label{fig:A.2}
             \end{figure}
             Al acceder en el sistema con una cuenta de administrador, se muestra como pantalla de inicio la página de peticiones, Figura \ref{fig:A.2}. 
-            Dicha página, muestra como módulo principal una tabla con información básica de todas las peticiones del sistema y el empleado puede interactuar con los siguientes componentes:
+            Dicha página muestra como módulo principal una tabla con información básica de todas las peticiones del sistema y el empleado puede interactuar con los siguientes componentes:
             \begin{enumerate}
                 \item Barra de navegación. 
                     En la parte superior izquierda se muestra un menú para navegar entre las páginas principales de la aplicación. 
@@ -188,7 +189,7 @@
             \end{enumerate}
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/manual/registrarempleado.png}
+                \includegraphics[width=0.6\textwidth]{img/manual/registrarempleado.png}
                 \caption{Formulario para añadir un nuevo empleado al sistema.}
                 \label{fig:A.4}
             \end{figure}
@@ -198,14 +199,14 @@
             
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/manual/editarempleado.png}
+                \includegraphics[width=0.6\textwidth]{img/manual/editarempleado.png}
                 \caption{Formulario para editar la información de un empleado existente.}
                 \label{fig:A.5}
             \end{figure}
             El formulario de edición de empleados, Figura \ref{fig:A.5}, se compone de varios campos rellenados con la información actual del empleado elegido para editar.  
             Se puede modificar cualquier campo y se actualizará el valor en el sistema al clicar sobre el botón editar. 
-            Si se modifica el email, se comprobará que no está registrado ya en el sistema, en cuyo caso no se modificaría la información del empleado. 
-            También hay un botón de restablecimiento de contraseña, al clicarlo se generará automáticamente una contraseña temporal, que se enviará al correo electrónico del empleado. 
+            Si se modifica el email a uno ya registrado en el sistema, se mostrará un mensaje de error y no se actualizará la información del empleado. 
+            También hay un botón de restablecimiento de contraseña, al clicarlo se generará automáticamente una contraseña temporal que se enviará al correo electrónico del empleado. 
             Por último, no se puede eliminar una cuenta de empleado para mantener una trazabilidad en el sistema, solo se puede desactivar para anular su acceso. 
             
             \begin{figure}[H]
@@ -220,7 +221,7 @@
              
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/manual/registrartramite.png}
+                \includegraphics[width=0.6\textwidth]{img/manual/registrartramite.png}
                 \caption{Formulario para añadir un nuevo trámite al sistema.}
                 \label{fig:A.7}
             \end{figure}
@@ -228,7 +229,7 @@
             
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/manual/editartramite.png}
+                \includegraphics[width=0.6\textwidth]{img/manual/editartramite.png}
                 \caption{Formulario para editar la información de un trámite existente.}
                 \label{fig:A.8}
             \end{figure}
@@ -247,15 +248,15 @@
 
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/manual/crearpeticion.png}
+                \includegraphics[width=0.6\textwidth]{img/manual/crearpeticion.png}
                 \caption{Formulario para la creación de peticiones manualmente.}
                 \label{fig:A.10}
             \end{figure}
             El formulario de creación de peticiones se compone de un campo obligatorio para añadir el teléfono del llamante y otro para la selección del trámite a realizar. 
-            Dependiendo del trámite elegido se despliegan los formularios correspondientes para completarlos, Figuras \ref{fig:A.11},\ref{fig:A.12} y \ref{fig:A.13}. 
+            Dependiendo del trámite elegido se despliegan los formularios correspondientes para completarlos, Figuras \ref{fig:A.11}, \ref{fig:A.12} y \ref{fig:A.13}. 
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.5\textwidth]{img/manual/crearpeticioncertemp.png}
+                \includegraphics[width=0.6\textwidth]{img/manual/crearpeticioncertemp.png}
                 \caption{Formulario para la creación de una petición del trámite de solicitud del certificado de empadronamiento.}
                 \label{fig:A.11}
             \end{figure}
@@ -263,7 +264,7 @@
             Se rellenan con la información proporcionada por el usuario y se clica en crear. 
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.75\textwidth]{img/manual/crearpeticionaeat.png}
+                \includegraphics[width=1\textwidth]{img/manual/crearpeticionaeat.png}
                 \caption{Formulario para la creación de una petición del trámite de cita en la AEAT.}
                 \label{fig:A.12}
             \end{figure}
@@ -273,7 +274,7 @@
 
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.75\textwidth]{img/manual/crearpeticionsacyl.png}
+                \includegraphics[width=1\textwidth]{img/manual/crearpeticionsacyl.png}
                 \caption{Formulario para la creación de una petición del trámite de solicitud de la tarjeta de SACYL.}
                 \label{fig:A.13}
             \end{figure}
@@ -301,13 +302,13 @@
             \begin{itemize}
                 \item Desasignar. Se encuentra en la parte superior derecha de la página y desasigna la petición, reestableciéndola al estado ``pendiente''. 
                 \item Cancelar. Finaliza la petición sin realizar el trámite. 
-                \item Completar. Inicia el script de RPA, ejecutando el trámite en la página administrativa corerspondiente.
+                \item Completar. Inicia el script de RPA, ejecutando el trámite en la página administrativa correspondiente.
             \end{itemize}
         
         \subsection{Funcionalidades comunes}
             \begin{figure}[H]
                 \centering
-                \includegraphics[width=0.6\textwidth]{img/manual/perfil.png}
+                \includegraphics[width=0.8\textwidth]{img/manual/perfil.png}
                 \caption{Cuadro de detalles del perfil del empleado.}
                 \label{fig:A.16}
             \end{figure}

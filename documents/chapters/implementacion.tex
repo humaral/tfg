@@ -165,49 +165,50 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             \label{fig:5.11}
         \end{figure}
 
-        \subsection{Entrenamiento del agente de Dialogflow}
-            El entrenamiento del agente de IA se ha llevado a cabo desde la consola de Dialogflow, donde se ha definido el flujo de conversación mediante la creación de intents y entities y su unión mediante contextos y acciones.
-            Dialogflow oculta el modelo o algoritmo interno de Machine Learning que utiliza para procesar el lenguaje natural; solo permite establecer el umbral de confianza para el reconocimiento de cada intent. 
+    \subsection{Entrenamiento del agente de Dialogflow}
+        El entrenamiento del agente de IA se ha llevado a cabo desde la consola de Dialogflow, donde se ha definido el flujo de conversación mediante la creación de intents y entities y su unión mediante contextos y acciones.
+        Dialogflow oculta el modelo o algoritmo interno de Machine Learning que utiliza para procesar el lenguaje natural; solo permite establecer el umbral de confianza para el reconocimiento de cada intent. 
 
-            Cada intent puede activarse mediante el lanzamiento de un evento, como el evento de bienvenida al iniciar la llamada, o mediante el reconocimiento de una frase de entrenamiento, Figura \ref{fig:5.12}.
-            Por ello, el entrenamiento del agente se ha centrado principalmente en establecer frases de entrenamiento significativas para cada intent, pues cuantas más frases de entrenamiento se establezcan menor será la probabilidad de error en el reconocimiento de los intents y en la extracción de los datos.
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=0.5\textwidth]{img/desarrollo/training.png}
-                \caption{Establecimiento de frases de entrenamiento en Dialogflow.}
-                \label{fig:5.12}
-            \end{figure}
-            Dialogflow también ofrece una página de entrenamiento, Figura \ref{fig:5.13}, donde se muestran las conversaciones procesadas por el agente, indicando los intents reconocidos y los datos extraídos, permitiendo validar el correcto funcionamiento del agente y modificar los posibles errores, y asociando automáticamente las frases validadas a cada intent para su reentrenamiento.
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=1\textwidth]{img/desarrollo/entrenamiento.png}
-                \caption{Página de entrenamiento en Dialogflow.}
-                \label{fig:5.13}
-            \end{figure}
+        Cada intent puede activarse mediante el lanzamiento de un evento, como el evento de bienvenida al iniciar la llamada, o mediante el reconocimiento de una frase de entrenamiento, Figura \ref{fig:5.12}.
+        Por ello, el entrenamiento del agente se ha centrado principalmente en establecer frases de entrenamiento significativas para cada intent, pues cuantas más frases de entrenamiento se establezcan menor será la probabilidad de error en el reconocimiento de los intents y en la extracción de los datos.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/desarrollo/training.png}
+            \caption{Establecimiento de frases de entrenamiento en Dialogflow.}
+            \label{fig:5.12}
+        \end{figure}
+        Dialogflow también ofrece una página de entrenamiento, Figura \ref{fig:5.13}, donde se muestran las conversaciones procesadas por el agente, indicando los intents reconocidos y los datos extraídos, permitiendo validar el correcto funcionamiento del agente y modificar los posibles errores, y asociando automáticamente las frases validadas a cada intent para su reentrenamiento.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{img/desarrollo/entrenamiento.png}
+            \caption{Página de entrenamiento en Dialogflow.}
+            \label{fig:5.13}
+        \end{figure}
 
-            En algunos intents también hay que definir un contexto, Figura \ref{fig:5.14}, lo que permite establecer una relación entre intents, de forma que un intent con un contexto de entrada solo se podrá activar si un intent anterior ha establecido ese contexto como contexto de salida. 
-            Esto es especialmente útil para establecer un flujo de conversación, como responder solo a las preguntas relacionadas con el trámite solicitado o recuperar los datos necesarios para ese trámite concreto. 
-            Para recuperar los datos de la conversación hay que definir los parámetros en cada intent, Figura \ref{fig:5.15}, indicando el tipo de dato esperado mediante entidades predefinidas o personalizadas.
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=1\textwidth]{img/desarrollo/contexto.png}
-                \caption{Contexto de un intent en Dialogflow.}
-                \label{fig:5.14}
-            \end{figure}
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=1\textwidth]{img/desarrollo/parameters.png}
-                \caption{Parámetros de un intent en Dialogflow.}
-                \label{fig:5.15}
-            \end{figure}
+        En algunos intents también hay que definir un contexto, Figura \ref{fig:5.14}, lo que permite establecer una relación entre intents, de forma que un intent con un contexto de entrada solo se podrá activar si un intent anterior ha establecido ese contexto como contexto de salida. 
+        Esto es especialmente útil para establecer un flujo de conversación, como responder solo a las preguntas relacionadas con el trámite solicitado o recuperar los datos necesarios para ese trámite concreto. 
+        Para recuperar los datos de la conversación hay que definir los parámetros en cada intent, Figura \ref{fig:5.15}, indicando el tipo de dato esperado mediante entidades predefinidas o personalizadas.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{img/desarrollo/contexto.png}
+            \caption{Contexto de un intent en Dialogflow.}
+            \label{fig:5.14}
+        \end{figure}
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{img/desarrollo/parameters.png}
+            \caption{Parámetros de un intent en Dialogflow.}
+            \label{fig:5.15}
+        \end{figure}
 
-            Para definir entidades personalizadas se puede establecer una lista de sinónimos para cada valor, lo que permite mejorar el reconocimiento de los datos por el agente, o definir una expresión regular, como en la Figura \ref{fig:5.16}, lo que es especialmente útil para datos como el dni o el número telefónico que siguen un formato específico. 
-            \begin{figure}[H]
-                \centering
-                \includegraphics[width=1\textwidth]{img/desarrollo/entity.png}
-                \caption{Entidad personalizada en Dialogflow.}
-                \label{fig:5.16}
-            \end{figure}
+        Para definir entidades personalizadas, la plataforma ofrece diferentes opciones de configuración, como el establecimiento de listas de sinónimos para cada valor, la coincidencia aproximada para tolerar pequeñas variaciones en la entrada del usuario (fuzzy matching), la expansión automática de valores y la definición de expresiones regulares, como se muestran en la Figura \ref{fig:5.16}. 
+        Las tres primeras opciones están orientadas al reconocimiento de valores textuales o conjuntos cerrados de posibles respuestas, mientras que la última es especialmente útil para validar datos que siguen un formato específico, como el DNI o el número de teléfono. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{img/desarrollo/entity.png}
+            \caption{Entidad personalizada en Dialogflow.}
+            \label{fig:5.16}
+        \end{figure}
 
     \subsection{Implementación e integración del bot de Discord}
         La implementación del bot de Discord para la gestión de llamadas VoIP es la más compleja técnicamente de entre todos los servicios integrados en la aplicación. 

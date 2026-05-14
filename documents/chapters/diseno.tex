@@ -225,7 +225,7 @@
     Por ejemplo, en la siguiente solicitud: ``Quiero agendar una cita en la AEAT para mañana a las 10'', podríamos extraer agendar una cita en la AEAT como una entidad de tipo trámite, mañana como fecha y las 10 como hora. 
     De esta forma, podemos determinar qué tipos de datos necesitamos al recopilar información, si un número, un texto, una dirección, etc. 
     Además, las entidades pueden definirse como listas de valores con sinónimos asociados, para reconocer diferentes formas de referirse a un mismo concepto.
-    Asimismo, es posible utilizar expresiones regulares para identificar patrones concretos, así como técnicas de coincidencia aproximada basadas en machine learning para identificar valores similares. 
+    Asimismo, la plataforma permite utilizar expresiones regulares para identificar patrones concretos, así como técnicas de coincidencia aproximada basadas en machine learning para identificar valores similares. 
         
     Para la resolución de los trámites escogidos se han definido los siguientes intents: 
     \begin{itemize}
@@ -242,12 +242,14 @@
     También será necesario estipular los siguientes entities para facilitar la captura de la información: 
     \begin{itemize}
         \item Centros de salud de Valladolid: una lista con todos los centros de salud de Valladolid.
-        \item DNI o pasaporte: una expresión regular para restringir la entrada al formato del DNI o pasaporte.
+        \item DNI o pasaporte: una expresión regular para restringir la entrada al formato español del DNI 
+            \\(\texttt{[0-9]\{8\}[A-Za-z]}) o pasaporte (\texttt{[A-Za-z]\{3\}[0-9]\{6\}}).
         \item Motivo tarjeta SACYL: una variable para identificar el motivo por el que se solicita la tarjeta sanitaria, con opciones de pérdida o deterioro.
         \item Municipios Valladolid: una lista con todos los municipios de Valladolid.
         \item Oficina AEAT Valladolid: una lista con las oficinas disponibles de la agencia tributaria en Valladolid.
         \item Servicios AEAT: una lista de los servicios de la agencia tributaria para agendar citas.
-        \item Teléfono: un expresión regular con el formato de los números telefónicos españoles.
+        \item Teléfono: un expresión regular con el formato de los números telefónicos españoles 
+            \\(\texttt{(?:\textbackslash+34|0034)?[6789][0-9]\{8\}}).
         \item Tipo de cita: una variable para identificar si la cita en la AEAT es telefónica o presencial.
         \item Trámite: una lista con los trámites disponibles.
     \end{itemize}
