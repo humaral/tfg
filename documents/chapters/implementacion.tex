@@ -104,8 +104,8 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
     Sin embargo, en el caso de los empleados y trámites se simplifica la lógica reutilizando la misma ruta y plantilla tanto para mostrar los datos individuales y editarlos, como para crear nuevos registros, diferenciando ambos casos mediante la presencia o ausencia de un ID en la URL.
 
     El cuarto blueprint sirve para gestionar la carga y subida de archivos en la web. 
-    Hasta el momento, esta funcionalidad se utiliza únicamente para recuperar la imagen de perfil de cada empleado que se muestra tanto en el perfil como en el historial de cada petición. 
-    También permite modificar la imagen de perfil, almacenando la imagen nueva y borrando la antigua. 
+    Hasta el momento, esta funcionalidad se utiliza únicamente para recuperar la foto de perfil de cada empleado que se muestra tanto en el perfil como en el historial de cada petición. 
+    También permite modificar la foto de perfil, almacenando la imagen nueva y borrando la antigua. 
 
     Por último, hay un blueprint de errores, que se encarga únicamente de renderizar una plantilla personalizada en caso de error 404, es decir, cuando el empleado intenta acceder a un recurso inexistente, y de error 403, cuando el empleado intenta acceder a un recurso para el que no tiene permiso. 
     También incluye un error 501, recurso no implementado, para el caso concreto en el que se intente crear una petición para un trámite del que aún no se ha implementado la plantilla con su formulario correspondiente. 
@@ -210,22 +210,33 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             \label{fig:5.16}
         \end{figure}
 
+        Por último, para permitir la modificación de valores tras pedir la confirmación de los datos, se reutilizan los mismos intents de obtención de datos para evitar duplicados. 
+        Esto requiere recuperar los parámetros almacenados en los contextos y asignarlos como valores por defecto de los propios parámetros del intent, Figura \ref{fig:5.17}. 
+        Esto es así porque al volver a ejecutar este intent no se cargan automáticamente los valores previamente dichos por el usuario. 
+        De este modo, el agente conserva los datos obtenidos previamente, permitiendo al usuario modificar un dato concreto sin necesidad de volver a proporcionar el resto de la información. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1\textwidth]{img/desarrollo/default_value.png}
+            \caption{Valores por defecto en Dialogflow.}
+            \label{fig:5.17}
+        \end{figure}
+
     \subsection{Implementación e integración del bot de Discord}
         La implementación del bot de Discord para la gestión de llamadas VoIP es la más compleja técnicamente de entre todos los servicios integrados en la aplicación. 
 
-        La configuración del bot se realiza desde la página de desarrolladores de Discord, Figura \ref{fig:5.17}, desde donde se crea una nueva aplicación, se añade un bot a esta y se configuran los permisos necesarios para que el bot pueda actuar correctamente en el servidor. 
+        La configuración del bot se realiza desde la página de desarrolladores de Discord, Figura \ref{fig:5.18}, desde donde se crea una nueva aplicación, se añade un bot a esta y se configuran los permisos necesarios para que el bot pueda actuar correctamente en el servidor. 
         \begin{figure}[H]
             \centering
             \includegraphics[width=1\textwidth]{img/desarrollo/discorddev.png}
             \caption{Página de desarrolladores de Discord.}
-            \label{fig:5.17}
+            \label{fig:5.18}
         \end{figure}
-        Del mismo modo, se crea un servidor de Discord, se invita al bot a este y se configura el servidor para que tenga un canal de voz específico para las llamadas, limitado a dos personas para que solo pueda haber una llamada a la vez, Figura \ref{fig:5.18}.
+        Del mismo modo, se crea un servidor de Discord, se invita al bot a este y se configura el servidor para que tenga un canal de voz específico para las llamadas, limitado a dos personas para que solo pueda haber una llamada a la vez, Figura \ref{fig:5.19}.
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.4\textwidth]{img/desarrollo/discord.png}
             \caption{Servidor de Discord.}
-            \label{fig:5.18}
+            \label{fig:5.19}
         \end{figure}
 
         Una vez habilitado el bot en el servidor de Discord, se extrae el token de la página de desarrolladores y se añade como variable de entorno en la aplicación.
@@ -241,7 +252,7 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         Por último, se inicializan las clases encargadas de gestionar cada una de estas colas, las ejecuta en hilos independientes y comienza la escucha del canal de voz. 
 
         El primer componente que interviene es la clase VozSink, que se encarga de recibir los paquetes de audio del canal de voz, decodificarlos y almacenarlos en la cola de entrada de audio. 
-        La decodificación del audio se realiza mediante una clase OpusDecoder (Figura \ref{fig:5.19}), que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
+        La decodificación del audio se realiza mediante una clase OpusDecoder (Figura \ref{fig:5.20}), que convierte los paquetes de audio recibidos por Discord a un formato entendible por los servicios de transcripción. 
         En este caso, Discord transmite el audio utilizando el códec Opus con una frecuencia de muestreo de 48kHz, que es el estándar utilizado por la plataforma para las comunicaciones de voz en tiempo real. 
         Este audio se decodifica a formato Pulse Code Modulation (PCM), el estándar global para la representación de audio digital sin compresión, y posteriormente se remuestrea a 16kHz con la biblioteca numpy, ya que es requerido por los servicios de transcripción para poder ser procesado correctamente. 
         El audio se recibe en fragmentos de 20ms, correspondientes al tamaño de frame habitual de Opus. 
@@ -251,11 +262,11 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
             \centering
             \includegraphics[width=1\textwidth]{img/desarrollo/decode.png}
             \caption{Código de la clase OpusDecoder.}
-            \label{fig:5.19}
+            \label{fig:5.20}
         \end{figure}
 
         A continuación, actúa el hilo de transcripción STTWorkerGoogle, que se encarga de consumir en bucle el audio de la cola de entrada. 
-        Según va consumiendo los framentos de audio, los va almacenando en un buffer para completar la frase completa del usuario. 
+        Según va consumiendo los framentos de audio, los va almacenando en un buffer para completar la frase del usuario. 
         Cuando se detecta una silencio prolongado por parte del usuario, 1.2 segundos sin recibir audio, se considera que el usuario ha terminado de hablar y se envía el audio almacenado en el buffer al cliente de Speech-to-Text de Google Cloud. 
         Una vez recibida la transcripción, se almacena en la cola de texto. 
         También se ha implementado una clase de transcripción alternativa, STTWorkerVosk, que utiliza un modelo de reconocimiento de voz local, para transcribir el audio en el caso de que el servicio de google no esté disponible o que los créditos sean insuficientes. 
@@ -271,13 +282,13 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
 
         Por último, el bot también detecta cuando el usuario abandona el canal de voz, procediendo a vaciar las colas, parar los hilos y liberar los recursos para esperar a la siguiente llamada.
 
-        Toda esta lógica se recoge en el esquema de la Figura \ref{fig:5.20} a modo de resumen, mostrando el flujo de ejecución de cada hilo y la comunicación entre ellos mediante las colas. 
+        Toda esta lógica se recoge en el esquema de la Figura \ref{fig:5.21} a modo de resumen, mostrando el flujo de ejecución de cada hilo y la comunicación entre ellos mediante las colas. 
         \begin{landscape}
             \begin{figure}[H]
                 \centering
                 \includegraphics[height=0.75\textwidth]{img/diagramas/discord.png}
                 \caption{Resumen de la lógica del bot de Discord.}
-                \label{fig:5.20}
+                \label{fig:5.21}
             \end{figure}
         \end{landscape}
 
@@ -285,13 +296,13 @@ Finalmente, se comentan los distintos servicios integrados en la aplicación, co
         Para la automatización de los trámites se han implementado distintas funciones de RPA utilizando la biblioteca de Selenium, que permite controlar el ratón y el teclado para interactuar con la interfaz de las aplicaciones. 
         Estas funciones se integran en el backend de la aplicación web, de forma que se podrían ejecutar automáticamente nada más crear la petición. 
         No obstante, para el proyecto y por motivos de seguridad, se ha decidido que el empleado ejecute manualmente la petición, para que pueda revisar cómo se rellena automáticamente la información necesaria de cada trámite, pero sin que se llegue a completar ningún trámite real. 
-        La Figura \ref{fig:5.21} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el Ayuntamiento de Valladolid. 
+        La Figura \ref{fig:5.22} muestra el código de la función correspondiente a la automatización del trámite de solicitud del certificado de empadronamiento en el Ayuntamiento de Valladolid. 
         Se puede observar que se utiliza Selenium para abrir el navegador, acceder a la página oficial donde se completa el trámite, rellenar los campos necesarios con la información de la petición y simular su completitud sin llegar a enviar realmente el formulario. 
         \begin{figure}[H]
             \centering
             \includegraphics[width=1\textwidth]{img/desarrollo/rpa.png}
             \caption{Código de la función de RPA para solicitar el certificado de empadronamiento.}
-            \label{fig:5.21}
+            \label{fig:5.22}
         \end{figure}
 
         El resto de trámites automatizados siguen una lógica similar; se localizan los elementos necesarios de cada página web mediante su ID o XPath, se rellenan o clican para ir completando los menús y formularios necesarios, y se simula la completitud del trámite sin llegar a enviar realmente nada. 
